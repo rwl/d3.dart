@@ -1,0 +1,6 @@
+out/
+packages/
+pubspec.lock
+
+.idea/
+d4.iml
