@@ -21,13 +21,13 @@ void main() {
       expect(d4.selection(), new isInstanceOf<d4.selection>());
     });
     test('subselections are also instanceof d4.selection', () {
-      expect(d3.selection().select("body"), new isInstanceOf<d4.selection>());
-      expect(d3.selection().selectAll("body"), new isInstanceOf<d4.selection>());
+      expect(d3.selection().select('body'), new isInstanceOf<d4.selection>());
+      expect(d3.selection().selectAll('body'), new isInstanceOf<d4.selection>());
     });
     test('selection prototype can be extended', () {
-//      d4.selection.prototype.foo = (v) => return this.attr("foo", v);
-      var body = d3.selection().select("body").foo(42);
-      expect(body.attr("foo"), equals("42"));
+//      d4.selection.prototype.foo = (v) => return this.attr('foo', v);
+      var body = d3.selection().select('body').foo(42);
+      expect(body.attr('foo'), equals('42'));
 //      delete d3.selection.prototype.foo;
     });
   });
