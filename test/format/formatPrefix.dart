@@ -1,0 +1,108 @@
+import 'package:unittest/unittest.dart';
+
+import '../../src/format/format.dart' as d4;
+
+void main() {
+  group('formatPrefix', () {
+    var prefix = load('format/formatPrefix').expression('d3.formatPrefix');
+    test('determines the appropriate prefix for small numbers', () {
+      expect(prefix(0).symbol, equals(''));
+      expect(prefix(1e-00).symbol, equals(''));
+      expect(prefix(1e-01).symbol, equals(''));
+      expect(prefix(1e-02).symbol, equals(''));
+      expect(prefix(1e-03).symbol, equals('m'));
+      expect(prefix(1e-04).symbol, equals('m'));
+      expect(prefix(1e-05).symbol, equals('m'));
+      expect(prefix(1e-06).symbol, equals('µ'));
+      expect(prefix(1e-07).symbol, equals('µ'));
+      expect(prefix(1e-08).symbol, equals('µ'));
+      expect(prefix(1e-09).symbol, equals('n'));
+      expect(prefix(1e-10).symbol, equals('n'));
+      expect(prefix(1e-11).symbol, equals('n'));
+      expect(prefix(1e-12).symbol, equals('p'));
+      expect(prefix(1e-13).symbol, equals('p'));
+      expect(prefix(1e-14).symbol, equals('p'));
+      expect(prefix(1e-15).symbol, equals('f'));
+      expect(prefix(1e-16).symbol, equals('f'));
+      expect(prefix(1e-17).symbol, equals('f'));
+      expect(prefix(1e-18).symbol, equals('a'));
+      expect(prefix(1e-19).symbol, equals('a'));
+      expect(prefix(1e-20).symbol, equals('a'));
+      expect(prefix(1e-21).symbol, equals('z'));
+      expect(prefix(1e-22).symbol, equals('z'));
+      expect(prefix(1e-23).symbol, equals('z'));
+      expect(prefix(1e-24).symbol, equals('y'));
+      expect(prefix(1e-25).symbol, equals('y'));
+      expect(prefix(1e-26).symbol, equals('y'));
+      expect(prefix(1e-27).symbol, equals('y'));
+    });
+    test('determines the appropriate prefix for large numbers', () {
+      expect(prefix(0).symbol, equals(''));
+      expect(prefix(1e00).symbol, equals(''));
+      expect(prefix(1e01).symbol, equals(''));
+      expect(prefix(1e02).symbol, equals(''));
+      expect(prefix(1e03).symbol, equals('k'));
+      expect(prefix(1e04).symbol, equals('k'));
+      expect(prefix(1e05).symbol, equals('k'));
+      expect(prefix(1e06).symbol, equals('M'));
+      expect(prefix(1e07).symbol, equals('M'));
+      expect(prefix(1e08).symbol, equals('M'));
+      expect(prefix(1e09).symbol, equals('G'));
+      expect(prefix(1e10).symbol, equals('G'));
+      expect(prefix(1e11).symbol, equals('G'));
+      expect(prefix(1e12).symbol, equals('T'));
+      expect(prefix(1e13).symbol, equals('T'));
+      expect(prefix(1e14).symbol, equals('T'));
+      expect(prefix(1e15).symbol, equals('P'));
+      expect(prefix(1e16).symbol, equals('P'));
+      expect(prefix(1e17).symbol, equals('P'));
+      expect(prefix(1e18).symbol, equals('E'));
+      expect(prefix(1e19).symbol, equals('E'));
+      expect(prefix(1e20).symbol, equals('E'));
+      expect(prefix(1e21).symbol, equals('Z'));
+      expect(prefix(1e22).symbol, equals('Z'));
+      expect(prefix(1e23).symbol, equals('Z'));
+      expect(prefix(1e24).symbol, equals('Y'));
+      expect(prefix(1e25).symbol, equals('Y'));
+      expect(prefix(1e26).symbol, equals('Y'));
+      expect(prefix(1e27).symbol, equals('Y'));
+    });
+    test('determines the appropriate prefix for negative numbers', () {
+      expect(prefix(-0).symbol, equals(''));
+      expect(prefix(-1e-00).symbol, equals(''));
+      expect(prefix(-1e-03).symbol, equals('m'));
+      expect(prefix(-1e-06).symbol, equals('µ'));
+      expect(prefix(-1e-09).symbol, equals('n'));
+      expect(prefix(-1e-12).symbol, equals('p'));
+      expect(prefix(-1e-15).symbol, equals('f'));
+      expect(prefix(-1e-18).symbol, equals('a'));
+      expect(prefix(-1e-21).symbol, equals('z'));
+      expect(prefix(-1e-24).symbol, equals('y'));
+      expect(prefix(-1e-27).symbol, equals('y'));
+      expect(prefix(-1e00).symbol, equals(''));
+      expect(prefix(-1e03).symbol, equals('k'));
+      expect(prefix(-1e06).symbol, equals('M'));
+      expect(prefix(-1e09).symbol, equals('G'));
+      expect(prefix(-1e12).symbol, equals('T'));
+      expect(prefix(-1e15).symbol, equals('P'));
+      expect(prefix(-1e18).symbol, equals('E'));
+      expect(prefix(-1e21).symbol, equals('Z'));
+      expect(prefix(-1e24).symbol, equals('Y'));
+      expect(prefix(-1e27).symbol, equals('Y'));
+    });
+    test('considers the effect of rounding based on precision', () {
+      expect(prefix(999.5000000, 4).symbol, equals(''));
+      expect(prefix(999.5000000, 3).symbol, equals('k'));
+      expect(prefix(995.0000000, 3).symbol, equals(''));
+      expect(prefix(995.0000000, 2).symbol, equals('k'));
+      expect(prefix(950.0000000, 2).symbol, equals(''));
+      expect(prefix(950.0000000, 1).symbol, equals('k'));
+      expect(prefix(0.000009995, 4).symbol, equals('µ'));
+      expect(prefix(0.000009995, 3).symbol, equals('m'));
+      expect(prefix(0.000009950, 3).symbol, equals('µ'));
+      expect(prefix(0.000009950, 2).symbol, equals('m'));
+      expect(prefix(0.000009500, 2).symbol, equals('µ'));
+      expect(prefix(0.000009500, 1).symbol, equals('m'));
+    });
+  });
+}
