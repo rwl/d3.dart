@@ -1,5 +1,5 @@
-name: d4
-description: Dart Data Driven Documents
+name: d3
+description: Data Driven Documents
 dependencies:
   browser: any
   unittest: any

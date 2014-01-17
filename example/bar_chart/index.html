@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.chart div {
+  font: 10px sans-serif;
+  background-color: steelblue;
+  text-align: right;
+  padding: 3px;
+  margin: 1px;
+  color: white;
+}
+
+</style>
+<html>
+<body>   
+<script type="application/dart">
+
+import 'package:d3/d3.dart' as d3;
+import 'package:d3/scale/scale.dart' as scale;
+
+main() {
+
+var data = [4, 8, 15, 16, 23, 42];
+
+var x = scale.linear()
+    .domain([0, d3.max(data)])
+    .range([0, 420]);
+
+/*
+d3.select(".chart")
+  .selectAll("div")
+    .data(data)
+  .enter().append("div")
+    .style("width", function(d) { return x(d) + "px"; })
+    .text(function(d) { return d; });
+ */ 
+}  
+</script>
+
+<script src="packages/browser/dart.js"></script>
+</body>
+</html>
