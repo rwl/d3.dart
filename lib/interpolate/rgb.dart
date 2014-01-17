@@ -1,8 +1,8 @@
 part of interpolate;
 
 Function interpolateRgb(a, b) {
-  color.Rgb a_rgb = new color.rgb(a);
-  color.Rgb b_rgb = new color.rgb(b);
+  color.Rgb a_rgb = color.rgb(a);
+  color.Rgb b_rgb = color.rgb(b);
   var ar = a_rgb.r,
       ag = a_rgb.g,
       ab = a_rgb.b,
@@ -11,8 +11,8 @@ Function interpolateRgb(a, b) {
       bb = b_rgb.b - ab;
   return (t) {
     return "#"
-        + d3_rgb_hex(Math.round(ar + br * t))
-        + d3_rgb_hex(Math.round(ag + bg * t))
-        + d3_rgb_hex(Math.round(ab + bb * t));
+        + color.rgb_hex((ar + br * t).round)
+        + color.rgb_hex((ag + bg * t).round)
+        + color.rgb_hex((ab + bb * t).round);
   };
 }

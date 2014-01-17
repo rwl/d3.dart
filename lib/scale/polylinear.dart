@@ -18,7 +18,7 @@ Function polylinear(List domain, List range, Function uninterpolate, Function in
   }
 
   return (x) {
-    var j = bisect(domain, x, lo:1, hi:k) - 1;
+    var j = arrays.bisect(domain, x, lo:1, hi:k) - 1;
     return i[j](u[j](x));
   };
 }

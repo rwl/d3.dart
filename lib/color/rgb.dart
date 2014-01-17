@@ -5,7 +5,7 @@ rgb(r, [g = null, b = null]) {
     if (r is Rgb) {
       return new Rgb.from(r);
     }
-    return rgb_parse(r.toString(), d3_rgb, d3_hsl_rgb))
+    return rgb_parse(r.toString(), rgb, null/*hsl_rgb*/);
   }
   return new Rgb(r, g, b);
 }
@@ -38,7 +38,7 @@ String rgb_hex(int v) {
           : math.min(255, v).toInt().toRadixString(16);
 }
 
-rgb_parse(format, rgb, hsl) {
+rgb_parse(format, Function rgb, Function hsl) {
   var r = 0, // red channel; int in [0, 255]
       g = 0, // green channel; int in [0, 255]
       b = 0, // blue channel; int in [0, 255]
@@ -47,7 +47,7 @@ rgb_parse(format, rgb, hsl) {
       name;
 
   /* Handle hsl, rgb. */
-  m1 = /([a-z]+)\((.*)\)/i.exec(format);
+  /*m1 = /([a-z]+)\((.*)\)/i.exec(format);
   if (m1) {
     m2 = m1[2].split(",");
     switch (m1[1]) {
@@ -66,7 +66,7 @@ rgb_parse(format, rgb, hsl) {
         );
       }
     }
-  }
+  }*/
 
   /* Named colors. */
   if (rgb_names.containsKey(format)) {

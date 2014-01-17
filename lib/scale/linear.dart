@@ -1,7 +1,7 @@
 part of scale;
 
 linear() {
-  return new Linear([0, 1], [0, 1], d3_interpolate, false);
+  return new Linear([0, 1], [0, 1], interpolate.interpolate, false);
 }
 
 class Linear {
@@ -15,9 +15,9 @@ class Linear {
   Linear(this._domain, this._range, this._interpolate, this._clamp);
 
   rescale() {
-    var linear = math.min(domain.length, range.length) > 2 ? d3_scale_polylinear : d3_scale_bilinear,
-        uninterpolate = clamp ? d3_uninterpolateClamp : d3_uninterpolateNumber;
-    output = linear(domain, range, uninterpolate, interpolate);
+    var linear = math.min(domain.length, range.length) > 2 ? d3_scale_polylinear : d3_scale_bilinear;
+    var uninterpolate = clamp ? d3_uninterpolateClamp : d3_uninterpolateNumber;
+    output = linear(_domain, _range, uninterpolate, interpolate);
     input = linear(range, domain, uninterpolate, d3_interpolate);
     return scale;
   }
@@ -25,7 +25,7 @@ class Linear {
   List get domain => _domain;
   
   void set domain(List x) {
-    _domain = x.map(Number);
+    _domain = x.map(num);
     return rescale();
   }
   
