@@ -9,5 +9,10 @@ void main() {
       expect(max([20, 3]), equals(20));
       expect(max([3, 20]), equals(20));
     });
-  });      
+    test('returns the greatest lexicographic value for strings', () {
+      expect(max(['c', 'a', 'b']), equals('c'));
+      expect(max(['20', '3']), equals('3'));
+      expect(max(['3', '20']), equals('3'));
+    });
+  });
 }
