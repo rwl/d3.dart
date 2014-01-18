@@ -14,7 +14,13 @@ part 'uninterpolate.dart';
 interpolate(a, b) {
   var i = interpolators.length;
   Function f;
-  while (--i >= 0 && !(f = interpolators[i](a, b)));
+  while (--i >= 0) {
+    var intp = interpolators[i];
+    f = intp(a, b);
+    if (f != null) {
+      break; // FIXME
+    }
+  }
   return f;
 }
 
@@ -26,11 +32,11 @@ List interpolators = [
       }
       return interpolateString(a, b);
     } else if (b is color.Color) {
-        return interpolateRgb(a, b);
+      return interpolateRgb(a, b);
     } else if (b is List) {
-        return interpolateArray(a, b);
+      return interpolateArray(a, b);
     } else if (b is num) {
-        return interpolateNumber(a, b);
+      return interpolateNumber(a, b);
     }
     return interpolateObject(a, b);
   }
