@@ -9,6 +9,7 @@ part 'string.dart';
 part 'number.dart';
 part 'array.dart';
 part 'object.dart';
+part 'uninterpolate.dart';
 
 interpolate(a, b) {
   var i = interpolators.length;

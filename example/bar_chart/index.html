@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 <meta charset="utf-8">
 <style>
 
@@ -12,19 +13,19 @@
 }
 
 </style>
-<html>
 <body>   
 <script type="application/dart">
 
 import 'package:d3/d3.dart' as d3;
 import 'package:d3/scale/scale.dart' as scale;
+import 'package:d3/arrays/arrays.dart' as arrays;
 
 main() {
 
 var data = [4, 8, 15, 16, 23, 42];
 
 var x = scale.linear()
-    .domain([0, d3.max(data)])
+    .domain([0, arrays.max(data)])
     .range([0, 420]);
 
 /*
@@ -34,7 +35,7 @@ d3.select(".chart")
   .enter().append("div")
     .style("width", function(d) { return x(d) + "px"; })
     .text(function(d) { return d; });
- */ 
+*/ 
 }  
 </script>
 
