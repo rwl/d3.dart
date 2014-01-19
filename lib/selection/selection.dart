@@ -32,9 +32,10 @@ class Selection extends EnteringSelection {
       if (name is String) {
         var node = this.node();
         name = core.qualify(name);
-        return (name is core.Name)
+        var val = (name is core.Name)
             ? node.getAttributeNS(name.space, name.local)
                 : node.getAttribute(name);
+        return val == '' ? null : val;
       }
 
       // For attr(object), the object specifies the names and values of the

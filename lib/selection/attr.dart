@@ -23,12 +23,12 @@ attrFunc(name, value) {
   // or remove the attribute as appropriate.
   attrFunction(node, data, i, j) {
     var x = value(node, data, i, j);
-    if (x == null) node.removeAttribute(name);
+    if (x == null) node.attributes.remove(name);
     else node.setAttribute(name, x);
   }
   attrFunctionNS(node, data, i, j) {
     var x = value(node, data, i, j);
-    if (x == null) node.removeAttributeNS(name.space, name.local);
+    if (x == null) node.getNamespacedAttributes(name.space).remove(name.local);
     else node.setAttributeNS(name.space, name.local, x);
   }
 
