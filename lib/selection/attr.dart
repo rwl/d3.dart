@@ -5,18 +5,18 @@ attrFunc(name, value) {
 
   // For attr(string, null), remove the attribute with the specified name.
   attrNull(node, data, i, j) {
-    node.removeAttribute(name);
+    node.attributes.remove(name);
   }
   attrNullNS(node, data, i, j) {
-    node.removeAttributeNS(name.space, name.local);
+    node.getNamespacedAttributes(name.space).remove(name.local);
   }
 
   // For attr(string, string), set the attribute with the specified name.
   attrConstant(node, data, i, j) {
-    node.setAttribute(name, value);
+    node.setAttribute(name, value.toString());
   }
   attrConstantNS(node, data, i, j) {
-    node.setAttributeNS(name.space, name.local, value);
+    node.setAttributeNS(name.space, name.local, value.toString());
   }
 
   // For attr(string, function), evaluate the function for each element, and set

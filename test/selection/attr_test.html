@@ -9,11 +9,12 @@ import 'package:unittest/html_enhanced_config.dart';
 import 'package:d3/selection/selection.dart';
 
 main() {
-//  useHtmlEnhancedConfiguration();
+  useHtmlEnhancedConfiguration();
 
   group('select(body)', () {
     group('on a simple page', () {
       Selection body = select('body');
+
 
       test('sets an attribute as a string', () {
         body.attr('bgcolor', 'red');
@@ -24,34 +25,34 @@ main() {
         expect(body.node().getAttribute('opacity'), equals('1'));
       });
       test('sets an attribute as a function', () {
-        body.attr('bgcolor', (node, data, i, j) { return 'orange'; });
+        body.attr('bgcolor', () { return 'orange'; });
         expect(body.node().getAttribute('bgcolor'), equals('orange'));
       });
-      /*test('sets an attribute as a function of data', () {
+      test('sets an attribute as a function of data', () {
         body.data(['cyan']).attr('bgcolor', String);
         expect(body.node().getAttribute('bgcolor'), equals('cyan'));
-      });*/
+      });
       test('sets an attribute as a function of index', () {
-        body.attr('bgcolor', (node, data, i, j) { return 'orange-$i'; });
+        body.attr('bgcolor', (d, i) { return 'orange-' + i; });
         expect(body.node().getAttribute('bgcolor'), equals('orange-0'));
       });
       test('sets a namespaced attribute as a string', () {
         body.attr('xlink:href', 'url');
         expect(body.node().getAttributeNS('http://www.w3.org/1999/xlink', 'href'), equals('url'));
       });
-      /*test('sets a namespaced attribute as a function', () {
-        body.data(['orange']).attr('xlink:href', (d, i) { return '$d-$i'; });
+      test('sets a namespaced attribute as a function', () {
+        body.data(['orange']).attr('xlink:href', (d, i) { return d + '-' + i; });
         expect(body.node().getAttributeNS('http://www.w3.org/1999/xlink', 'href'), equals('orange-0'));
-      });*/
+      });
       test('sets attributes as a map of constants', () {
-        body.attr({'bgcolor': 'white', 'xlink:href': 'url.png'});
+        body.attr({bgcolor: 'white', 'xlink:href': 'url.png'});
         expect(body.node().getAttribute('bgcolor'), equals('white'));
         expect(body.node().getAttributeNS('http://www.w3.org/1999/xlink', 'href'), equals('url.png'));
       });
-      /*test('sets attributes as a map of functions', () {
+      test('sets attributes as a map of functions', () {
         body.data(['orange']).attr({'xlink:href': (d, i) { return d + '-' + i + '.png'; }});
         expect(body.node().getAttributeNS('http://www.w3.org/1999/xlink', 'href'), equals('orange-0.png'));
-      });*/
+      });
       test('gets an attribute value', () {
         body.node().setAttribute('bgcolor', 'yellow');
         expect(body.attr('bgcolor'), equals('yellow'));
@@ -64,7 +65,7 @@ main() {
         body.attr('bgcolor', 'red').attr('bgcolor', null);
         expect(body.attr('bgcolor'), isNull);
       });
-      /*test('removes an attribute as a function', () {
+      test('removes an attribute as a function', () {
         body.attr('bgcolor', 'red').attr('bgcolor', () { return null; });
         expect(body.attr('bgcolor'), isNull);
       });
@@ -92,7 +93,7 @@ main() {
       });
       test('returns the current selection', () {
         expect(body.attr('foo', 'bar'), same(body));
-      });*/
+      });
 
     });
   });

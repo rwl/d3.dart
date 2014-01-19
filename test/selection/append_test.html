@@ -34,7 +34,11 @@ main() {
         body.append((node, data, i, j) { return svg; });
         expect(svg, same(body.node().lastChild));
       });
-
+      /*test('propagates data to new element', () {
+        var data = new Object();
+        var div = body.data([data]).append('div');
+        expect(div[0][0].attributes['__data__'], equals(data));
+      });*/
       test('returns a new selection', () {
         expect(body.append('div') ==/*=*/ body, isFalse);
       });

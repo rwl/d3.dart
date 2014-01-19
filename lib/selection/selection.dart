@@ -16,8 +16,7 @@ class Selection extends EnteringSelection {
 //  List groups;
   Function enter, exit;
 
-  Selection(List groups) : super(groups) {
-  }
+  Selection(List groups) : super(groups);
 
   append(name) {
     name = creator(name);
@@ -26,8 +25,8 @@ class Selection extends EnteringSelection {
     });
   }
 
-  attr(name, [value = null]) {
-    if (value == null) {
+  attr(name, [value = '8fc4ac4743d2195d2b44bbbcff2ac2c73f82c71d']) { // TODO:
+    if (value == '8fc4ac4743d2195d2b44bbbcff2ac2c73f82c71d') {
 
       // For attr(string), return the attribute value for the first node.
       if (name is String) {
@@ -41,8 +40,9 @@ class Selection extends EnteringSelection {
       // For attr(object), the object specifies the names and values of the
       // attributes to set or remove. The values may be functions that are
       // evaluated for each element.
-      for (value in name) this.each(attrFunc(value, name[value]));
-          return this;
+      //for (value in name) this.each(attrFunc(value, name[value]));
+      name.forEach((k, v) { this.each(attrFunc(k, v)); });
+      return this;
     }
 
     return this.each(attrFunc(name, value));
