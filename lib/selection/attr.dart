@@ -1,6 +1,6 @@
 part of selection;
 
-_attr(name, value) {
+attrFunc(name, value) {
   name = core.qualify(name);
 
   // For attr(string, null), remove the attribute with the specified name.
