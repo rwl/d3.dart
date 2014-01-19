@@ -4,6 +4,8 @@ import 'dart:html';
 
 import '../core/core.dart' as core;
 
+part 'attr.dart';
+
 Selection _selection(groups) {
 //  d3_subclass(groups, d3_selectionPrototype);
   return new Selection(groups);
@@ -25,7 +27,7 @@ class Selection {
   append(name) {
     name = _creator(name);
     return this.select((node, data, i, j) {
-      return node.appendChild(name(node, data, i, j));
+      return node.append(name(node, data, i, j));
     });
   }
 
@@ -44,18 +46,24 @@ class Selection {
       // For attr(object), the object specifies the names and values of the
       // attributes to set or remove. The values may be functions that are
       // evaluated for each element.
-      for (value in name) this.each(d3_selection_attr(value, name[value]));
+      for (value in name) this.each(_attr(value, name[value]));
           return this;
     }
 
-    return this.each(d3_selection_attr(name, value));
+    return this.each(_attr(name, value));
+  }
+
+  each(callback) {
+    return _each(this, (node, i, j) {
+      callback(node, node.attributes["__data__"], i, j);
+    });
   }
 
   node() {
     for (var j = 0, m = this.length; j < m; j++) {
       for (var group = this[j], i = 0, n = group.length; i < n; i++) {
         var node = group[i];
-        if (node) return node;
+        if (node != null) return node;
       }
     }
     return null;
@@ -69,10 +77,12 @@ class Selection {
 
     for (var j = -1, m = this.length; ++j < m;) {
       subgroups.add(subgroup = []);
-//      subgroup.parent = (group = this[j]).parent;
+      group = this[j];
+//      subgroup.parent = group.parent;
       for (var i = -1, n = group.length; ++i < n;) {
-        if (node = group[i]) {
-          subgroup.add(subnode = selector(node, node.__data__, i, j));
+        node = group[i];
+        if (node != null) {
+          subgroup.add(subnode = selector(node, node.attributes["__data__"], i, j));
           if (subnode is Element && node.attributes.containsKey("__data__")) {
             subnode.attributes["__data__"] = node.attributes["__data__"];
           }
@@ -102,7 +112,7 @@ _creator(name) {
     if (name is core.Name) {
       return (node, data, i, j) { return node.ownerDocument.createElementNS(name.space, name.local); };
     }
-    return (node, data, i, j) { return node.ownerDocument.createElementNS(node.namespaceURI, name); };
+    return (node, data, i, j) { return node.ownerDocument.createElementNS(node.namespaceUri, name); };
   }
 }
 
@@ -113,4 +123,14 @@ _selector(selector) {
   return (node, data, i, j) {
     return _select(selector, node);
   };
+}
+
+_each(groups, callback) {
+  for (var j = 0, m = groups.length; j < m; j++) {
+    for (var group = groups[j], i = 0, n = group.length, node; i < n; i++) {
+      node = group[i];
+      if (node != null) callback(node, i, j);
+    }
+  }
+  return groups;
 }
