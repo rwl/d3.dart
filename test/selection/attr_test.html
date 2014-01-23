@@ -31,7 +31,7 @@ main() {
         expect(body.node().getAttribute('bgcolor'), equals('cyan'));
       });*/
       test('sets an attribute as a function of index', () {
-        body.attr('bgcolor', (node, data, i, j) { return 'orange-$i'; });
+        body.attr('bgcolor', (node, data, i) { return 'orange-$i'; });
         expect(body.node().getAttribute('bgcolor'), equals('orange-0'));
       });
       test('sets a namespaced attribute as a string', () {
@@ -39,7 +39,7 @@ main() {
         expect(body.node().getAttributeNS('http://www.w3.org/1999/xlink', 'href'), equals('url'));
       });
       /*test('sets a namespaced attribute as a function', () {
-        body.data(['orange']).attr('xlink:href', (d, i) { return '$d-$i'; });
+        body.data(['orange']).attr('xlink:href', (node, data, i) { return '$data-$i'; });
         expect(body.node().getAttributeNS('http://www.w3.org/1999/xlink', 'href'), equals('orange-0'));
       });*/
       test('sets attributes as a map of constants', () {
@@ -48,7 +48,7 @@ main() {
         expect(body.node().getAttributeNS('http://www.w3.org/1999/xlink', 'href'), equals('url.png'));
       });
       /*test('sets attributes as a map of functions', () {
-        body.data(['orange']).attr({'xlink:href': (d, i) { return d + '-' + i + '.png'; }});
+        body.data(['orange']).attr({'xlink:href': (node, data, i) { return '$data-$i.png'; }});
         expect(body.node().getAttributeNS('http://www.w3.org/1999/xlink', 'href'), equals('orange-0.png'));
       });*/
       test('gets an attribute value', () {
@@ -64,7 +64,7 @@ main() {
         expect(body.attr('bgcolor'), isNull);
       });
       test('removes an attribute as a function', () {
-        body.attr('bgcolor', 'red').attr('bgcolor', (node, data, i, j) { return null; });
+        body.attr('bgcolor', 'red').attr('bgcolor', () { return null; });
         expect(body.attr('bgcolor'), isNull);
       });
       test('removes a namespaced attribute as null', () {
@@ -72,7 +72,7 @@ main() {
         expect(body.attr('bgcolor'), isNull);
       });
       test('removes a namespaced attribute as a function', () {
-        body.attr('xlink:href', 'url').attr('xlink:href', (node, data, i, j) { return null; });
+        body.attr('xlink:href', 'url').attr('xlink:href', () { return null; });
         expect(body.attr('xlink:href'), isNull);
       });
       test('removes attributes as a map of null', () {
@@ -85,7 +85,7 @@ main() {
       /*test('removes attributes as a map of functions that return null', () {
         body.node().setAttribute('bgcolor', 'white');
         body.node().setAttributeNS('http://www.w3.org/1999/xlink', 'href', 'foo.png');
-        body.attr({'bgcolor': (node, data, i, j) {}, 'xlink:href': (node, data, i, j) {}});
+        body.attr({'bgcolor': () {}, 'xlink:href': () {}});
         expect(body.node().getAttribute('bgcolor'), isNull);
         expect(body.node().getAttributeNS('http://www.w3.org/1999/xlink', 'href'), isNull);
       });

@@ -27,7 +27,8 @@ attrFunc(name, value) {
     else node.setAttribute(name, x);
   }
   attrFunctionNS(node, data, i, j) {
-    var x = value(node, data, i, j);
+    utils.FnWith4Args fnWith4Args = utils.relaxFnArgs(value);
+    var x = fnWith4Args(node, data, i, j);
     if (x == null) node.getNamespacedAttributes(name.space).remove(name.local);
     else node.setAttributeNS(name.space, name.local, x);
   }

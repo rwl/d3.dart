@@ -31,7 +31,7 @@ main() {
       test('appends an element specified as a function', () {
         var svg = body.select('svg').remove().node();
         //expect(svg, same(body.node().lastChild));
-        body.append((node, data, i, j) { return svg; });
+        body.append(() { return svg; });
         expect(svg, same(body.node().lastChild));
       });
       /*test('propagates data to new element', () {

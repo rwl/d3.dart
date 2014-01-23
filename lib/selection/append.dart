@@ -2,7 +2,7 @@ part of selection;
 
 creator(name) {
   if (name is Function) {
-    return name;
+    return utils.relaxFnArgs(name);
   } else {
     name = core.qualify(name);
     if (name is core.Name) {

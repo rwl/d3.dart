@@ -4,6 +4,7 @@ import 'dart:html';
 import 'dart:math' as math;
 
 import '../core/core.dart' as core;
+import '../utils.dart' as utils;
 
 part 'append.dart';
 part 'attr.dart';
@@ -11,6 +12,8 @@ part 'data.dart';
 part 'each.dart';
 part 'enter.dart';
 part 'select.dart';
+
+const String unique = '8fc4ac4743d2195d2b44bbbcff2ac2c73f82c71d';
 
 class Selection extends EnteringSelection {
 //  List groups;
@@ -25,8 +28,8 @@ class Selection extends EnteringSelection {
     });
   }
 
-  attr(name, [value = '8fc4ac4743d2195d2b44bbbcff2ac2c73f82c71d']) { // TODO:
-    if (value == '8fc4ac4743d2195d2b44bbbcff2ac2c73f82c71d') {
+  attr(name, [value = unique]) { // TODO: improve
+    if (value == unique) {
 
       // For attr(string), return the attribute value for the first node.
       if (name is String) {
@@ -62,7 +65,7 @@ class Selection extends EnteringSelection {
       value = new List(n);
       while (++i < n) {
         if (node = group[i]) {
-          value[i] = node.attributes["__data__"];
+          value[i] = nodeData(node);
         }
       }
       return value;
@@ -81,7 +84,7 @@ class Selection extends EnteringSelection {
       enterNodes = new List(m),
       exitNodes = new List(n),
       node,
-      nodeData;
+      nodedata;
 
       if (key != null) {
         var nodeByKeyValue = new Map(),
@@ -90,7 +93,7 @@ class Selection extends EnteringSelection {
             keyValue;
 
         for (i = -1; ++i < n;) {
-          keyValue = key.call(node = group[i], node.__data__, i);
+          keyValue = key.call(node = group[i], nodeData(node), i);
           if (nodeByKeyValue.containsKey(keyValue)) {
             exitNodes[i] = node; // duplicate selection key
           } else {
@@ -100,15 +103,15 @@ class Selection extends EnteringSelection {
         }
 
         for (i = -1; ++i < m;) {
-          keyValue = key.call(groupData, nodeData = groupData[i], i);
+          keyValue = key.call(groupData, nodedata = groupData[i], i);
           if (nodeByKeyValue.containsKey(keyValue)) {
             node = nodeByKeyValue[keyValue];
             updateNodes[i] = node;
-            node.__data__ = nodeData;
+            node.__data__ = nodedata;
           } else if (!dataByKeyValue.containsKey(keyValue)) { // no duplicate data key
-            enterNodes[i] = new DataNode(nodeData);
+            enterNodes[i] = new DataNode(nodedata);
           }
-          dataByKeyValue[keyValue] = nodeData;
+          dataByKeyValue[keyValue] = nodedata;
           nodeByKeyValue.remove(keyValue);
         }
 
@@ -120,12 +123,12 @@ class Selection extends EnteringSelection {
       } else {
         for (i = -1; ++i < n0;) {
           node = group[i];
-          nodeData = groupData[i];
+          nodedata = groupData[i];
           if (node != null) {
-            node.attributes["__data__"] = nodeData;
+            nodeData(node, nodedata);
             updateNodes[i] = node;
           } else {
-            enterNodes[i] = new DataNode(nodeData);
+            enterNodes[i] = new DataNode(nodedata);
           }
         }
         for (; i < m; ++i) {
@@ -151,7 +154,7 @@ class Selection extends EnteringSelection {
 
     if (value is Function) {
       while (++i < n) {
-        bind(group = this[i], value.call(group, group.parentNode.__data__, i));
+        bind(group = this[i], value.call(group, nodeData(group.parentNode), i));
       }
     } else {
       while (++i < n) {
@@ -166,7 +169,8 @@ class Selection extends EnteringSelection {
 
   each(callback) {
     return eachGroup(this, (node, i, j) {
-      callback(node, node.attributes["__data__"], i, j);
+      utils.FnWith4Args fnWith4Args = utils.relaxFnArgs(callback);
+      fnWith4Args(node, nodeData(node), i, j);
     });
   }
 
@@ -194,9 +198,9 @@ class Selection extends EnteringSelection {
       for (var i = -1, n = group.length; ++i < n;) {
         node = group[i];
         if (node != null) {
-          subgroup.add(subnode = s(node, node.attributes["__data__"], i, j));
-          if (subnode is Element && node.attributes.containsKey("__data__")) {
-            subnode.attributes["__data__"] = node.attributes["__data__"];
+          subgroup.add(subnode = s(node, nodeData(node), i, j));
+          if (subnode is Element && hasData(node)) {
+            nodeData(subnode, nodeData(node));
           }
         } else {
           subgroup.add(null);
