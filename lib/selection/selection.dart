@@ -12,6 +12,7 @@ part 'data.dart';
 part 'each.dart';
 part 'enter.dart';
 part 'select.dart';
+part 'style.dart';
 
 const String unique = '8fc4ac4743d2195d2b44bbbcff2ac2c73f82c71d';
 
@@ -243,6 +244,35 @@ class Selection extends EnteringSelection {
     }
 
     return new Selection(subgroups);
+  }
+
+  style(name, [value = "", priority = null]) {
+    if (priority == null) {
+
+      // For style(object) or style(object, string), the object specifies the
+      // names and values of the attributes to set or remove. The values may be
+      // functions that are evaluated for each element. The optional string
+      // specifies the priority.
+      if (!name is String) {
+        if (value == null) value = "";
+        for (priority in name) {
+          this.each(styleNode(priority, name[priority], value));
+        }
+        return this;
+      }
+
+      // For style(string), return the computed style value for the first node.
+      if (value == null) {
+        return this.node().getComputedStyle().getPropertyValue(name);
+      }
+
+      // For style(string, string) or style(string, function), use the default
+      // priority. The priority is ignored for style(string, null).
+      priority = "";
+    }
+
+    // Otherwise, a name, value and priority are specified, and handled as below.
+    return this.each(styleNode(name, value, priority));
   }
 
 }
