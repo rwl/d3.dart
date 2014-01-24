@@ -6,8 +6,12 @@ creator(name) {
   } else {
     name = core.qualify(name);
     if (name is core.Name) {
-      return (node, data, i, j) { return node.ownerDocument.createElementNS(name.space, name.local); };
+      return (Element node, data, int i, int j) {
+        return node.ownerDocument.createElementNS(name.space, name.local);
+      };
     }
-    return (node, data, i, j) { return node.ownerDocument.createElementNS(node.namespaceUri, name); };
+    return (Element node, data, int i, int j) {
+      return node.ownerDocument.createElementNS(node.namespaceUri, name);
+    };
   }
 }

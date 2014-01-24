@@ -24,18 +24,20 @@ parentNode(List group, [Node node = null]) {
   parentProp[group] = node;
 }
 
+final updateProp = new Expando<List>('update');
+
+updateGroup(List group, [List upgroup = null]) {
+  if (upgroup == null) {
+    return updateProp[group];
+  }
+  updateProp[group] = upgroup;
+}
+
 class Selection extends EnteringSelection {
 //  List groups;
   Function enter, exit;
 
   Selection(List groups) : super(groups);
-
-  append(name) {
-    name = creator(name);
-    return this.select((node, data, i, j) {
-      return node.append(name(node, data, i, j));
-    });
-  }
 
   attr(name, [value = unique]) { // TODO: improve
     if (value == unique) {
@@ -149,7 +151,7 @@ class Selection extends EnteringSelection {
         }
       }
 
-//      enterNodes.update = updateNodes;
+      updateGroup(enterNodes, updateNodes);
 
       var parent = parentNode(group);
       parentNode(enterNodes, parent);
@@ -222,12 +224,41 @@ class Selection extends EnteringSelection {
     return new Selection(subgroups);
   }
 
+  selectAll(selector) {
+    var subgroups = [],
+        subgroup,
+        node;
+
+    selector = selectorAll(selector);
+
+    for (var j = -1, m = this.length; ++j < m;) {
+      for (var group = this[j], i = -1, n = group.length; ++i < n;) {
+        node = group[i];
+        if (node != null) {
+          subgroup = [selector(node, nodeData(node), i, j)];
+          subgroups.add(subgroup);
+          parentNode(subgroup, node);
+        }
+      }
+    }
+
+    return new Selection(subgroups);
+  }
+
 }
 
 selectNode(s, n) { return n.querySelector(s); }
 
+selectNodeAll(s, n) { return n.querySelectorAll(s); }
+
 select(node) {
   var group = [node is String ? selectNode(node, document) : node];
+  parentNode(group, document);
+  return new Selection([group]);
+}
+
+selectAll(nodes) {
+  var group = [nodes is String ? selectNodeAll(nodes, document) : nodes];
   parentNode(group, document);
   return new Selection([group]);
 }
