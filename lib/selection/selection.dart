@@ -15,6 +15,15 @@ part 'select.dart';
 
 const String unique = '8fc4ac4743d2195d2b44bbbcff2ac2c73f82c71d';
 
+final parentProp = new Expando<Node>('parentNode');
+
+parentNode(List group, [Node node = null]) {
+  if (node == null) {
+    return parentProp[group];
+  }
+  parentProp[group] = node;
+}
+
 class Selection extends EnteringSelection {
 //  List groups;
   Function enter, exit;
@@ -52,19 +61,20 @@ class Selection extends EnteringSelection {
     return this.each(attrFunc(name, value));
   }
 
-  data([value = null, key = null]) {
+  data([value = unique, key = null]) {
     var i = -1,
         n = this.length,
         group,
         node;
 
     // If no value is specified, return the first value.
-    if (value == null && key == null) {
+    if (value == unique && key == null) {
       group = this[0];
       n = group.length;
       value = new List(n);
       while (++i < n) {
-        if (node = group[i]) {
+        node = group[i];
+        if (node != null) {
           value[i] = nodeData(node);
         }
       }
@@ -139,13 +149,12 @@ class Selection extends EnteringSelection {
         }
       }
 
-//      enterNodes.update
-//      = updateNodes;
-//
-//      enterNodes.parentNode
-//      = updateNodes.parentNode
-//      = exitNodes.parentNode
-//      = group.parentNode;
+//      enterNodes.update = updateNodes;
+
+      var parent = parentNode(group);
+      parentNode(enterNodes, parent);
+      parentNode(updateNodes, parent);
+      parentNode(exitNodes, parent);
 
       enter.addAll(enterNodes);
       update.addAll(updateNodes);
@@ -154,7 +163,9 @@ class Selection extends EnteringSelection {
 
     if (value is Function) {
       while (++i < n) {
-        bind(group = this[i], value.call(group, nodeData(group.parentNode), i));
+        group = this[i];
+        utils.FnWith3Args fnWith3Args = utils.relaxFn3Args(value);
+        bind(group, fnWith3Args(group, nodeData(parentNode(group)), i));
       }
     } else {
       while (++i < n) {
@@ -169,7 +180,7 @@ class Selection extends EnteringSelection {
 
   each(callback) {
     return eachGroup(this, (node, i, j) {
-      utils.FnWith4Args fnWith4Args = utils.relaxFnArgs(callback);
+      utils.FnWith4Args fnWith4Args = utils.relaxFn4Args(callback);
       fnWith4Args(node, nodeData(node), i, j);
     });
   }
@@ -180,7 +191,7 @@ class Selection extends EnteringSelection {
   remove() {
     return this.each((node, data, i, j) {
       node.remove();
-//      var parent = node.parentNode;
+//      var parent = parentNode(node);
 //      if (parent != null) parent.removeChild(node);
     });
   }
@@ -194,7 +205,7 @@ class Selection extends EnteringSelection {
     for (var j = -1, m = this.length; ++j < m;) {
       subgroups.add(subgroup = []);
       group = this[j];
-//      subgroup.parent = group.parent;
+      parentNode(subgroup, parentNode(group));
       for (var i = -1, n = group.length; ++i < n;) {
         node = group[i];
         if (node != null) {
@@ -217,6 +228,6 @@ selectNode(s, n) { return n.querySelector(s); }
 
 select(node) {
   var group = [node is String ? selectNode(node, document) : node];
-//  group.parent = document;
+  parentNode(group, document);
   return new Selection([group]);
 }

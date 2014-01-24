@@ -26,19 +26,19 @@ main() {
         body.data([data]);
         expect(nodeData(body.node()), same(data));
       });
-      /*test('assigns data as a function', () {
+      test('assigns data as a function', () {
         var data = new Object();
         body.data(() { return [data]; });
-        expect(body.node().attributes["__data__"], same(data));
+        expect(nodeData(body.node()), same(data));
       });
       test('stores data in the DOM', () {
         var expected = new Object(), actual;
-        body.node().attributes["__data__"] = expected;
+        nodeData(body.node(), expected);
         body.each((node, d) { actual = d; });
         expect(actual, same(expected));
       });
       test('returns a new selection', () {
-        expect(body.data([1]), same(body));
+        expect(body.data([1]) == body, isFalse);
       });
       test('with no arguments, returns an array of data', () {
         var data = new Object();
@@ -47,15 +47,15 @@ main() {
         expect(body.data()[0], same(data));
       });
       test('throws an error if data is null', () {
-        var errored;
+        var errored = false;
         try { body.data(null); } catch (e) { errored = true; }
         expect(errored, isTrue);
       });
       test('throws an error if data is a function that returns null', () {
-        var errored;
+        var errored = false;
         try { body.data(() {}); } catch (e) { errored = true; }
         expect(errored, isTrue);
-      });*/
+      });
     });
   });
 }

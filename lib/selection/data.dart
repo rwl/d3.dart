@@ -16,4 +16,4 @@ bool hasData(node) {
   return dataProp[node] != null;
 }
 
-final dataProp = new Expando<Object>('d3 data');
+final dataProp = new Expando<Object>('d3data');
