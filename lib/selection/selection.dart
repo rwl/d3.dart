@@ -188,6 +188,30 @@ class Selection extends EnteringSelection {
     });
   }
 
+  bool empty() {
+    return this.node() == null;
+  }
+
+  html([value = unique]) {
+    if (value != unique) {
+      Function fn;
+      if (value is Function) {
+        fn = (node, data, i, j) {
+          utils.FnWith4Args fnWith4Args = utils.relaxFn4Args(value);
+          var v = fnWith4Args(node, data, i, j);
+          node.innerHTML = (v == null ? "" : v);
+        };
+      } else if (value == null) {
+        fn = (node) { node.innerHTML = ""; };
+      } else {
+        fn = (node) { node.innerHTML = value; };
+      }
+      this.each(fn);
+    } else {
+      return this.node().innerHTML;
+    }
+  }
+
   // TODO remove(selector)?
   // TODO remove(node)?
   // TODO remove(function)?
@@ -246,6 +270,12 @@ class Selection extends EnteringSelection {
     return new Selection(subgroups);
   }
 
+  int size() {
+    int n = 0;
+    this.each(() { ++n; });
+    return n;
+  }
+
   style(name, [value = "", priority = null]) {
     if (priority == null) {
 
@@ -273,6 +303,26 @@ class Selection extends EnteringSelection {
 
     // Otherwise, a name, value and priority are specified, and handled as below.
     return this.each(styleNode(name, value, priority));
+  }
+
+  text([value = unique]) {
+    if (value != unique) {
+      Function fn;
+      if (value is Function) {
+        fn = (node, data, i, j) {
+          utils.FnWith4Args fnWith4Args = utils.relaxFn4Args(value);
+          var v = fnWith4Args(node, data, i, j);
+          node.textContent = (v == null ? "" : v);
+        };
+      } else if (value == null) {
+        fn = (node) { node.textContent = ""; };
+      } else {
+        fn = (node) { node.textContent = value; };
+      }
+      each(fn);
+    } else {
+      return this.node().textContent;
+    }
   }
 
 }
