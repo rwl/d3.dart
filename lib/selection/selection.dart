@@ -156,9 +156,9 @@ class Selection extends EnteringSelection {
       parentNode(updateNodes, parent);
       parentNode(exitNodes, parent);
 
-      enter.addAll(enterNodes);
-      update.addAll(updateNodes);
-      exit.addAll(exitNodes);
+      enter.add(enterNodes);
+      update.add(updateNodes);
+      exit.add(exitNodes);
     }
 
     if (value is Function) {

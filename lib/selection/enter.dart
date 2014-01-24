@@ -10,8 +10,8 @@ class EnteringSelection {
     return groups[i];
   }
 
-  addAll(nodes) {
-    this.groups.addAll(nodes);
+  add(nodes) {
+    this.groups.add(nodes);
   }
 
   node() {
