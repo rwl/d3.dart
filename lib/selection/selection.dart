@@ -35,12 +35,12 @@ updateGroup(List group, [List upgroup = null]) {
 }
 
 class Selection extends EnteringSelection {
-//  List groups;
+
   Function enter, exit;
 
   Selection(List groups) : super(groups);
 
-  attr(name, [value = unique]) { // TODO: improve
+  attr(name, [value = unique]) {
     if (value == unique) {
 
       // For attr(string), return the attribute value for the first node.
@@ -199,16 +199,16 @@ class Selection extends EnteringSelection {
         fn = (node, data, i, j) {
           utils.FnWith4Args fnWith4Args = utils.relaxFn4Args(value);
           var v = fnWith4Args(node, data, i, j);
-          node.innerHTML = (v == null ? "" : v);
+          node.innerHtml = (v == null ? "" : v);
         };
       } else if (value == null) {
-        fn = (node) { node.innerHTML = ""; };
+        fn = (node) { node.innerHtml = ""; };
       } else {
-        fn = (node) { node.innerHTML = value; };
+        fn = (node) { node.innerHtml = value.toString(); };
       }
-      this.each(fn);
+      return this.each(fn);
     } else {
-      return this.node().innerHTML;
+      return this.node().innerHtml;
     }
   }
 
@@ -312,16 +312,16 @@ class Selection extends EnteringSelection {
         fn = (node, data, i, j) {
           utils.FnWith4Args fnWith4Args = utils.relaxFn4Args(value);
           var v = fnWith4Args(node, data, i, j);
-          node.textContent = (v == null ? "" : v);
+          node.text = (v == null ? "" : v);
         };
       } else if (value == null) {
-        fn = (node) { node.textContent = ""; };
+        fn = (node) { node.text = ""; };
       } else {
-        fn = (node) { node.textContent = value; };
+        fn = (node) { node.text = value.toString(); };
       }
-      each(fn);
+      return each(fn);
     } else {
-      return this.node().textContent;
+      return this.node().text;
     }
   }
 

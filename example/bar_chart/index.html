@@ -19,6 +19,7 @@
 import 'package:d3/d3.dart' as d3;
 import 'package:d3/scale/scale.dart' as scale;
 import 'package:d3/arrays/arrays.dart' as arrays;
+import 'package:d3/selection/selection.dart' as selection;
 
 main() {
 
@@ -28,14 +29,14 @@ var x = scale.linear()
     .domain([0, arrays.max(data)])
     .range([0, 420]);
 
-/*
-d3.select(".chart")
+
+selection.select(".chart")
   .selectAll("div")
     .data(data)
   .enter().append("div")
-    .style("width", function(d) { return x(d) + "px"; })
-    .text(function(d) { return d; });
-*/
+    .style("width", (n, d) { return x(d) + "px"; })
+    .text((n, d) { return d; });
+
 }
 </script>
 
