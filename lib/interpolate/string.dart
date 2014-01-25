@@ -81,7 +81,7 @@ interpolateString(a, b) {
   if (s.length == 1) {
     if (s[0] == null) {
       o = q[0].x;
-      return (t) { return o(t) + ""; };
+      return (t) { return o(t).toString(); };
     }
     return (t) { return b; };
   }

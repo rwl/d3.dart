@@ -1,23 +1,24 @@
 part of interpolate;
 
-Function interpolateObject(a, b) {
-  var i = {},
-      c = {},
-      k;
-  /*for (k in a) {
-    if (k in b) {
-      i[k] = interpolate(a[k], b[k]);
+Function interpolateObject(Map a, Map b) {
+  Map i = {}, c = {};
+  var k;
+  a.forEach((k, v) {
+    if (b.containsKey(k)) {
+      i[k] = interpolate(v, b[k]);
     } else {
-      c[k] = a[k];
+      c[k] = v;
     }
-  }
-  for (k in b) {
-    if (!(k in a)) {
-      c[k] = b[k];
+  });
+  b.forEach((k, v) {
+    if (!a.containsKey(k)) {
+      c[k] = v;
     }
-  }*/
+  });
   return (t) {
-    for (k in i) c[k] = i[k](t);
+    i.forEach((k, v) {
+      c[k] = v(t);
+    });
     return c;
   };
 }
