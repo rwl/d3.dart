@@ -11,7 +11,7 @@ styleNode(name, value, priority) {
   // For style(name, string) or style(name, string, priority), set the style
   // property with the specified name, using the specified priority.
   styleConstant(node) {
-    node.style.setProperty(name, value, priority);
+    node.style.setProperty(name, value.toString(), priority);
   }
 
   // For style(name, function) or style(name, function, priority), evaluate the
@@ -23,7 +23,7 @@ styleNode(name, value, priority) {
     if (x == null) {
       node.style.removeProperty(name);
     } else {
-      node.style.setProperty(name, x, priority);
+      node.style.setProperty(name, x.toString(), priority);
     }
   }
 

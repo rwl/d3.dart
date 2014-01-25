@@ -276,23 +276,23 @@ class Selection extends EnteringSelection {
     return n;
   }
 
-  style(name, [value = "", priority = null]) {
+  style(name, [value = unique, priority = null]) {
     if (priority == null) {
 
       // For style(object) or style(object, string), the object specifies the
       // names and values of the attributes to set or remove. The values may be
       // functions that are evaluated for each element. The optional string
       // specifies the priority.
-      if (!name is String) {
+      if (!(name is String)) {
         if (value == null) value = "";
-        for (priority in name) {
-          this.each(styleNode(priority, name[priority], value));
-        }
+        name.forEach((k, v) {
+          this.each(styleNode(k, v, value));
+        });
         return this;
       }
 
       // For style(string), return the computed style value for the first node.
-      if (value == null) {
+      if (value == unique) {
         return this.node().getComputedStyle().getPropertyValue(name);
       }
 
