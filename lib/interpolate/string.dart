@@ -6,35 +6,39 @@ interpolateString(a, b) {
       s0 = 0, // start index of current string prefix
       s1 = 0, // end index of current string prefix
       n; // q.length;
-  var m, // current match
-      s = [], // string constants and placeholders
-      q = [], // number interpolators
-      o;
+  Iterable<Match> mm;
+  Match m; // current match
+  List<String> s = []; // string constants and placeholders
+  List<Interpolator> q = []; // number interpolators
+  var o;
 
   // Coerce inputs to strings.
   a = a.toString(); b = b.toString();
 
   // Reset our regular expression!
-  interpolate_number.lastIndex = 0;
+//  interpolate_number.lastIndex = 0;
 
   // Find all numbers in b.
-  for (i = 0; m = interpolate_number.exec(b); ++i) {
-    if (m.index) {
-      s1 = m.index;
+  mm = interpolate_number.allMatches(b);
+  for (m in mm) {
+    if (m.start > 0) {
+      s1 = m.start;
       s.add(b.substring(s0, s1));
     }
-    q.add(new interpolator(s.length, m[0]));
+    q.add(new Interpolator(s.length, m[0]));
     s.add(null);
-    s0 = interpolate_number.lastIndex;
+    s0 = /*interpolate_number*/m.end;
   }
   if (s0 < b.length) s.add(b.substring(s0));
 
   // Find all numbers in a.
   n = q.length;
-  for (i = 0; (m = interpolate_number.exec(a)) && i < n; ++i) {
+  mm = interpolate_number.allMatches(a);
+  for (i = 0; i < mm.length && i < n; ++i) {
+    m = mm.elementAt(i);
     o = q[i];
     if (o.x == m[0]) { // The numbers match, so coalesce.
-      if (o.i) {
+      if (o.i != 0) {
         if (s[o.i + 1] == null) { // This match is followed by another number.
           s[o.i - 1] += o.x;
           s.removeRange(o.i, o.i + 1);
@@ -79,7 +83,7 @@ interpolateString(a, b) {
       o = q[0].x;
       return (t) { return o(t) + ""; };
     }
-    return () { return b; };
+    return (t) { return b; };
   }
 
   // Otherwise, interpolate each of the numbers and rejoin the string.
@@ -89,10 +93,10 @@ interpolateString(a, b) {
   };
 }
 
-var interpolate_number = "[-+]?(?:\d+\.?\d*|\.?\d+)(?:[eE][-+]?\d+)?"/*g*/;
+final RegExp interpolate_number = new RegExp(r"[-+]?(?:\d+\.?\d*|\.?\d+)(?:[eE][-+]?\d+)?")/*g*/;
 
-class interpolator {
+class Interpolator {
   int i;
   var x;
-  interpolator(this.i, this.x);
+  Interpolator(this.i, this.x);
 }
