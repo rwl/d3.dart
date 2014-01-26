@@ -1,5 +1,8 @@
 name: d3
+version: 0.0.1
 description: Data Driven Documents
-dependencies:
+author: Richard Lincoln <r.w.lincoln@gmail.com>
+homepage: https://github.com/rwl/d3.dart
+dev_dependencies:
   browser: any
   unittest: any
