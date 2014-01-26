@@ -5,9 +5,13 @@ rgb(r, [g = null, b = null]) {
     if (r is Rgb) {
       return new Rgb.from(r);
     }
-    return rgb_parse(r.toString(), rgb, null/*hsl_rgb*/);
+    return parse(r.toString(), new_rgb, hsl_rgb);
   }
-  return new Rgb(r, g, b);
+
+  int rr = (r is int) ? r : (r is String) ? int.parse(r) : r.floor();
+  int gg = (g is int) ? g : (g is String) ? int.parse(g) : g.floor();
+  int bb = (b is int) ? b : (b is String) ? int.parse(b) : b.floor();
+  return new Rgb(rr, gg, bb);
 }
 
 Rgb rgbNumber(int value) {
@@ -18,15 +22,41 @@ String rgbString(int value) {
   return rgbNumber(value).toString();
 }
 
+Rgb new_rgb(int r, int g, int b) {
+  return new Rgb(r, g, b);
+}
+
 class Rgb extends Color {
   int r, g, b;
-  
+
   Rgb(this.r, this.g, this.b);
-  
+
   factory Rgb.from(Rgb other) {
     return new Rgb(other.r, other.g, other.b);
   }
-  
+
+  Rgb brighter([num k = 1]) {
+    k = math.pow(0.7, k);
+    var r = this.r,
+        g = this.g,
+        b = this.b,
+        i = 30;
+    if (r == 0 && g == 0 && b == 0) return new Rgb(i, i, i);
+    if (r != 0 && r < i) r = i;
+    if (g != 0 && g < i) g = i;
+    if (b != 0 && b < i) b = i;
+    return new Rgb(math.min(255, (r / k).floor()), math.min(255, (g / k).floor()), math.min(255, (b / k).floor()));
+  }
+
+  Rgb darker([num k = 1]) {
+    k = math.pow(0.7, k);
+    return new Rgb((k * this.r).floor(), (k * this.g).floor(), (k * this.b).floor());
+  }
+
+  Hsl hsl() {
+    return rgb_hsl(this.r, this.g, this.b);
+  }
+
   String toString() {
     return "#" + rgb_hex(this.r) + rgb_hex(this.g) + rgb_hex(this.b);
   }
@@ -38,7 +68,9 @@ String rgb_hex(int v) {
           : math.min(255, v).toInt().toRadixString(16);
 }
 
-rgb_parse(format, Function rgb, Function hsl) {
+final color_expr = new RegExp(r"([a-z]+)\((.*)\)", caseSensitive:true);
+
+parse(format, Function rgbFn, Function hslFn) {
   var r = 0, // red channel; int in [0, 255]
       g = 0, // green channel; int in [0, 255]
       b = 0, // blue channel; int in [0, 255]
@@ -47,39 +79,37 @@ rgb_parse(format, Function rgb, Function hsl) {
       name;
 
   /* Handle hsl, rgb. */
-  /*m1 = /([a-z]+)\((.*)\)/i.exec(format);
-  if (m1) {
+  m1 = color_expr.firstMatch(format);
+  if (m1 != null) {
     m2 = m1[2].split(",");
     switch (m1[1]) {
-      case "hsl": {
-        return hsl(
+      case "hsl":
+        return hslFn(
           double.parse(m2[0]), // degrees
-          double.parse(m2[1]) / 100, // percentage
-          double.parse(m2[2]) / 100 // percentage
+          parseNumberPct(m2[1]) / 100.0, // percentage
+          parseNumberPct(m2[2]) / 100.0 // percentage
         );
-      }
-      case "rgb": {
-        return rgb(
-          rgb_parseNumber(m2[0]),
-          rgb_parseNumber(m2[1]),
-          rgb_parseNumber(m2[2])
+      case "rgb":
+        return rgbFn(
+          parseNumber(m2[0]),
+          parseNumber(m2[1]),
+          parseNumber(m2[2])
         );
-      }
     }
-  }*/
+  }
 
   /* Named colors. */
   if (rgb_names.containsKey(format)) {
     Rgb named = rgb_names[format];
-    return rgb(named.r, named.g, named.b);
+    return rgbFn(named.r, named.g, named.b);
   }
 
   /* Hexadecimal colors: #rgb and #rrggbb. */
-  if (format != null && format.charAt(0) == "#") {
+  if (format != null && format[0] == "#") {
     if (format.length == 4) {
-      r = format.charAt(1); r += r;
-      g = format.charAt(2); g += g;
-      b = format.charAt(3); b += b;
+      r = format[1]; r += r;
+      g = format[2]; g += g;
+      b = format[3]; b += b;
     } else if (format.length == 7) {
       r = format.substring(1, 3);
       g = format.substring(3, 5);
@@ -90,15 +120,46 @@ rgb_parse(format, Function rgb, Function hsl) {
     b = int.parse(b, radix:16);
   }
 
-  return rgb(r, g, b);
+  return rgbFn(r, g, b);
 }
 
-rgb_parseNumber(String c) { // either integer or percentage
-  var f = double.parse(c);
-  return c[c.length - 1] == "%" ? (f * 2.55).round : f;
+Hsl rgb_hsl(r, g, b) {
+  var min = math.min(r /= 255, math.min(g /= 255, b /= 255)),
+      max = math.max(r, math.max(g, b)),
+      d = max - min,
+      h,
+      s,
+      l = (max + min) / 2;
+  if (d != 0) {
+    s = l < .5 ? d / (max + min) : d / (2 - max - min);
+    if (r == max) h = (g - b) / d + (g < b ? 6 : 0);
+    else if (g == max) h = (b - r) / d + 2;
+    else h = (r - g) / d + 4;
+    h *= 60;
+  } else {
+    h = double.NAN;
+    s = l > 0 && l < 1 ? 0 : h;
+  }
+  return new Hsl(h, s, l);
 }
 
-Map<String, Rgb> rgb_names = {
+int parseNumber(String c) { // either integer or percentage
+  if (c[c.length - 1] == "%") {
+    return (double.parse(c.substring(0, c.length - 1)) * 2.55).round();
+  } else {
+    return double.parse(c).round();
+  }
+}
+
+parseNumberPct(String c) {
+  if (c[c.length - 1] == "%") {
+    return double.parse(c.substring(0, c.length - 1));
+  } else {
+    return double.parse(c);
+  }
+}
+
+final Map<String, Rgb> rgb_names = {
   "aliceblue": rgbNumber(0xf0f8ff),
   "antiquewhite": rgbNumber(0xfaebd7),
   "aqua": rgbNumber(0x00ffff),
