@@ -12,7 +12,8 @@ class Linear {
 
   var output, input;
 
-  Linear(this._domain, this._range, this._interpolate, this._clamp) {
+  Linear(domain, this._range, this._interpolate, this._clamp) {
+    this.domain(domain);
     rescale();
   }
 
@@ -35,7 +36,7 @@ class Linear {
 
   domain([List x = null]) {
     if (x == null) return _domain;
-    _domain = x;//.map(num);
+    _domain = x.map(utils.toDouble).toList();
     rescale();
     return this;
   }
@@ -65,5 +66,4 @@ class Linear {
     rescale();
     return scale(x);
   }
-
 }

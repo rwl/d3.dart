@@ -40,3 +40,16 @@ FnWith3Args relaxFn3Args(Function fn) {
     };
   }
 }
+
+toDouble(x) {
+  if (x is int) {
+    return x.toDouble();
+  } else if (x is double) {
+    return x;
+  } else if (x is String) {
+    return double.parse(x, (source) => double.NAN);
+  } else if (x is DateTime) {
+    return x.millisecondsSinceEpoch;
+  }
+  return double.NAN;//x.toDouble();
+}

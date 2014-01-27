@@ -11,8 +11,8 @@ Function interpolateRgb(a, b) {
       bb = b_rgb.b - ab;
   return (t) {
     return "#"
-        + color.rgb_hex((ar + br * t).round)
-        + color.rgb_hex((ag + bg * t).round)
-        + color.rgb_hex((ab + bb * t).round);
+        + color.rgb_hex((ar + br * t).round())
+        + color.rgb_hex((ag + bg * t).round())
+        + color.rgb_hex((ab + bb * t).round());
   };
 }

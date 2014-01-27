@@ -3,6 +3,7 @@ library interpolate;
 import 'dart:math' as math;
 
 import '../color/color.dart' as color;
+import '../utils.dart' as utils;
 
 part 'rgb.dart';
 part 'string.dart';
