@@ -25,10 +25,12 @@ interpolate(a, b) {
   return f;
 }
 
+var colorString = new RegExp(r"^(#|rgb\(|hsl\()");
+
 List interpolators = [
   (a, b) {
     if (b is String) {
-      if (color.rgb_names.containsKey(b)) {// || "^(#|rgb\(|hsl\()".test(b)) {
+      if (color.rgb_names.containsKey(b) || b.contains(colorString)) {
         return interpolateRgb(a, b);
       }
       return interpolateString(a, b);
