@@ -1,5 +1,7 @@
 library d3.utils;
 
+import 'package:intl/intl.dart';
+
 typedef FnWith0Args();
 typedef FnWith1Args(a0);
 typedef FnWith2Args(a0, a1);
@@ -52,4 +54,12 @@ toDouble(x) {
     return x.millisecondsSinceEpoch;
   }
   return double.NAN;//x.toDouble();
+}
+
+const pattern = "#.###";
+
+final formatter = new NumberFormat(pattern);
+
+String fmt(num x) {
+  return formatter.format(x);
 }
