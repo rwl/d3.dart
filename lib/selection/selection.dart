@@ -120,7 +120,7 @@ class Selection extends EnteringSelection {
           if (nodeByKeyValue.containsKey(keyValue)) {
             node = nodeByKeyValue[keyValue];
             updateNodes[i] = node;
-            node.__data__ = nodedata;
+            nodeData(node, nodedata);
           } else if (!dataByKeyValue.containsKey(keyValue)) { // no duplicate data key
             enterNodes[i] = new DataNode(nodedata);
           }
@@ -312,7 +312,7 @@ class Selection extends EnteringSelection {
         fn = (node, data, i, j) {
           utils.FnWith4Args fnWith4Args = utils.relaxFn4Args(value);
           var v = fnWith4Args(node, data, i, j);
-          node.text = (v == null ? "" : v);
+          node.text = (v == null ? "" : v.toString());
         };
       } else if (value == null) {
         fn = (node) { node.text = ""; };

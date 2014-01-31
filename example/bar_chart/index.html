@@ -17,25 +17,23 @@
 <div class="chart"></div>
 <script type="application/dart">
 
-import 'package:d3/d3.dart' as d3;
-import 'package:d3/scale/scale.dart' as scale;
-import 'package:d3/arrays/arrays.dart' as arrays;
-import 'package:d3/selection/selection.dart' as selection;
+import 'package:d3/scale/scale.dart';
+import 'package:d3/arrays/arrays.dart';
+import 'package:d3/selection/selection.dart';
 
 main() {
 
 var data = [4, 8, 15, 16, 23, 42];
 
-var x = scale.linear()
-    .domain([0, arrays.max(data)])
-    .range([0, 420]);
+var x = new Linear()
+    ..domain = [0, max(data)]
+    ..range = [0, 420];
 
-
-selection.select(".chart")
+select(".chart")
   .selectAll("div")
     .data(data)
   .enter().append("div")
-    .style("width", (n, d) { return x(d) + "px"; })
+    .style("width", (n, d) { return "${x(d)}px"; })
     .text((n, d) { return d; });
 
 }

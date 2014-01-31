@@ -1,19 +1,25 @@
 part of selection;
 
 class DataNode {
-  var __data__;
-  DataNode(this.__data__);
+  var data;
+  DataNode(this.data);
 }
 
 nodeData(node, [d = null]) {
   if (d == null) {
+    if (node is DataNode) {
+      return node.data;
+    }
     return dataProp[node];
   }
   dataProp[node] = d;
 }
 
 bool hasData(node) {
+  if (node is DataNode) {
+    return node.data != null;
+  }
   return dataProp[node] != null;
 }
 
-final dataProp = new Expando<Object>('d3data');
+final dataProp = new Expando<Object>('data');
