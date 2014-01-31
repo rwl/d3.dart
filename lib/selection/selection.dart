@@ -260,7 +260,7 @@ class Selection extends EnteringSelection {
       for (var group = this[j], i = -1, n = group.length; ++i < n;) {
         node = group[i];
         if (node != null) {
-          subgroup = [selector(node, nodeData(node), i, j)];
+          subgroup = selector(node, nodeData(node), i, j);
           subgroups.add(subgroup);
           parentNode(subgroup, node);
         }
