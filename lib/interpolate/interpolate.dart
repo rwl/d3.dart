@@ -6,6 +6,7 @@ import '../color/color.dart' as color;
 import '../utils.dart' as utils;
 
 part 'rgb.dart';
+part 'hsl.dart';
 part 'string.dart';
 part 'number.dart';
 part 'array.dart';
