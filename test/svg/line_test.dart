@@ -3,6 +3,14 @@ import 'package:d3/svg/svg.dart';
 
 Matcher pathEquals(expected, [limit=100]) => equals(expected, limit);
 
+class XLine extends Line {
+  bool tested = false;
+  num get x {
+    tested = true;
+    return 0;
+  }
+}
+
 void main() {
   group('line', () {
     /*test('x defaults to a function accessor', () {
@@ -15,16 +23,13 @@ void main() {
       expect(l.line([[1, 2], [4, 3]]), pathEquals('M0,2L0,3'));
       expect(l.x, equals(0));
     });
-    /*test('x can be defined as a function', () {
-      var l = new Line().x(f), t = {}, dd = [], ii = [], tt = [];
-      //function f(d, i) { dd.push(d); ii.push(i); tt.push(this); return 0; }
-      expect(l.call(t, [[1, 2], [4, 3]]), pathEquals('M0,2L0,3'));
-      expect(dd, equals([[1, 2], [4, 3]], 'expected data, got {actual}'));
-      expect(ii, equals([0, 1], 'expected index, got {actual}'));
-      expect(tt, equals([t, t], 'expected this, got {actual}'));
+    test('x can be overridden with a getter', () {
+      var l = new XLine();
+      expect(l.line([[1, 2], [4, 3]]), pathEquals('M0,2L0,3'));
+      expect(l.tested, isTrue);
     });
 
-    test('y defaults to a function accessor', () {
+    /*test('y defaults to a function accessor', () {
       var l = new Line();
       expect(l([[1, 2], [4, 3]]), pathEquals('M1,2L4,3'));
       expect(l.y() is Function, isTrue);
