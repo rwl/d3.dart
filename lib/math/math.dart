@@ -6,3 +6,4 @@ import 'dart:math' as math;
 import '../core/core.dart' as core;
 
 part 'transform.dart';
+part 'trigonometry.dart';
