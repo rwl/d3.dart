@@ -8,6 +8,7 @@ import '../utils.dart';
 import '../interpolate/interpolate.dart' as libInterpolate;
 
 part 'tween.dart';
+part 'text.dart';
 part 'transition_node.dart';
 
 final idProp = new Expando<int>('id');
@@ -32,6 +33,12 @@ int transitionId = 0;
 bool transitionInheritId;
 bool transitionInherit;
 
+transition([selection=null]) {
+  return selection == null
+      ? (transitionInheritId ? selection.transition() : selection)
+      : selectionRoot.transition();
+}
+
 class Transition {
   List<List> groups;
   var id;
@@ -48,7 +55,7 @@ class Transition {
 
   attr([nameNS=null, value=null]) {
 
-    if (nameNS==null && value==null) {
+    if (value==null) {
       // For attr(object), the object specifies the names and values of the
       // attributes to transition. The values may be functions that are
       // evaluated for each element.
@@ -134,7 +141,7 @@ class Transition {
 
   each([type=null, listener=null]) {
     var id = this.id;
-    if (type==null && listener==null) {
+    if (listener==null) {
       var inherit = transitionInherit,
           inheritId = transitionInheritId;
       transitionInheritId = id;
@@ -260,9 +267,100 @@ class Transition {
     return n;
   }
 
+  style([name=null, value=null, priority=null]) {
+    if (priority == null) {
+
+      // For style(object) or style(object, string), the object specifies the
+      // names and values of the attributes to set or remove. The values may be
+      // functions that are evaluated for each element. The optional string
+      // specifies the priority.
+      if (!(name is String)) {
+        if (value == null) value = "";
+        name.forEach((k, v) {
+          this.style(k, v, value);
+        });
+        return this;
+      }
+
+      // For style(string, string) or style(string, function), use the default
+      // priority. The priority is ignored for style(string, null).
+      priority = "";
+    }
+
+    // For style(name, null) or style(name, null, priority), remove the style
+    // property with the specified name. The priority is ignored.
+    styleNull(node) {
+      node.style.removeProperty(name);
+    }
+
+    // For style(name, string) or style(name, string, priority), set the style
+    // property with the specified name, using the specified priority.
+    // Otherwise, a name, value and priority are specified, and handled as below.
+    styleString(node, b) {
+      if (b == null) {
+        return styleNull;
+      } else {
+        b += "";
+        return () {
+          var a = window.getComputedStyle(this, null).getPropertyValue(name), i;
+          if (a != b) {
+            i = interpolate(a, b);
+            return (t) {
+              node.style.setProperty(name, i(t), priority);
+            };
+          }
+        };
+      }
+    }
+
+    return transition_tween(this, "style." + name, value, styleString);
+  }
+
+  styleTween(name, tween, [priority=""]) {
+    styleTween(d, i) {
+      var f = tween(this, d, i, window.getComputedStyle(this, null).getPropertyValue(name));
+      if (f != null) {
+        return (t) {
+          this.style.setProperty(name, f(t), priority);
+        };
+      }
+    }
+
+    return this.tween("style." + name, styleTween);
+  }
+
+  transition() {
+    var id0 = this.id,
+        id1 = ++transitionId,
+        subgroups = [],
+        subgroup,
+        group,
+        node,
+        transition;
+
+    for (var j = 0, m = this.length; j < m; j++) {
+      subgroups.add(subgroup = []);
+      for (var group = this[j], i = 0, n = group.length; i < n; i++) {
+        node = group[i];
+        if (node != null) {
+          transition = new Object(nodeTransition(node)[id0]);
+          transition.delay += transition.duration;
+          transitionNode(node, i, id1, transition);
+        }
+        subgroup.add(node);
+      }
+    }
+
+    return new Transition(subgroups, id1);
+  }
+
+  text(value) {
+    return transition_tween(this, "text", value, transition_text);
+  }
+
   tween([name=null, tween=null]) {
     var id = this.id;
-    if (name==null && tween==null) {
+    if (tween==null) {
       return nodeTransition(this.node())[id].tween.get(name);
     }
     return eachGroup(this, tween == null

@@ -3,6 +3,8 @@ library interpolate;
 import 'dart:math' as math;
 
 import '../color/color.dart' as color;
+import '../math/math.dart';
+import '../core/core.dart' as core;
 import '../utils.dart' as utils;
 
 part 'rgb.dart';
@@ -12,6 +14,8 @@ part 'number.dart';
 part 'array.dart';
 part 'object.dart';
 part 'uninterpolate.dart';
+part 'transform.dart';
+part 'ease.dart';
 
 interpolate(a, b) {
   var i = interpolators.length;
