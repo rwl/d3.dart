@@ -28,5 +28,5 @@ class ConicEqualArea {
 }
 
 conicEqualArea() {
-  return conic(ConicEqualArea);
+  return new Conic(ConicEqualArea);
 }

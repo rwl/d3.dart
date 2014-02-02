@@ -7,7 +7,7 @@ class Conic {
   Conic(projectAt) {
     this.phi0 = 0;
     this.phi1 = pi / 3;
-    this.m = projectionMutator(projectAt);
+    this.m = new ProjectionMutator(projectAt);
     this.p = m(phi0, phi1);
   }
 
