@@ -13,6 +13,9 @@ part 'azimuthal_equal_area.dart';
 part 'azimuthal_equidistant.dart';
 part 'bounds.dart';
 part 'cartesian.dart';
+part 'centroid.dart';
+part 'circle.dart';
+part 'clip.dart';
 part 'conic.dart';
 part 'conic_equal_area.dart';
 
