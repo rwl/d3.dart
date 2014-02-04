@@ -13,11 +13,11 @@ class DSV {
     this.delimiterCode = delimiter.codeUnitAt(0);
   }
 
-  dsv(url, row, [callback=null]) {
-    if (callback == null) {
-      callback = row;
-      row = null;
-    }
+  call(url, {row:null, callback:null}) {
+//    if (callback == null) {
+//      callback = row;
+//      row = null;
+//    }
     var xhr = d3_xhr(url, mimeType, row == null ? response : typedResponse(row), callback);
 
     xhr.row = ([r=null]) {
