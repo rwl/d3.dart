@@ -12,33 +12,22 @@
   color: white;
 }
 
+.chart rect {
+  fill: steelblue;
+}
+
+.chart text {
+  fill: white;
+  font: 10px sans-serif;
+  text-anchor: end;
+}
+
 </style>
 <body>
 <div class="chart"></div>
-<script type="application/dart">
-
-import 'package:d3/scale/scale.dart';
-import 'package:d3/arrays/arrays.dart';
-import 'package:d3/selection/selection.dart';
-
-main() {
-
-var data = [4, 8, 15, 16, 23, 42];
-
-var x = new Linear()
-    ..domain = [0, max(data)]
-    ..range = [0, 420];
-
-select(".chart")
-  .selectAll("div")
-    .data(data)
-  .enter().append("div")
-    .style("width", (n, d) { return "${x(d)}px"; })
-    .text((n, d) { return d; });
-
-}
-</script>
-
+<!-- <script src="bar_chart.dart.js"></script>
+<script type="application/dart" src="bar_chart.dart"></script> -->
+<script type="application/dart" src="bar_chart2.dart"></script>
 <script src="packages/browser/dart.js"></script>
 </body>
 </html>
