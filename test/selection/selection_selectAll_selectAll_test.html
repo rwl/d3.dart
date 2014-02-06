@@ -9,11 +9,15 @@ import 'package:unittest/html_enhanced_config.dart';
 import 'package:d3/selection/selection.dart';
 
 main() {
-//  useHtmlEnhancedConfiguration();
+  useHtmlEnhancedConfiguration();
 
   group('selectAll(div)', () {
     group('on a simple page', () {
-      var div = select('body').selectAll('div').data([0, 1]).enter().append('div');
+      var div = new Selection.fromSelector('body')
+        .selectAll('div')
+          .data([0, 1])
+            .enter()
+              .append('div');
       div.append('span').attr('class', 'first');
       div.append('span').attr('class', 'second');
       test('selects all matching elements', () {

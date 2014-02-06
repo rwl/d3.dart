@@ -13,7 +13,11 @@ main() {
 
   group('selectAll(div)', () {
     group('on a simple page', () {
-      var div = select('body').selectAll('div').data([0, 1]).enter().append('div');
+      var div = new Selection.fromSelector('body')
+        .selectAll('div')
+          .data([0, 1])
+            .enter()
+              .append('div');
       div.append('span').attr('class', 'first');
       div.append('span').attr('class', 'second');
       test('selects the first matching element', () {

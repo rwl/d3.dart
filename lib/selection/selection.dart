@@ -13,32 +13,38 @@ part 'each.dart';
 part 'enter.dart';
 part 'select.dart';
 part 'style.dart';
+part 'expando.dart';
 
 const String unique = '8fc4ac4743d2195d2b44bbbcff2ac2c73f82c71d';
 
-final parentProp = new Expando<Node>('parentNode');
-
-parentNode(List group, [Node node = null]) {
-  if (node == null) {
-    return parentProp[group];
-  }
-  parentProp[group] = node;
-}
-
-final updateProp = new Expando<List>('update');
-
-updateGroup(List group, [List upgroup = null]) {
-  if (upgroup == null) {
-    return updateProp[group];
-  }
-  updateProp[group] = upgroup;
-}
-
 class Selection extends EnteringSelection {
-
   Function enter, exit;
 
-  Selection(List groups) : super(groups);
+  Selection(List<List<Element>> groups) : super(groups);
+
+  factory Selection.fromSelector(final String s) {
+    final List<Element> group = [document.querySelector(s)];
+    parentNode(group, document);
+    return new Selection([group]);
+  }
+
+  factory Selection.ofNode(final Element node) {
+    final List<Element> group = [node];
+    parentNode(group, document);
+    return new Selection([group]);
+  }
+
+  factory Selection.fromSelectorAll(final String s) {
+    final List<Element> group = document.querySelectorAll(s);
+    parentNode(group, document);
+    return new Selection([group]);
+  }
+
+  factory Selection.ofNodes(final List<Element> nodes) {
+    final List<Element> group = nodes;
+    parentNode(group, document);
+    return new Selection([group]);
+  }
 
   attr(name, [value = unique]) {
     if (value == unique) {
@@ -325,20 +331,4 @@ class Selection extends EnteringSelection {
     }
   }
 
-}
-
-selectNode(s, n) { return n.querySelector(s); }
-
-selectNodeAll(s, n) { return n.querySelectorAll(s); }
-
-select(node) {
-  var group = [node is String ? selectNode(node, document) : node];
-  parentNode(group, document);
-  return new Selection([group]);
-}
-
-selectAll(nodes) {
-  var group = [nodes is String ? selectNodeAll(nodes, document) : nodes];
-  parentNode(group, document);
-  return new Selection([group]);
 }

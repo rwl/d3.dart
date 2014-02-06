@@ -13,7 +13,7 @@ main() {
 
   group('select(body)', () {
     group('on a simple page', () {
-      Selection body = select('body');
+      final Selection body = new Selection.fromSelector('body');
       body.append('div').attr('class', 'first');
       body.append('div').attr('class', 'second');
       test('selects all matching elements', () {

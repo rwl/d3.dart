@@ -13,12 +13,12 @@ main() {
 
   group('select(body)', () {
     test('removes the matching elements', () {
-      var div = select('body').append('div');
+      var div = new Selection.fromSelector('body').append('div');
       div.remove();
       expect(div[0][0].parentNode, /*dom*/isNull);
     });
     test('does not remove non-matching elements', () {
-      var body = select('body'),
+      var body = new Selection.fromSelector('body'),
           div1 = body.append('div'),
           div2 = body.append('div');
       div1.remove();
@@ -34,7 +34,7 @@ main() {
       expect(div2[0][1].parentNode, /*dom*/isNull);
     });*/
     test('returns the current selection', () {
-      var div = select('body').append('div');
+      var div = new Selection.fromSelector('body').append('div');
       expect(div.remove(), same(div));
     });
   });

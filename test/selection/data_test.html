@@ -19,7 +19,7 @@ main() {
 
   group('select(body)', () {
     group('on a simple page', () {
-      Selection body = select('body');
+      final Selection body = new Selection.fromSelector('body');
 
       test('assigns data as an array', () {
         var data = new Object();
@@ -61,7 +61,7 @@ main() {
 
   group('selectAll(div)', () {
     group('on a simple page', () {
-      Selection div = select('body').selectAll('div').data([0, 1]).enter().append('div');
+      final Selection div = new Selection.fromSelector('body').selectAll('div').data([0, 1]).enter().append('div');
       test('assigns data as an array', () {
         var a = new Object(), b = new Object();
         div.data([a, b]);

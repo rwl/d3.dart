@@ -13,7 +13,7 @@ main() {
 
   group('select(body)', () {
     group('on a simple page', () {
-      Selection body = select('body');
+      final Selection body = new Selection.fromSelector('body');
       test('sets the inner HTML as a string', () {
         body.html('<h1>Hello, world!</h1>');
         expect(body.node().firstChild.tagName, equals('H1'));

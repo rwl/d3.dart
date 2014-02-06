@@ -1,7 +1,7 @@
 part of selection;
 
 class EnteringSelection {
-  List<List> groups;
+  List<List<Element>> groups;
   EnteringSelection(this.groups);
 
   get length => groups.length;
