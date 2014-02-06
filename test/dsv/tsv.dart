@@ -4,9 +4,12 @@ import 'package:d3/dsv/dsv.dart' as dsv;
 void main() {
   group('tsv', () {
     group('on a sample file', () {
-      var tsv = dsv.tsv('../data/sample.tsv');
+      var tsvResp;
+      dsv.tsv('../data/sample.tsv', callback: (error, tsv) {
+        tsvResp = tsv;
+      });
       test('invokes the callback with the parsed tsv', () {
-        expect(tsv, equals([{'Hello':42,'World':'"fish"'}]));
+        expect(tsvResp, equals([{'Hello':42,'World':'"fish"'}]));
       });
       /*test('overrides the mime type to text/tab-separated-values', () {
         expect(XMLHttpRequest._last._info.mimeType, equals('text/tab-separated-values'));

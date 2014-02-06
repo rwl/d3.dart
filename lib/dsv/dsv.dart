@@ -1,5 +1,7 @@
 library d3.dsv;
 
+import 'dart:html';
+
 part 'csv.dart';
 part 'tsv.dart';
 
@@ -18,6 +20,11 @@ class DSV {
 //      callback = row;
 //      row = null;
 //    }
+
+    HttpRequest.request(url, method: "GET", mimeType: mimeType)
+    .then((resp) {
+
+    });
     var xhr = d3_xhr(url, mimeType, row == null ? response : typedResponse(row), callback);
 
     xhr.row = ([r=null]) {
