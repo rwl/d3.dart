@@ -11,11 +11,13 @@ part 'attr.dart';
 part 'data.dart';
 part 'each.dart';
 part 'enter.dart';
-part 'select.dart';
 part 'style.dart';
 part 'expando.dart';
 
 const String unique = '8fc4ac4743d2195d2b44bbbcff2ac2c73f82c71d';
+
+typedef Element selectFunction(Element node, var data, int i, int j);
+typedef List<Element> selectAllFunction(Element node, var data, int i, int j);
 
 class Selection extends EnteringSelection {
   Function enter, exit;
@@ -229,20 +231,25 @@ class Selection extends EnteringSelection {
     });
   }
 
-  select(s) {
-    List subgroups = [], subgroup;
-    var subnode, group, node;
+  Selection select(final String selector) {
+    return selectFunc((Element node, var data, int i, int j) {
+      return node.querySelector(selector);
+    });
+  }
 
-    s = selector(s);
+  Selection selectFunc(final selectFunction selector) {
+    final List<List<Element>> subgroups = [];
+    List<Element> subgroup;
+    var subnode, group, node;
 
     for (var j = -1, m = this.length; ++j < m;) {
       subgroups.add(subgroup = []);
       group = this[j];
       parentNode(subgroup, parentNode(group));
       for (var i = -1, n = group.length; ++i < n;) {
-        node = group[i];
+        final Element node = group[i];
         if (node != null) {
-          subgroup.add(subnode = s(node, nodeData(node), i, j));
+          subgroup.add(subnode = selector(node, nodeData(node), i, j));
           if (subnode is Element && hasData(node)) {
             nodeData(subnode, nodeData(node));
           }
@@ -255,18 +262,20 @@ class Selection extends EnteringSelection {
     return new Selection(subgroups);
   }
 
-  selectAll(selector) {
-    var subgroups = [],
-        subgroup,
-        node;
+  Selection selectAll(final String selector) {
+    return selectAllFunc((Element node, var data, int i, int j) {
+      return node.querySelectorAll(selector);
+    });
+  }
 
-    selector = selectorAll(selector);
+  Selection selectAllFunc(final selectAllFunction selector) {
+    final List<List<Element>> subgroups = [];
 
     for (var j = -1, m = this.length; ++j < m;) {
       for (var group = this[j], i = -1, n = group.length; ++i < n;) {
-        node = group[i];
+        final Element node = group[i];
         if (node != null) {
-          subgroup = selector(node, nodeData(node), i, j);
+          final List<Element> subgroup = selector(node, nodeData(node), i, j);
           subgroups.add(subgroup);
           parentNode(subgroup, node);
         }

@@ -46,8 +46,8 @@ main() {
       });
       test('can select via function', () {
         var d = {}, dd = [], ii = [], tt = [];
-        var s = body.data([d]).selectAll((node, d, i) {
-          dd.add(d); ii.add(i); tt.add(node);
+        var s = body.data([d]).selectAllFunc((node, data, i, j) {
+          dd.add(data); ii.add(i); tt.add(node);
           return node.childNodes;
         });
         expect(dd, equals([d]));

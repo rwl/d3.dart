@@ -58,7 +58,7 @@ main() {
       });
       test('can select via function', () {
         var dd = [], ii = [], tt = [];
-        var s = div.data(['a', 'b']).select((node, d, i) {
+        var s = div.data(['a', 'b']).selectFunc((node, d, i, j) {
           dd.add(d); ii.add(i); tt.add(node);
           return node.firstChild;
         });

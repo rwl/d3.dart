@@ -59,7 +59,7 @@ main() {
       });
       test('can select via function', () {
         var dd = [], ii = [], tt = [];
-        var s = div.data(['a', 'b']).selectAll((node, d, i) {
+        var s = div.data(['a', 'b']).selectAllFunc((node, d, i, j) {
           dd.add(d); ii.add(i); tt.add(node);
           return node.childNodes;
         });

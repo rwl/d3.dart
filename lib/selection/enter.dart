@@ -16,7 +16,7 @@ class EnteringSelection {
 
   append(name) {
     name = creator(name);
-    return this.select((node, data, i, j) {
+    return this.selectFunc((node, data, i, j) {
       return node.append(name(node, data, i, j));
     });
   }
@@ -31,7 +31,7 @@ class EnteringSelection {
     return null;
   }
 
-  select(s) {
+  selectFunc(final selectFunction selector) {
     var subgroups = [],
         subgroup,
         subnode,
@@ -47,7 +47,8 @@ class EnteringSelection {
       for (var i = -1, n = group.length; ++i < n;) {
         node = group[i];
         if (node != null) {
-          upgroup[i] = subnode = s(parentNode(group), nodeData(node), i, j);
+          upgroup[i] = subnode = selector(parentNode(group),
+              nodeData(node), i, j);
           subgroup.add(subnode);
           nodeData(subnode, nodeData(node));
         } else {

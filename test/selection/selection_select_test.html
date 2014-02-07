@@ -50,7 +50,7 @@ main() {
       test('can select via function', () {
         body.append('foo');
         var d = {}, dd = [], ii = [], tt = [];
-        var s = body.data([d]).select((node, d, i) {
+        var s = body.data([d]).selectFunc((node, d, i, j) {
           dd.add(d); ii.add(i); tt.add(node); return node.firstChild;
         });
         expect(dd, equals([d]));
