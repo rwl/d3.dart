@@ -12,21 +12,21 @@ main() {
         var div = body.append('div');
         expect(div[0][0].tagName, equals('DIV'));
         expect(div[0][0].namespaceUri, equals('http://www.w3.org/1999/xhtml')/*isNull*/);
-        expect(div[0][0].parentNode == body.node(), isTrue);
-        expect(div[0][0] == body.node().lastChild, isTrue);
+        expect(div[0][0].parentNode == body.node, isTrue);
+        expect(div[0][0] == body.node.lastChild, isTrue);
       });
       test('appends an SVG element', () {
         var svg = body.append('svg:svg');
         expect(svg[0][0].tagName, equals('svg')/*equals('SVG')*/);
         expect(svg[0][0].namespaceUri, equals('http://www.w3.org/2000/svg'));
-        expect(svg[0][0].parentNode, same(body.node()));
-        expect(svg[0][0], same(body.node().lastChild));
+        expect(svg[0][0].parentNode, same(body.node));
+        expect(svg[0][0], same(body.node.lastChild));
       });
       test('appends an element specified as a function', () {
-        var svg = body.select('svg').remove().node();
-        //expect(svg, same(body.node().lastChild));
+        var svg = body.select('svg').remove().node;
+        //expect(svg, same(body.node.lastChild));
         body.appendFunc((n, d, i, j) { return svg; });
-        expect(svg, same(body.node().lastChild));
+        expect(svg, same(body.node.lastChild));
       });
       /*test('propagates data to new element', () {
         var data = new Object();

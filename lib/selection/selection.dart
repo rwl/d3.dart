@@ -65,7 +65,7 @@ class Selection extends EnteringSelection {
    */
   String nodeAttr(final String name) {
     // For attr(string), return the attribute value for the first node.
-    final node = this.node();
+    final node = this.node;
     final qualified = core.qualify(name);
     final val = (qualified.space != null)
         ? node.getAttributeNS(qualified.space, qualified.local)
@@ -214,7 +214,7 @@ class Selection extends EnteringSelection {
   }
 
   bool empty() {
-    return this.node() == null;
+    return this.node == null;
   }
 
   html([value = unique]) {
@@ -233,7 +233,7 @@ class Selection extends EnteringSelection {
       }
       return this.each(fn);
     } else {
-      return this.node().innerHtml;
+      return this.node.innerHtml;
     }
   }
 
@@ -310,7 +310,7 @@ class Selection extends EnteringSelection {
    * Returns the computed style value for the first node.
    */
   String nodeStyle(final String name) {
-    return node().getComputedStyle().getPropertyValue(name);
+    return node.getComputedStyle().getPropertyValue(name);
   }
 
   /**
@@ -369,24 +369,46 @@ class Selection extends EnteringSelection {
     });
   }
 
-  text([value = unique]) {
-    if (value != unique) {
-      Function fn;
-      if (value is Function) {
-        fn = (node, data, i, j) {
-          utils.FnWith4Args fnWith4Args = utils.relaxFn4Args(value);
-          var v = fnWith4Args(node, data, i, j);
-          node.text = (v == null ? "" : v.toString());
-        };
-      } else if (value == null) {
-        fn = (node) { node.text = ""; };
-      } else {
-        fn = (node) { node.text = value.toString(); };
-      }
-      return each(fn);
-    } else {
-      return this.node().text;
+  /**
+   * Returns the text content for the first non-null element in the selection.
+   */
+  String get nodeText {
+    return this.node.text;
+  }
+
+  /**
+   * The specified function is evaluated for each selected element (in order),
+   * being passed the current datum, the current index and the current DOM
+   * element. The function's return value is then used to set each element's
+   * text content. A null value will clear the content.
+   */
+  textFunc(final objectFunction fn) {
+    each((node, data, i, j) {
+      var v = fn(node, data, i, j);
+      node.text = (v == null ? "" : v.toString());
+    });
+  }
+
+  /**
+   * Clears the text content for each element in the current selection.
+   */
+  textNull() {
+    each((node, data, i, j) {
+      node.text = "";
+    });
+  }
+
+  /**
+   * Sets the text content to the specified value on all selected elements.
+   */
+  text(final Object value) {
+    if (value == null) {
+      textNull();
+      return;
     }
+    each((node, data, i, j) {
+      node.text = value.toString();
+    });
   }
 
 }

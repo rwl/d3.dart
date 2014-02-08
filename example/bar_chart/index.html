@@ -34,8 +34,8 @@ new Selection.fromSelector('.chart')
   .data(data)
   .enter()
   .append('div')
-  ..styleFn("width", (d) { return "${x(d)}px"; })
-  ..textFn((n, d) { return d; });
+  ..styleFunc("width", (d) { return "${x(d)}px"; })
+  ..textFunc((n, d, i, j) { return d; });
 
 }
 </script>

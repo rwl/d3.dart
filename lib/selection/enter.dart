@@ -49,7 +49,7 @@ class EnteringSelection {
     });
   }
 
-  Element node() {
+  Element get node {
     for (int j = 0, m = this.length; j < m; j++) {
       final group = this[j];
       final n = group.length;

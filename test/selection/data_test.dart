@@ -18,16 +18,16 @@ main() {
       test('assigns data as an array', () {
         var data = new Object();
         body.data([data]);
-        expect(nodeData(body.node()), same(data));
+        expect(nodeData(body.node), same(data));
       });
       test('assigns data as a function', () {
         var data = new Object();
         body.dataFunc((g, d, i) { return [data]; });
-        expect(nodeData(body.node()), same(data));
+        expect(nodeData(body.node), same(data));
       });
       test('stores data in the DOM', () {
         var expected = new Object(), actual;
-        nodeData(body.node(), expected);
+        nodeData(body.node, expected);
         body.each((n, d, i, j) { actual = d; });
         expect(actual, same(expected));
       });
