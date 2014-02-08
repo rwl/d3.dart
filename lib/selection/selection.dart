@@ -24,7 +24,7 @@ typedef String dataKeyFunction(var thiz, int i);
 typedef EnteringSelection enterFunction();
 typedef Selection exitFunction();
 
-typedef Object attrFunction(Element node, Object data, int i, int j);
+typedef Object objectFunction(Element node, Object data, int i, int j);
 
 typedef eachFunction(Element node, Object data, int i, int j);
 
@@ -82,7 +82,7 @@ class Selection extends EnteringSelection {
     attrs.forEach((final String name, final Object value) {
       if (value == null) {
         attrNull(name);
-      } else if (value is attrFunction) {
+      } else if (value is objectFunction) {
         attrFunc(name, value);
       } else {
         attr(name, value);
@@ -97,6 +97,7 @@ class Selection extends EnteringSelection {
   attr(final String name, final Object value) {
     if (value == null) {
       attrNull(name);
+      return;
     }
     final qualified = core.qualify(name);
     if (qualified.space != null) {
@@ -133,7 +134,7 @@ class Selection extends EnteringSelection {
    * DOM element. The function's return value is then used to set each
    * element's attribute. A null value will remove the specified attribute.
    */
-  attrFunc(final String name, final attrFunction fn) {
+  attrFunc(final String name, final objectFunction fn) {
     final qualified = core.qualify(name);
     if (qualified.space != null) {
       each((node, data, i, j) {
@@ -305,33 +306,67 @@ class Selection extends EnteringSelection {
     return n;
   }
 
-  style(name, [value = unique, priority = null]) {
-    if (priority == null) {
+  /**
+   * Returns the computed style value for the first node.
+   */
+  String nodeStyle(final String name) {
+    return node().getComputedStyle().getPropertyValue(name);
+  }
 
-      // For style(object) or style(object, string), the object specifies the
-      // names and values of the attributes to set or remove. The values may be
-      // functions that are evaluated for each element. The optional string
-      // specifies the priority.
-      if (!(name is String)) {
-        if (value == null) value = "";
-        name.forEach((k, v) {
-          this.each(styleNode(k, v, value));
-        });
-        return this;
+  /**
+   * The map specifies the names and values of the attributes to set or
+   * remove. The values may be functions that are evaluated for each
+   * element. The optional string specifies the priority.
+   */
+  styleMap(final Map<String, Object> map, [String priority=""]) {
+    map.forEach((final String name, final Object value) {
+      if (value == null) {
+        styleNull(name);
+      } else if (value is objectFunction) {
+        styleFunc(name, value, priority);
+      } else {
+        style(name, value, priority);
       }
+    });
+  }
 
-      // For style(string), return the computed style value for the first node.
-      if (value == unique) {
-        return this.node().getComputedStyle().getPropertyValue(name);
-      }
+  /**
+   * Remove the style property with the specified name.
+   */
+  styleNull(final String name) {
+    each((node, d, i, j) {
+      node.style.removeProperty(name);
+    });
+  }
 
-      // For style(string, string) or style(string, function), use the default
-      // priority. The priority is ignored for style(string, null).
-      priority = "";
+  /**
+   * Sets the style property with the specified name, using the specified
+   * priority.
+   */
+  style(final String name, final Object value, [String priority=""]) {
+    if (value == null) {
+      styleNull(name);
+      return;
     }
+    each((node, d, i, j) {
+      node.style.setProperty(name, value.toString(), priority);
+    });
+  }
 
-    // Otherwise, a name, value and priority are specified, and handled as below.
-    return this.each(styleNode(name, value, priority));
+  /**
+   * The specified function is evaluated for each element, and the style
+   * property set or removed as appropriate. When setting, the specified
+   * priority is used.
+   */
+  styleFunc(final String name, final objectFunction fn, [String priority=""]) {
+    each((node, d, i, j) {
+      final x = fn(node, d, i, j);
+      if (x == null) {
+        node.style.removeProperty(name);
+      } else {
+        node.style.setProperty(name, x.toString(), priority);
+      }
+    });
   }
 
   text([value = unique]) {

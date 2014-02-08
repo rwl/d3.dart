@@ -57,10 +57,10 @@ main() {
         body..attr('bgcolor', 'red')..attrNull('bgcolor');
         expect(body.nodeAttr('bgcolor'), isNull);
       });
-//      test('removes an attribute as null', () {
-//        body..attr('bgcolor', 'red')..attr('bgcolor', null);
-//        expect(body.nodeAttr('bgcolor'), isNull);
-//      });
+      test('removes an attribute as null', () {
+        body..attr('bgcolor', 'red')..attr('bgcolor', null);
+        expect(body.nodeAttr('bgcolor'), isNull);
+      });
       test('removes an attribute as a function', () {
         body..attr('bgcolor', 'red')..attrFunc('bgcolor',
             (n, d, i, j) { return null; });
