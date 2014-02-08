@@ -1,5 +1,7 @@
 part of selection;
 
+typedef appendFunction(Element node, var data, int i, int j);
+
 class EnteringSelection {
 
   final List<List<Element>> groups;
@@ -12,28 +14,56 @@ class EnteringSelection {
     return groups[i];
   }
 
-  add(nodes) {
+  add(final List<Element> nodes) {
     this.groups.add(nodes);
   }
 
-  append(name) {
-    name = creator(name);
+  /**
+   * Appends a new element with the specified name as the last child of
+   * each element in the current selection, returning a new selection
+   * containing the appended elements.
+   */
+  Selection append(final String name) {
+    final qualified = core.qualify(name);
+    appendFunction fn;
+    if (qualified.space != null) {
+      fn = (final Element node, _d, _i, _j) {
+        return node.ownerDocument.createElementNS(qualified.space, qualified.local);
+      };
+    } else {
+      fn = (final Element node, _d, _i, _j) {
+        return node.ownerDocument.createElementNS(node.namespaceUri, qualified.local);
+      };
+    }
+    return this.appendFunc(fn);
+  }
+
+  /**
+   * The specified function is called for each element in the current
+   * selection and returned element is appended as the last child.
+   * A new selection containing the appended elements is returned.
+   */
+  Selection appendFunc(final appendFunction fn) {
     return this.selectFunc((node, data, i, j) {
-      return node.append(name(node, data, i, j));
+      return node.append(fn(node, data, i, j));
     });
   }
 
-  node() {
-    for (var j = 0, m = this.length; j < m; j++) {
-      for (var group = this[j], i = 0, n = group.length; i < n; i++) {
-        var node = group[i];
-        if (node != null) return node;
+  Element node() {
+    for (int j = 0, m = this.length; j < m; j++) {
+      final group = this[j];
+      final n = group.length;
+      for (int i = 0; i < n; i++) {
+        final node = group[i];
+        if (node != null) {
+          return node;
+        }
       }
     }
     return null;
   }
 
-  selectFunc(final selectFunction selector) {
+  Selection selectFunc(final selectFunction selector) {
     final subgroups = new List<List<Element>>();
 
     for (int j = -1, m = this.length; ++j < m;) {

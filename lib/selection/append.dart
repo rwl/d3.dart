@@ -5,7 +5,7 @@ creator(name) {
     return utils.relaxFn4Args(name);
   } else {
     name = core.qualify(name);
-    if (name is core.Name) {
+    if (name.space != null) {
       return (Element node, data, int i, int j) {
         return node.ownerDocument.createElementNS(name.space, name.local);
       };
