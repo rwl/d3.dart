@@ -30,11 +30,11 @@ var x = new Linear()
     ..range = [0, 420];
 
 new Selection.fromSelector('.chart')
-  ..selectAll('div')
+  .selectAll('div')
   .data(data)
   .enter()
   .append('div')
-  ..styleFunc("width", (d) { return "${x(d)}px"; })
+  ..styleFunc("width", (n, d, i, j) { return "${x(d)}px"; })
   ..textFunc((n, d, i, j) { return d; });
 
 }
