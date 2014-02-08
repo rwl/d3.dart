@@ -22,7 +22,7 @@ main() {
         //expect(div[0][0], same(body.node().firstChild));
         expect(div.length, equals(1));
         expect(div[0].length, equals(1));
-        expect(div.attr('class'), equals('first'));
+        expect(div.nodeAttr('class'), equals('first'));
       });
       test('propagates parent node to the selected elements', () {
         var div = body.select('div');
@@ -35,11 +35,11 @@ main() {
         expect(nodeData(div[0][0]), same(data));
       });
       test('does not propagate data if no data was specified', () {
-        dataProp[body.node()] = null;
+        dataProp[body.node] = null;
         var data = new Object(), div = body.select('div').data([data]);
         div = body.select('div');
         expect(nodeData(div[0][0]), same(data));
-        expect(nodeData(body.node()), isNull);
+        expect(nodeData(body.node), isNull);
       });
       test('returns null if no match is found', () {
         var span = body.select('span');
@@ -55,9 +55,9 @@ main() {
         });
         expect(dd, equals([d]));
         expect(ii, equals([0]));
-        expect(tt[0], equals(body.node()));
-        expect(s[0][0], equals(body.node().firstChild));
-        dataProp[body.node()] = null;
+        expect(tt[0], equals(body.node));
+        expect(s[0][0], equals(body.node.firstChild));
+        dataProp[body.node] = null;
       });
     });
   });

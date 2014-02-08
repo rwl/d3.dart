@@ -26,12 +26,12 @@ main() {
         expect(span[0][1].parentNode, same(div[0][1]));
         expect(span.length, equals(1));
         expect(span[0].length, equals(2));
-        expect(span.attr('class'), equals('first'));
+        expect(span.nodeAttr('class'), equals('first'));
       });
       test('propagates parent node to the selected elements', () {
         var span = div.select('span');
         expect(parentNode(span[0]), isNotNull);
-        expect(parentNode(span[0]), same(div.node().parentNode));
+        expect(parentNode(span[0]), same(div.node.parentNode));
         expect(parentNode(span[0]), same(parentNode(div[0])));
       });
       test('propagates data to the selected elements', () {

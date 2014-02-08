@@ -217,36 +217,58 @@ class Selection extends EnteringSelection {
     return this.node == null;
   }
 
-  html([value = unique]) {
-    if (value != unique) {
-      Function fn;
-      if (value is Function) {
-        fn = (node, data, i, j) {
-          utils.FnWith4Args fnWith4Args = utils.relaxFn4Args(value);
-          var v = fnWith4Args(node, data, i, j);
-          node.innerHtml = (v == null ? "" : v);
-        };
-      } else if (value == null) {
-        fn = (node) { node.innerHtml = ""; };
-      } else {
-        fn = (node) { node.innerHtml = value.toString(); };
-      }
-      return this.each(fn);
-    } else {
-      return this.node.innerHtml;
+  /**
+   * Returns the inner HTML content for the first non-null element in the
+   * selection.
+   */
+  String get nodeHtml {
+    return this.node.innerHtml;
+  }
+
+  /**
+   * The specified function is evaluated for each selected element (in order),
+   * being passed the current datum, the current index and the current DOM
+   * element. The function's return value is then used to set each element's
+   * inner HTML content. A null value will clear the content.
+   */
+  htmlFunc(final objectFunction fn) {
+    each((node, data, i, j) {
+      var v = fn(node, data, i, j);
+      node.innerHtml = (v == null ? "" : v.toString());
+    });
+  }
+
+  /**
+   * Clears the inner HTML content of all selected elements.
+   */
+  htmlNull() {
+    each((node, data, i, j) {
+      node.innerHtml = "";
+    });
+  }
+
+  /**
+   * Sets the inner HTML content to the specified value on all selected
+   * elements.
+   */
+  html(final Object value) {
+    if (value == null) {
+      htmlNull();
+      return;
     }
+    each((node, data, i, j) {
+      node.innerHtml = value.toString();
+    });
   }
 
   remove() {
     return this.each((node, data, i, j) {
       node.remove();
-//      var parent = parentNode(node);
-//      if (parent != null) parent.removeChild(node);
     });
   }
 
   Selection select(final String selector) {
-    return selectFunc((final Element node, _d, _i, _j) {
+    return selectFunc((final Element node, d, i, j) {
       return node.querySelector(selector);
     });
   }
@@ -300,7 +322,7 @@ class Selection extends EnteringSelection {
     return new Selection(subgroups);
   }
 
-  int size() {
+  int get size {
     int n = 0;
     this.each((e, d, i, j) { ++n; });
     return n;

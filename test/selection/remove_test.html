@@ -22,7 +22,7 @@ main() {
           div1 = body.append('div'),
           div2 = body.append('div');
       div1.remove();
-      expect(div2[0][0].parentNode, /*dom*/equals(body.node()));
+      expect(div2[0][0].parentNode, /*dom*/equals(body.node));
     });
     /*test('ignores null nodes', () {
       var div1 = select('body').append('div');
@@ -35,7 +35,7 @@ main() {
     });*/
     test('returns the current selection', () {
       var div = new Selection.fromSelector('body').append('div');
-      expect(div.remove(), same(div));
+      expect(div..remove(), same(div));
     });
   });
 }
