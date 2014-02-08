@@ -1,12 +1,14 @@
 part of selection;
 
 class EnteringSelection {
-  List<List<Element>> groups;
+
+  final List<List<Element>> groups;
+
   EnteringSelection(this.groups);
 
-  get length => groups.length;
+  int get length => groups.length;
 
-  operator [](i) {
+  List<Element> operator [](i) {
     return groups[i];
   }
 
@@ -32,23 +34,19 @@ class EnteringSelection {
   }
 
   selectFunc(final selectFunction selector) {
-    var subgroups = [],
-        subgroup,
-        subnode,
-        upgroup,
-        group,
-        node;
+    final subgroups = new List<List<Element>>();
 
-    for (var j = -1, m = this.length; ++j < m;) {
-      group = this[j];
-      upgroup = updateGroup(group);
-      subgroups.add(subgroup = []);
+    for (int j = -1, m = this.length; ++j < m;) {
+      final group = this[j];
+      final upgroup = updateGroup(group);
+      final subgroup = new List<Element>();
+      subgroups.add(subgroup);
       parentNode(subgroup, parentNode(group));
-      for (var i = -1, n = group.length; ++i < n;) {
-        node = group[i];
+      for (int i = -1, n = group.length; ++i < n;) {
+        final node = group[i];
         if (node != null) {
-          upgroup[i] = subnode = selector(parentNode(group),
-              nodeData(node), i, j);
+          final subnode = selector(parentNode(group), nodeData(node), i, j);
+          upgroup[i] = subnode;
           subgroup.add(subnode);
           nodeData(subnode, nodeData(node));
         } else {

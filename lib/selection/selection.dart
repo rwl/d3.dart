@@ -22,31 +22,36 @@ typedef List<Element> selectAllFunction(Element node, var data, int i, int j);
 typedef List dataFunction(List<Element> group, var data, int i);
 typedef String dataKeyFunction(var thiz, int i);
 
-class Selection extends EnteringSelection {
-  Function enter, exit;
+typedef EnteringSelection enterFunction();
+typedef Selection exitFunction();
 
-  Selection(List<List<Element>> groups) : super(groups);
+class Selection extends EnteringSelection {
+
+  enterFunction enter = () => null;
+  exitFunction exit = () => null;
+
+  Selection(final List<List<Element>> groups) : super(groups);
 
   factory Selection.fromSelector(final String s) {
-    final List<Element> group = [document.querySelector(s)];
+    final group = [document.querySelector(s)];
     parentNode(group, document);
     return new Selection([group]);
   }
 
   factory Selection.ofNode(final Element node) {
-    final List<Element> group = [node];
+    final group = [node];
     parentNode(group, document);
     return new Selection([group]);
   }
 
   factory Selection.fromSelectorAll(final String s) {
-    final List<Element> group = document.querySelectorAll(s);
+    final group = document.querySelectorAll(s);
     parentNode(group, document);
     return new Selection([group]);
   }
 
   factory Selection.ofNodes(final List<Element> nodes) {
-    final List<Element> group = nodes;
+    final group = nodes;
     parentNode(group, document);
     return new Selection([group]);
   }
@@ -79,12 +84,12 @@ class Selection extends EnteringSelection {
    * Returns the array of data for the first group in the selection.
    */
   List get groupData {
-    final List<Element> group = this[0];
-    final int n = group.length;
-    final List value = new List(n);
+    final group = this[0];
+    final n = group.length;
+    final value = new List(n);
     int i = -1;
     while (++i < n) {
-      final Element node = group[i];
+      final node = group[i];
       if (node != null) {
         value[i] = nodeData(node);
       }
@@ -106,19 +111,16 @@ class Selection extends EnteringSelection {
    * that returns an array.
    */
   Selection dataFunc(final dataFunction fn, [dataKeyFunction key=null]) {
-    List<Element> group;
-    Element node;
+    final enter = new EnteringSelection([]);
+    final update = new Selection([]);
+    final exit = new Selection([]);
 
-    EnteringSelection enter = new EnteringSelection([]);
-    Selection update = new Selection([]),
-        exit = new Selection([]);
-
-    var n = this.length;
+    final n = this.length;
     int i = -1;
 
     while (++i < n) {
-      group = this[i];
-      final List values = fn(group, nodeData(parentNode(group)), i);
+      final group = this[i];
+      final values = fn(group, nodeData(parentNode(group)), i);
       bind(group, values, key, enter, update, exit);
     }
 
@@ -158,9 +160,6 @@ class Selection extends EnteringSelection {
     }
   }
 
-  // TODO remove(selector)?
-  // TODO remove(node)?
-  // TODO remove(function)?
   remove() {
     return this.each((node, data, i, j) {
       node.remove();
@@ -170,24 +169,24 @@ class Selection extends EnteringSelection {
   }
 
   Selection select(final String selector) {
-    return selectFunc((Element node, var data, int i, int j) {
+    return selectFunc((final Element node, _d, _i, _j) {
       return node.querySelector(selector);
     });
   }
 
   Selection selectFunc(final selectFunction selector) {
-    final List<List<Element>> subgroups = [];
-    List<Element> subgroup;
-    var subnode, group, node;
+    final subgroups = new List<List<Element>>();
 
     for (var j = -1, m = this.length; ++j < m;) {
-      subgroups.add(subgroup = []);
-      group = this[j];
+      final subgroup = new List<Element>();
+      subgroups.add(subgroup);
+      final group = this[j];
       parentNode(subgroup, parentNode(group));
       for (var i = -1, n = group.length; ++i < n;) {
         final Element node = group[i];
         if (node != null) {
-          subgroup.add(subnode = selector(node, nodeData(node), i, j));
+          final subnode = selector(node, nodeData(node), i, j);
+          subgroup.add(subnode);
           if (subnode is Element && hasData(node)) {
             nodeData(subnode, nodeData(node));
           }
@@ -201,16 +200,17 @@ class Selection extends EnteringSelection {
   }
 
   Selection selectAll(final String selector) {
-    return selectAllFunc((Element node, var data, int i, int j) {
+    return selectAllFunc((final Element node, _d, _i, _j) {
       return node.querySelectorAll(selector);
     });
   }
 
   Selection selectAllFunc(final selectAllFunction selector) {
-    final List<List<Element>> subgroups = [];
+    final subgroups = new List<List<Element>>();
 
-    for (var j = -1, m = this.length; ++j < m;) {
-      for (var group = this[j], i = -1, n = group.length; ++i < n;) {
+    for (int j = -1, m = this.length; ++j < m;) {
+      final group = this[j];
+      for (int i = -1, n = group.length; ++i < n;) {
         final Element node = group[i];
         if (node != null) {
           final List<Element> subgroup = selector(node, nodeData(node), i, j);

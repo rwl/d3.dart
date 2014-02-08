@@ -11,7 +11,7 @@ parentNode(List<Element> group, [Node node = null]) {
 
 final updateProp = new Expando<List>('update');
 
-updateGroup(List<Element> group, [List upgroup = null]) {
+List<Element> updateGroup(List<Element> group, [List<Element> upgroup = null]) {
   if (upgroup == null) {
     return updateProp[group];
   }
