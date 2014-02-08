@@ -28,7 +28,7 @@ main() {
       test('stores data in the DOM', () {
         var expected = new Object(), actual;
         nodeData(body.node(), expected);
-        body.each((g, d, i) { actual = d; });
+        body.each((n, d, i, j) { actual = d; });
         expect(actual, same(expected));
       });
       test('returns a new selection', () {
@@ -82,7 +82,7 @@ main() {
         var a = new Object(), b = new Object(), actual = [];
         nodeData(div[0][0], a);
         nodeData(div[0][1], b);
-        div.each((n, d) { actual.add(d); });
+        div.each((n, d, i, j) { actual.add(d); });
         expect(actual, equals([a, b]));
       });
       test('returns a new selection', () {

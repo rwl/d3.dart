@@ -7,7 +7,6 @@ import '../core/core.dart' as core;
 import '../utils.dart' as utils;
 
 part 'append.dart';
-part 'attr.dart';
 part 'data.dart';
 part 'each.dart';
 part 'enter.dart';
@@ -16,14 +15,18 @@ part 'expando.dart';
 
 const String unique = '8fc4ac4743d2195d2b44bbbcff2ac2c73f82c71d';
 
-typedef Element selectFunction(Element node, var data, int i, int j);
-typedef List<Element> selectAllFunction(Element node, var data, int i, int j);
+typedef Element selectFunction(Element node, Object data, int i, int j);
+typedef List<Element> selectAllFunction(Element node, Object data, int i, int j);
 
-typedef List dataFunction(List<Element> group, var data, int i);
+typedef List dataFunction(List<Element> group, Object data, int i);
 typedef String dataKeyFunction(var thiz, int i);
 
 typedef EnteringSelection enterFunction();
 typedef Selection exitFunction();
+
+typedef Object attrFunction(Element node, Object data, int i, int j);
+
+typedef eachFunction(Element node, Object data, int i, int j);
 
 class Selection extends EnteringSelection {
 
@@ -56,28 +59,101 @@ class Selection extends EnteringSelection {
     return new Selection([group]);
   }
 
-  attr(name, [value = unique]) {
-    if (value == unique) {
+  /**
+   * Returns the value of the specified attribute for the first non-null
+   * element in the selection.
+   */
+  String nodeAttr(final String name) {
+    // For attr(string), return the attribute value for the first node.
+    final node = this.node();
+    final qualified = core.qualify(name);
+    final val = (qualified.space != null)
+        ? node.getAttributeNS(qualified.space, qualified.local)
+            : node.getAttribute(qualified.local);
+    return val == '' ? null : val;
+  }
 
-      // For attr(string), return the attribute value for the first node.
-      if (name is String) {
-        var node = this.node();
-        name = core.qualify(name);
-        var val = (name is core.Name)
-            ? node.getAttributeNS(name.space, name.local)
-                : node.getAttribute(name);
-        return val == '' ? null : val;
+  /**
+   * The map specifies the names and values of the attributes to set
+   * or remove. The values may be functions that are evaluated for
+   * each element.
+   */
+  attrMap(final Map<String, Object> attrs) {
+    attrs.forEach((final String name, final Object value) {
+      if (value == null) {
+        attrNull(name);
+      } else if (value is attrFunction) {
+        attrFunc(name, value);
+      } else {
+        attr(name, value);
       }
+    });
+  }
 
-      // For attr(object), the object specifies the names and values of the
-      // attributes to set or remove. The values may be functions that are
-      // evaluated for each element.
-      //for (value in name) this.each(attrFunc(value, name[value]));
-      name.forEach((k, v) { this.each(attrFunc(k, v)); });
-      return this;
+  /**
+   * Sets the attribute with the specified name to the specified value
+   * on all selected elements.
+   */
+  attr(final String name, final Object value) {
+    if (value == null) {
+      attrNull(name);
     }
+    final qualified = core.qualify(name);
+    if (qualified.space != null) {
+      each((node, d, i, j) {
+        node.setAttributeNS(qualified.space, qualified.local, value.toString());
+      });
+    } else {
+      each((final Element node, d, i, j) {
+        node.setAttribute(name, value.toString());
+      });
+    }
+  }
 
-    return this.each(attrFunc(name, value));
+  /**
+   * Removes the specified attribute from all elements in the current
+   * selection.
+   */
+  attrNull(final String name) {
+    final qualified = core.qualify(name);
+    if (qualified.space != null) {
+      each((node, d, i, j) {
+        node.getNamespacedAttributes(qualified.space).remove(qualified.local);
+      });
+    } else {
+      each((final Element node, d, i, j) {
+        node.attributes.remove(name);
+      });
+    }
+  }
+
+  /**
+   * The specified function is evaluated for each selected element (in order),
+   * being passed the current datum and the current index, with the current
+   * DOM element. The function's return value is then used to set each
+   * element's attribute. A null value will remove the specified attribute.
+   */
+  attrFunc(final String name, final attrFunction fn) {
+    final qualified = core.qualify(name);
+    if (qualified.space != null) {
+      each((node, data, i, j) {
+        final x = fn(node, data, i, j);
+        if (x == null) {
+          node.getNamespacedAttributes(qualified.space).remove(qualified.local);
+        } else {
+          node.setAttributeNS(qualified.space, qualified.local, x);
+        }
+      });
+    } else {
+      each((node, data, i, j) {
+        var x = fn(node, data, i, j);
+        if (x == null) {
+          node.attributes.remove(name);
+        } else {
+          node.setAttribute(name, x);
+        }
+      });
+    }
   }
 
   /**
@@ -129,10 +205,10 @@ class Selection extends EnteringSelection {
     return update;
   }
 
-  each(callback) {
+  each(eachFunction callback) {
     return eachGroup(this, (node, i, j) {
-      utils.FnWith4Args fnWith4Args = utils.relaxFn4Args(callback);
-      fnWith4Args(node, nodeData(node), i, j);
+//      utils.FnWith4Args fnWith4Args = utils.relaxFn4Args(callback);
+      callback(node, nodeData(node), i, j);
     });
   }
 
@@ -225,7 +301,7 @@ class Selection extends EnteringSelection {
 
   int size() {
     int n = 0;
-    this.each(() { ++n; });
+    this.each((e, d, i, j) { ++n; });
     return n;
   }
 
