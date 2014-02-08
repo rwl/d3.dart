@@ -19,6 +19,9 @@ const String unique = '8fc4ac4743d2195d2b44bbbcff2ac2c73f82c71d';
 typedef Element selectFunction(Element node, var data, int i, int j);
 typedef List<Element> selectAllFunction(Element node, var data, int i, int j);
 
+typedef List dataFunction(List<Element> group, var data, int i);
+typedef String dataKeyFunction(var thiz, int i);
+
 class Selection extends EnteringSelection {
   Function enter, exit;
 
@@ -72,116 +75,51 @@ class Selection extends EnteringSelection {
     return this.each(attrFunc(name, value));
   }
 
-  data([value = unique, key = null]) {
-    var i = -1,
-        n = this.length,
-        group,
-        node;
-
-    // If no value is specified, return the first value.
-    if (value == unique && key == null) {
-      group = this[0];
-      n = group.length;
-      value = new List(n);
-      while (++i < n) {
-        node = group[i];
-        if (node != null) {
-          value[i] = nodeData(node);
-        }
+  /**
+   * Returns the array of data for the first group in the selection.
+   */
+  List get groupData {
+    final List<Element> group = this[0];
+    final int n = group.length;
+    final List value = new List(n);
+    int i = -1;
+    while (++i < n) {
+      final Element node = group[i];
+      if (node != null) {
+        value[i] = nodeData(node);
       }
-      return value;
     }
+    return value;
+  }
+
+  /**
+   * Joins the specified array of data with the current selection.
+   */
+  Selection data(List value, [dataKeyFunction key = null]) {
+    return dataFunc((group, data, i) {
+      return value;
+    }, key);
+  }
+
+  /**
+   * Specifies the data for each group in the selection using a function
+   * that returns an array.
+   */
+  Selection dataFunc(final dataFunction fn, [dataKeyFunction key=null]) {
+    List<Element> group;
+    Element node;
 
     EnteringSelection enter = new EnteringSelection([]);
     Selection update = new Selection([]),
         exit = new Selection([]);
 
-    bind(group, groupData) {
-      var i,
-      n = group.length,
-      m = groupData.length,
-      n0 = math.min(n, m),
-      updateNodes = new List(m),
-      enterNodes = new List(m),
-      exitNodes = new List(n),
-      node,
-      nodedata;
+    var n = this.length;
+    int i = -1;
 
-      if (key != null) {
-        var nodeByKeyValue = new Map(),
-            dataByKeyValue = new Map(),
-            keyValues = [],
-            keyValue;
-
-        for (i = -1; ++i < n;) {
-          keyValue = key.call(node = group[i], nodeData(node), i);
-          if (nodeByKeyValue.containsKey(keyValue)) {
-            exitNodes[i] = node; // duplicate selection key
-          } else {
-            nodeByKeyValue[keyValue] = node;
-          }
-          keyValues.add(keyValue);
-        }
-
-        for (i = -1; ++i < m;) {
-          keyValue = key.call(groupData, nodedata = groupData[i], i);
-          if (nodeByKeyValue.containsKey(keyValue)) {
-            node = nodeByKeyValue[keyValue];
-            updateNodes[i] = node;
-            nodeData(node, nodedata);
-          } else if (!dataByKeyValue.containsKey(keyValue)) { // no duplicate data key
-            enterNodes[i] = new DataNode(nodedata);
-          }
-          dataByKeyValue[keyValue] = nodedata;
-          nodeByKeyValue.remove(keyValue);
-        }
-
-        for (i = -1; ++i < n;) {
-          if (nodeByKeyValue.containsKey(keyValues[i])) {
-            exitNodes[i] = group[i];
-          }
-        }
-      } else {
-        for (i = -1; ++i < n0;) {
-          node = group[i];
-          nodedata = groupData[i];
-          if (node != null) {
-            nodeData(node, nodedata);
-            updateNodes[i] = node;
-          } else {
-            enterNodes[i] = new DataNode(nodedata);
-          }
-        }
-        for (; i < m; ++i) {
-          enterNodes[i] = new DataNode(groupData[i]);
-        }
-        for (; i < n; ++i) {
-          exitNodes[i] = group[i];
-        }
-      }
-
-      updateGroup(enterNodes, updateNodes);
-
-      var parent = parentNode(group);
-      parentNode(enterNodes, parent);
-      parentNode(updateNodes, parent);
-      parentNode(exitNodes, parent);
-
-      enter.add(enterNodes);
-      update.add(updateNodes);
-      exit.add(exitNodes);
-    }
-
-    if (value is Function) {
-      while (++i < n) {
-        group = this[i];
-        utils.FnWith3Args fnWith3Args = utils.relaxFn3Args(value);
-        bind(group, fnWith3Args(group, nodeData(parentNode(group)), i));
-      }
-    } else {
-      while (++i < n) {
-        bind(group = this[i], value);
-      }
+    while (++i < n) {
+      group = this[i];
+      final List values = fn(group, nodeData(parentNode(group)), i);
+      bind(group, values, key, enter, update, exit);
     }
 
     update.enter = () { return enter; };
