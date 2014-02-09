@@ -1,6 +1,6 @@
 library d3.dsv;
 
-//import 'dart:html';
+import 'dart:html';
 
 part 'csv.dart';
 part 'tsv.dart';
@@ -12,7 +12,7 @@ final reDblQuote = new RegExp(r'""');
 final reQuote = new RegExp(r'"');
 
 class DSV {
-  String delimiter, mimeType;
+  final String delimiter, mimeType;
   RegExp reFormat;
   int delimiterCode;
 
@@ -28,18 +28,25 @@ class DSV {
 //    }
 
     HttpRequest.request(url, method: "GET", mimeType: mimeType)
-    .then((resp) {
-
-    });
-    var xhr = d3_xhr(url, mimeType, row == null ? response : typedResponse(row), callback);
-
-    xhr.row = ([r=null]) {
-      return r != null
-          ? xhr.response((row = r) == null ? response : typedResponse(r))
-          : row;
-    };
-
-    return xhr;
+      .then((HttpRequest req) {
+        if (callback != null) {
+          callback(parse(req.responseText, row));
+        }
+      })
+      .catchError((Error error) {
+        if (callback != null) {
+          callback(null);
+        }
+      });
+//    var xhr = d3_xhr(url, mimeType, row == null ? response : typedResponse(row), callback);
+//
+//    xhr.row = ([r=null]) {
+//      return r != null
+//          ? xhr.response((row = r) == null ? response : typedResponse(r))
+//          : row;
+//    };
+//
+//    return xhr;
   }
 
   response(request) {

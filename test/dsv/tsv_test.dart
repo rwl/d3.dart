@@ -3,28 +3,24 @@ import 'package:d3/dsv/dsv.dart' as dsv;
 
 void main() {
   group('tsv', () {
-    /*group('on a sample file', () {
-      var tsvResp;
-      dsv.tsv('../data/sample.tsv', callback: (error, tsv) {
-        tsvResp = tsv;
-      });
-      test('invokes the callback with the parsed tsv', () {
-        expect(tsvResp, equals([{'Hello':42,'World':'"fish"'}]));
+    group('on a sample file', () {
+      dsv.tsv('../data/sample.tsv', callback: (tsv) {
+        test('invokes the callback with the parsed tsv', () {
+          expect(tsv, equals([{'Hello':'42','World':'"fish"'}]));
+        });
       });
 //      test('overrides the mime type to text/tab-separated-values', () {
 //        expect(XMLHttpRequest._last._info.mimeType, equals('text/tab-separated-values'));
 //      });
-    });*/
+    });
 
-    /*group('on a file that does not exist', () {
-      var callback = this.callback;
-      tsv = tsv('//does/not/exist.tsv', (error, tsv) {
-        callback(null, tsv);
+    group('on a file that does not exist', () {
+      dsv.tsv('//does/not/exist.tsv', callback: (tsv) {
+        test('invokes the callback with null when an error occurs', () {
+          expect(tsv, isNull);
+        });
       });
-      test('invokes the callback with undefined when an error occurs', () {
-        expect(tsv, isUndefined);
-      }
-    });*/
+    });
 
     group('parse', () {
       var parse = dsv.tsv.parse;
