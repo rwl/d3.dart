@@ -2,18 +2,12 @@ import 'package:unittest/unittest.dart';
 import 'package:unittest/html_enhanced_config.dart';
 import 'package:d3/selection/selection.dart';
 
-class DataObject {
-  String toJson() {
-    return "{}";
-  }
-}
-
 main() {
   useHtmlEnhancedConfiguration();
 
   group('select(body)', () {
     group('on a simple page', () {
-      final Selection body = new Selection.fromSelector('body');
+      final Selection body = new Selection.selector('body');
 
       test('assigns data as an array', () {
         var data = new Object();
@@ -27,7 +21,7 @@ main() {
       });
       test('stores data in the DOM', () {
         var expected = new Object(), actual;
-        nodeData(body.node, expected);
+        setNodeData(body.node, expected);
         body.each((n, d, i, j) { actual = d; });
         expect(actual, same(expected));
       });
@@ -63,7 +57,7 @@ main() {
 
   group('selectAll(div)', () {
     group('on a simple page', () {
-      final Selection div = new Selection.fromSelector('body')
+      final Selection div = new Selection.selector('body')
         .selectAll('div')
           .data([0, 1]).enter().append('div');
       test('assigns data as an array', () {
@@ -80,8 +74,8 @@ main() {
       });
       test('stores data in the DOM', () {
         var a = new Object(), b = new Object(), actual = [];
-        nodeData(div[0][0], a);
-        nodeData(div[0][1], b);
+        setNodeData(div[0][0], a);
+        setNodeData(div[0][1], b);
         div.each((n, d, i, j) { actual.add(d); });
         expect(actual, equals([a, b]));
       });
@@ -108,8 +102,8 @@ main() {
       });
       test('with no arguments, returns an array of data', () {
         var a = new Object(), b = new Object(), actual = [];
-        nodeData(div[0][0], a);
-        nodeData(div[0][1], b);
+        setNodeData(div[0][0], a);
+        setNodeData(div[0][1], b);
         expect(div.groupData, equals([a, b]));
       });
       /*test('with no arguments, returned array has undefined for null nodes', () {

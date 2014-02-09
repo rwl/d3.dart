@@ -2,33 +2,7 @@
 <html>
 <meta charset="utf-8">
 <body>
-<script type="application/dart">
-
-import 'package:unittest/unittest.dart';
-import 'package:unittest/html_enhanced_config.dart';
-import 'package:d3/selection/selection.dart';
-
-main() {
-  useHtmlEnhancedConfiguration();
-
-  group('select(body)', () {
-    group('on a simple page', () {
-      final Selection body = new Selection.fromSelector('body');
-      test('returns true for empty selections', () {
-        expect(body.select('foo').empty(), isTrue);
-      });
-      test('returns false for non-empty selections', () {
-        expect(body.empty(), isFalse);
-      });
-      test('ignores null nodes', () {
-        body[0][0] = null;
-        expect(body.empty(), isTrue);
-      });
-    });
-  });
-}
-</script>
-
+<script type="application/dart" src="empty_test.dart"></script>
 <script src="packages/browser/dart.js"></script>
 </body>
 </html>

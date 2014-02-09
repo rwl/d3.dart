@@ -7,7 +7,7 @@ main() {
 
   group('select(body)', () {
     group('on a simple page', () {
-      final Selection body = new Selection.fromSelector('body');
+      final Selection body = new Selection.selector('body');
       test('appends an HTML element', () {
         var div = body.append('div');
         expect(div[0][0].tagName, equals('DIV'));

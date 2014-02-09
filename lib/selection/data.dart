@@ -24,7 +24,7 @@ bind(final List<Element> group, final List groupData, final dataKeyFunction key,
         keyValue;
 
     for (i = -1; ++i < n;) {
-      keyValue = key.call(node = group[i], nodeData(node), i);
+      keyValue = key(node = group[i], nodeData(node), i);
       if (nodeByKeyValue.containsKey(keyValue)) {
         exitNodes[i] = node; // duplicate selection key
       } else {
@@ -34,11 +34,11 @@ bind(final List<Element> group, final List groupData, final dataKeyFunction key,
     }
 
     for (i = -1; ++i < m;) {
-      keyValue = key.call(groupData, nodedata = groupData[i], i);
+      keyValue = key(groupData, nodedata = groupData[i], i);
       if (nodeByKeyValue.containsKey(keyValue)) {
         node = nodeByKeyValue[keyValue];
         updateNodes[i] = node;
-        nodeData(node, nodedata);
+        setNodeData(node, nodedata);
       } else if (!dataByKeyValue.containsKey(keyValue)) { // no duplicate data key
         enterNodes[i] = new DataNode(nodedata);
       }
@@ -56,7 +56,7 @@ bind(final List<Element> group, final List groupData, final dataKeyFunction key,
       node = group[i];
       nodedata = groupData[i];
       if (node != null) {
-        nodeData(node, nodedata);
+        setNodeData(node, nodedata);
         updateNodes[i] = node;
       } else {
         enterNodes[i] = new DataNode(nodedata);
@@ -70,12 +70,12 @@ bind(final List<Element> group, final List groupData, final dataKeyFunction key,
     }
   }
 
-  updateGroup(enterNodes, updateNodes);
+  setUpdate(enterNodes, updateNodes);
 
   var parent = parentNode(group);
-  parentNode(enterNodes, parent);
-  parentNode(updateNodes, parent);
-  parentNode(exitNodes, parent);
+  setParentNode(enterNodes, parent);
+  setParentNode(updateNodes, parent);
+  setParentNode(exitNodes, parent);
 
   enter.add(enterNodes);
   update.add(updateNodes);

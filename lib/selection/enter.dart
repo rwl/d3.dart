@@ -49,6 +49,10 @@ class EnteringSelection {
     });
   }
 
+  /**
+   * The first non-null element in the current selection or null if the
+   * selection is empty.
+   */
   Element get node {
     for (int j = 0, m = this.length; j < m; j++) {
       final group = this[j];
@@ -68,17 +72,17 @@ class EnteringSelection {
 
     for (int j = -1, m = this.length; ++j < m;) {
       final group = this[j];
-      final upgroup = updateGroup(group);
+      final upgroup = getUpdate(group);
       final subgroup = new List<Element>();
       subgroups.add(subgroup);
-      parentNode(subgroup, parentNode(group));
+      setParentNode(subgroup, parentNode(group));
       for (int i = -1, n = group.length; ++i < n;) {
         final node = group[i];
         if (node != null) {
           final subnode = selector(parentNode(group), nodeData(node), i, j);
           upgroup[i] = subnode;
           subgroup.add(subnode);
-          nodeData(subnode, nodeData(node));
+          setNodeData(subnode, nodeData(node));
         } else {
           subgroup.add(null);
         }

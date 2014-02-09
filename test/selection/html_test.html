@@ -2,75 +2,7 @@
 <html>
 <meta charset="utf-8">
 <body>
-<script type="application/dart">
-
-import 'package:unittest/unittest.dart';
-import 'package:unittest/html_enhanced_config.dart';
-import 'package:d3/selection/selection.dart';
-
-main() {
-  useHtmlEnhancedConfiguration();
-
-  group('select(body)', () {
-    group('on a simple page', () {
-      final Selection body = new Selection.fromSelector('body');
-      test('sets the inner HTML as a string', () {
-        body.html('<h1>Hello, world!</h1>');
-        expect(body.node.firstChild.tagName, equals('H1'));
-        expect(body.node.firstChild.text, equals('Hello, world!'));
-      });
-      test('sets the inner HTML as a number', () {
-        body.html(42);
-        expect(body.node.innerHtml, equals('42'));
-        expect(body.node.firstChild.nodeType, equals(3));
-      });
-      test('sets the inner HTML as a function', () {
-        body.data(['Subject']).htmlFunc((n, d, i, j) { return '<b>$d</b><i>$i</i>'; });
-        expect(body.node.firstChild.tagName, equals('B'));
-        expect(body.node.firstChild.text, equals('Subject'));
-        expect(body.node.lastChild.tagName, equals('I'));
-        expect(body.node.lastChild.text, equals('0'));
-      });
-      test('clears the inner HTML as null', () {
-        body.html(null);
-        expect(body.node.innerHtml, equals(''));
-        expect(body.node.firstChild, isNull);
-      });
-      test('clears the inner HTML as null', () {
-        body.htmlNull();
-        expect(body.node.innerHtml, equals(''));
-        expect(body.node.firstChild, isNull);
-      });
-      test('clears the inner HTML as the empty string', () {
-        body.html('');
-        expect(body.node.innerHtml, equals(''));
-        expect(body.node.firstChild, isNull);
-      });
-      test('clears the inner HTML as a function returning the empty string', () {
-        body.htmlFunc((n, d, i, j) { return ''; });
-        expect(body.node.innerHtml, equals(''));
-        expect(body.node.firstChild, isNull);
-      });
-      test('clears the inner HTML as a function returning null', () {
-        body.textFunc((n, d, i, j) { return null; });
-        expect(body.node.innerHtml, equals(''));
-        expect(body.node.firstChild, isNull);
-      });
-      test('returns the current selection', () {
-        expect(body..html('foo'), same(body));
-      });
-      test('ignores null nodes', () {
-        var node = body.node;
-        body[0][0] = null;
-        node.innerHtml = '<h1>foo</h1>';
-        body.html('bar');
-        expect(node.text, equals('foo'));
-      });
-    });
-  });
-}
-</script>
-
+<script type="application/dart" src="html_test.dart"></script>
 <script src="packages/browser/dart.js"></script>
 </body>
 </html>

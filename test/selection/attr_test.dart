@@ -7,7 +7,7 @@ main() {
 
   group('select(body)', () {
     group('on a simple page', () {
-      final Selection body = new Selection.fromSelector('body');
+      final Selection body = new Selection.selector('body');
       test('sets an attribute as a string', () {
         body.attr('bgcolor', 'red');
         expect(body.node.getAttribute('bgcolor'), equals('red'));

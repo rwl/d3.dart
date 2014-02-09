@@ -7,7 +7,7 @@ main() {
 
   group('select(body)', () {
     group('on an initially-empty page', () {
-      final Selection body = new Selection.fromSelector('body');
+      final Selection body = new Selection.selector('body');
       test('sets a property as a string', () {
         body.style('background-color', 'red');
         expect(body.node.style.getPropertyValue('background-color'), equals('red'));

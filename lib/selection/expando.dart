@@ -2,30 +2,35 @@ part of selection;
 
 final parentProp = new Expando<Node>('parentNode');
 
-parentNode(List<Element> group, [Node node = null]) {
-  if (node == null) {
-    return parentProp[group];
-  }
+setParentNode(final List<Element> group, final Node node) {
   parentProp[group] = node;
+}
+
+Node parentNode(final List<Element> group) {
+  return parentProp[group];
 }
 
 final updateProp = new Expando<List>('update');
 
-List<Element> updateGroup(List<Element> group, [List<Element> upgroup = null]) {
-  if (upgroup == null) {
-    return updateProp[group];
-  }
+setUpdate(final List<Element> group, final List<Element> upgroup) {
   updateProp[group] = upgroup;
 }
 
-nodeData(node, [d = null]) {
-  if (d == null) {
-    if (node is DataNode) {
-      return node.data;
-    }
-    return dataProp[node];
-  }
+List<Element> getUpdate(List<Element> group) {
+  return updateProp[group];
+}
+
+final dataProp = new Expando<Object>('data');
+
+setNodeData(node, d) {
   dataProp[node] = d;
+}
+
+nodeData(node) {
+  if (node is DataNode) {
+    return node.data;
+  }
+  return dataProp[node];
 }
 
 bool hasData(node) {
@@ -34,5 +39,3 @@ bool hasData(node) {
   }
   return dataProp[node] != null;
 }
-
-final dataProp = new Expando<Object>('data');

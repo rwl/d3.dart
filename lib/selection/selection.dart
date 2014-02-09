@@ -4,22 +4,17 @@ import 'dart:html';
 import 'dart:math' as math;
 
 import '../core/core.dart' as core;
-import '../utils.dart' as utils;
 
-part 'append.dart';
 part 'data.dart';
 part 'each.dart';
 part 'enter.dart';
-part 'style.dart';
 part 'expando.dart';
-
-const String unique = '8fc4ac4743d2195d2b44bbbcff2ac2c73f82c71d';
 
 typedef Element selectFunction(Element node, Object data, int i, int j);
 typedef List<Element> selectAllFunction(Element node, Object data, int i, int j);
 
 typedef List dataFunction(List<Element> group, Object data, int i);
-typedef String dataKeyFunction(var thiz, int i);
+typedef String dataKeyFunction(var thiz, var data, int i);
 
 typedef EnteringSelection enterFunction();
 typedef Selection exitFunction();
@@ -35,27 +30,50 @@ class Selection extends EnteringSelection {
 
   Selection(final List<List<Element>> groups) : super(groups);
 
-  factory Selection.fromSelector(final String s) {
+  /**
+   * Selects the first element that matches the specified selector string,
+   * returning a single-element selection. If no elements in the current
+   * document match the specified selector, returns the empty selection.
+   * If multiple elements match the selector, only the first matching
+   * element (in document traversal order) will be selected.
+   */
+  factory Selection.selector(final String s) {
     final group = [document.querySelector(s)];
-    parentNode(group, document);
+    setParentNode(group, document);
     return new Selection([group]);
   }
 
-  factory Selection.ofNode(final Element node) {
+  /**
+   * Selects the specified node. This is useful if you already have a
+   * reference to a node, such as within an event listener, or a global
+   * such as document.body.
+   */
+  factory Selection.node(final Element node) {
     final group = [node];
-    parentNode(group, document);
+    setParentNode(group, document);
     return new Selection([group]);
   }
 
-  factory Selection.fromSelectorAll(final String s) {
+  /**
+   * Selects all elements that match the specified selector. The elements
+   * will be selected in document traversal order (top-to-bottom). If no
+   * elements in the current document match the specified selector, returns
+   * the empty selection.
+   */
+  factory Selection.selectorAll(final String s) {
     final group = document.querySelectorAll(s);
-    parentNode(group, document);
+    setParentNode(group, document);
     return new Selection([group]);
   }
 
-  factory Selection.ofNodes(final List<Element> nodes) {
+  /**
+   * Selects the specified array of elements. This is useful if you already
+   * have a reference to nodes, such as within an event listener, or a global
+   * such as document.links.
+   */
+  factory Selection.nodes(final List<Element> nodes) {
     final group = nodes;
-    parentNode(group, document);
+    setParentNode(group, document);
     return new Selection([group]);
   }
 
@@ -207,7 +225,7 @@ class Selection extends EnteringSelection {
   }
 
   each(eachFunction callback) {
-    return eachGroup(this, (node, i, j) {
+    return eachNode(this, (node, i, j) {
 //      utils.FnWith4Args fnWith4Args = utils.relaxFn4Args(callback);
       callback(node, nodeData(node), i, j);
     });
@@ -280,14 +298,14 @@ class Selection extends EnteringSelection {
       final subgroup = new List<Element>();
       subgroups.add(subgroup);
       final group = this[j];
-      parentNode(subgroup, parentNode(group));
+      setParentNode(subgroup, parentNode(group));
       for (var i = -1, n = group.length; ++i < n;) {
         final Element node = group[i];
         if (node != null) {
           final subnode = selector(node, nodeData(node), i, j);
           subgroup.add(subnode);
           if (subnode is Element && hasData(node)) {
-            nodeData(subnode, nodeData(node));
+            setNodeData(subnode, nodeData(node));
           }
         } else {
           subgroup.add(null);
@@ -314,7 +332,7 @@ class Selection extends EnteringSelection {
         if (node != null) {
           final List<Element> subgroup = selector(node, nodeData(node), i, j);
           subgroups.add(subgroup);
-          parentNode(subgroup, node);
+          setParentNode(subgroup, node);
         }
       }
     }
