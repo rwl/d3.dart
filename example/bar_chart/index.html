@@ -29,12 +29,13 @@ var x = new Linear()
     ..domain = [0, max(data)]
     ..range = [0, 420];
 
-select(".chart")
-  .selectAll("div")
-    .data(data)
-  .enter().append("div")
-    .style("width", (n, d) { return "${x(d)}px"; })
-    .text((n, d) { return d; });
+new Selection.fromSelector('.chart')
+  .selectAll('div')
+  .data(data)
+  .enter()
+  .append('div')
+  ..styleFunc("width", (n, d, i, j) { return "${x(d)}px"; })
+  ..textFunc((n, d, i, j) { return d; });
 
 }
 </script>
