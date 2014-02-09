@@ -112,34 +112,34 @@ void main() {
       });
     });
 
-    /*group('format', () {
-      var format = tsv.format;
+    group('format', () {
+      var format = dsv.tsv.format;
       test('takes an array of objects as input', () {
-        expect(format([{a: 1, b: 2, c: 3}]), equals('a\tb\tc\n1\t2\t3'));
+        expect(format([{'a': 1, 'b': 2, 'c': 3}]), equals('a\tb\tc\n1\t2\t3'));
       });
       test('escapes field names containing special characters', () {
         expect(format([{'foo\tbar': true}]), equals('"foo\tbar"\ntrue'));
       });
       test('computes the union of all fields', () {
         expect(format([
-          {a: 1},
-          {a: 1, b: 2},
-          {a: 1, b: 2, c: 3},
-          {b: 1, c: 2},
-          {c: 1}
+          {'a': 1},
+          {'a': 1, 'b': 2},
+          {'a': 1, 'b': 2, 'c': 3},
+          {'b': 1, 'c': 2},
+          {'c': 1}
         ]), equals('a\tb\tc\n1\t\t\n1\t2\t\n1\t2\t3\n\t1\t2\n\t\t1'));
       });
       test('orders field by first-seen', () {
         expect(format([
-          {a: 1, b: 2},
-          {c: 3, b: 4},
-          {c: 5, a: 1, b: 2}
+          {'a': 1, 'b': 2},
+          {'c': 3, 'b': 4},
+          {'c': 5, 'a': 1, 'b': 2}
         ]), equals('a\tb\tc\n1\t2\t\n\t4\t3\n1\t2\t5'));
       });
     });
 
     group('formatRows', () {
-      var format = tsv.formatRows;
+      var format = dsv.tsv.formatRows;
       test('takes an array of arrays as input', () {
         expect(format([['a', 'b', 'c'], ['1', '2', '3']]), equals('a\tb\tc\n1\t2\t3'));
       });
@@ -164,6 +164,6 @@ void main() {
       test('does not escape commas', () {
         expect(format([['oxford,comma']]), equals('oxford,comma'));
       });
-    });*/
+    });
   });
 }

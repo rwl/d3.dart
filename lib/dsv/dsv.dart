@@ -7,7 +7,8 @@ part 'tsv.dart';
 
 typedef List<String> accessorFunction(List<String> row, int i);
 
-final reQuote = new RegExp(r'""');
+final reDblQuote = new RegExp(r'""');
+final reQuote = new RegExp(r'"');
 
 class DSV {
   String delimiter, mimeType;
@@ -15,7 +16,7 @@ class DSV {
   int delimiterCode;
 
   DSV(this.delimiter, this.mimeType) {
-    this.reFormat = new RegExp("[\"" + delimiter + "\n]");
+    this.reFormat = new RegExp('["$delimiter\n]');
     this.delimiterCode = delimiter.codeUnitAt(0);
   }
 
@@ -100,7 +101,7 @@ class DSV {
         } else if (c == 10) {
           eol = true;
         }
-        return text.substring(j + 1, i).replaceAll(reQuote, '"');
+        return text.substring(j + 1, i).replaceAll(reDblQuote, '"');
       }
 
       // common case: find next delimiter or newline
@@ -141,38 +142,46 @@ class DSV {
     return rows;
   }
 
-  format(rows) {
-    if (rows[0] is List) {
-      return formatRows(rows); // deprecated; use formatRows
-    }
-    var fieldSet = new Set(), fields = [];
+  format(final List<Map<String, Object>> rows) {
+    final fieldSet = new Set();
+    final fields = new List<String>();
 
     // Compute unique fields in order of discovery.
     rows.forEach((row) {
-      for (var field in row) {
+      row.forEach((field, _) {
         if (!fieldSet.contains(field)) {
-          fields.add(fieldSet.add(field));
+          fieldSet.add(field);
+          fields.add(field);
         }
-      }
+      });
     });
 
-    return [fields.map(formatValue).join(delimiter)].concat(rows.map((row) {
-      return fields.map((field) {
-        return formatValue(row[field]);
+    final parts = [fields.map(formatValue).join(delimiter)];
+
+    parts.addAll(rows.map((final Map<String, Object> row) {
+      return fields.map((final field) {
+        final value = row[field];
+        return value != null ? formatValue(value) : "";
       }).join(delimiter);
-    })).join("\n");
+    }));
+
+    return parts.join("\n");
   }
 
-  String formatRows(rows) {
+  String formatRows(final List<List<Object>> rows) {
     return rows.map(formatRow).join("\n");
   }
 
-  String formatRow(row) {
+  String formatRow(final List<Object> row) {
     return row.map(formatValue).join(delimiter);
   }
 
-  String formatValue(text) {
-    return reFormat.hasMatch(text) ? "\"" + text.replace("\""/*g*/, "\"\"") + "\"" : text;
+  String formatValue(final Object obj) {
+    final text = obj.toString();
+    if (reFormat.hasMatch(text)) {
+      return "\"" + text.replaceAll(reQuote, '""') + "\"";
+    }
+    return text;
   }
 }
 
