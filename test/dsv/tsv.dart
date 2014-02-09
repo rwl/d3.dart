@@ -26,48 +26,48 @@ void main() {
       }
     });*/
 
-    /*group('parse', () {
-      var parse = tsv.parse;
+    group('parse', () {
+      var parse = dsv.tsv.parse;
       test('returns an array of objects', () {
-        expect(parse('a\tb\tc\n1\t2\t3\n'), equals([{a: '1', b: '2', c: '3'}]));
+        expect(parse('a\tb\tc\n1\t2\t3\n'), equals([{'a': '1', 'b': '2', 'c': '3'}]));
       });
       test('does not strip whitespace', () {
-        expect(parse('a\tb\tc\n 1\t 2\t3\n'), equals([{a: ' 1', b: ' 2', c: '3'}]));
+        expect(parse('a\tb\tc\n 1\t 2\t3\n'), equals([{'a': ' 1', 'b': ' 2', 'c': '3'}]));
       });
       test('parses quoted values', () {
-        expect(parse('a\tb\tc\n"1"\t2\t3'), equals([{a: '1', b: '2', c: '3'}]));
-        expect(parse('a\tb\tc\n"1"\t2\t3\n'), equals([{a: '1', b: '2', c: '3'}]));
+        expect(parse('a\tb\tc\n"1"\t2\t3'), equals([{'a': '1', 'b': '2', 'c': '3'}]));
+        expect(parse('a\tb\tc\n"1"\t2\t3\n'), equals([{'a': '1', 'b': '2', 'c': '3'}]));
       });
       test('parses quoted values with quotes', () {
-        expect(parse('a\n"""hello"""'), equals([{a: '"hello"'}]));
+        expect(parse('a\n"""hello"""'), equals([{'a': '"hello"'}]));
       });
       test('parses quoted values with newlines', () {
-        expect(parse('a\n"new\nline"'), equals([{a: 'new\nline'}]));
-        expect(parse('a\n"new\rline"'), equals([{a: 'new\rline'}]));
-        expect(parse('a\n"new\r\nline"'), equals([{a: 'new\r\nline'}]));
+        expect(parse('a\n"new\nline"'), equals([{'a': 'new\nline'}]));
+        expect(parse('a\n"new\rline"'), equals([{'a': 'new\rline'}]));
+        expect(parse('a\n"new\r\nline"'), equals([{'a': 'new\r\nline'}]));
       });
       test('parses unix newlines', () {
         expect(parse('a\tb\tc\n1\t2\t3\n4\t5\t"6"\n7\t8\t9'), equals([
-          {a: '1', b: '2', c: '3'},
-          {a: '4', b: '5', c: '6'},
-          {a: '7', b: '8', c: '9'}
+          {'a': '1', 'b': '2', 'c': '3'},
+          {'a': '4', 'b': '5', 'c': '6'},
+          {'a': '7', 'b': '8', 'c': '9'}
         ]));
       });
       test('parses mac newlines', () {
         expect(parse('a\tb\tc\r1\t2\t3\r4\t5\t"6"\r7\t8\t9'), equals([
-          {a: '1', b: '2', c: '3'},
-          {a: '4', b: '5', c: '6'},
-          {a: '7', b: '8', c: '9'}
+          {'a': '1', 'b': '2', 'c': '3'},
+          {'a': '4', 'b': '5', 'c': '6'},
+          {'a': '7', 'b': '8', 'c': '9'}
         ]));
       });
       test('parses dos newlines', () {
         expect(parse('a\tb\tc\r\n1\t2\t3\r\n4\t5\t"6"\r\n7\t8\t9'), equals([
-          {a: '1', b: '2', c: '3'},
-          {a: '4', b: '5', c: '6'},
-          {a: '7', b: '8', c: '9'}
+          {'a': '1', 'b': '2', 'c': '3'},
+          {'a': '4', 'b': '5', 'c': '6'},
+          {'a': '7', 'b': '8', 'c': '9'}
         ]));
       });
-    });*/
+    });
 
     group('parseRows', () {
       var parse = dsv.tsv.parseRows;

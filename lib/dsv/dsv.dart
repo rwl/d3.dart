@@ -5,7 +5,8 @@ library d3.dsv;
 part 'csv.dart';
 part 'tsv.dart';
 
-typedef List<String> accessorFunction(List<String> row, int i);
+typedef Map<String, Object> accessorFunction(Map<String, String> d, int i);
+typedef Object rowAccessorFunction(List<String> row, int i);
 
 final reDblQuote = new RegExp(r'""');
 final reQuote = new RegExp(r'"');
@@ -51,21 +52,41 @@ class DSV {
     };
   }
 
-  parse(text, f) {
-    var o;
-    return parseRows(text, (row, i) {
-//      if (o) return o(row, i - 1);
-//      var a = new Function("d", "return {" + row.map((name, i) {
-//        return JSON.stringify(name) + ": d[" + i + "]";
-//      }).join(",") + "}");
-//      o = f ? (row, i) { return f(a(row), i); } : a;
+  /**
+   * Parses the specified string, which is the contents of a CSV file,
+   * returning an array of maps representing the parsed rows.
+   */
+  List<Map<String, Object>> parse(final String text, [accessorFunction fn = null]) {
+    List<String> row0 = null;
+    return parseRows(text, (final List<String> row, int i) {
+      if (row0 == null) {
+        row0 = row;
+        return null;
+      }
+
+      final m = new Map<String, String>();
+      int i = 0;
+      row0.forEach((final String name) {
+        if (i < row.length) {
+          m[name] = row[i];
+        }
+        i++;
+      });
+      if (fn != null) {
+        return fn(m, i - 1);
+      }
+      return m;
     });
   }
 
-  List<List<String>> parseRows(text, [accessorFunction f = null]) {
+  /**
+   * Parses the specified string, which is the contents of a CSV file,
+   * returning an array of arrays representing the parsed rows.
+   */
+  List parseRows(text, [rowAccessorFunction f = null]) {
     final EOL = new Object(); // sentinel value for end-of-line
     final EOF = new Object(); // sentinel value for end-of-file
-    final List<List<String>> rows = []; // output rows
+    final List rows = []; // output rows
     int N = text.length,
         I = 0, // current character index
         n = 0; // the current line number
@@ -125,7 +146,7 @@ class DSV {
     }
 
     while ((t = token()) != EOF) {
-      List<String> a = [];
+      var a = [];
       while (t != EOL && t != EOF) {
         a.add(t);
         t = token();
