@@ -1,9 +1,13 @@
 library d3.dsv;
 
-import 'dart:html';
+//import 'dart:html';
 
 part 'csv.dart';
 part 'tsv.dart';
+
+typedef List<String> accessorFunction(List<String> row, int i);
+
+final reQuote = new RegExp(r'""');
 
 class DSV {
   String delimiter, mimeType;
@@ -49,26 +53,28 @@ class DSV {
   parse(text, f) {
     var o;
     return parseRows(text, (row, i) {
-      if (o) return o(row, i - 1);
-      var a = new Function("d", "return {" + row.map((name, i) {
-        return JSON.stringify(name) + ": d[" + i + "]";
-      }).join(",") + "}");
-      o = f ? (row, i) { return f(a(row), i); } : a;
+//      if (o) return o(row, i - 1);
+//      var a = new Function("d", "return {" + row.map((name, i) {
+//        return JSON.stringify(name) + ": d[" + i + "]";
+//      }).join(",") + "}");
+//      o = f ? (row, i) { return f(a(row), i); } : a;
     });
   }
 
-  parseRows(text, f) {
-    var EOL = {}, // sentinel value for end-of-line
-        EOF = {}, // sentinel value for end-of-file
-        rows = [], // output rows
-        N = text.length,
+  List<List<String>> parseRows(text, [accessorFunction f = null]) {
+    final EOL = new Object(); // sentinel value for end-of-line
+    final EOF = new Object(); // sentinel value for end-of-file
+    final List<List<String>> rows = []; // output rows
+    int N = text.length,
         I = 0, // current character index
-        n = 0, // the current line number
-        t, // the current token
-        eol; // is the current token followed by EOL?
+        n = 0; // the current line number
+    Object t; // the current token
+    bool eol = false; // is the current token followed by EOL?
 
-    token() {
-      if (I >= N) return EOF; // special case: end of file
+    Object token() {
+      if (I >= N) {
+        return EOF; // special case: end of file
+      }
       if (eol) {
         eol = false;
         return EOL; // special case: end of line
@@ -76,31 +82,40 @@ class DSV {
 
       // special case: quotes
       var j = I;
-      if (text.codeUnitAt(j) == 34) {
+      if (codeUnitAt(text, j) == 34) {
         var i = j;
         while (i++ < N) {
-          if (text.codeUnitAt(i) == 34) {
-            if (text.codeUnitAt(i + 1) != 34) break;
+          if (codeUnitAt(text, i) == 34) {
+            if (codeUnitAt(text, i + 1) != 34) {
+              break;
+            }
             ++i;
           }
         }
         I = i + 2;
-        var c = text.codeUnitAt(i + 1);
+        var c = codeUnitAt(text, i + 1);
         if (c == 13) {
           eol = true;
-          if (text.codeUnitAt(i + 2) == 10) ++I;
+          if (codeUnitAt(text, i + 2) == 10) ++I;
         } else if (c == 10) {
           eol = true;
         }
-        return text.substring(j + 1, i).replace(r'""'/*g*/, "\"");
+        return text.substring(j + 1, i).replaceAll(reQuote, '"');
       }
 
       // common case: find next delimiter or newline
       while (I < N) {
-        var c = text.codeUnitAt(I++), k = 1;
-        if (c == 10) eol = true; // \n
-        else if (c == 13) { eol = true; if (text.codeUnitAt(I) == 10) {++I; ++k;} } // \r|\r\n
-        else if (c != delimiterCode) continue;
+        var c = codeUnitAt(text, I++), k = 1;
+        if (c == 10) {
+          eol = true; // \n
+        } else if (c == 13) { // \r|\r\n
+          eol = true;
+          if (codeUnitAt(text, I) == 10) {
+            ++I; ++k;
+          }
+        } else if (c != delimiterCode) {
+          continue;
+        }
         return text.substring(j, I - k);
       }
 
@@ -109,12 +124,17 @@ class DSV {
     }
 
     while ((t = token()) != EOF) {
-      var a = [];
+      List<String> a = [];
       while (t != EOL && t != EOF) {
         a.add(t);
         t = token();
       }
-      if (f && !(a = f(a, n++))) continue;
+      if (f != null) {
+        a = f(a, n++);
+        if (a == null) {
+          continue;
+        }
+      }
       rows.add(a);
     }
 
@@ -154,4 +174,11 @@ class DSV {
   String formatValue(text) {
     return reFormat.hasMatch(text) ? "\"" + text.replace("\""/*g*/, "\"\"") + "\"" : text;
   }
+}
+
+num codeUnitAt(final String text, int i) {
+  if (i < text.length) {
+    return text.codeUnitAt(i);
+  }
+  return double.NAN;
 }

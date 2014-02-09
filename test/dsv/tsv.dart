@@ -3,7 +3,7 @@ import 'package:d3/dsv/dsv.dart' as dsv;
 
 void main() {
   group('tsv', () {
-    group('on a sample file', () {
+    /*group('on a sample file', () {
       var tsvResp;
       dsv.tsv('../data/sample.tsv', callback: (error, tsv) {
         tsvResp = tsv;
@@ -11,10 +11,10 @@ void main() {
       test('invokes the callback with the parsed tsv', () {
         expect(tsvResp, equals([{'Hello':42,'World':'"fish"'}]));
       });
-      /*test('overrides the mime type to text/tab-separated-values', () {
-        expect(XMLHttpRequest._last._info.mimeType, equals('text/tab-separated-values'));
-      });*/
-    });
+//      test('overrides the mime type to text/tab-separated-values', () {
+//        expect(XMLHttpRequest._last._info.mimeType, equals('text/tab-separated-values'));
+//      });
+    });*/
 
     /*group('on a file that does not exist', () {
       var callback = this.callback;
@@ -24,9 +24,9 @@ void main() {
       test('invokes the callback with undefined when an error occurs', () {
         expect(tsv, isUndefined);
       }
-    });
+    });*/
 
-    group('parse', () {
+    /*group('parse', () {
       var parse = tsv.parse;
       test('returns an array of objects', () {
         expect(parse('a\tb\tc\n1\t2\t3\n'), equals([{a: '1', b: '2', c: '3'}]));
@@ -67,10 +67,10 @@ void main() {
           {a: '7', b: '8', c: '9'}
         ]));
       });
-    });
+    });*/
 
     group('parseRows', () {
-      var parse = tsv.parseRows;
+      var parse = dsv.tsv.parseRows;
       test('returns an array of arrays', () {
         expect(parse('a\tb\tc\n'), equals([['a', 'b', 'c']]));
       });
@@ -112,7 +112,7 @@ void main() {
       });
     });
 
-    group('format', () {
+    /*group('format', () {
       var format = tsv.format;
       test('takes an array of objects as input', () {
         expect(format([{a: 1, b: 2, c: 3}]), equals('a\tb\tc\n1\t2\t3'));
