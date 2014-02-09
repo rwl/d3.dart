@@ -4,176 +4,219 @@ import 'dart:html';
 import 'dart:math' as math;
 
 import '../core/core.dart' as core;
-import '../utils.dart' as utils;
 
-part 'append.dart';
-part 'attr.dart';
 part 'data.dart';
 part 'each.dart';
 part 'enter.dart';
-part 'select.dart';
-part 'style.dart';
+part 'expando.dart';
 
-const String unique = '8fc4ac4743d2195d2b44bbbcff2ac2c73f82c71d';
+typedef Element selectFunction(Element node, Object data, int i, int j);
+typedef List<Element> selectAllFunction(Element node, Object data, int i, int j);
 
-final parentProp = new Expando<Node>('parentNode');
+typedef List dataFunction(List<Element> group, Object data, int i);
+typedef String dataKeyFunction(var thiz, var data, int i);
 
-parentNode(List group, [Node node = null]) {
-  if (node == null) {
-    return parentProp[group];
-  }
-  parentProp[group] = node;
-}
+typedef EnteringSelection enterFunction();
+typedef Selection exitFunction();
 
-final updateProp = new Expando<List>('update');
+typedef Object objectFunction(Element node, Object data, int i, int j);
 
-updateGroup(List group, [List upgroup = null]) {
-  if (upgroup == null) {
-    return updateProp[group];
-  }
-  updateProp[group] = upgroup;
-}
+typedef eachFunction(Element node, Object data, int i, int j);
 
 class Selection extends EnteringSelection {
 
-  Function enter, exit;
+  enterFunction enter = () => null;
+  exitFunction exit = () => null;
 
-  Selection(List groups) : super(groups);
+  Selection(final List<List<Element>> groups) : super(groups);
 
-  attr(name, [value = unique]) {
-    if (value == unique) {
-
-      // For attr(string), return the attribute value for the first node.
-      if (name is String) {
-        var node = this.node();
-        name = core.qualify(name);
-        var val = (name is core.Name)
-            ? node.getAttributeNS(name.space, name.local)
-                : node.getAttribute(name);
-        return val == '' ? null : val;
-      }
-
-      // For attr(object), the object specifies the names and values of the
-      // attributes to set or remove. The values may be functions that are
-      // evaluated for each element.
-      //for (value in name) this.each(attrFunc(value, name[value]));
-      name.forEach((k, v) { this.each(attrFunc(k, v)); });
-      return this;
-    }
-
-    return this.each(attrFunc(name, value));
+  /**
+   * Selects the first element that matches the specified selector string,
+   * returning a single-element selection. If no elements in the current
+   * document match the specified selector, returns the empty selection.
+   * If multiple elements match the selector, only the first matching
+   * element (in document traversal order) will be selected.
+   */
+  factory Selection.selector(final String s) {
+    final group = [document.querySelector(s)];
+    setParentNode(group, document);
+    return new Selection([group]);
   }
 
-  data([value = unique, key = null]) {
-    var i = -1,
-        n = this.length,
-        group,
-        node;
+  /**
+   * Selects the specified node. This is useful if you already have a
+   * reference to a node, such as within an event listener, or a global
+   * such as document.body.
+   */
+  factory Selection.node(final Element node) {
+    final group = [node];
+    setParentNode(group, document);
+    return new Selection([group]);
+  }
 
-    // If no value is specified, return the first value.
-    if (value == unique && key == null) {
-      group = this[0];
-      n = group.length;
-      value = new List(n);
-      while (++i < n) {
-        node = group[i];
-        if (node != null) {
-          value[i] = nodeData(node);
-        }
-      }
-      return value;
-    }
+  /**
+   * Selects all elements that match the specified selector. The elements
+   * will be selected in document traversal order (top-to-bottom). If no
+   * elements in the current document match the specified selector, returns
+   * the empty selection.
+   */
+  factory Selection.selectorAll(final String s) {
+    final group = document.querySelectorAll(s);
+    setParentNode(group, document);
+    return new Selection([group]);
+  }
 
-    EnteringSelection enter = new EnteringSelection([]);
-    Selection update = new Selection([]),
-        exit = new Selection([]);
+  /**
+   * Selects the specified array of elements. This is useful if you already
+   * have a reference to nodes, such as within an event listener, or a global
+   * such as document.links.
+   */
+  factory Selection.nodes(final List<Element> nodes) {
+    final group = nodes;
+    setParentNode(group, document);
+    return new Selection([group]);
+  }
 
-    bind(group, groupData) {
-      var i,
-      n = group.length,
-      m = groupData.length,
-      n0 = math.min(n, m),
-      updateNodes = new List(m),
-      enterNodes = new List(m),
-      exitNodes = new List(n),
-      node,
-      nodedata;
+  /**
+   * Returns the value of the specified attribute for the first non-null
+   * element in the selection.
+   */
+  String nodeAttr(final String name) {
+    // For attr(string), return the attribute value for the first node.
+    final node = this.node;
+    final qualified = core.qualify(name);
+    final val = (qualified.space != null)
+        ? node.getAttributeNS(qualified.space, qualified.local)
+            : node.getAttribute(qualified.local);
+    return val == '' ? null : val;
+  }
 
-      if (key != null) {
-        var nodeByKeyValue = new Map(),
-            dataByKeyValue = new Map(),
-            keyValues = [],
-            keyValue;
-
-        for (i = -1; ++i < n;) {
-          keyValue = key.call(node = group[i], nodeData(node), i);
-          if (nodeByKeyValue.containsKey(keyValue)) {
-            exitNodes[i] = node; // duplicate selection key
-          } else {
-            nodeByKeyValue[keyValue] = node;
-          }
-          keyValues.add(keyValue);
-        }
-
-        for (i = -1; ++i < m;) {
-          keyValue = key.call(groupData, nodedata = groupData[i], i);
-          if (nodeByKeyValue.containsKey(keyValue)) {
-            node = nodeByKeyValue[keyValue];
-            updateNodes[i] = node;
-            nodeData(node, nodedata);
-          } else if (!dataByKeyValue.containsKey(keyValue)) { // no duplicate data key
-            enterNodes[i] = new DataNode(nodedata);
-          }
-          dataByKeyValue[keyValue] = nodedata;
-          nodeByKeyValue.remove(keyValue);
-        }
-
-        for (i = -1; ++i < n;) {
-          if (nodeByKeyValue.containsKey(keyValues[i])) {
-            exitNodes[i] = group[i];
-          }
-        }
+  /**
+   * The map specifies the names and values of the attributes to set
+   * or remove. The values may be functions that are evaluated for
+   * each element.
+   */
+  attrMap(final Map<String, Object> attrs) {
+    attrs.forEach((final String name, final Object value) {
+      if (value == null) {
+        attrNull(name);
+      } else if (value is objectFunction) {
+        attrFunc(name, value);
       } else {
-        for (i = -1; ++i < n0;) {
-          node = group[i];
-          nodedata = groupData[i];
-          if (node != null) {
-            nodeData(node, nodedata);
-            updateNodes[i] = node;
-          } else {
-            enterNodes[i] = new DataNode(nodedata);
-          }
-        }
-        for (; i < m; ++i) {
-          enterNodes[i] = new DataNode(groupData[i]);
-        }
-        for (; i < n; ++i) {
-          exitNodes[i] = group[i];
-        }
+        attr(name, value);
       }
+    });
+  }
 
-      updateGroup(enterNodes, updateNodes);
-
-      var parent = parentNode(group);
-      parentNode(enterNodes, parent);
-      parentNode(updateNodes, parent);
-      parentNode(exitNodes, parent);
-
-      enter.add(enterNodes);
-      update.add(updateNodes);
-      exit.add(exitNodes);
+  /**
+   * Sets the attribute with the specified name to the specified value
+   * on all selected elements.
+   */
+  attr(final String name, final Object value) {
+    if (value == null) {
+      attrNull(name);
+      return;
     }
-
-    if (value is Function) {
-      while (++i < n) {
-        group = this[i];
-        utils.FnWith3Args fnWith3Args = utils.relaxFn3Args(value);
-        bind(group, fnWith3Args(group, nodeData(parentNode(group)), i));
-      }
+    final qualified = core.qualify(name);
+    if (qualified.space != null) {
+      each((node, d, i, j) {
+        node.setAttributeNS(qualified.space, qualified.local, value.toString());
+      });
     } else {
-      while (++i < n) {
-        bind(group = this[i], value);
+      each((final Element node, d, i, j) {
+        node.setAttribute(name, value.toString());
+      });
+    }
+  }
+
+  /**
+   * Removes the specified attribute from all elements in the current
+   * selection.
+   */
+  attrNull(final String name) {
+    final qualified = core.qualify(name);
+    if (qualified.space != null) {
+      each((node, d, i, j) {
+        node.getNamespacedAttributes(qualified.space).remove(qualified.local);
+      });
+    } else {
+      each((final Element node, d, i, j) {
+        node.attributes.remove(name);
+      });
+    }
+  }
+
+  /**
+   * The specified function is evaluated for each selected element (in order),
+   * being passed the current datum and the current index, with the current
+   * DOM element. The function's return value is then used to set each
+   * element's attribute. A null value will remove the specified attribute.
+   */
+  attrFunc(final String name, final objectFunction fn) {
+    final qualified = core.qualify(name);
+    if (qualified.space != null) {
+      each((node, data, i, j) {
+        final x = fn(node, data, i, j);
+        if (x == null) {
+          node.getNamespacedAttributes(qualified.space).remove(qualified.local);
+        } else {
+          node.setAttributeNS(qualified.space, qualified.local, x);
+        }
+      });
+    } else {
+      each((node, data, i, j) {
+        var x = fn(node, data, i, j);
+        if (x == null) {
+          node.attributes.remove(name);
+        } else {
+          node.setAttribute(name, x.toString());
+        }
+      });
+    }
+  }
+
+  /**
+   * Returns the array of data for the first group in the selection.
+   */
+  List get groupData {
+    final group = this[0];
+    final n = group.length;
+    final value = new List(n);
+    int i = -1;
+    while (++i < n) {
+      final node = group[i];
+      if (node != null) {
+        value[i] = nodeData(node);
       }
+    }
+    return value;
+  }
+
+  /**
+   * Joins the specified array of data with the current selection.
+   */
+  Selection data(List value, [dataKeyFunction key = null]) {
+    return dataFunc((group, data, i) {
+      return value;
+    }, key);
+  }
+
+  /**
+   * Specifies the data for each group in the selection using a function
+   * that returns an array.
+   */
+  Selection dataFunc(final dataFunction fn, [dataKeyFunction key=null]) {
+    final enter = new EnteringSelection([]);
+    final update = new Selection([]);
+    final exit = new Selection([]);
+
+    final n = this.length;
+    int i = -1;
+
+    while (++i < n) {
+      final group = this[i];
+      final values = fn(group, nodeData(parentNode(group)), i);
+      bind(group, values, key, enter, update, exit);
     }
 
     update.enter = () { return enter; };
@@ -181,64 +224,88 @@ class Selection extends EnteringSelection {
     return update;
   }
 
-  each(callback) {
-    return eachGroup(this, (node, i, j) {
-      utils.FnWith4Args fnWith4Args = utils.relaxFn4Args(callback);
-      fnWith4Args(node, nodeData(node), i, j);
+  each(eachFunction callback) {
+    return eachNode(this, (node, i, j) {
+//      utils.FnWith4Args fnWith4Args = utils.relaxFn4Args(callback);
+      callback(node, nodeData(node), i, j);
     });
   }
 
   bool empty() {
-    return this.node() == null;
+    return this.node == null;
   }
 
-  html([value = unique]) {
-    if (value != unique) {
-      Function fn;
-      if (value is Function) {
-        fn = (node, data, i, j) {
-          utils.FnWith4Args fnWith4Args = utils.relaxFn4Args(value);
-          var v = fnWith4Args(node, data, i, j);
-          node.innerHtml = (v == null ? "" : v);
-        };
-      } else if (value == null) {
-        fn = (node) { node.innerHtml = ""; };
-      } else {
-        fn = (node) { node.innerHtml = value.toString(); };
-      }
-      return this.each(fn);
-    } else {
-      return this.node().innerHtml;
-    }
+  /**
+   * Returns the inner HTML content for the first non-null element in the
+   * selection.
+   */
+  String get nodeHtml {
+    return this.node.innerHtml;
   }
 
-  // TODO remove(selector)?
-  // TODO remove(node)?
-  // TODO remove(function)?
-  remove() {
-    return this.each((node, data, i, j) {
-      node.remove();
-//      var parent = parentNode(node);
-//      if (parent != null) parent.removeChild(node);
+  /**
+   * The specified function is evaluated for each selected element (in order),
+   * being passed the current datum, the current index and the current DOM
+   * element. The function's return value is then used to set each element's
+   * inner HTML content. A null value will clear the content.
+   */
+  htmlFunc(final objectFunction fn) {
+    each((node, data, i, j) {
+      var v = fn(node, data, i, j);
+      node.innerHtml = (v == null ? "" : v.toString());
     });
   }
 
-  select(s) {
-    List subgroups = [], subgroup;
-    var subnode, group, node;
+  /**
+   * Clears the inner HTML content of all selected elements.
+   */
+  htmlNull() {
+    each((node, data, i, j) {
+      node.innerHtml = "";
+    });
+  }
 
-    s = selector(s);
+  /**
+   * Sets the inner HTML content to the specified value on all selected
+   * elements.
+   */
+  html(final Object value) {
+    if (value == null) {
+      htmlNull();
+      return;
+    }
+    each((node, data, i, j) {
+      node.innerHtml = value.toString();
+    });
+  }
+
+  remove() {
+    return this.each((node, data, i, j) {
+      node.remove();
+    });
+  }
+
+  Selection select(final String selector) {
+    return selectFunc((final Element node, d, i, j) {
+      return node.querySelector(selector);
+    });
+  }
+
+  Selection selectFunc(final selectFunction selector) {
+    final subgroups = new List<List<Element>>();
 
     for (var j = -1, m = this.length; ++j < m;) {
-      subgroups.add(subgroup = []);
-      group = this[j];
-      parentNode(subgroup, parentNode(group));
+      final subgroup = new List<Element>();
+      subgroups.add(subgroup);
+      final group = this[j];
+      setParentNode(subgroup, parentNode(group));
       for (var i = -1, n = group.length; ++i < n;) {
-        node = group[i];
+        final Element node = group[i];
         if (node != null) {
-          subgroup.add(subnode = s(node, nodeData(node), i, j));
+          final subnode = selector(node, nodeData(node), i, j);
+          subgroup.add(subnode);
           if (subnode is Element && hasData(node)) {
-            nodeData(subnode, nodeData(node));
+            setNodeData(subnode, nodeData(node));
           }
         } else {
           subgroup.add(null);
@@ -249,20 +316,23 @@ class Selection extends EnteringSelection {
     return new Selection(subgroups);
   }
 
-  selectAll(selector) {
-    var subgroups = [],
-        subgroup,
-        node;
+  Selection selectAll(final String selector) {
+    return selectAllFunc((final Element node, _d, _i, _j) {
+      return node.querySelectorAll(selector);
+    });
+  }
 
-    selector = selectorAll(selector);
+  Selection selectAllFunc(final selectAllFunction selector) {
+    final subgroups = new List<List<Element>>();
 
-    for (var j = -1, m = this.length; ++j < m;) {
-      for (var group = this[j], i = -1, n = group.length; ++i < n;) {
-        node = group[i];
+    for (int j = -1, m = this.length; ++j < m;) {
+      final group = this[j];
+      for (int i = -1, n = group.length; ++i < n;) {
+        final Element node = group[i];
         if (node != null) {
-          subgroup = selector(node, nodeData(node), i, j);
+          final List<Element> subgroup = selector(node, nodeData(node), i, j);
           subgroups.add(subgroup);
-          parentNode(subgroup, node);
+          setParentNode(subgroup, node);
         }
       }
     }
@@ -270,75 +340,115 @@ class Selection extends EnteringSelection {
     return new Selection(subgroups);
   }
 
-  int size() {
+  int get size {
     int n = 0;
-    this.each(() { ++n; });
+    this.each((e, d, i, j) { ++n; });
     return n;
   }
 
-  style(name, [value = unique, priority = null]) {
-    if (priority == null) {
-
-      // For style(object) or style(object, string), the object specifies the
-      // names and values of the attributes to set or remove. The values may be
-      // functions that are evaluated for each element. The optional string
-      // specifies the priority.
-      if (!(name is String)) {
-        if (value == null) value = "";
-        name.forEach((k, v) {
-          this.each(styleNode(k, v, value));
-        });
-        return this;
-      }
-
-      // For style(string), return the computed style value for the first node.
-      if (value == unique) {
-        return this.node().getComputedStyle().getPropertyValue(name);
-      }
-
-      // For style(string, string) or style(string, function), use the default
-      // priority. The priority is ignored for style(string, null).
-      priority = "";
-    }
-
-    // Otherwise, a name, value and priority are specified, and handled as below.
-    return this.each(styleNode(name, value, priority));
+  /**
+   * Returns the computed style value for the first node.
+   */
+  String nodeStyle(final String name) {
+    return node.getComputedStyle().getPropertyValue(name);
   }
 
-  text([value = unique]) {
-    if (value != unique) {
-      Function fn;
-      if (value is Function) {
-        fn = (node, data, i, j) {
-          utils.FnWith4Args fnWith4Args = utils.relaxFn4Args(value);
-          var v = fnWith4Args(node, data, i, j);
-          node.text = (v == null ? "" : v.toString());
-        };
-      } else if (value == null) {
-        fn = (node) { node.text = ""; };
+  /**
+   * The map specifies the names and values of the attributes to set or
+   * remove. The values may be functions that are evaluated for each
+   * element. The optional string specifies the priority.
+   */
+  styleMap(final Map<String, Object> map, [String priority=""]) {
+    map.forEach((final String name, final Object value) {
+      if (value == null) {
+        styleNull(name);
+      } else if (value is objectFunction) {
+        styleFunc(name, value, priority);
       } else {
-        fn = (node) { node.text = value.toString(); };
+        style(name, value, priority);
       }
-      return each(fn);
-    } else {
-      return this.node().text;
-    }
+    });
   }
 
-}
+  /**
+   * Remove the style property with the specified name.
+   */
+  styleNull(final String name) {
+    each((node, d, i, j) {
+      node.style.removeProperty(name);
+    });
+  }
 
-selectNode(s, n) { return n.querySelector(s); }
+  /**
+   * Sets the style property with the specified name, using the specified
+   * priority.
+   */
+  style(final String name, final Object value, [String priority=""]) {
+    if (value == null) {
+      styleNull(name);
+      return;
+    }
+    each((node, d, i, j) {
+      node.style.setProperty(name, value.toString(), priority);
+    });
+  }
 
-selectNodeAll(s, n) { return n.querySelectorAll(s); }
+  /**
+   * The specified function is evaluated for each element, and the style
+   * property set or removed as appropriate. When setting, the specified
+   * priority is used.
+   */
+  styleFunc(final String name, final objectFunction fn, [String priority=""]) {
+    each((node, d, i, j) {
+      final x = fn(node, d, i, j);
+      if (x == null) {
+        node.style.removeProperty(name);
+      } else {
+        node.style.setProperty(name, x.toString(), priority);
+      }
+    });
+  }
 
-select(node) {
-  var group = [node is String ? selectNode(node, document) : node];
-  parentNode(group, document);
-  return new Selection([group]);
-}
+  /**
+   * Returns the text content for the first non-null element in the selection.
+   */
+  String get nodeText {
+    return this.node.text;
+  }
 
-selectAll(nodes) {
-  var group = [nodes is String ? selectNodeAll(nodes, document) : nodes];
-  parentNode(group, document);
-  return new Selection([group]);
+  /**
+   * The specified function is evaluated for each selected element (in order),
+   * being passed the current datum, the current index and the current DOM
+   * element. The function's return value is then used to set each element's
+   * text content. A null value will clear the content.
+   */
+  textFunc(final objectFunction fn) {
+    each((node, data, i, j) {
+      var v = fn(node, data, i, j);
+      node.text = (v == null ? "" : v.toString());
+    });
+  }
+
+  /**
+   * Clears the text content for each element in the current selection.
+   */
+  textNull() {
+    each((node, data, i, j) {
+      node.text = "";
+    });
+  }
+
+  /**
+   * Sets the text content to the specified value on all selected elements.
+   */
+  text(final Object value) {
+    if (value == null) {
+      textNull();
+      return;
+    }
+    each((node, data, i, j) {
+      node.text = value.toString();
+    });
+  }
+
 }

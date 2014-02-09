@@ -8,7 +8,7 @@ var nsPrefix = {
   "xmlns": "http://www.w3.org/2000/xmlns/"
 };
 
-qualify(name) {
+Name qualify(name) {
   var i = name.indexOf(":"),
       prefix = name;
   if (i >= 0) {
@@ -17,7 +17,7 @@ qualify(name) {
   }
   return nsPrefix.containsKey(prefix)
       ? new Name(nsPrefix[prefix], name)
-      : name;
+      : new Name(null, name);
 }
 
 class Name {
