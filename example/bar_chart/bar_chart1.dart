@@ -1,3 +1,4 @@
+
 import 'package:d3/scale/scale.dart';
 import 'package:d3/arrays/arrays.dart';
 import 'package:d3/selection/selection.dart';
@@ -10,11 +11,11 @@ var x = new Linear()
     ..domain = [0, max(data)]
     ..range = [0, 420];
 
-select(".chart")
-  .selectAll("div")
-    .data(data)
-  .enter().append("div")
-    .style("width", (n, d) { return "${x(d)}px"; })
-    .text((n, d) { return d; });
-
+new Selection.selector('.chart')
+  .selectAll('div')
+  .data(data)
+  .enter()
+  .append('div')
+  ..styleFunc("width", (n, d, i, j) { return "${x(d)}px"; })
+  ..textFunc((n, d, i, j) { return d; });
 }

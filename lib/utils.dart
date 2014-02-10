@@ -27,7 +27,7 @@ FnWith4Args relaxFn4Args(Function fn) {
   }
 }
 
-FnWith3Args relaxFn3Args(Function fn) {
+/*FnWith3Args relaxFn3Args(Function fn) {
   if (fn is FnWith3Args) {
     return fn;
   } else if (fn is FnWith2Args) {
@@ -41,7 +41,7 @@ FnWith3Args relaxFn3Args(Function fn) {
       throw "Unknown function type, expecting 0 to 3 args.";
     };
   }
-}
+}*/
 
 toDouble(x) {
   if (x is int) {
