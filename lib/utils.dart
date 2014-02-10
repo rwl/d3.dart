@@ -63,3 +63,8 @@ final formatter = new NumberFormat(pattern);
 String fmt(num x) {
   return formatter.format(x);
 }
+
+class Margin {
+  num top, right, bottom, left;
+  Margin(this.top, this.right, this.bottom, this.left);
+}
