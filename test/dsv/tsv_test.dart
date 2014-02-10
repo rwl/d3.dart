@@ -4,7 +4,7 @@ import 'package:d3/dsv/dsv.dart' as dsv;
 void main() {
   group('tsv', () {
     group('on a sample file', () {
-      dsv.tsv('../data/sample.tsv', callback: (tsv) {
+      dsv.tsv('../data/sample.tsv', callback: (tsv, _) {
         test('invokes the callback with the parsed tsv', () {
           expect(tsv, equals([{'Hello':'42','World':'"fish"'}]));
         });
@@ -15,7 +15,7 @@ void main() {
     });
 
     group('on a file that does not exist', () {
-      dsv.tsv('//does/not/exist.tsv', callback: (tsv) {
+      dsv.tsv('//does/not/exist.tsv', callback: (tsv, _) {
         test('invokes the callback with null when an error occurs', () {
           expect(tsv, isNull);
         });
