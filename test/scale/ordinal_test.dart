@@ -14,12 +14,12 @@ void main() {
         expect(x(1), equals('foo'));
         expect(x(0), equals('bar'));
         expect(x.domain, equals([1, 0]));
-        /*x.domain = ['0', '1'];
+        x.domain = ['0', '1'];
         expect(x(0), equals('foo')); // it changed!
         expect(x(1), equals('bar'));
-        expect(x.domain, equals(['0', '1']));*/
+        expect(x.domain, equals(['0', '1']));
       });
-      /*test('uniqueness is based on string coercion', () {
+      test('uniqueness is based on string coercion', () {
         var x = new Ordinal()
           ..domain = ['foo']
           ..range = [42, 43, 44];
@@ -41,16 +41,16 @@ void main() {
         expect(x('__proto__'), equals(42));
         expect(x('hasOwnProperty'), equals(43));
         expect(x.domain, equals(['__proto__', 'hasOwnProperty']));
-      });*/
+      });
     });
 
-    /*group('range', () {
+    group('range', () {
       test('defaults to the empty array', () {
         var x = new Ordinal();
         expect(x.range, isEmpty);
-        expect(x(0), isNull/*isUndefined*/);
+//        expect(x(0), isNull/*isUndefined*/);
       });
-      test('new input values are added to the domain', () {
+      /*test('new input values are added to the domain', () {
         var x = new Ordinal()
           ..range = ['foo', 'bar'];
         expect(x(0), equals('foo'));
@@ -96,8 +96,8 @@ void main() {
         expect(x(2), equals('c'));
         expect(x(1), equals('b'));
         expect(x(0), equals('a'));
-      });
-    });*/
+      });*/
+    });
 
     /*test('maps distinct values to discrete values', () {
       var x = new Ordinal()

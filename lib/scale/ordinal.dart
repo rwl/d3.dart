@@ -8,7 +8,7 @@ class Ordinal {
   List _domain;
   Ranger ranger;
 
-  Map _index;
+  Map<String, int> _index;
   List _range;
   int _rangeBand;
 
@@ -17,13 +17,18 @@ class Ordinal {
     this.domain = domain == null ? [] : domain;
   }
 
-  call(x) {
-    if (_index.containsKey(x)) {
-      return _range[(_index[x] - 1) % range.length];
+  /**
+   * Given a value x in the input domain, returns the corresponding value in
+   * the output range.
+   */
+  call(final Object x) {
+    final String xs = x.toString();
+    if (_index.containsKey(xs)) {
+      return _range[(_index[xs] - 1) % range.length];
     } else if (ranger.t == RangeType.RANGE) {
       _domain.add(x);
-      _index[x] = x;
-      return _range[(_index[x] - 1) % range.length];
+      _index[xs] = _domain.length;
+      return _range[(_index[xs] - 1) % range.length];
     }
 //    return _range[((_index[x] || ranger.t == "range" && _index[x] = _domain.add(x)) - 1) % range.length];
   }
@@ -36,15 +41,16 @@ class Ordinal {
 
   List get domain => _domain;
 
-  void set domain(x) {
+  void set domain(List<Object> x) {
     _domain = [];
-    _index = new Map();
-    int i = -1, n = x.length;
-    var xi;
+    _index = new Map<String, int>();
+    int i = -1;
+    final n = x.length;
     while (++i < n) {
-      if (!_index.containsKey(xi = x[i])) {
+      var xi = x[i];
+      if (!_index.containsKey(xi.toString())) {
         _domain.add(xi);
-        _index[xi] = xi;
+        _index[xi.toString()] = _domain.length;
       }
     }
 
