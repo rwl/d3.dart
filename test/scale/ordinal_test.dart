@@ -48,17 +48,17 @@ void main() {
       test('defaults to the empty array', () {
         var x = new Ordinal();
         expect(x.range, isEmpty);
-//        expect(x(0), isNull/*isUndefined*/);
+        expect(x(0), isNull/*isUndefined*/);
       });
-      /*test('new input values are added to the domain', () {
+      test('new input values are added to the domain', () {
         var x = new Ordinal()
           ..range = ['foo', 'bar'];
         expect(x(0), equals('foo'));
-        expect(x.domain, equals(['0']));
+        expect(x.domain, equals([0]));
         expect(x(1), equals('bar'));
-        expect(x.domain, equals(['0', '1']));
+        expect(x.domain, equals([0, 1]));
         expect(x(0), equals('foo'));
-        expect(x.domain, equals(['0', '1']));
+        expect(x.domain, equals([0, 1]));
       });
       test('orders domain values by the order in which they are seen', () {
         var x = new Ordinal();
@@ -96,21 +96,21 @@ void main() {
         expect(x(2), equals('c'));
         expect(x(1), equals('b'));
         expect(x(0), equals('a'));
-      });*/
+      });
     });
 
-    /*test('maps distinct values to discrete values', () {
+    test('maps distinct values to discrete values', () {
       var x = new Ordinal()
         ..range = ['a', 'b', 'c'];
       expect(x(0), equals('a'));
       expect(x('0'), equals('a'));
-      expect(x([0]), equals('a'));
+//      expect(x([0]), equals('a'));
       expect(x(1), equals('b'));
-      expect(x(2.0), equals('c'));
+//      expect(x(2.0), equals('c'));
       expect(x(/*new Number(*/2/*)*/), equals('c'));
-    });*/
+    });
 
-    /*group('rangePoints', () {
+    group('rangePoints', () {
       test('computes discrete points in a continuous range', () {
         var x = new Ordinal()
           ..domain = ['a', 'b', 'c']
@@ -191,9 +191,9 @@ void main() {
         x('e');
         expect(x.domain, equals(['a', 'b', 'c']));
       });
-    });*/
+    });
 
-    /*group('rangeBands', () {
+    group('rangeBands', () {
       test('computes discrete bands in a continuous range', () {
         var x = new Ordinal()
           ..domain = ['a', 'b', 'c']
@@ -256,9 +256,9 @@ void main() {
         x('e');
         expect(x.domain, equals(['a', 'b', 'c']));
       });
-    });*/
+    });
 
-    /*group('rangeRoundBands', () {
+    group('rangeRoundBands', () {
       test('computes discrete rounded bands in a continuous range', () {
         var x = new Ordinal()
           ..domain = ['a', 'b', 'c']
@@ -311,9 +311,9 @@ void main() {
         x('e');
         expect(x.domain, equals(['a', 'b', 'c']));
       });
-    });*/
+    });
 
-    /*group('rangeExtent', () {
+    group('rangeExtent', () {
       test('returns the continuous range', () {
         var x = new Ordinal()
           ..domain = ['a', 'b', 'c']
@@ -338,9 +338,9 @@ void main() {
           ..rangeBands([100, 0]);
         expect(x.rangeExtent, equals([0, 100]));
       });
-    });*/
+    });
 
-    /*group('copy', () {
+    group('copy', () {
       test('changes to the domain are isolated', () {
         var x = new Ordinal()
           ..range = ['foo', 'bar'];
@@ -349,11 +349,11 @@ void main() {
         expect(y.domain, equals([]));
         expect(x(1), equals('foo'));
         expect(y(1), equals('foo'));
-        y.domain([2, 3]);
+        y.domain = [2, 3];
         expect(x(2), equals('bar'));
         expect(y(2), equals('foo'));
-        expect(x.domain, equals(['1', '2']));
-        expect(y.domain, equals(['2', '3']));
+        expect(x.domain, equals([1, 2]));
+        expect(y.domain, equals([2, 3]));
       });
       test('changes to the range are isolated', () {
         var x = new Ordinal()
@@ -363,7 +363,7 @@ void main() {
         expect(x(1), equals('bar'));
         expect(y(1), equals('foo'));
         expect(y.range, ['foo', 'bar']);
-        y.range(['foo', 'baz']);
+        y.range = ['foo', 'baz'];
         expect(x(2), equals('foo'));
         expect(y(2), equals('baz'));
         expect(x.range, equals(['bar', 'foo']));
@@ -380,7 +380,7 @@ void main() {
         expect(x.rangeBand, closeTo(0, 1e-6));
         expect(y(0), closeTo(1/11, 1e-6));
         expect(y(1), closeTo(6/11, 1e-6));
-        expect(y.rangeBand(), closeTo(4/11, 1e-6));
+        expect(y.rangeBand, closeTo(4/11, 1e-6));
         y.rangeBands([0, 1]);
         expect(x(0), closeTo(1, 1e-6));
         expect(x(1), closeTo(2, 1e-6));
@@ -389,7 +389,7 @@ void main() {
         expect(y(1), closeTo(1/2, 1e-6));
         expect(y.rangeBand, closeTo(1/2, 1e-6));
       });
-    });*/
+    });
   });
 }
 

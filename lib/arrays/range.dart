@@ -1,6 +1,6 @@
 part of arrays;
 
-range(start, [stop=null, step=1]) {
+List range(num start, [num stop=null, num step=1]) {
   if (stop == null) {
     stop = start;
     start = 0;
@@ -8,10 +8,10 @@ range(start, [stop=null, step=1]) {
   if ((stop - start) / step == double.INFINITY) {
     throw new Error();//"infinite range");
   }
-  var range = [],
-       k = integerScale(step.abs()),
-       i = -1,
-       j;
+  final range = [];
+  int k = integerScale(step.abs());
+  int i = -1;
+  int j;
   start *= k; stop *= k; step *= k;
   if (step < 0) {
     while ((j = start + step * ++i) > stop) range.add(j / k);
@@ -21,8 +21,8 @@ range(start, [stop=null, step=1]) {
   return range;
 }
 
-integerScale(x) {
-  var k = 1;
+int integerScale(x) {
+  int k = 1;
   while (x * k % 1 != 0) k *= 10;
   return k;
 }

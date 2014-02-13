@@ -1,16 +1,12 @@
 part of scale;
 
-//ordinal() {
-//  return new Ordinal([], new Ranger("range", [[]]));
-//}
-
 class Ordinal {
   List _domain;
   Ranger ranger;
 
   Map<String, int> _index;
   List _range;
-  int _rangeBand;
+  num _rangeBand;
 
   Ordinal([domain = null, ranger = null]) {
     this.ranger = ranger == null ? new Ranger(RangeType.RANGE, []) : ranger;
@@ -24,19 +20,21 @@ class Ordinal {
   call(final Object x) {
     final String xs = x.toString();
     if (_index.containsKey(xs)) {
-      return _range[(_index[xs] - 1) % range.length];
+      return _range[(_index[xs] - 1) % _range.length];
     } else if (ranger.t == RangeType.RANGE) {
       _domain.add(x);
       _index[xs] = _domain.length;
-      return _range[(_index[xs] - 1) % range.length];
+      if (_range.length > 0) {
+        return _range[(_index[xs] - 1) % _range.length];
+      }
     }
-//    return _range[((_index[x] || ranger.t == "range" && _index[x] = _domain.add(x)) - 1) % range.length];
+    return null;
   }
 
-  steps(start, step) {
+  List steps(num start, num step) {
     return arrays.range(domain.length).map((i) {
       return start + step * i;
-    });
+    }).toList();
   }
 
   List get domain => _domain;
@@ -85,47 +83,55 @@ class Ordinal {
     _range = steps(_domain.length < 2 ? (start + stop) / 2 : start + step * padding / 2, step);
     _rangeBand = 0;
     ranger = new Ranger(RangeType.RANGE_POINTS, x, padding);
-//    return scale;
   }
 
-  rangeBands(List x, [padding=0, outerPadding=null]) {
+  rangeBands(List<num> x, [padding=0, outerPadding=null]) {
     if (outerPadding == null) {
       outerPadding = padding;
     }
-    final reverse = x[1] < x[0];
+    final int reverse = x[1] < x[0] ? 1 : 0;
     final start = x[reverse - 0];
     final stop = x[1 - reverse];
     final step = (stop - start) / (_domain.length - padding + 2 * outerPadding);
     _range = steps(start + step * outerPadding, step);
-    if (reverse) {
-      _range = _range.reversed;
+    if (reverse != 0) {
+      _range = _range.reversed.toList();
     }
     _rangeBand = step * (1 - padding);
     ranger = new Ranger(RangeType.RANGE_BANDS, x, padding, outerPadding);
-//    return scale;
   }
 
-  rangeRoundBands(x, [padding=0, outerPadding=null]) {
+  rangeRoundBands(List<num> x, [padding=0, outerPadding=null]) {
     if (outerPadding == null) {
       outerPadding = padding;
     }
-    final reverse = x[1] < x[0];
+    final int reverse = x[1] < x[0] ? 1 : 0;
     final start = x[reverse - 0];
     final stop = x[1 - reverse];
-    final step = ((stop - start) / (_domain.length - padding + 2 * outerPadding)).floor();
-    final error = stop - start - (_domain.length - padding) * step;
-    range = steps(start + (error / 2).round(), step);
-    if (reverse) {
-      _range = _range.reversed;
+    num step = (stop - start) / (_domain.length - padding + 2 * outerPadding);
+    if (!step.isNaN && !step.isInfinite) {
+      step = step.floor();
     }
-    _rangeBand = (step * (1 - padding)).round();
+    final error = stop - start - (_domain.length - padding) * step;
+    num st = start + (error / 2);
+    if (!st.isNaN && !st.isInfinite) {
+      st = st.round();
+    }
+    range = steps(st, step);
+    if (reverse != 0) {
+      _range = _range.reversed.toList();
+    }
+    num rb = step * (1 - padding);
+    if (!rb.isNaN && !rb.isInfinite) {
+      rb = rb.round();
+    }
+    _rangeBand = rb;
     ranger = new Ranger(RangeType.RANGE_ROUND_BANDS, x, padding, outerPadding);
-//    return scale;
   }
 
-  int get rangeBand => _rangeBand;
+  num get rangeBand => _rangeBand;
 
-  List get rangeExtent => scaleExtent(ranger.x[0]);
+  List get rangeExtent => scaleExtent(ranger.x);
 
   copy() => new Ordinal(_domain, ranger);
 
@@ -134,8 +140,8 @@ class Ordinal {
 class Ranger {
   RangeType t;
   List x;
-  int padding;
-  int outerPadding;
+  num padding;
+  num outerPadding;
 
   Ranger(this.t, this.x, [this.padding, this.outerPadding]);
 }
