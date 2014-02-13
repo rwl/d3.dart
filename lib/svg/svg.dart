@@ -2,6 +2,9 @@ library d3.svg;
 
 import 'dart:math' as math;
 
+import 'package:d3/scale/scale.dart';
+import 'package:d3/selection/selection.dart';
+
 import '../core/core.dart';
 import '../math/math.dart';
 import '../utils.dart';
