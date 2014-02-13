@@ -14,13 +14,7 @@ var x = new Linear()
 var chart = new Selection.selector(".chart")
   ..attr("width", width);
 
-Map<String, Object> type(Map<String, String> d, int i) {
-  var dd = new Map.from(d);
-  dd['value'] = double.parse(dd['value']); // coerce to number
-  return dd;
-}
-
-tsv("data.tsv", row:type, callback: (final List<Map<String, Object>> data) {
+tsv("data.tsv", row:type, callback: (final List<Map<String, Object>> data, _) {
   x.domain = [0, max(data, (d) { return d['value']; })];
 
   chart.attr("height", barHeight * data.length);
@@ -46,4 +40,10 @@ tsv("data.tsv", row:type, callback: (final List<Map<String, Object>> data) {
       ..textFunc((n, d, i, j) { return d['value']; });
 });
 
+}
+
+Map<String, Object> type(Map<String, String> d, int i) {
+  var dd = new Map.from(d);
+  dd['value'] = double.parse(dd['value']); // coerce to number
+  return dd;
 }

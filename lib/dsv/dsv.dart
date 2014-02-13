@@ -5,7 +5,7 @@ import 'dart:html';
 part 'csv.dart';
 part 'tsv.dart';
 
-typedef dsvCallback(List<Map<String, Object>> map);
+typedef dsvCallback(List<Map<String, Object>> map, Error error);
 
 typedef Map<String, Object> accessorFunction(Map<String, String> d, int i);
 typedef Object rowAccessorFunction(List<String> row, int i);
@@ -23,7 +23,7 @@ class DSV {
     this.delimiterCode = delimiter.codeUnitAt(0);
   }
 
-  call(url, {accessorFunction row:null, callback:null}) {
+  call(url, {accessorFunction row:null, dsvCallback callback:null}) {
 //    if (callback == null) {
 //      callback = row;
 //      row = null;
@@ -32,12 +32,12 @@ class DSV {
     HttpRequest.request(url, method: "GET", mimeType: mimeType)
       .then((HttpRequest req) {
         if (callback != null) {
-          callback(parse(req.responseText, row));
+          callback(parse(req.responseText, row), null);
         }
       })
       .catchError((Error error) {
         if (callback != null) {
-          callback(null);
+          callback(null, error);
         }
       });
 //    var xhr = d3_xhr(url, mimeType, row == null ? response : typedResponse(row), callback);

@@ -13,6 +13,8 @@ part 'expando.dart';
 typedef Element selectFunction(Element node, Object data, int i, int j);
 typedef List<Element> selectAllFunction(Element node, Object data, int i, int j);
 
+typedef selectionCallable(Selection selection);
+
 typedef List dataFunction(List<Element> group, Object data, int i);
 typedef String dataKeyFunction(var thiz, var data, int i);
 
@@ -173,6 +175,17 @@ class Selection extends EnteringSelection {
         }
       });
     }
+  }
+
+  /*void call(final Function function, [List positionalArguments, final Map<Symbol, dynamic> namedArguments]) {
+    if (positionalArguments == null) {
+      positionalArguments = [];
+    }
+    positionalArguments.insert(0, this);
+    Function.apply(function, positionalArguments, namedArguments);
+  }*/
+  call(final selectionCallable fn) {
+    fn(this);
   }
 
   /**

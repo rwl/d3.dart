@@ -1,7 +1,8 @@
 part of scale;
 
 category20() {
-  return ordinal().range(_category20);
+  return new Ordinal()
+    ..range = _category20;
 }
 
 List<int> _category20 = [

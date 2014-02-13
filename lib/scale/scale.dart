@@ -16,7 +16,8 @@ part 'polylinear.dart';
 part 'bilinear.dart';
 
 scaleExtent(domain) {
-  var start = domain[0], stop = domain[domain.length - 1];
+  num start = domain[0];
+  num stop = domain[domain.length - 1];
   return start < stop ? [start, stop] : [stop, start];
 }
 
