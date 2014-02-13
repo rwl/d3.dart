@@ -7,7 +7,13 @@ Function polylinear(List domain, List range, Function uninterpolate, Function in
       k = math.min(domain.length, range.length) - 1;
 
   // Handle descending domains.
-  if (domain[k] < domain[0]) {
+  bool decending = false;
+  try {
+    decending = domain[k] < domain[0];
+  } catch (e) {
+    decending = domain[k].compareTo(domain[0]) < 0;
+  }
+  if (decending) {
     domain = new List.from(domain.reversed);
     range = new List.from(range.reversed);
   }
