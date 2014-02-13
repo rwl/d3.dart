@@ -5,6 +5,7 @@ import 'dart:math' as math;
 
 import '../core/core.dart' as core;
 
+part 'append.dart';
 part 'data.dart';
 part 'each.dart';
 part 'enter.dart';
@@ -12,6 +13,8 @@ part 'expando.dart';
 
 typedef Element selectFunction(Element node, Object data, int i, int j);
 typedef List<Element> selectAllFunction(Element node, Object data, int i, int j);
+
+typedef selectionCallable(Selection selection);
 
 typedef List dataFunction(List<Element> group, Object data, int i);
 typedef String dataKeyFunction(var thiz, var data, int i);
@@ -175,6 +178,17 @@ class Selection extends EnteringSelection {
     }
   }
 
+  /*void call(final Function function, [List positionalArguments, final Map<Symbol, dynamic> namedArguments]) {
+    if (positionalArguments == null) {
+      positionalArguments = [];
+    }
+    positionalArguments.insert(0, this);
+    Function.apply(function, positionalArguments, namedArguments);
+  }*/
+  call(final selectionCallable fn) {
+    fn(this);
+  }
+
   /**
    * Returns the array of data for the first group in the selection.
    */
@@ -276,6 +290,28 @@ class Selection extends EnteringSelection {
     }
     each((node, data, i, j) {
       node.innerHtml = value.toString();
+    });
+  }
+
+  /**
+   * Inserts a new element with the specified name before the element
+   * matching the specified before selector, for each element in the
+   * current selection, returning a new selection containing the inserted
+   * elements.
+   */
+  insert(final String name, final String before) {
+    final nameFn = creator(name);
+//    final beforeFn = (node, data, i, j) {
+//      return node.select(before);
+//    }
+    return this.selectFunc((node, data, i, j) {
+      return node.insertBefore(nameFn(node, data, i, j), node.select(before) || null);
+    });
+  }
+
+  insertFunc(elementFunction name, elementFunction before) {
+    return this.selectFunc((node, data, i, j) {
+      return node.insertBefore(name(node, data, i, j), before(node, data, i, j) || null);
     });
   }
 

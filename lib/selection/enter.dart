@@ -1,6 +1,6 @@
 part of selection;
 
-typedef appendFunction(Element node, var data, int i, int j);
+typedef Element elementFunction(Element node, var data, int i, int j);
 
 class EnteringSelection {
 
@@ -24,17 +24,7 @@ class EnteringSelection {
    * containing the appended elements.
    */
   Selection append(final String name) {
-    final qualified = core.qualify(name);
-    appendFunction fn;
-    if (qualified.space != null) {
-      fn = (final Element node, _d, _i, _j) {
-        return node.ownerDocument.createElementNS(qualified.space, qualified.local);
-      };
-    } else {
-      fn = (final Element node, _d, _i, _j) {
-        return node.ownerDocument.createElementNS(node.namespaceUri, qualified.local);
-      };
-    }
+    final fn = creator(name);
     return this.appendFunc(fn);
   }
 
@@ -43,7 +33,7 @@ class EnteringSelection {
    * selection and returned element is appended as the last child.
    * A new selection containing the appended elements is returned.
    */
-  Selection appendFunc(final appendFunction fn) {
+  Selection appendFunc(final elementFunction fn) {
     return this.selectFunc((node, data, i, j) {
       return node.append(fn(node, data, i, j));
     });
