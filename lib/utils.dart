@@ -1,5 +1,6 @@
 library d3.utils;
 
+import 'dart:math' as math;
 import 'package:intl/intl.dart';
 
 typedef FnWith0Args();
@@ -8,6 +9,13 @@ typedef FnWith2Args(a0, a1);
 typedef FnWith3Args(a0, a1, a2);
 typedef FnWith4Args(a0, a1, a2, a3);
 
+const double pi = math.PI,
+  tau = 2 * pi,
+  halfpi = pi / 2,
+  epsilon = 1e-6,
+  epsilon2 = epsilon * epsilon,
+  radians = pi / 180,
+  degrees = 180 / pi;
 
 FnWith4Args relaxFn4Args(Function fn) {
   if (fn is FnWith4Args) {
