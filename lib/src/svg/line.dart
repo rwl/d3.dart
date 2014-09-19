@@ -257,8 +257,7 @@ String lineBasisOpen(List<List<num>> points, num tension) {
     px.add(pi[0]);
     py.add(pi[1]);
   }
-  path.add(lineDot4(lineBasisBezier3, px)
-    + "," + lineDot4(lineBasisBezier3, py));
+  path.add("${lineDot4(lineBasisBezier3, px)},${lineDot4(lineBasisBezier3, py)}");
   --i; while (++i < n) {
     pi = points[i];
     px.removeAt(0); px.add(pi[0]);
@@ -297,7 +296,7 @@ String lineBasisClosed(List<List<num>> points, num tension) {
 
 String lineBundle(List<List<num>> points, num tension) {
   var n = points.length - 1;
-  if (n) {
+  if (n != 0) {
     var x0 = points[0][0],
         y0 = points[0][1],
         dx = points[n][0] - x0,

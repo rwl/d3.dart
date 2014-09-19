@@ -44,7 +44,7 @@ void main() {
     });*/
     test('y can be defined as a constant', () {
       var l = new Line()..y = 0;
-      expect(l([[1, 2], [4, 3]]), pathEquals('M1,0L4,0'));
+      expect(l.line([[1, 2], [4, 3]]), pathEquals('M1,0L4,0'));
       expect(l.y, equals(0));
     });
     test('y can be overridden with a getter', () {
@@ -62,21 +62,23 @@ void main() {
     });
     test('interpolate can be defined as a constant', () {
       var l = new Line()..interpolation = 'step-before';
-      expect(l([[0, 0], [1, 1]]), pathEquals('M0,0V1H1'));
+      expect(l.line([[0, 0], [1, 1]]), pathEquals('M0,0V1H1'));
       expect(l.interpolation, equals('step-before'));
     });
     test('interpolate can be defined as a function', () {
       interpolate(points, _) {
-        return points.join('T');
+        return points.map((p) {
+          return "${p[0]},${p[1]}";
+        }).join('T');
       }
       var l = new Line()..interpolate = interpolate;
-      expect(l([[0, 0], [1, 1]]), pathEquals('M0,0T1,1'));
+      expect(l.line([[0, 0], [1, 1]]), pathEquals('M0,0T1,1'));
       expect(l.interpolate, equals(interpolate));
     });
     test('invalid interpolates fallback to linear', () {
       expect((new Line()
         ..interpolation = '__proto__')
-        .interpolate, equals('linear'));
+        .interpolation, equals('linear'));
     });
 
     test('tension defaults to .7', () {
