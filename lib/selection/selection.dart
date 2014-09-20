@@ -96,7 +96,7 @@ class Selection extends EnteringSelection {
    * or remove. The values may be functions that are evaluated for
    * each element.
    */
-  attrMap(final Map<String, Object> attrs) {
+  void attrMap(final Map<String, Object> attrs) {
     attrs.forEach((final String name, final Object value) {
       if (value == null) {
         attrNull(name);
@@ -112,7 +112,7 @@ class Selection extends EnteringSelection {
    * Sets the attribute with the specified name to the specified value
    * on all selected elements.
    */
-  attr(final String name, final Object value) {
+  void attr(final String name, final Object value) {
     if (value == null) {
       attrNull(name);
       return;
@@ -133,7 +133,7 @@ class Selection extends EnteringSelection {
    * Removes the specified attribute from all elements in the current
    * selection.
    */
-  attrNull(final String name) {
+  void attrNull(final String name) {
     final qualified = core.qualify(name);
     if (qualified.space != null) {
       each((node, d, i, j) {
@@ -152,7 +152,7 @@ class Selection extends EnteringSelection {
    * DOM element. The function's return value is then used to set each
    * element's attribute. A null value will remove the specified attribute.
    */
-  attrFunc(final String name, final objectFunction fn) {
+  void attrFunc(final String name, final objectFunction fn) {
     final qualified = core.qualify(name);
     if (qualified.space != null) {
       each((node, data, i, j) {
@@ -249,7 +249,7 @@ class Selection extends EnteringSelection {
    * element. The function's return value is then used to set each element's
    * inner HTML content. A null value will clear the content.
    */
-  htmlFunc(final objectFunction fn) {
+  void htmlFunc(final objectFunction fn) {
     each((node, data, i, j) {
       var v = fn(node, data, i, j);
       node.innerHtml = (v == null ? "" : v.toString());
@@ -259,7 +259,7 @@ class Selection extends EnteringSelection {
   /**
    * Clears the inner HTML content of all selected elements.
    */
-  htmlNull() {
+  void htmlNull() {
     each((node, data, i, j) {
       node.innerHtml = "";
     });
@@ -269,7 +269,7 @@ class Selection extends EnteringSelection {
    * Sets the inner HTML content to the specified value on all selected
    * elements.
    */
-  html(final Object value) {
+  void html(final Object value) {
     if (value == null) {
       htmlNull();
       return;
@@ -358,7 +358,7 @@ class Selection extends EnteringSelection {
    * remove. The values may be functions that are evaluated for each
    * element. The optional string specifies the priority.
    */
-  styleMap(final Map<String, Object> map, [String priority=""]) {
+  void styleMap(final Map<String, Object> map, [String priority=""]) {
     map.forEach((final String name, final Object value) {
       if (value == null) {
         styleNull(name);
@@ -373,7 +373,7 @@ class Selection extends EnteringSelection {
   /**
    * Remove the style property with the specified name.
    */
-  styleNull(final String name) {
+  void styleNull(final String name) {
     each((node, d, i, j) {
       node.style.removeProperty(name);
     });
@@ -383,7 +383,7 @@ class Selection extends EnteringSelection {
    * Sets the style property with the specified name, using the specified
    * priority.
    */
-  style(final String name, final Object value, [String priority=""]) {
+  void style(final String name, final Object value, [String priority=""]) {
     if (value == null) {
       styleNull(name);
       return;
@@ -398,7 +398,7 @@ class Selection extends EnteringSelection {
    * property set or removed as appropriate. When setting, the specified
    * priority is used.
    */
-  styleFunc(final String name, final objectFunction fn, [String priority=""]) {
+  void styleFunc(final String name, final objectFunction fn, [String priority=""]) {
     each((node, d, i, j) {
       final x = fn(node, d, i, j);
       if (x == null) {
@@ -422,7 +422,7 @@ class Selection extends EnteringSelection {
    * element. The function's return value is then used to set each element's
    * text content. A null value will clear the content.
    */
-  textFunc(final objectFunction fn) {
+  void textFunc(final objectFunction fn) {
     each((node, data, i, j) {
       var v = fn(node, data, i, j);
       node.text = (v == null ? "" : v.toString());
@@ -432,7 +432,7 @@ class Selection extends EnteringSelection {
   /**
    * Clears the text content for each element in the current selection.
    */
-  textNull() {
+  void textNull() {
     each((node, data, i, j) {
       node.text = "";
     });
@@ -441,7 +441,7 @@ class Selection extends EnteringSelection {
   /**
    * Sets the text content to the specified value on all selected elements.
    */
-  text(final Object value) {
+  void text(final Object value) {
     if (value == null) {
       textNull();
       return;
