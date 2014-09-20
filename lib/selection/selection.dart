@@ -299,19 +299,25 @@ class Selection extends EnteringSelection {
    * current selection, returning a new selection containing the inserted
    * elements.
    */
-  insert(final String name, final String before) {
+  Selection insert(final String name, final String before) {
     final nameFn = creator(name);
-//    final beforeFn = (node, data, i, j) {
-//      return node.select(before);
-//    }
-    return this.selectFunc((node, data, i, j) {
-      return node.insertBefore(nameFn(node, data, i, j), node.select(before) || null);
-    });
+    beforeFn(node, data, i, j) {
+      return node.select(before);
+    }
+//    return this.selectFunc((Element node, data, i, j) {
+//      return node.insertBefore(nameFn(node, data, i, j), node.querySelector(before));// || null);
+//    });
+    return insertFuncFunc(nameFn, beforeFn);
   }
 
-  insertFunc(elementFunction name, elementFunction before) {
+  Selection insertFunc(String name, elementFunction before) {
+    final nameFn = creator(name);
+    return insertFuncFunc(nameFn, before);
+  }
+
+  Selection insertFuncFunc(elementFunction name, elementFunction before) {
     return this.selectFunc((node, data, i, j) {
-      return node.insertBefore(name(node, data, i, j), before(node, data, i, j) || null);
+      return node.insertBefore(name(node, data, i, j), before(node, data, i, j));// || null);
     });
   }
 

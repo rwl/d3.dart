@@ -1,22 +1,24 @@
 import 'package:unittest/unittest.dart';
-
+import 'package:unittest/html_enhanced_config.dart';
 import 'package:d3/selection/selection.dart';
 
 void main() {
+  useHtmlEnhancedConfiguration();
+
   group('select(body)', () {
     group('on a simple page', () {
       Selection body = new Selection.selector('body');
       test('inserts before the specified selector', () {
-        var span = body.html('').append('span');
+        var span = body..html('')..append('span');
         var div = body.insert('div', 'span');
         expect(div[0][0].tagName, equals('DIV'));
-        expect(div[0][0].namespaceURI, isNull);
+        expect(div[0][0].namespaceUri, isNull);
         expect(div[0][0], /*domEquals*/equals(body.node.firstChild));
-        expect(div[0][0].nextSibling, /*domEquals*/equals(span[0][0]));
+        expect(div[0][0].nextElementSibling, /*domEquals*/equals(span[0][0]));
       });
       test('inserts before the specified node', () {
-        var span = body.html('').append('span');
-        var div = body.insert('div', (n, d, i, j) { return span.node; });
+        var span = body..html('')..append('span');
+        var div = body.insertFunc('div', (n, d, i, j) { return span.node; });
         expect(div[0][0].tagName, equals('DIV'));
         expect(div[0][0].namespaceURI, isNull);
         expect(div[0][0], /*domEquals*/equals((body.node.firstChild)));
