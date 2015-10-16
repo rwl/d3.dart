@@ -1,21 +1,15 @@
-
-import 'package:d3/scale/scale.dart';
-import 'package:d3/arrays/arrays.dart';
-import 'package:d3/selection/selection.dart';
+import 'package:d3/d3.dart';
 
 main() {
+  var data = [4, 8, 15, 16, 23, 42];
 
-var data = [4, 8, 15, 16, 23, 42];
+  var x = linear().domain([0, max(data)]).range([0, 420]);
 
-var x = new Linear()
-    ..domain = [0, max(data)]
-    ..range = [0, 420];
-
-new Selection.selector('.chart')
-  .selectAll('div')
-  .data(data)
-  .enter()
-  .append('div')
-  ..styleFunc("width", (n, d, i, j) { return "${x(d)}px"; })
-  ..textFunc((n, d, i, j) { return d; });
+  select('.chart')
+      .selectAll('div')
+      .data(data)
+      .enter()
+      .append("div")
+      .style("width", (d) => x(d) + "px")
+      .text((d) => d);
 }
