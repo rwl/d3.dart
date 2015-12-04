@@ -12,6 +12,7 @@ external rebind(target, source, [names]);
 /// create a custom event dispatcher.
 external Dispatch dispatch([types]);
 
+@JS()
 class Dispatch {
   /// register or unregister an event listener.
   external on(type, [listener]);

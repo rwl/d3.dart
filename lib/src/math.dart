@@ -22,6 +22,7 @@ external irwinHall(count);
 /// compute the standard form of a 2D matrix transform
 external Transform transform(string);
 
+@JS()
 class Transform {
   external get rotate;
   external get translate;

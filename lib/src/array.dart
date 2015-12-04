@@ -81,6 +81,7 @@ external pairs(array);
 /// group array elements hierarchically.
 external Nest nest();
 
+@JS()
 class Nest {
   /// add a level to the nest hierarchy.
   external key(function);
@@ -103,6 +104,7 @@ class Nest {
 
 external D3Map map([object, key]);
 
+@JS()
 class D3Map {
   external has(key);
   external get(key);
@@ -118,6 +120,7 @@ class D3Map {
 
 external D3Set set([array]);
 
+@JS()
 class D3Set {
   external has(value);
   external add(value);

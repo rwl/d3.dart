@@ -5,6 +5,7 @@ import 'package:js/js.dart';
 
 external Voronoi voronoi();
 
+@JS()
 class Voronoi {
   external voronoi(data);
   external x([x]);
@@ -16,6 +17,7 @@ class Voronoi {
 
 external Quadtree quadtree();
 
+@JS()
 class Quadtree {
   external Root quadtree(points, [x1, y1, x2, y2]);
   external x([x]);
@@ -23,6 +25,7 @@ class Quadtree {
   external extent([extent]);
 }
 
+@JS()
 class Root {
   external add(point);
   external visit(callback);
@@ -31,6 +34,7 @@ class Root {
 
 external Polygon polygon(vertices);
 
+@JS()
 class Polygon {
   external area();
   external centroid();
@@ -39,6 +43,7 @@ class Polygon {
 
 external Hull hull();
 
+@JS()
 class Hull {
   external hull(vertices);
   external x([x]);

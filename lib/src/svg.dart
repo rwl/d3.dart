@@ -5,6 +5,7 @@ import 'package:js/js.dart';
 
 external Line line();
 
+@JS()
 class Line {
   external line(data);
   external x([x]);
@@ -19,6 +20,7 @@ class Line {
 
 external Area area();
 
+@JS()
 class Area {
   external area(data);
   external x([x]);
@@ -40,6 +42,7 @@ class Area {
 
 external Arc arc();
 
+@JS()
 class Arc {
   external arc(datum, [index]);
   external innerRadius([radius]);
@@ -54,6 +57,7 @@ class Arc {
 
 external Symbol symbol();
 
+@JS()
 class Symbol {
   external symbol(datum, [index]);
   external type([type]);
@@ -64,6 +68,7 @@ external List get symbolTypes;
 
 external Chord chord();
 
+@JS()
 class Chord {
   external chord(datum, [index]);
   external source([source]);
@@ -75,6 +80,7 @@ class Chord {
 
 external Diagonal diagonal();
 
+@JS()
 class Diagonal {
   external diagonal(datum, [index]);
   external source([source]);
@@ -85,6 +91,7 @@ class Diagonal {
 
 external Axis axis();
 
+@JS()
 class Axis {
   external axis(selection);
   external Axis scale([scale]);
@@ -100,6 +107,7 @@ class Axis {
 
 external Brush brush();
 
+@JS()
 class Brush {
   external brush(selection);
   external x([scale]);

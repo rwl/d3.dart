@@ -5,6 +5,7 @@ import 'package:js/js.dart';
 
 external Path path();
 
+@JS()
 class Path {
   external path(feature, [index]);
   external projection([projection]);
@@ -17,6 +18,7 @@ class Path {
 
 external Graticule graticule();
 
+@JS()
 class Graticule {
   external graticule();
   external lines();
@@ -32,6 +34,7 @@ class Graticule {
 
 external Circle circle();
 
+@JS()
 class Circle {
   external circle(arguments);
   external origin([origin]);
@@ -48,6 +51,7 @@ external interpolate(a, b);
 
 external Rotation rotation(rotate);
 
+@JS()
 class Rotation {
   external rotation(location);
   external invert(location);
@@ -55,6 +59,7 @@ class Rotation {
 
 external Projection projection(raw);
 
+@JS()
 class Projection {
   external projection(location);
   external invert(point);
@@ -77,18 +82,21 @@ external azimuthalEquidistant();
 
 external ConicConformal conicConformal();
 
+@JS()
 class ConicConformal {
   external parallels([parallels]);
 }
 
 external ConicEqualArea conicEqualArea();
 
+@JS()
 class ConicEqualArea {
   external parallels([parallels]);
 }
 
 external ConicEquidistant conicEquidistant();
 
+@JS()
 class ConicEquidistant {
   external parallels([parallels]);
 }
@@ -140,6 +148,7 @@ external get stereographicRaw;
 
 external StreamListener stream(object, listener);
 
+@JS()
 class StreamListener {
   external point(x, y, [z]);
   external lineStart();
@@ -151,12 +160,14 @@ class StreamListener {
 
 external StreamTransform transform(methods);
 
+@JS()
 class StreamTransform {
   external stream(listener);
 }
 
 external ClipExtent clipExtent();
 
+@JS()
 class ClipExtent {
   external extent([extent]);
 }

@@ -5,6 +5,7 @@ import 'package:js/js.dart';
 
 external LinearScale linear();
 
+@JS()
 class LinearScale {
   external linear(x);
   external invert(y);
@@ -21,6 +22,7 @@ class LinearScale {
 
 external IdentityScale identity();
 
+@JS()
 class IdentityScale {
   external identity(x);
   external invert(x);
@@ -34,6 +36,7 @@ class IdentityScale {
 external Pow sqrt();
 external Pow pow();
 
+@JS()
 class Pow {
   external pow(x);
   external invert(y);
@@ -51,6 +54,7 @@ class Pow {
 
 external Log log();
 
+@JS()
 class Log {
   external log(x);
   external invert(y);
@@ -68,6 +72,7 @@ class Log {
 
 external Quantize quantize();
 
+@JS()
 class Quantize {
   external quantize(x);
   external invertExtent(y);
@@ -78,6 +83,7 @@ class Quantize {
 
 external Quantile quantile();
 
+@JS()
 class Quantile {
   external quantile(x);
   external invertExtent(y);
@@ -89,6 +95,7 @@ class Quantile {
 
 external Threshold threshold();
 
+@JS()
 class Threshold {
   external threshold(x);
   external invertExtent(y);
@@ -99,6 +106,7 @@ class Threshold {
 
 external Ordinal ordinal();
 
+@JS()
 class Ordinal {
   external ordinal(x);
   external domain([values]);

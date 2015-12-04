@@ -5,6 +5,7 @@ import 'package:js/js.dart';
 
 external Format format(specifier);
 
+@JS()
 class Format {
   external format(date);
   external parse(string);
@@ -24,6 +25,7 @@ external TimeScale scale();
 @JS('scale.utc')
 external TimeScale utcScale();
 
+@JS()
 class TimeScale {
   external scale(x);
   external invert(y);
@@ -40,6 +42,7 @@ class TimeScale {
 
 external Interval interval();
 
+@JS()
 class Interval {
   external interval(date);
   external floor(date);

@@ -5,12 +5,14 @@ import 'package:js/js.dart';
 
 external Bundle bundle();
 
+@JS()
 class Bundle {
   external bundle(links);
 }
 
 external Chord chord();
 
+@JS()
 class Chord {
   external matrix([matrix]);
   external padding([padding]);
@@ -23,6 +25,7 @@ class Chord {
 
 external Cluster cluster();
 
+@JS()
 class Cluster {
   external cluster(root);
   external nodes(root);
@@ -37,6 +40,7 @@ class Cluster {
 
 external Force force();
 
+@JS()
 class Force {
   external size([width, height]);
   external linkDistance([distance]);
@@ -58,6 +62,7 @@ class Force {
 
 external Hierarchy hierarchy();
 
+@JS()
 class Hierarchy {
   external hierarchy(root);
   external links(nodes);
@@ -69,6 +74,7 @@ class Hierarchy {
 
 external Histogram histogram();
 
+@JS()
 class Histogram {
   external histogram(values, [index]);
   external value([accessor]);
@@ -79,6 +85,7 @@ class Histogram {
 
 external Pack pack();
 
+@JS()
 class Pack {
   external pack(root);
   external nodes(root);
@@ -93,6 +100,7 @@ class Pack {
 
 external Partition partition();
 
+@JS()
 class Partition {
   external partition(root);
   external nodes(root);
@@ -105,6 +113,7 @@ class Partition {
 
 external Pie pie();
 
+@JS()
 class Pie {
   external pie(values, [index]);
   external value([accessor]);
@@ -116,6 +125,7 @@ class Pie {
 
 external Stack stack();
 
+@JS()
 class Stack {
   external stack(layers, [index]);
   external values([accessor]);
@@ -128,6 +138,7 @@ class Stack {
 
 external Tree tree();
 
+@JS()
 class Tree {
   external tree(root);
   external nodes(root);
@@ -142,6 +153,7 @@ class Tree {
 
 external Treemap treemap();
 
+@JS()
 class Treemap {
   external treemap(root);
   external nodes(root);

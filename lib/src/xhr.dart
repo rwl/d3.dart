@@ -6,6 +6,7 @@ import 'package:js/js.dart';
 /// request a resource using XMLHttpRequest.
 external Xhr xhr(url, [mimeType, callback]);
 
+@JS()
 class Xhr {
   /// set a request header.
   external header(name, [value]);

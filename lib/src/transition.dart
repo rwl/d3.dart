@@ -70,6 +70,7 @@ class Transition {
 /// customize transition timing.
 external Ease ease(type, [arguments]);
 
+@JS()
 class Ease {
   /// a parametric easing function.
   external num ease(t);
@@ -85,6 +86,7 @@ external flushTimer();
 /// interpolate two values.
 external Interpolate interpolate(a, b);
 
+@JS()
 class Interpolate {
   /// a parametric interpolation function.
   external interpolate(t);
