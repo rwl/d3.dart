@@ -3,6 +3,7 @@ library d3.src.csv;
 
 import 'package:js/js.dart';
 
+/// create a parser/formatter for the specified delimiter and mime type.
 @JS('d3.dsv')
 external dsv(url, [accessor, callback]);
 
