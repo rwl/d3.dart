@@ -23,8 +23,10 @@ external List touch(container, [touches, identifier]);
 external List touches(container, [touches]);
 
 /// A selection is an array of elements pulled from the current document.
-@JS()
+@JS('select')
 class Selection {
+  Selection(selector);
+
   /// get or set attribute values.
   external Selection attr(name, [value]);
 
