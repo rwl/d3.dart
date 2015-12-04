@@ -1,12 +1,11 @@
-//@Js('d3.scale')
-library d3.scale;
+@JS('d3.scale')
+library d3.src.scale;
 
 import 'package:js/js.dart';
 
-@Js('d3.scale.linear')
 external LinearScale linear();
 
-@Js()
+@JS()
 class LinearScale {
   external LinearScale domain([numbers]);
   external LinearScale range([values]);

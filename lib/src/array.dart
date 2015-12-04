@@ -1,7 +1,6 @@
-@Js('d3')
-library d3;
+@JS('d3')
+library d3.src.array;
 
 import 'package:js/js.dart';
 
-@Js('max')
 external dynamic max(array, [accessor]);

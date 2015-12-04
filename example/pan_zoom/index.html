@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Zoom + Pan</title>
+<style>
+body {
+  position: relative;
+  width: 960px;
+}
+
+svg {
+  font: 10px sans-serif;
+  shape-rendering: crispEdges;
+}
+
+rect {
+  fill: #ddd;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #fff;
+}
+
+button {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+}
+</style>
+<button>Reset</button>
+<script src="packages/d3/d3.min.js" charset="utf-8"></script>
+<script type="application/dart" src="main.dart"></script>
+<script src="packages/browser/dart.js"></script>

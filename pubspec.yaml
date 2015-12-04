@@ -4,10 +4,8 @@ description: Data Driven Documents
 author: Richard Lincoln <r.w.lincoln@gmail.com>
 homepage: https://github.com/rwl/d3.dart
 environment:
-  sdk: '>=1.13.0-dev.7'
+  sdk: '>=1.13.0'
 dependencies:
   intl: any
-  js: ^0.6.0-beta
+  js: ^0.6.0
   browser: any
-dev_dependencies:
-  unittest: any
