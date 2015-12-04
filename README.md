@@ -1,9 +1,4 @@
-D3.dart
-=======
+# D3.dart
 
-A port of [D3.js](http://d3js.org/) to [Dart](https://www.dartlang.org/).
-
-Examples
---------
-
-- [Bar Chart I](http://bl.ocks.org/rwl/8810847)
+A [Dart](https://www.dartlang.org/) API for [D3.js](http://d3js.org/)
+using [package:js/js.dart](https://pub.dartlang.org/packages/js).
