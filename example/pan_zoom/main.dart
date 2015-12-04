@@ -1,3 +1,4 @@
+import 'package:js/js.dart';
 import 'package:d3/d3.dart' as d3;
 import 'package:d3/scale.dart' as scale;
 import 'package:d3/behavior.dart' as behavior;
@@ -18,16 +19,17 @@ main() {
 
   var svg = d3.select("body").append("svg");
 
-  var zoom = behavior.zoom().x(x).y(y).scaleExtent([1, 10]).on("zoom", () {
+  var zoom = behavior.zoom().x(x).y(y).scaleExtent([1, 10]).on("zoom",
+      allowInterop(() {
     svg.select(".x.axis").call(xAxis);
     svg.select(".y.axis").call(yAxis);
-  });
+  }));
 
   svg
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+      .attr("transform", "translate(${margin.left},${margin.top})")
       .call(zoom);
 
   svg.append("rect").attr("width", width).attr("height", height);
@@ -35,15 +37,15 @@ main() {
   svg
       .append("g")
       .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
+      .attr("transform", "translate(0,$height)")
       .call(xAxis);
 
   svg.append("g").attr("class", "y axis").call(yAxis);
 
-  d3.select("button").on("click", () {
+  d3.select("button").on("click", allowInterop(() {
     svg.call(zoom
         .x(x.domain([-width / 2, width / 2]))
         .y(y.domain([-height / 2, height / 2]))
         .event);
-  });
+  }));
 }
