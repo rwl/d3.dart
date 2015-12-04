@@ -4,6 +4,9 @@ library d3.src.selection;
 import 'dart:html';
 import 'package:js/js.dart';
 
+/// D3 uses semantic versioning.
+external String get version;
+
 /// Select an element from the current document.
 external Selection select(selector);
 
