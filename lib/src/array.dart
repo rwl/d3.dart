@@ -3,102 +3,102 @@ library d3.src.array;
 
 import 'package:js/js.dart';
 
-/// compare two values for sorting.
+/// Compare two values for sorting.
 external ascending(a, b);
 
-/// compare two values for sorting.
+/// Compare two values for sorting.
 external descending(a, b);
 
-/// find the minimum value in an array.
+/// Find the minimum value in an array.
 external min(array, [accessor]);
 
-/// find the maximum value in an array.
+/// Find the maximum value in an array.
 external max(array, [accessor]);
 
-/// find the minimum and maximum value in an array.
+/// Find the minimum and maximum value in an array.
 external extent(array, [accessor]);
 
-/// compute the sum of an array of numbers.
+/// Compute the sum of an array of numbers.
 external sum(array, [accessor]);
 
-/// compute the arithmetic mean of an array of numbers.
+/// Compute the arithmetic mean of an array of numbers.
 external mean(array, [accessor]);
 
-/// compute the median of an array of numbers (the 0.5-quantile).
+/// Compute the median of an array of numbers (the 0.5-quantile).
 external median(array, [accessor]);
 
-/// compute a quantile for a sorted array of numbers.
+/// Compute a quantile for a sorted array of numbers.
 external quantile(numbers, p);
 
-/// compute the variance of an array of numbers.
+/// Compute the variance of an array of numbers.
 external variance(array, [accessor]);
 
-/// compute the standard deviation of an array of numbers.
+/// Compute the standard deviation of an array of numbers.
 external deviation(array, [accessor]);
 
-/// search for a value in a sorted array.
+/// Search for a value in a sorted array.
 external bisectLeft(array, x, [lo, hi]);
 
-/// search for a value in a sorted array.
+/// Search for a value in a sorted array.
 external bisect(array, x, [lo, hi]);
 
-/// search for a value in a sorted array.
+/// Search for a value in a sorted array.
 external bisectRight(array, x, [lo, hi]);
 
-/// bisect using an accessor or comparator.
+/// Bisect using an accessor or comparator.
 external bisector(accessor);
 
-/// randomize the order of an array.
+/// Randomize the order of an array.
 external shuffle(array, [lo, hi]);
 
-/// list the keys of an associative array.
+/// List the keys of an associative array.
 external keys(object);
 
-/// list the values of an associated array.
+/// List the values of an associated array.
 external values(object);
 
-/// list the key-value entries of an associative array.
+/// List the key-value entries of an associative array.
 external entries(object);
 
-/// merge multiple arrays into one array.
+/// Merge multiple arrays into one array.
 external merge(arrays);
 
-/// generate a range of numeric values.
+/// Generate a range of numeric values.
 external range([start, stop, step]);
 
-/// reorder an array of elements according to an array of indexes.
+/// Reorder an array of elements according to an array of indexes.
 external permute(array, indexes);
 
-/// transpose a variable number of arrays.
+/// Transpose a variable number of arrays.
 external zip(arrays);
 
-/// transpose an array of arrays.
+/// Transpose an array of arrays.
 external transpose(matrix);
 
-/// returns an array of adjacent pairs of elements.
+/// Returns an array of adjacent pairs of elements.
 external pairs(array);
 
-/// group array elements hierarchically.
+/// Group array elements hierarchically.
 external Nest nest();
 
 @JS()
 class Nest {
-  /// add a level to the nest hierarchy.
+  /// Add a level to the nest hierarchy.
   external key(function);
 
-  /// sort the current nest level by key.
+  /// Sort the current nest level by key.
   external sortKeys(comparator);
 
-  /// sort the leaf nest level by value.
+  /// Sort the leaf nest level by value.
   external sortValues(comparator);
 
-  /// specify a rollup function for leaf values.
+  /// Specify a rollup function for leaf values.
   external rollup(function);
 
-  /// evaluate the nest operator, returning an associative array.
+  /// Evaluate the nest operator, returning an associative array.
   external map(array, [mapType]);
 
-  /// evaluate the nest operator, returning an array of key-values tuples.
+  /// Evaluate the nest operator, returning an array of key-values tuples.
   external entries(array);
 }
 
