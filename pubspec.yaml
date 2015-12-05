@@ -9,3 +9,4 @@ dependencies:
   js: ^0.6.0
 dev_dependencies:
   browser: any
+  test: any
