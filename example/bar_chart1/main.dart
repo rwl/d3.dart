@@ -1,3 +1,4 @@
+import 'package:js/js.dart';
 import 'package:d3/d3.dart' as d3;
 
 main() {
@@ -11,6 +12,6 @@ main() {
       .data(data)
       .enter()
       .append("div")
-      .style("width", (d) => x(d) + "px")
-      .text((d) => d);
+      .style("width", allowInterop((d, i, j) => "${x(d)}px"))
+      .text(allowInterop((d, i, j) => d));
 }

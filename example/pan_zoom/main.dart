@@ -20,7 +20,7 @@ main() {
   var svg = d3.select("body").append("svg");
 
   var zoom = behavior.zoom().x(x).y(y).scaleExtent([1, 10]).on("zoom",
-      allowInterop(() {
+      allowInteropCaptureThis((e, d, i, j) {
     svg.select(".x.axis").call(xAxis);
     svg.select(".y.axis").call(yAxis);
   }));
@@ -42,7 +42,7 @@ main() {
 
   svg.append("g").attr("class", "y axis").call(yAxis);
 
-  d3.select("button").on("click", allowInterop(() {
+  d3.select("button").on("click", allowInteropCaptureThis((e, d, i, j) {
     svg.call(zoom
         .x(x.domain([-width / 2, width / 2]))
         .y(y.domain([-height / 2, height / 2]))
