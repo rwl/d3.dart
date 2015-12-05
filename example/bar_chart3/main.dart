@@ -14,7 +14,7 @@ main() {
 
   var xAxis = svg_.axis().scale(x).orient("bottom");
 
-  var yAxis = svg_.axis().scale(y).orient("left").ticks([10, "%"]);
+  var yAxis = svg_.axis().scale(y).orient("left").ticks(10); //[10, "%"]);
 
   var svg = d3
       .select("body")
@@ -24,16 +24,11 @@ main() {
       .append("g")
       .attr("transform", "translate(${margin.left},${margin.top})");
 
-  type(d, i) {
-    d['frequency'] = d['frequency'].toString();
-    return d;
-  }
-
   d3.tsv("data.tsv", allowInterop(type), (error, data) {
     if (error != null) throw error;
 
     x.domain(data.map((d) {
-      return d.letter;
+      return d['letter'];
     }));
     y.domain([
       0,
@@ -73,4 +68,9 @@ main() {
       return height - y(d['frequency']);
     }));
   });
+}
+
+type(d, i) {
+  d['frequency'] = double.parse(d['frequency']);
+  return d;
 }
