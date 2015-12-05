@@ -7,7 +7,9 @@ import 'package:js/js.dart';
 external Bundle bundle();
 
 @JS()
-class Bundle {
+abstract class Bundle implements Function {
+  call(links) => bundle(links);
+
   /// Apply Holten's hierarchical bundling algorithm to edges.
   external bundle(links);
 }
@@ -43,7 +45,9 @@ class Chord {
 external Cluster cluster();
 
 @JS()
-class Cluster {
+abstract class Cluster implements Function {
+  call(root) => cluster(root);
+
   /// Alias for cluster.nodes.
   external cluster(root);
 
@@ -131,7 +135,9 @@ class Force {
 external Hierarchy hierarchy();
 
 @JS()
-class Hierarchy {
+abstract class Hierarchy implements Function {
+  call(root) => hierarchy(root);
+
   /// Alias for hierarchy.nodes.
   external hierarchy(root);
 
@@ -158,7 +164,9 @@ class Hierarchy {
 external Histogram histogram();
 
 @JS()
-class Histogram {
+abstract class Histogram implements Function {
+  call(values, [index]) => histogram(values, [index]);
+
   /// Compute the distribution of data using quantized bins.
   external histogram(values, [index]);
 
@@ -179,7 +187,9 @@ class Histogram {
 external Pack pack();
 
 @JS()
-class Pack {
+abstract class Pack implements Function {
+  call(root) => pack(root);
+
   /// Alias for pack.nodes.
   external pack(root);
 
@@ -212,7 +222,9 @@ class Pack {
 external Partition partition();
 
 @JS()
-class Partition {
+abstract class Partition implements Function {
+  call(root) => partition(root);
+
   /// Alias for partition.nodes.
   external partition(root);
 
@@ -239,7 +251,9 @@ class Partition {
 external Pie pie();
 
 @JS()
-class Pie {
+abstract class Pie implements Function {
+  call(values, [index]) => pie(values, [index]);
+
   /// Compute the start and end angles for arcs in a pie or donut chart.
   external pie(values, [index]);
 
@@ -263,7 +277,9 @@ class Pie {
 external Stack stack();
 
 @JS()
-class Stack {
+abstract class Stack implements Function {
+  call(layers, [index]) => stack(layers, [index]);
+
   /// Compute the baseline for each series in a stacked bar or area chart.
   external stack(layers, [index]);
 
@@ -290,7 +306,9 @@ class Stack {
 external Tree tree();
 
 @JS()
-class Tree {
+abstract class Tree implements Function {
+  call(root) => tree(root);
+
   /// Alias for tree.nodes.
   external tree(root);
 
@@ -321,7 +339,9 @@ class Tree {
 external Treemap treemap();
 
 @JS()
-class Treemap {
+abstract class Treemap implements Function {
+  call(root) => treemap(root);
+
   /// Alias for treemap.nodes.
   external treemap(root);
 

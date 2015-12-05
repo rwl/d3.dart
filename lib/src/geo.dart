@@ -7,7 +7,9 @@ import 'package:js/js.dart';
 external Path path();
 
 @JS()
-class Path {
+abstract class Path implements Function {
+  call(feature, [index]) => path(feature, index);
+
   /// Project the specified feature and render it to the context.
   external path(feature, [index]);
 
@@ -34,7 +36,9 @@ class Path {
 external Graticule graticule();
 
 @JS()
-class Graticule {
+abstract class Graticule implements Function {
+  call() => graticule();
+
   /// Generate a MultiLineString of meridians and parallels.
   external graticule();
 
@@ -70,7 +74,9 @@ class Graticule {
 external Circle circle();
 
 @JS()
-class Circle {
+abstract class Circle implements Function {
+  call(arguments) => circle(arguments);
+
   /// Generate a piecewise circle as a Polygon.
   external circle(arguments);
 
@@ -106,7 +112,9 @@ external interpolate(a, b);
 external Rotation rotation(rotate);
 
 @JS()
-class Rotation {
+abstract class Rotation implements Function {
+  call(location) => rotation(location);
+
   /// Rotate the given location around the sphere.
   external rotation(location);
 
@@ -118,7 +126,9 @@ class Rotation {
 external Projection projection(raw);
 
 @JS()
-class Projection {
+abstract class Projection implements Function {
+  call(location) => projection(location);
+
   /// Project the specified location.
   external projection(location);
 

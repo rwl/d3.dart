@@ -7,7 +7,9 @@ import 'package:js/js.dart';
 external Format format(specifier);
 
 @JS()
-class Format {
+abstract class Format implements Function {
+  call(date) => format(date);
+
   /// Format a date into a string.
   external format(date);
 
@@ -34,7 +36,9 @@ external TimeScale scale();
 external TimeScale utcScale();
 
 @JS()
-class TimeScale {
+abstract class TimeScale implements Function {
+  call(x) => scale(x);
+
   /// Get the range value corresponding to a given domain value.
   external scale(x);
 
@@ -73,7 +77,9 @@ class TimeScale {
 external Interval interval();
 
 @JS()
-class Interval {
+abstract class Interval implements Function {
+  call(date) => interval(date);
+
   /// Alias for interval.floor.
   external interval(date);
 

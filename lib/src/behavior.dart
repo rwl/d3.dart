@@ -15,7 +15,9 @@ class Drag {
 external Zoom zoom();
 
 @JS()
-class Zoom {
+abstract class Zoom implements Function {
+  call(selection) => zoom(selection);
+
   /// Apply the zoom behavior to the selected elements.
   external zoom(selection);
 

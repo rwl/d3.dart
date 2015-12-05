@@ -7,7 +7,9 @@ import 'package:js/js.dart';
 external Voronoi voronoi();
 
 @JS()
-class Voronoi {
+abstract class Voronoi implements Function {
+  call(data) => voronoi(data);
+
   /// Compute the Voronoi tessellation for the specified points.
   external voronoi(data);
 
@@ -30,7 +32,9 @@ class Voronoi {
 external Quadtree quadtree();
 
 @JS()
-class Quadtree {
+abstract class Quadtree implements Function {
+  call(points, [x1, y1, x2, y2]) => quadtree(points, [x1, y1, x2, y2]);
+
   /// Constructs a quadtree for an array of points.
   external Root quadtree(points, [x1, y1, x2, y2]);
   external x([x]);

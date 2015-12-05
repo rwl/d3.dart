@@ -7,7 +7,9 @@ import 'package:js/js.dart';
 external LinearScale linear();
 
 @JS()
-class LinearScale {
+abstract class LinearScale implements Function {
+  call(x) => linear(x);
+
   /// Get the range value corresponding to a given domain value.
   external linear(x);
 
@@ -46,7 +48,9 @@ class LinearScale {
 external IdentityScale identity();
 
 @JS()
-class IdentityScale {
+abstract class IdentityScale implements Function {
+  call(x) => identity(x);
+
   /// The identity function.
   external identity(x);
 
@@ -76,7 +80,9 @@ external Pow sqrt();
 external Pow pow();
 
 @JS()
-class Pow {
+abstract class Pow implements Function {
+  call(x) => pow(x);
+
   /// Get the range value corresponding to a given domain value.
   external pow(x);
 
@@ -118,7 +124,9 @@ class Pow {
 external Log log();
 
 @JS()
-class Log {
+abstract class Log implements Function {
+  call(x) => log(x);
+
   /// Get the range value corresponding to a given domain value.
   external log(x);
 
@@ -158,7 +166,9 @@ class Log {
 external Quantize quantize();
 
 @JS()
-class Quantize {
+abstract class Quantize implements Function {
+  call(x) => quantize(x);
+
   /// Get the range value corresponding to a given domain value.
   external quantize(x);
 
@@ -179,7 +189,9 @@ class Quantize {
 external Quantile quantile();
 
 @JS()
-class Quantile {
+abstract class Quantile implements Function {
+  call(x) => quantile(x);
+
   /// Get the range value corresponding to a given domain value.
   external quantile(x);
 
@@ -203,7 +215,9 @@ class Quantile {
 external Threshold threshold();
 
 @JS()
-class Threshold {
+abstract class Threshold implements Function {
+  call(x) => threshold(x);
+
   /// Get the range value corresponding to a given domain value.
   external threshold(x);
 
@@ -224,7 +238,9 @@ class Threshold {
 external Ordinal ordinal();
 
 @JS()
-class Ordinal {
+abstract class Ordinal implements Function {
+  call(x) => ordinal(x);
+
   /// Get the range value corresponding to a given domain value.
   external ordinal(x);
 
@@ -244,7 +260,7 @@ class Ordinal {
   external rangeBands(interval, [padding, outerPadding]);
 
   /// Divide a continuous output range for discrete bands.
-  external rangeRoundBands(interval, [padding, outerPadding]);
+  external Ordinal rangeRoundBands(interval, [padding, outerPadding]);
 
   /// Get the discrete range band width.
   external rangeBand();

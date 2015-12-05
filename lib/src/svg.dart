@@ -7,7 +7,9 @@ import 'package:js/js.dart';
 external Line line();
 
 @JS()
-class Line {
+abstract class Line implements Function {
+  call(data) => line(data);
+
   /// Generate a piecewise linear curve, as in a line chart.
   external line(data);
 
@@ -32,7 +34,9 @@ class Line {
 external RadialLine radial();
 
 @JS()
-class RadialLine {
+abstract class RadialLine implements Function {
+  call(data) => line(data);
+
   /// Generate a piecewise linear curve, as in a polar line chart.
   external line(data);
 
@@ -56,7 +60,9 @@ class RadialLine {
 external Area area();
 
 @JS()
-class Area {
+abstract class Area implements Function {
+  call(data) => area(data);
+
   /// Generate a piecewise linear area, as in an area chart.
   external area(data);
 
@@ -91,7 +97,9 @@ class Area {
 @JS('area.radial')
 external RadialArea radialArea();
 
-class RadialArea {
+abstract class RadialArea implements Function {
+  call() => area();
+
   /// Generate a piecewise linear area, as in a polar area chart.
   external area();
 
@@ -121,7 +129,9 @@ class RadialArea {
 external Arc arc();
 
 @JS()
-class Arc {
+abstract class Arc implements Function {
+  call(datum, [index]) => arc(datum, [index]);
+
   /// Generate a solid arc, as in a pie or donut chart.
   external arc(datum, [index]);
 
@@ -154,7 +164,9 @@ class Arc {
 external Symbol symbol();
 
 @JS()
-class Symbol {
+abstract class Symbol implements Function {
+  call(datum, [index]) => symbol(datum, [index]);
+
   /// Generate categorical symbols, as in a scatterplot.
   external symbol(datum, [index]);
 
@@ -172,7 +184,9 @@ external List get symbolTypes;
 external Chord chord();
 
 @JS()
-class Chord {
+abstract class Chord implements Function {
+  call(datum, [index]) => chord(datum, [index]);
+
   /// Generate a quadratic Bézier connecting two arcs, as in a chord diagram.
   external chord(datum, [index]);
 
@@ -196,7 +210,9 @@ class Chord {
 external Diagonal diagonal();
 
 @JS()
-class Diagonal {
+abstract class Diagonal implements Function {
+  call(datum, [index]) => diagonal(datum, [index]);
+
   /// Generate a two-dimensional Bézier connector, as in a node-link diagram.
   external diagonal(datum, [index]);
 
@@ -217,7 +233,9 @@ external radialDiagonal();
 external Axis axis();
 
 @JS()
-class Axis {
+abstract class Axis implements Function {
+  call(selection) => axis(selection);
+
   /// Creates or updates an axis for the given selection or transition.
   external axis(selection);
 
@@ -253,7 +271,9 @@ class Axis {
 external Brush brush();
 
 @JS()
-class Brush {
+abstract class Brush implements Function {
+  call(selection) => brush(selection);
+
   /// Apply a brush to the given selection or transition.
   external brush(selection);
 
