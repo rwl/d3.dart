@@ -1,109 +1,179 @@
-@JS('d3')
 library d3.src.selection;
 
+import 'dart:js';
 import 'dart:html';
-import 'package:js/js.dart';
+
+JsObject _d3 = context['d3'];
 
 /// D3 uses semantic versioning.
-external String get version;
+String get version {
+  return _d3.callMethod('version', []);
+}
 
 /// Select an element from the current document.
-external Selection select(selector);
+Selection select(selector) {
+  return _d3.callMethod('select', []);
+}
 
 /// Select multiple elements from the current document.
-external Selection selectAll(selector);
+Selection selectAll(selector) {
+  return _d3.callMethod('selectAll', []);
+}
 
 /// Access the current user event for interaction.
-external Event get event;
+Event get event {
+  return _d3['event'];
+}
 
 /// Gets the mouse position relative to a specified container.
-external List mouse(container);
+List mouse(container) {
+  return _d3.callMethod('mouse', []);
+}
 
 /// Gets a touch position relative to a specified container.
-external List touch(container, [touches, identifier]);
+List touch(container, [touches, identifier]) {
+  return _d3.callMethod('touch', []);
+}
 
 /// Gets the touch positions relative to a specified container.
-external List touches(container, [touches]);
+List touches(container, [touches]) {
+  return _d3.callMethod('touches', []);
+}
 
 /// A selection is an array of elements pulled from the current document.
-@JS()
-abstract class Selection implements List {
+class Selection {
+  final JsObject _proxy;
+
+  Selection._(this._proxy);
+
   /// Get or set attribute values.
-  external Selection attr(name, [value]);
+  Selection attr(name, [value]) {
+    return _proxy.callMethod('attr', []);
+  }
 
   /// Add or remove CSS classes.
-  external Selection classed(name, [value]);
+  Selection classed(name, [value]) {
+    return _proxy.callMethod('classed', []);
+  }
 
   /// Get or set style properties.
-  external Selection style(name, [value, priority]);
+  Selection style(name, [value, priority]) {
+    return _proxy.callMethod('style', []);
+  }
 
   /// Get or set raw properties.
-  external Selection property(name, [value]);
+  Selection property(name, [value]) {
+    return _proxy.callMethod('property', []);
+  }
 
   /// Get or set text content.
-  external Selection text([value]);
+  Selection text([value]) {
+    return _proxy.callMethod('text', []);
+  }
 
   /// Get or set inner HTML content.
-  external Selection html([value]);
+  Selection html([value]) {
+    return _proxy.callMethod('html', []);
+  }
 
   /// Create and append new elements.
-  external Selection append(String name);
+  Selection append(String name) {
+    return _proxy.callMethod('append', []);
+  }
 
   /// Create and insert new elements before existing elements.
-  external Selection insert(name, [before]);
+  Selection insert(name, [before]) {
+    return _proxy.callMethod('insert', []);
+  }
 
   /// Remove elements from the document.
-  external Selection remove();
+  Selection remove() {
+    return _proxy.callMethod('remove', []);
+  }
 
   /// Get or set data for a group of elements, while computing a
-  /// Relational join.
-  external Selection data([values, key]);
+  /// relational join.
+  Selection data([values, key]) {
+    return _proxy.callMethod('data', []);
+  }
 
   /// Returns placeholders for missing elements.
-  external Selection enter();
+  Selection enter() {
+    return _proxy.callMethod('enter', []);
+  }
 
   /// Returns elements that are no longer needed.
-  external Selection exit();
+  Selection exit() {
+    return _proxy.callMethod('exit', []);
+  }
 
   /// Filter a selection based on data.
-  external Selection filter(selector);
+  Selection filter(selector) {
+    return _proxy.callMethod('filter', []);
+  }
 
   /// Get or set data for individual elements, without computing a join.
-  external Selection datum([value]);
+  Selection datum([value]) {
+    return _proxy.callMethod('datum', []);
+  }
 
   /// Sort elements in the document based on data.
-  external Selection sort([comparator]);
+  Selection sort([comparator]) {
+    return _proxy.callMethod('sort', []);
+  }
 
   /// Reorders elements in the document to match the selection.
-  external Selection order();
+  Selection order() {
+    return _proxy.callMethod('order', []);
+  }
 
   /// Add or remove event listeners for interaction.
-  external Selection on(type, [listener, capture]);
+  Selection on(type, [listener, capture]) {
+    return _proxy.callMethod('on', []);
+  }
 
   /// Start a transition on the selected elements.
-  external Selection transition([name]);
+  Selection transition([name]) {
+    return _proxy.callMethod('transition', []);
+  }
 
   /// Immediately interrupt the current transition, if any.
-  external Selection interrupt([name]);
+  Selection interrupt([name]) {
+    return _proxy.callMethod('interrupt', []);
+  }
 
   /// Subselect a descendant element for each selected element.
-  external Selection select(selector);
+  Selection select(selector) {
+    return _proxy.callMethod('select', []);
+  }
 
   /// Subselect multiple descendants for each selected element.
-  external Selection selectAll(selector);
+  Selection selectAll(selector) {
+    return _proxy.callMethod('selectAll', []);
+  }
 
   /// Call a function for each selected element.
-  external Selection each(function);
+  Selection each(function) {
+    return _proxy.callMethod('each', []);
+  }
 
   /// Call a function passing in the current selection.
-  external Selection call(function, [arguments]);
+  Selection call(function, [arguments]) {
+    return _proxy.callMethod('call', []);
+  }
 
   /// Returns true if the selection is empty.
-  external bool empty();
+  bool empty() {
+    return _proxy.callMethod('empty', []);
+  }
 
   /// Returns the first node in the selection.
-  external Node node();
+  Node node() {
+    return _proxy.callMethod('node', []);
+  }
 
   /// Returns the number of elements in the selection.
-  external int size();
+  int size() {
+    return _proxy.callMethod('size', []);
+  }
 }

@@ -1,4 +1,3 @@
-import 'package:js/js.dart';
 import 'package:d3/d3.dart' as d3;
 import 'package:d3/scale.dart' as scale;
 
@@ -9,7 +8,7 @@ main() {
 
   var chart = d3.select(".chart").attr("width", width);
 
-  d3.tsv("data.tsv", type, allowInterop((error, data) {
+  d3.tsv("data.tsv", type, (error, data) {
     x.domain([
       0,
       d3.max(data, (d) {
@@ -28,16 +27,16 @@ main() {
       return "translate(0," + i * barHeight + ")";
     });
 
-    bar.append("rect").attr("width", allowInterop((d) {
+    bar.append("rect").attr("width", (d) {
       return x(d.value);
-    })).attr("height", barHeight - 1);
+    }).attr("height", barHeight - 1);
 
-    bar.append("text").attr("x", allowInterop((d) {
+    bar.append("text").attr("x", (d) {
       return x(d.value) - 3;
-    })).attr("y", barHeight / 2).attr("dy", ".35em").text(allowInterop((d) {
+    }).attr("y", barHeight / 2).attr("dy", ".35em").text((d) {
       return d.value;
-    }));
-  }));
+    });
+  });
 }
 
 type(d) {

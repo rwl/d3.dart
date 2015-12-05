@@ -1,22 +1,36 @@
-@JS('d3')
 library d3.src.internal;
 
-import 'package:js/js.dart';
+import 'dart:js';
+
+JsObject _d3 = context['d3'];
 
 /// Create a function that returns a constant.
-external functor(value);
+functor(value) {
+  return _d3.callMethod('functor', []);
+}
 
 /// Rebind an inherited getter/setter method to a subclass.
-external rebind(target, source, [names]);
+rebind(target, source, [names]) {
+  return _d3.callMethod('rebind', []);
+}
 
 /// Create a custom event dispatcher.
-external Dispatch dispatch([types]);
+Dispatch dispatch([types]) {
+  return _d3.callMethod('dispatch', []);
+}
 
-@JS()
 class Dispatch {
+  final JsObject _proxy;
+
+  Dispatch._(this._proxy);
+
   /// Register or unregister an event listener.
-  external on(type, [listener]);
+  on(type, [listener]) {
+    return _proxy.callMethod('on', []);
+  }
 
   /// Dispatch an event to registered listeners.
-  external type([arguments]);
+  type([arguments]) {
+    return _proxy.callMethod('type', []);
+  }
 }

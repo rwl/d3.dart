@@ -1,378 +1,634 @@
-@JS('d3.layout')
 library d3.src.layout;
 
-import 'package:js/js.dart';
+import 'dart:js';
+
+JsObject _layout = context['d3']['layout'];
 
 /// Construct a new default bundle layout.
-external Bundle bundle();
+Bundle bundle() {
+  return _layout.callMethod('bundle', []);
+}
 
-@JS()
-abstract class Bundle implements Function {
+class Bundle {
+  final JsObject _proxy;
+
+  Bundle._(this._proxy);
+
   call(links) => bundle(links);
 
   /// Apply Holten's hierarchical bundling algorithm to edges.
-  external bundle(links);
+  bundle(links) {
+    return _proxy.callMethod('bundle', []);
+  }
 }
 
 /// Produce a chord diagram from a matrix of relationships.
-external Chord chord();
+Chord chord() {
+  return _layout.callMethod('chord', []);
+}
 
-@JS()
 class Chord {
+  final JsObject _proxy;
+
+  Chord._(this._proxy);
+
   /// Get or set the matrix data backing the layout.
-  external matrix([matrix]);
+  matrix([matrix]) {
+    return _proxy.callMethod('matrix', []);
+  }
 
   /// Get or set the angular padding between chord segments.
-  external padding([padding]);
+  padding([padding]) {
+    return _proxy.callMethod('padding', []);
+  }
 
   /// Get or set the comparator function for groups.
-  external sortGroups([comparator]);
+  sortGroups([comparator]) {
+    return _proxy.callMethod('sortGroups', []);
+  }
 
   /// Get or set the comparator function for subgroups.
-  external sortSubgroups([comparator]);
+  sortSubgroups([comparator]) {
+    return _proxy.callMethod('sortSubgroups', []);
+  }
 
   /// Get or set the comparator function for chords (z-order).
-  external sortChords([comparator]);
+  sortChords([comparator]) {
+    return _proxy.callMethod('sortChords', []);
+  }
 
   /// Retrieve the computed chord angles.
-  external chords();
+  chords() {
+    return _proxy.callMethod('chords', []);
+  }
 
   /// Retrieve the computed group angles.
-  external groups();
+  groups() {
+    return _proxy.callMethod('groups', []);
+  }
 }
 
 /// Cluster entities into a dendrogram.
-external Cluster cluster();
+Cluster cluster() {
+  return _layout.callMethod('', []);
+}
 
-@JS()
-abstract class Cluster implements Function {
+class Cluster {
+  final JsObject _proxy;
+
+  Cluster._(this._proxy);
+
   call(root) => cluster(root);
 
   /// Alias for cluster.nodes.
-  external cluster(root);
+  cluster(root) {
+    return _proxy.callMethod('cluster', []);
+  }
 
   /// Compute the cluster layout and return the array of nodes.
-  external nodes(root);
+  nodes(root) {
+    return _proxy.callMethod('nodes', []);
+  }
 
   /// Compute the parent-child links between tree nodes.
-  external links(nodes);
+  links(nodes) {
+    return _proxy.callMethod('links', []);
+  }
 
   /// Get or set the accessor function for child nodes.
-  external children([children]);
+  children([children]) {
+    return _proxy.callMethod('children', []);
+  }
 
   /// Get or set the comparator function for sibling nodes.
-  external sort([comparator]);
+  sort([comparator]) {
+    return _proxy.callMethod('sort', []);
+  }
 
   /// Get or set the spacing function between neighboring nodes.
-  external separation([separation]);
+  separation([separation]) {
+    return _proxy.callMethod('separation', []);
+  }
 
   /// Get or set the layout size in x and y.
-  external size([size]);
-  external nodeSize([nodeSize]);
+  size([size]) {
+    return _proxy.callMethod('size', []);
+  }
+
+  nodeSize([nodeSize]) {
+    return _proxy.callMethod('nodeSize', []);
+  }
 
   /// Specify a fixed size for each node.
-  external value([value]);
+  value([value]) {
+    return _proxy.callMethod('value', []);
+  }
 }
 
 /// Position linked nodes using physical simulation.
-external Force force();
+Force force() {
+  return _layout.callMethod('force', []);
+}
 
-@JS()
 class Force {
+  final JsObject _proxy;
+
+  Force._(this._proxy);
+
   /// Get or set the layout size in x and y.
-  external size([width, height]);
+  size([width, height]) {
+    return _proxy.callMethod('size', []);
+  }
 
   /// Get or set the link distance.
-  external linkDistance([distance]);
+  linkDistance([distance]) {
+    return _proxy.callMethod('linkDistance', []);
+  }
 
   /// Get or set the link strength.
-  external linkStrength([strength]);
+  linkStrength([strength]) {
+    return _proxy.callMethod('linkStrength', []);
+  }
 
   /// Get or set the friction coefficient.
-  external friction([friction]);
+  friction([friction]) {
+    return _proxy.callMethod('friction', []);
+  }
 
   /// Get or set the charge strength.
-  external charge([charge]);
+  charge([charge]) {
+    return _proxy.callMethod('charge', []);
+  }
 
   /// Get or set the maximum charge distance.
-  external chargeDistance([distance]);
+  chargeDistance([distance]) {
+    return _proxy.callMethod('chargeDistance', []);
+  }
 
   /// Get or set the accuracy of the charge interaction.
-  external theta([theta]);
+  theta([theta]) {
+    return _proxy.callMethod('theta', []);
+  }
 
   /// Get or set the gravity strength.
-  external gravity([gravity]);
+  gravity([gravity]) {
+    return _proxy.callMethod('gravity', []);
+  }
 
   /// Get or set the array of nodes to layout.
-  external nodes([nodes]);
+  nodes([nodes]) {
+    return _proxy.callMethod('nodes', []);
+  }
 
   /// Get or set the array of links between nodes.
-  external links([links]);
+  links([links]) {
+    return _proxy.callMethod('links', []);
+  }
 
   /// Start or restart the simulation when the nodes change.
-  external start();
+  start() {
+    return _proxy.callMethod('start', []);
+  }
 
   /// Get or set the layout's cooling parameter.
-  external alpha([value]);
+  alpha([value]) {
+    return _proxy.callMethod('alpha', []);
+  }
 
   /// Reheat the cooling parameter and restart simulation.
-  external resume();
+  resume() {
+    return _proxy.callMethod('resume', []);
+  }
 
   /// Immediately terminate the simulation.
-  external stop();
+  stop() {
+    return _proxy.callMethod('stop', []);
+  }
 
   /// Run the layout simulation one step.
-  external tick();
+  tick() {
+    return _proxy.callMethod('tick', []);
+  }
 
   /// Listen to updates in the computed layout positions.
-  external on(type, listener);
+  on(type, listener) {
+    return _proxy.callMethod('on', []);
+  }
 
   /// Bind a behavior to nodes to allow interactive dragging.
-  external drag();
+  drag() {
+    return _proxy.callMethod('drag', []);
+  }
 }
 
 /// Derive a custom hierarchical layout implementation.
-external Hierarchy hierarchy();
+Hierarchy hierarchy() {
+  return _layout.callMethod('hierarchy', []);
+}
 
-@JS()
 abstract class Hierarchy implements Function {
+  final JsObject _proxy;
+
+  Hierarchy._(this._proxy);
+
   call(root) => hierarchy(root);
 
   /// Alias for hierarchy.nodes.
-  external hierarchy(root);
+  hierarchy(root) {
+    return _proxy.callMethod('hierarchy', []);
+  }
 
   /// Compute the layout and return the array of nodes.
-  external nodes(root);
+  nodes(root) {
+    return _proxy.callMethod('nodes', []);
+  }
 
   /// Compute the parent-child links between tree nodes.
-  external links(nodes);
+  links(nodes) {
+    return _proxy.callMethod('links', []);
+  }
 
   /// Get or set the accessor function for child nodes.
-  external children([accessor]);
+  children([accessor]) {
+    return _proxy.callMethod('children', []);
+  }
 
   /// Get or set the comparator function for sibling nodes.
-  external sort([comparator]);
+  sort([comparator]) {
+    return _proxy.callMethod('sort', []);
+  }
 
   /// Get or set the value accessor function.
-  external value([value]);
+  value([value]) {
+    return _proxy.callMethod('value', []);
+  }
 
   /// Recompute the hierarchy values.
-  external revalue(root);
+  revalue(root) {
+    return _proxy.callMethod('revalue', []);
+  }
 }
 
 /// Construct a new default histogram layout.
-external Histogram histogram();
+Histogram histogram() {
+  return _layout.callMethod('histogram', []);
+}
 
-@JS()
 abstract class Histogram implements Function {
+  final JsObject _proxy;
+
+  Histogram._(this._proxy);
+
   call(values, [index]) => histogram(values, [index]);
 
   /// Compute the distribution of data using quantized bins.
-  external histogram(values, [index]);
+  histogram(values, [index]) {
+    return _proxy.callMethod('histogram', []);
+  }
 
   /// Get or set the value accessor function.
-  external value([accessor]);
+  value([accessor]) {
+    return _proxy.callMethod('value', []);
+  }
 
   /// Get or set the considered value range.
-  external range([range]);
+  range([range]) {
+    return _proxy.callMethod('range', []);
+  }
 
   /// Specify how values are organized into bins.
-  external bins([count_or_thresholds_or_function]);
+  bins([count_or_thresholds_or_function]) {
+    return _proxy.callMethod('bins', []);
+  }
 
   /// Compute the distribution as counts or probabilities.
-  external frequency([frequency]);
+  frequency([frequency]) {
+    return _proxy.callMethod('frequency', []);
+  }
 }
 
 /// Produce a hierarchical layout using recursive circle-packing.
-external Pack pack();
+Pack pack() {
+  return _layout.callMethod('pack', []);
+}
 
-@JS()
-abstract class Pack implements Function {
+class Pack {
+  final JsObject _proxy;
+
+  Pack._(this._proxy);
+
   call(root) => pack(root);
 
   /// Alias for pack.nodes.
-  external pack(root);
+  pack(root) {
+    return _proxy.callMethod('pack', []);
+  }
 
   /// Compute the pack layout and return the array of nodes.
-  external nodes(root);
+  nodes(root) {
+    return _proxy.callMethod('nodes', []);
+  }
 
   /// Compute the parent-child links between tree nodes.
-  external links(nodes);
+  links(nodes) {
+    return _proxy.callMethod('links', []);
+  }
 
   /// Get or set the children accessor function.
-  external children([children]);
+  children([children]) {
+    return _proxy.callMethod('children', []);
+  }
 
   /// Control the order in which sibling nodes are traversed.
-  external sort([comparator]);
+  sort([comparator]) {
+    return _proxy.callMethod('sort', []);
+  }
 
   /// Get or set the value accessor used to size circles.
-  external value([value]);
+  value([value]) {
+    return _proxy.callMethod('value', []);
+  }
 
   /// Specify the layout size in x and y.
-  external size([size]);
+  size([size]) {
+    return _proxy.callMethod('size', []);
+  }
 
   /// Specify the node radius, rather than deriving it from value.
-  external radius([radius]);
+  radius([radius]) {
+    return _proxy.callMethod('radius', []);
+  }
 
   /// Specify the layout padding in (approximate) pixels.
-  external padding([padding]);
+  padding([padding]) {
+    return _proxy.callMethod('padding', []);
+  }
 }
 
 /// Recursively partition a node tree into a sunburst or icicle.
-external Partition partition();
+Partition partition() {
+  return _layout.callMethod('partition', []);
+}
 
-@JS()
-abstract class Partition implements Function {
+class Partition {
+  final JsObject _proxy;
+
+  Partition._(this._proxy);
+
   call(root) => partition(root);
 
   /// Alias for partition.nodes.
-  external partition(root);
+  partition(root) {
+    return _proxy.callMethod('partition', []);
+  }
 
   /// Compute the partition layout and return the array of nodes.
-  external nodes(root);
+  nodes(root) {
+    return _proxy.callMethod('nodes', []);
+  }
 
   /// Compute the parent-child links between tree nodes.
-  external links(nodes);
+  links(nodes) {
+    return _proxy.callMethod('links', []);
+  }
 
   /// Get or set the children accessor function.
-  external children([children]);
+  children([children]) {
+    return _proxy.callMethod('children', []);
+  }
 
   /// Control the order in which sibling nodes are traversed.
-  external sort([comparator]);
+  sort([comparator]) {
+    return _proxy.callMethod('sort', []);
+  }
 
   /// Get or set the value accessor used to size circles.
-  external value([value]);
+  value([value]) {
+    return _proxy.callMethod('value', []);
+  }
 
   /// Specify the layout size in x and y.
-  external size([size]);
+  size([size]) {
+    return _proxy.callMethod('size', []);
+  }
 }
 
 /// Construct a new default pie layout.
-external Pie pie();
+Pie pie() {
+  return _layout.callMethod('pie', []);
+}
 
-@JS()
-abstract class Pie implements Function {
+class Pie {
+  final JsObject _proxy;
+
+  Pie._(this._proxy);
+
   call(values, [index]) => pie(values, [index]);
 
   /// Compute the start and end angles for arcs in a pie or donut chart.
-  external pie(values, [index]);
+  pie(values, [index]) {
+    return _proxy.callMethod('pie', []);
+  }
 
   /// Get or set the value accessor function.
-  external value([accessor]);
+  value([accessor]) {
+    return _proxy.callMethod('value', []);
+  }
 
   /// Control the clockwise order of pie slices.
-  external sort([comparator]);
+  sort([comparator]) {
+    return _proxy.callMethod('sort', []);
+  }
 
   /// Get or set the overall start angle of the pie.
-  external startAngle([angle]);
+  startAngle([angle]) {
+    return _proxy.callMethod('startAngle', []);
+  }
 
   /// Get or set the overall end angle of the pie.
-  external endAngle([angle]);
+  endAngle([angle]) {
+    return _proxy.callMethod('endAngle', []);
+  }
 
   /// Get or set the pad angle of the pie.
-  external padAngle([angle]);
+  padAngle([angle]) {
+    return _proxy.callMethod('padAngle', []);
+  }
 }
 
 /// Construct a new default stack layout.
-external Stack stack();
+Stack stack() {
+  return _layout.callMethod('stack', []);
+}
 
-@JS()
-abstract class Stack implements Function {
+class Stack {
+  final JsObject _proxy;
+
+  Stack._(this._proxy);
+
   call(layers, [index]) => stack(layers, [index]);
 
   /// Compute the baseline for each series in a stacked bar or area chart.
-  external stack(layers, [index]);
+  stack(layers, [index]) {
+    return _proxy.callMethod('stack', []);
+  }
 
   /// Get or set the values accessor function per series.
-  external values([accessor]);
+  values([accessor]) {
+    return _proxy.callMethod('values', []);
+  }
 
   /// Specify the overall baseline algorithm.
-  external offset([offset]);
+  offset([offset]) {
+    return _proxy.callMethod('offset', []);
+  }
 
   /// Control the order in which series are stacked.
-  external order([order]);
+  order([order]) {
+    return _proxy.callMethod('order', []);
+  }
 
   /// Get or set the x-dimension accessor function.
-  external x([accessor]);
+  x([accessor]) {
+    return _proxy.callMethod('x', []);
+  }
 
   /// Get or set the y-dimension accessor function.
-  external y([accessor]);
+  y([accessor]) {
+    return _proxy.callMethod('y', []);
+  }
 
   /// Get or set the output function for storing the baseline.
-  external out([setter]);
+  out([setter]) {
+    return _proxy.callMethod('out', []);
+  }
 }
 
 /// Position a tree of nodes tidily.
-external Tree tree();
+Tree tree() {
+  return _layout.callMethod('tree', []);
+}
 
-@JS()
-abstract class Tree implements Function {
+class Tree {
+  final JsObject _proxy;
+
+  Tree._(this._proxy);
+
   call(root) => tree(root);
 
   /// Alias for tree.nodes.
-  external tree(root);
+  tree(root) {
+    return _proxy.callMethod('tree', []);
+  }
 
   /// Compute the tree layout and return the array of nodes.
-  external nodes(root);
+  nodes(root) {
+    return _proxy.callMethod('nodes', []);
+  }
 
   /// Compute the parent-child links between tree nodes.
-  external links(nodes);
+  links(nodes) {
+    return _proxy.callMethod('links', []);
+  }
 
   /// Get or set the children accessor function.
-  external children([children]);
+  children([children]) {
+    return _proxy.callMethod('children', []);
+  }
 
   /// Get or set the spacing function between neighboring nodes.
-  external separation([separation]);
+  separation([separation]) {
+    return _proxy.callMethod('separation', []);
+  }
 
   /// Specify the layout size in x and y.
-  external size([size]);
+  size([size]) {
+    return _proxy.callMethod('size', []);
+  }
 
   /// Specify a fixed size for each node.
-  external nodeSize([nodeSize]);
+  nodeSize([nodeSize]) {
+    return _proxy.callMethod('nodeSize', []);
+  }
 
   /// Control the order in which sibling nodes are traversed.
-  external sort([comparator]);
-  external value([value]);
+  sort([comparator]) {
+    return _proxy.callMethod('sort', []);
+  }
+
+  value([value]) {
+    return _proxy.callMethod('value', []);
+  }
 }
 
 /// Use recursive spatial subdivision to display a tree of nodes.
-external Treemap treemap();
+Treemap treemap() {
+  return _layout.callMethod('treemap', []);
+}
 
-@JS()
-abstract class Treemap implements Function {
+class Treemap {
+  final JsObject _proxy;
+
+  Treemap._(this._proxy);
+
   call(root) => treemap(root);
 
   /// Alias for treemap.nodes.
-  external treemap(root);
+  treemap(root) {
+    return _proxy.callMethod('treemap', []);
+  }
 
   /// Compute the treemap layout and return the array of nodes.
-  external nodes(root);
+  nodes(root) {
+    return _proxy.callMethod('nodes', []);
+  }
 
   /// Compute the parent-child links between tree nodes.
-  external links(nodes);
+  links(nodes) {
+    return _proxy.callMethod('links', []);
+  }
 
   /// Get or set the children accessor function.
-  external children([children]);
+  children([children]) {
+    return _proxy.callMethod('children', []);
+  }
 
   /// Control the order in which sibling nodes are traversed.
-  external sort([comparator]);
+  sort([comparator]) {
+    return _proxy.callMethod('sort', []);
+  }
 
   /// Get or set the value accessor used to size treemap cells.
-  external value([value]);
+  value([value]) {
+    return _proxy.callMethod('value', []);
+  }
 
   /// Specify the layout size in x and y.
-  external size([size]);
+  size([size]) {
+    return _proxy.callMethod('size', []);
+  }
 
   /// Specify the padding between a parent and its children.
-  external padding([padding]);
+  padding([padding]) {
+    return _proxy.callMethod('padding', []);
+  }
 
   /// Enable or disable rounding to exact pixels.
-  external round([round]);
+  round([round]) {
+    return _proxy.callMethod('round', []);
+  }
 
   /// Make the layout sticky for stable updates.
-  external sticky([sticky]);
+  sticky([sticky]) {
+    return _proxy.callMethod('sticky', []);
+  }
 
   /// Change the treemap layout algorithm.
-  external mode([mode]);
-  external ratio([ratio]);
+  mode([mode]) {
+    return _proxy.callMethod('mode', []);
+  }
+
+  ratio([ratio]) {
+    return _proxy.callMethod('ratio', []);
+  }
 }

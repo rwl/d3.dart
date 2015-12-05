@@ -1,214 +1,348 @@
-@JS('d3.time')
 library d3.src.time;
 
-import 'package:js/js.dart';
+import 'dart:js';
+
+JsObject _time = context['d3']['time'];
 
 /// Create a new local time formatter for a given specifier.
-external Format format(specifier);
+Format format(specifier) {
+  return _time.callMethod('format', []);
+}
 
-@JS()
-abstract class Format implements Function {
+class Format {
+  final JsObject _proxy;
+
+  Format._(this._proxy);
+
   call(date) => format(date);
 
   /// Format a date into a string.
-  external format(date);
+  format(date) {
+    return _proxy.callMethod('format', []);
+  }
 
   /// Parse a string into a date.
-  external parse(string);
+  parse(string) {
+    return _proxy.callMethod('parse', []);
+  }
 }
 
 /// Create a new local multi-resolution time formatter.
-@JS('format.multi')
-external multi(formats);
+multi(formats) {
+  return _time['format'].callMethod('multi', []);
+}
 
 /// Create a new UTC time formatter for a given specifier.
-@JS('format.utc')
-external utcFormat(specifier);
+utcFormat(specifier) {
+  return _time['format'].callMethod('utc', []);
+}
 
 /// The ISO 8601 UTC time formatter.
-@JS('format.iso')
-external Format get iso;
+Format get iso {
+  return _time['format'].callMethod('iso', []);
+}
 
 /// Construct a linear time scale.
-external TimeScale scale();
+TimeScale scale() {
+  return _time.callMethod('scale', []);
+}
 
-@JS('scale.utc')
-external TimeScale utcScale();
+TimeScale utcScale() {
+  return _time['scale'].callMethod('utc', []);
+}
 
-@JS()
-abstract class TimeScale implements Function {
+class TimeScale {
+  final JsObject _proxy;
+
+  TimeScale._(this._proxy);
+
   call(x) => scale(x);
 
   /// Get the range value corresponding to a given domain value.
-  external scale(x);
+  scale(x) {
+    return _proxy.callMethod('scale', []);
+  }
 
   /// Get the domain value corresponding to a given range value.
-  external invert(y);
+  invert(y) {
+    return _proxy.callMethod('invert', []);
+  }
 
   /// Get or set the scale's input domain.
-  external domain([dates]);
+  domain([dates]) {
+    return _proxy.callMethod('domain', []);
+  }
 
   /// Extend the scale domain to nice round numbers.
-  external nice([interval_or_count, step]);
+  nice([interval_or_count, step]) {
+    return _proxy.callMethod('nice', []);
+  }
 
   /// Get or set the scale's output range.
-  external range([values]);
+  range([values]) {
+    return _proxy.callMethod('range', []);
+  }
 
   /// Set the scale's output range, and enable rounding.
-  external rangeRound([values]);
+  rangeRound([values]) {
+    return _proxy.callMethod('rangeRound', []);
+  }
 
   /// Get or set the scale's output interpolator.
-  external interpolate([factory]);
+  interpolate([factory]) {
+    return _proxy.callMethod('interpolate', []);
+  }
 
   /// Enable or disable clamping of the output range.
-  external clamp([boolean]);
+  clamp([boolean]) {
+    return _proxy.callMethod('clamp', []);
+  }
 
   /// Get representative values from the input domain.
-  external ticks([interval_or_count, step]);
+  ticks([interval_or_count, step]) {
+    return _proxy.callMethod('ticks', []);
+  }
 
   /// Get a formatter for displaying tick values.
-  external tickFormat();
+  tickFormat() {
+    return _proxy.callMethod('tickFormat', []);
+  }
 
   /// Create a new scale from an existing scale.
-  external copy();
+  copy() {
+    return _proxy.callMethod('copy', []);
+  }
 }
 
 /// A time interval in local time.
-external Interval interval();
+Interval interval() {
+  return _time.callMethod('interval', []);
+}
 
-@JS()
-abstract class Interval implements Function {
+class Interval {
+  final JsObject _proxy;
+
+  Interval._(this._proxy);
+
   call(date) => interval(date);
 
   /// Alias for interval.floor.
-  external interval(date);
+  interval(date) {
+    return _proxy.callMethod('interval', []);
+  }
 
   /// Rounds down to the nearest interval.
-  external floor(date);
+  floor(date) {
+    return _proxy.callMethod('floor', []);
+  }
 
   /// Rounds up or down to the nearest interval.
-  external round(date);
+  round(date) {
+    return _proxy.callMethod('round', []);
+  }
 
   /// Rounds up to the nearest interval.
-  external ceil(date);
+  ceil(date) {
+    return _proxy.callMethod('ceil', []);
+  }
 
   /// Returns dates within the specified range.
-  external range(start, stop, [step]);
+  range(start, stop, [step]) {
+    return _proxy.callMethod('range', []);
+  }
 
   /// Returns a date offset by some interval.
-  external offset(date, step);
+  offset(date, step) {
+    return _proxy.callMethod('offset', []);
+  }
 
   /// Returns the UTC-equivalent time interval.
-  external get utc;
+  get utc {
+    return _proxy['utc'];
+  }
 }
 
 /// Every second (e.g., 1:02:03 AM).
-external Interval get second;
+Interval get second {
+  return _time['second'];
+}
 
 /// Every minute (e.g., 1:02 AM).
-external Interval get minute;
+Interval get minute {
+  return _time['minute'];
+}
 
 /// Every hour (e.g., 1:00 AM).
-external Interval get hour;
+Interval get hour {
+  return _time['hour'];
+}
 
 /// Every day (12:00 AM).
-external Interval get day;
+Interval get day {
+  return _time['day'];
+}
 
 /// Alias for sunday.
-external Interval get week;
+Interval get week {
+  return _time['week'];
+}
 
 /// Every Sunday (e.g., February 5, 12:00 AM).
-external Interval get sunday;
+Interval get sunday {
+  return _time['sunday'];
+}
 
 /// Every Monday (e.g., February 5, 12:00 AM).
-external Interval get monday;
+Interval get monday {
+  return _time['monday'];
+}
 
 /// Every Tuesday (e.g., February 5, 12:00 AM).
-external Interval get tuesday;
+Interval get tuesday {
+  return _time['tuesday'];
+}
 
 /// Every Wednesday (e.g., February 5, 12:00 AM).
-external Interval get wednesday;
+Interval get wednesday {
+  return _time['wednesday'];
+}
 
 /// Every Thursday (e.g., February 5, 12:00 AM).
-external Interval get thursday;
+Interval get thursday {
+  return _time['thursday'];
+}
 
 /// Every Friday (e.g., February 5, 12:00 AM).
-external Interval get friday;
+Interval get friday {
+  return _time['friday'];
+}
 
 /// Every Saturday (e.g., February 5, 12:00 AM).
-external Interval get saturday;
+Interval get saturday {
+  return _time['saturday'];
+}
 
 /// Every month (e.g., February 1, 12:00 AM).
-external Interval get month;
+Interval get month {
+  return _time['month'];
+}
 
 /// Every year (e.g., January 1, 12:00 AM).
-external Interval get year;
+Interval get year {
+  return _time['year'];
+}
 
 /// Alias for second.range.
-external seconds(start, stop, [step]);
+seconds(start, stop, [step]) {
+  return _time.callMethod('seconds', []);
+}
 
 /// Alias for minute.range.
-external minutes(start, stop, [step]);
+minutes(start, stop, [step]) {
+  return _time.callMethod('minutes', []);
+}
 
 /// Alias for hour.range.
-external hours(start, stop, [step]);
+hours(start, stop, [step]) {
+  return _time.callMethod('hours', []);
+}
 
 /// Alias for day.range.
-external days(start, stop, [step]);
+days(start, stop, [step]) {
+  return _time.callMethod('days', []);
+}
 
 /// Alias for sunday.range.
-external weeks(start, stop, [step]);
+weeks(start, stop, [step]) {
+  return _time.callMethod('weeks', []);
+}
 
 /// Alias for sunday.range.
-external sundays(start, stop, [step]);
+sundays(start, stop, [step]) {
+  return _time.callMethod('sundays', []);
+}
 
 /// Alias for monday.range.
-external mondays(start, stop, [step]);
+mondays(start, stop, [step]) {
+  return _time.callMethod('mondays', []);
+}
 
 /// Alias for tuesday.range.
-external tuesdays(start, stop, [step]);
+tuesdays(start, stop, [step]) {
+  return _time.callMethod('tuesdays', []);
+}
 
 /// Alias for wednesday.range.
-external wednesdays(start, stop, [step]);
+wednesdays(start, stop, [step]) {
+  return _time.callMethod('wednesdays', []);
+}
 
 /// Alias for thursday.range.
-external thursdays(start, stop, [step]);
+thursdays(start, stop, [step]) {
+  return _time.callMethod('thursdays', []);
+}
 
 /// Alias for friday.range.
-external fridays(start, stop, [step]);
+fridays(start, stop, [step]) {
+  return _time.callMethod('fridays', []);
+}
 
 /// Alias for saturday.range.
-external saturdays(start, stop, [step]);
+saturdays(start, stop, [step]) {
+  return _time.callMethod('saturdays', []);
+}
 
 /// Alias for month.range.
-external months(start, stop, [step]);
+months(start, stop, [step]) {
+  return _time.callMethod('months', []);
+}
 
 /// Alias for year.range.
-external years(start, stop, [step]);
+years(start, stop, [step]) {
+  return _time.callMethod('years', []);
+}
 
 /// Computes the day number.
-external dayOfYear(date);
+dayOfYear(date) {
+  return _time.callMethod('dayOfYear', []);
+}
 
 /// Alias for sundayOfYear.
-external weekOfYear(date);
+weekOfYear(date) {
+  return _time.callMethod('weekOfYear', []);
+}
 
 /// Computes the sunday-based week number.
-external sundayOfYear(date);
+sundayOfYear(date) {
+  return _time.callMethod('sundayOfYear', []);
+}
 
 /// Computes the monday-based week number.
-external mondayOfYear(date);
+mondayOfYear(date) {
+  return _time.callMethod('mondayOfYear', []);
+}
 
 /// Computes the tuesday-based week number.
-external tuesdayOfYear(date);
+tuesdayOfYear(date) {
+  return _time.callMethod('tuesdayOfYear', []);
+}
 
 /// Computes the wednesday-based week number.
-external wednesdayOfYear(date);
+wednesdayOfYear(date) {
+  return _time.callMethod('wednesdayOfYear', []);
+}
 
 /// Computes the thursday-based week number.
-external thursdayOfYear(date);
+thursdayOfYear(date) {
+  return _time.callMethod('thursdayOfYear', []);
+}
 
 /// Computes the friday-based week number.
-external fridayOfYear(date);
+fridayOfYear(date) {
+  return _time.callMethod('fridayOfYear', []);
+}
 
 /// Computes the saturday-based week number.
-external saturdayOfYear(date);
+saturdayOfYear(date) {
+  return _time.callMethod('saturdayOfYear', []);
+}

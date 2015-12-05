@@ -1,16 +1,25 @@
-@JS('d3')
 library d3.src.formatting;
 
-import 'package:js/js.dart';
+import 'dart:js';
+
+JsObject _d3 = context['d3'];
 
 /// Format a number as a string.
-external format(specifier);
+format(specifier) {
+  return _d3.callMethod('format', []);
+}
 
 /// Returns the SI prefix for the specified value and precision.
-external formatPrefix(value, [precision]);
+formatPrefix(value, [precision]) {
+  return _d3.callMethod('formatPrefix', []);
+}
 
 /// Rounds a value to some digits after the decimal point.
-external round(x, [n]);
+round(x, [n]) {
+  return _d3.callMethod('round', []);
+}
 
 /// Quote a string for use in a regular expression.
-external requote(string);
+requote(string) {
+  return _d3.callMethod('requote', []);
+}

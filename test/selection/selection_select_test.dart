@@ -1,4 +1,3 @@
-import 'package:js/js.dart';
 import 'package:test/test.dart';
 import 'package:d3/d3.dart' as d3;
 
@@ -44,12 +43,12 @@ main() {
       test('can select via function', () {
         body.append('foo');
         var d = {}, dd = [], ii = [], tt = [];
-        var s = body.data([d]).select(allowInteropCaptureThis((node, d, i, j) {
+        var s = body.data([d]).select((node, d, i, j) {
           dd.add(d);
           ii.add(i);
           tt.add(node);
           return node.firstChild;
-        }));
+        });
         expect(dd, equals([d]));
         expect(ii, equals([0]));
         expect(tt[0], equals(body.node()));

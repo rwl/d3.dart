@@ -1,10 +1,15 @@
-@JS('d3.ns')
 library d3.src.namespace;
 
-import 'package:js/js.dart';
+import 'dart:js';
+
+JsObject _ns = context['d3']['ns'];
 
 /// Access or extend known XML namespaces.
-external Map<String, String> get prefix;
+Map<String, String> get prefix {
+  return _ns['prefix'];
+}
 
 /// Qualify a prefixed name, such as "xlink:href".
-external Map qualify(String name);
+Map qualify(String name) {
+  return _ns.callMethod('qualify', []);
+}

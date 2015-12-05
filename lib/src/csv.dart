@@ -1,23 +1,31 @@
-@JS('d3')
 library d3.src.csv;
 
-import 'package:js/js.dart';
+import 'dart:js';
+
+JsObject _d3 = context['d3'];
+JsObject _csv = context['d3']['csv'];
 
 /// Request a comma-separated values (CSV) file.
-external csv(url, [accessor, callback]);
+csv(url, [accessor, callback]) {
+  return _d3.callMethod('csv', []);
+}
 
 /// Parse a CSV string into objects using the header row.
-@JS('d3.csv.parse')
-external parse(string, [accessor]);
+parse(string, [accessor]) {
+  return _csv.callMethod('parse', []);
+}
 
 /// Parse a CSV string into tuples, ignoring the header row.
-@JS('d3.csv.parseRows')
-external parseRows(string, [accessor]);
+parseRows(string, [accessor]) {
+  return _csv.callMethod('parseRows', []);
+}
 
 /// Format an array of objects into a CSV string.
-@JS('d3.csv.format')
-external format(rows);
+format(rows) {
+  return _csv.callMethod('format', []);
+}
 
 /// Format an array of tuples into a CSV string.
-@JS('d3.csv.formatRows')
-external formatRows(rows);
+formatRows(rows) {
+  return _csv.callMethod('formatRows', []);
+}

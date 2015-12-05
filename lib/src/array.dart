@@ -1,132 +1,256 @@
-@JS('d3')
 library d3.src.array;
 
-import 'package:js/js.dart';
+import 'dart:js';
+
+JsObject _d3 = context['d3'];
 
 /// Compare two values for sorting.
-external ascending(a, b);
+ascending(a, b) {
+  return _d3.callMethod('ascending', []);
+}
 
 /// Compare two values for sorting.
-external descending(a, b);
+descending(a, b) {
+  return _d3.callMethod('descending', []);
+}
 
 /// Find the minimum value in an array.
-external min(array, [accessor]);
+min(array, [accessor]) {
+  return _d3.callMethod('min', []);
+}
 
 /// Find the maximum value in an array.
-external max(array, [accessor]);
+max(array, [accessor]) {
+  return _d3.callMethod('max', []);
+}
 
 /// Find the minimum and maximum value in an array.
-external extent(array, [accessor]);
+extent(array, [accessor]) {
+  return _d3.callMethod('extent', []);
+}
 
 /// Compute the sum of an array of numbers.
-external sum(array, [accessor]);
+sum(array, [accessor]) {
+  return _d3.callMethod('sum', []);
+}
 
 /// Compute the arithmetic mean of an array of numbers.
-external mean(array, [accessor]);
+mean(array, [accessor]) {
+  return _d3.callMethod('mean', []);
+}
 
 /// Compute the median of an array of numbers (the 0.5-quantile).
-external median(array, [accessor]);
+median(array, [accessor]) {
+  return _d3.callMethod('median', []);
+}
 
 /// Compute a quantile for a sorted array of numbers.
-external quantile(numbers, p);
+quantile(numbers, p) {
+  return _d3.callMethod('quantile', []);
+}
 
 /// Compute the variance of an array of numbers.
-external variance(array, [accessor]);
+variance(array, [accessor]) {
+  return _d3.callMethod('variance', []);
+}
 
 /// Compute the standard deviation of an array of numbers.
-external deviation(array, [accessor]);
+deviation(array, [accessor]) {
+  return _d3.callMethod('deviation', []);
+}
 
 /// Search for a value in a sorted array.
-external bisectLeft(array, x, [lo, hi]);
+bisectLeft(array, x, [lo, hi]) {
+  return _d3.callMethod('bisectLeft', []);
+}
 
 /// Search for a value in a sorted array.
-external bisect(array, x, [lo, hi]);
+bisect(array, x, [lo, hi]) {
+  return _d3.callMethod('bisect', []);
+}
 
 /// Search for a value in a sorted array.
-external bisectRight(array, x, [lo, hi]);
+bisectRight(array, x, [lo, hi]) {
+  return _d3.callMethod('bisectRight', []);
+}
 
 /// Bisect using an accessor or comparator.
-external bisector(accessor);
+bisector(accessor) {
+  return _d3.callMethod('bisector', []);
+}
 
 /// Randomize the order of an array.
-external shuffle(array, [lo, hi]);
+shuffle(array, [lo, hi]) {
+  return _d3.callMethod('shuffle', []);
+}
 
 /// List the keys of an associative array.
-external keys(object);
+keys(object) {
+  return _d3.callMethod('keys', []);
+}
 
 /// List the values of an associated array.
-external values(object);
+values(object) {
+  return _d3.callMethod('values', []);
+}
 
 /// List the key-value entries of an associative array.
-external entries(object);
+entries(object) {
+  return _d3.callMethod('entries', []);
+}
 
 /// Merge multiple arrays into one array.
-external merge(arrays);
+merge(arrays) {
+  return _d3.callMethod('merge', []);
+}
 
 /// Generate a range of numeric values.
-external range([start, stop, step]);
+range([start, stop, step]) {
+  return _d3.callMethod('range', []);
+}
 
 /// Reorder an array of elements according to an array of indexes.
-external permute(array, indexes);
+permute(array, indexes) {
+  return _d3.callMethod('permute', []);
+}
 
 /// Transpose a variable number of arrays.
-external zip(arrays);
+zip(arrays) {
+  return _d3.callMethod('zip', []);
+}
 
 /// Transpose an array of arrays.
-external transpose(matrix);
+transpose(matrix) {
+  return _d3.callMethod('transpose', []);
+}
 
 /// Returns an array of adjacent pairs of elements.
-external pairs(array);
+pairs(array) {
+  return _d3.callMethod('pairs', []);
+}
 
 /// Group array elements hierarchically.
-external Nest nest();
+Nest nest() {
+  return _d3.callMethod('nest', []);
+}
 
-@JS()
 class Nest {
+  final JsObject _proxy;
+
+  Nest._(this._proxy);
+
   /// Add a level to the nest hierarchy.
-  external key(function);
+  key(function) {
+    return _proxy.callMethod('key', []);
+  }
 
   /// Sort the current nest level by key.
-  external sortKeys(comparator);
+  sortKeys(comparator) {
+    return _proxy.callMethod('sortKeys', []);
+  }
 
   /// Sort the leaf nest level by value.
-  external sortValues(comparator);
+  sortValues(comparator) {
+    return _proxy.callMethod('sortValues', []);
+  }
 
   /// Specify a rollup function for leaf values.
-  external rollup(function);
+  rollup(function) {
+    return _proxy.callMethod('rollup', []);
+  }
 
   /// Evaluate the nest operator, returning an associative array.
-  external map(array, [mapType]);
+  map(array, [mapType]) {
+    return _proxy.callMethod('map', []);
+  }
 
   /// Evaluate the nest operator, returning an array of key-values tuples.
-  external entries(array);
+  entries(array) {
+    return _proxy.callMethod('entries', []);
+  }
+}
+/*
+D3Map map([object, key]) {
+  return _d3.callMethod('map', []);
 }
 
-external D3Map map([object, key]);
-
-@JS()
 class D3Map {
-  external has(key);
-  external get(key);
-  external set(key, value);
-  external remove(key);
-  external keys();
-  external values();
-  external entries();
-  external forEach(function);
-  external bool empty();
-  external int size();
+  final JsObject _proxy;
+
+  has(key) {
+    return _proxy.callMethod('', []);
+  }
+
+  get(key) {
+    return _proxy.callMethod('', []);
+  }
+
+  set(key, value) {
+    return _proxy.callMethod('', []);
+  }
+
+  remove(key) {
+    return _proxy.callMethod('', []);
+  }
+
+  keys() {
+    return _proxy.callMethod('', []);
+  }
+
+  values() {
+    return _proxy.callMethod('', []);
+  }
+
+  entries() {
+    return _proxy.callMethod('', []);
+  }
+
+  forEach(function) {
+    return _proxy.callMethod('', []);
+  }
+
+  bool empty() {
+    return _proxy.callMethod('', []);
+  }
+
+  int size() {
+    return _proxy.callMethod('', []);
+  }
 }
 
-external D3Set set([array]);
+D3Set set([array]) {
+  return _d3.callMethod('', []);
+}
 
-@JS()
 class D3Set {
-  external has(value);
-  external add(value);
-  external remove(value);
-  external values();
-  external forEach(function);
-  external bool empty();
-  external int size();
+  final JsObject _proxy;
+
+  has(value) {
+    return _proxy.callMethod('', []);
+  }
+
+  add(value) {
+    return _proxy.callMethod('', []);
+  }
+
+  remove(value) {
+    return _proxy.callMethod('', []);
+  }
+
+  values() {
+    return _proxy.callMethod('', []);
+  }
+
+  forEach(function) {
+    return _proxy.callMethod('', []);
+  }
+
+  bool empty() {
+    return _proxy.callMethod('', []);
+  }
+
+  int size() {
+    return _proxy.callMethod('', []);
+  }
 }
+*/

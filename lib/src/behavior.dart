@@ -1,53 +1,91 @@
-@JS('d3.behavior')
 library d3.src.behavior;
 
-import 'package:js/js.dart';
+import 'dart:js';
 
-external Drag drag();
+JsObject _behavior = context['d3']['behavior'];
 
-@JS()
+Drag drag() {
+  return _behavior.callMethod('drag', []);
+}
+
 class Drag {
-  external Drag on(type, [listener]);
-  external Drag origin([origin]);
+  final JsObject _proxy;
+
+  Drag._(this._proxy);
+
+  Drag on(type, [listener]) {
+    return _proxy.callMethod('on', []);
+  }
+
+  Drag origin([origin]) {
+    return _proxy.callMethod('origin', []);
+  }
 }
 
 /// Create a zoom behavior.
-external Zoom zoom();
+Zoom zoom() {
+  return _behavior.callMethod('zoom', []);
+}
 
-@JS()
-abstract class Zoom implements Function {
+class Zoom {
+  final JsObject _proxy;
+
+  Zoom._(this._proxy);
+
   call(selection) => zoom(selection);
 
   /// Apply the zoom behavior to the selected elements.
-  external zoom(selection);
+  zoom(selection) {
+    return _proxy.callMethod('zoom', []);
+  }
 
   /// The current translate offset.
-  external Zoom translate([translate]);
+  Zoom translate([translate]) {
+    return _proxy.callMethod('translate', []);
+  }
 
   /// The current scale factor.
-  external Zoom scale([scale]);
+  Zoom scale([scale]) {
+    return _proxy.callMethod('scale', []);
+  }
 
   /// Optional limits on the scale factor.
-  external Zoom scaleExtent([extent]);
+  Zoom scaleExtent([extent]) {
+    return _proxy.callMethod('scaleExtent', []);
+  }
 
   /// An optional focal point for mousewheel zooming.
-  external Zoom center([center]);
+  Zoom center([center]) {
+    return _proxy.callMethod('center', []);
+  }
 
   /// The dimensions of the viewport.
-  external Zoom size([size]);
+  Zoom size([size]) {
+    return _proxy.callMethod('size', []);
+  }
 
   /// An optional scale whose domain is bound to the x extent of the viewport.
-  external Zoom x([x]);
+  Zoom x([x]) {
+    return _proxy.callMethod('x', []);
+  }
 
   /// An optional scale whose domain is bound to the y extent of the viewport.
-  external Zoom y([y]);
+  Zoom y([y]) {
+    return _proxy.callMethod('y', []);
+  }
 
   /// Listeners for when the scale or translate changes.
-  external Zoom on(type, listener);
+  Zoom on(type, listener) {
+    return _proxy.callMethod('on', []);
+  }
 
   /// Dispatch zoom events after setting the scale or translate.
-  external Zoom event(selection);
+  Zoom event(selection) {
+    return _proxy.callMethod('event', []);
+  }
 
   /// Get or set the dblclick transition duration.
-  external Zoom duration([duration]);
+  Zoom duration([duration]) {
+    return _proxy.callMethod('duration', []);
+  }
 }

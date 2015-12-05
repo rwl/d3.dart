@@ -1,18 +1,38 @@
-@JS('d3')
 library d3.src.dsv;
 
-import 'package:js/js.dart';
+import 'dart:js';
+
+JsObject _d3 = context['d3'];
 
 /// Create a parser/formatter for the specified delimiter and mime type.
-external dsv(url, [accessor, callback]);
+dsv(url, [accessor, callback]) {
+  return _d3.callMethod('dsv', []);
+}
 
-@JS()
-abstract class Dsv implements Function {
+class Dsv {
+  final JsObject _proxy;
+
+  Dsv._(this._proxy);
+
   call(delimiter, mimeType) => dsv(delimiter, mimeType);
-  dsv(delimiter, mimeType);
 
-  external parse(string, [accessor]);
-  external parseRows(string, [accessor]);
-  external format(rows);
-  external formatRows(rows);
+  dsv(delimiter, mimeType) {
+    return _proxy.callMethod('dsv', []);
+  }
+
+  parse(string, [accessor]) {
+    return _proxy.callMethod('parse', []);
+  }
+
+  parseRows(string, [accessor]) {
+    return _proxy.callMethod('parseRows', []);
+  }
+
+  format(rows) {
+    return _proxy.callMethod('format', []);
+  }
+
+  formatRows(rows) {
+    return _proxy.callMethod('formatRows', []);
+  }
 }

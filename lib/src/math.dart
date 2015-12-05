@@ -1,32 +1,57 @@
-@JS('d3')
 library d3.src.math;
 
-import 'package:js/js.dart';
+import 'dart:js';
+
+JsObject _d3 = context['d3'];
+JsObject _random = context['d3']['random'];
 
 /// Generate a random number with a normal distribution.
-@JS('random.normal')
-external normal([mean, deviation]);
+normal([mean, deviation]) {
+  return _random.callMethod('normal', []);
+}
 
 /// Generate a random number with a log-normal distribution.
-@JS('random.logNormal')
-external logNormal([mean, deviation]);
+logNormal([mean, deviation]) {
+  return _random.callMethod('logNormal', []);
+}
 
 /// Generate a random number with a Bates distribution.
-@JS('random.bates')
-external bates(count);
+bates(count) {
+  return _random.callMethod('bates', []);
+}
 
 /// Generate a random number with an Irwin–Hall distribution.
-@JS('random.irwinHall')
-external irwinHall(count);
+irwinHall(count) {
+  return _random.callMethod('irwinHall', []);
+}
 
 /// Compute the standard form of a 2D matrix transform
-external Transform transform(string);
+Transform transform(string) {
+  return _d3.callMethod('transform', []);
+}
 
-@JS()
 class Transform {
-  external get rotate;
-  external get translate;
-  external get skew;
-  external get scale;
-  external toString();
+  final JsObject _proxy;
+
+  Transform._(this._proxy);
+
+  get rotate {
+    return _proxy['rotate'];
+  }
+
+  get translate {
+    return _proxy['translate'];
+  }
+
+  get skew {
+    return _proxy['skew'];
+  }
+
+  get scale {
+    return _proxy['scale'];
+  }
+
+  toString() {
+    return _proxy.callMethod('toString');
+  }
 }

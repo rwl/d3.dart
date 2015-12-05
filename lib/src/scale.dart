@@ -1,285 +1,473 @@
-@JS('d3.scale')
 library d3.src.scale;
 
-import 'package:js/js.dart';
+import 'dart:js';
+
+JsObject _scale = context['d3']['scale'];
 
 /// Construct a linear quantitative scale.
-external LinearScale linear();
+LinearScale linear() {
+  return new LinearScale._(_scale.callMethod('linear', []));
+}
 
-@JS()
-abstract class LinearScale implements Function {
+class LinearScale {
+  final JsObject _proxy;
+
+  LinearScale._(this._proxy);
+
   call(x) => linear(x);
 
   /// Get the range value corresponding to a given domain value.
-  external linear(x);
+  linear(x) {
+    return _proxy.callMethod('linear', []);
+  }
 
   /// Get the domain value corresponding to a given range value.
-  external invert(y);
+  invert(y) {
+    return _proxy.callMethod('invert', []);
+  }
 
   /// Get or set the scale's input domain.
-  external LinearScale domain([numbers]);
+  LinearScale domain([numbers]) {
+    return _proxy.callMethod('domain', []);
+  }
 
   /// Get or set the scale's output range.
-  external LinearScale range([values]);
+  LinearScale range([values]) {
+    return _proxy.callMethod('range', []);
+  }
 
   /// Set the scale's output range, and enable rounding.
-  external rangeRound(values);
+  rangeRound(values) {
+    return _proxy.callMethod('rangeRound', []);
+  }
 
   /// Get or set the scale's output interpolator.
-  external interpolate([factory]);
+  interpolate([factory]) {
+    return _proxy.callMethod('interpolate', []);
+  }
 
   /// Enable or disable clamping of the output range.
-  external clamp([boolean]);
+  clamp([boolean]) {
+    return _proxy.callMethod('clamp', []);
+  }
 
   /// Extend the scale domain to nice round numbers.
-  external nice([count]);
+  nice([count]) {
+    return _proxy.callMethod('nice', []);
+  }
 
   /// Get representative values from the input domain.
-  external ticks([count]);
+  ticks([count]) {
+    return _proxy.callMethod('ticks', []);
+  }
 
   /// Get a formatter for displaying tick values.
-  external tickFormat(count, [format]);
+  tickFormat(count, [format]) {
+    return _proxy.callMethod('tickFormat', []);
+  }
 
   /// Create a new scale from an existing scale.
-  external copy();
+  copy() {
+    return _proxy.callMethod('copy', []);
+  }
 }
 
 /// Construct a linear identity scale.
-external IdentityScale identity();
+IdentityScale identity() {
+  return _scale.callMethod('identity', []);
+}
 
-@JS()
-abstract class IdentityScale implements Function {
+class IdentityScale {
+  final JsObject _proxy;
+
+  IdentityScale._(this._proxy);
+
   call(x) => identity(x);
 
   /// The identity function.
-  external identity(x);
+  identity(x) {
+    return _proxy.callMethod('identity', []);
+  }
 
   /// Equivalent to identity; the identity function.
-  external invert(x);
+  invert(x) {
+    return _proxy.callMethod('invert', []);
+  }
 
   /// Get or set the scale's domain and range.
-  external domain([numbers]);
+  domain([numbers]) {
+    return _proxy.callMethod('domain', []);
+  }
 
   /// Equivalent to identity.domain.
-  external range([numbers]);
+  range([numbers]) {
+    return _proxy.callMethod('range', []);
+  }
 
   /// Get representative values from the domain.
-  external ticks([count]);
+  ticks([count]) {
+    return _proxy.callMethod('ticks', []);
+  }
 
   /// Get a formatter for displaying tick values.
-  external tickFormat(count, [format]);
+  tickFormat(count, [format]) {
+    return _proxy.callMethod('tickFormat', []);
+  }
 
   /// Create a new scale from an existing scale.
-  external copy();
+  copy() {
+    return _proxy.callMethod('copy', []);
+  }
 }
 
 /// Construct a quantitative scale with a square root transform.
-external Pow sqrt();
+Pow sqrt() {
+  return _scale.callMethod('sqrt', []);
+}
 
 /// Construct a quantitative scale with an exponential transform.
-external Pow pow();
+Pow pow() {
+  return _scale.callMethod('pow', []);
+}
 
-@JS()
-abstract class Pow implements Function {
+class Pow {
+  final JsObject _proxy;
+
+  Pow._(this._proxy);
+
   call(x) => pow(x);
 
   /// Get the range value corresponding to a given domain value.
-  external pow(x);
+  pow(x) {
+    return _proxy.callMethod('pow', []);
+  }
 
   /// Get the domain value corresponding to a given range value.
-  external invert(y);
+  invert(y) {
+    return _proxy.callMethod('invert', []);
+  }
 
   /// Get or set the scale's input domain.
-  external domain([numbers]);
+  domain([numbers]) {
+    return _proxy.callMethod('domain', []);
+  }
 
   /// Get or set the scale's output range.
-  external range([values]);
+  range([values]) {
+    return _proxy.callMethod('range', []);
+  }
 
   /// Set the scale's output range, and enable rounding.
-  external rangeRound(values);
+  rangeRound(values) {
+    return _proxy.callMethod('rangeRound', []);
+  }
 
   /// Get or set the exponent power.
-  external exponent([k]);
+  exponent([k]) {
+    return _proxy.callMethod('exponent', []);
+  }
 
   /// Get or set the scale's output interpolator.
-  external interpolate([factory]);
+  interpolate([factory]) {
+    return _proxy.callMethod('interpolate', []);
+  }
 
   /// Enable or disable clamping of the output range.
-  external clamp([boolean]);
+  clamp([boolean]) {
+    return _proxy.callMethod('clamp', []);
+  }
 
   /// Extend the scale domain to nice round numbers.
-  external nice([m]);
+  nice([m]) {
+    return _proxy.callMethod('nice', []);
+  }
 
   /// Get representative values from the input domain.
-  external ticks([count]);
+  ticks([count]) {
+    return _proxy.callMethod('ticks', []);
+  }
 
   /// Get a formatter for displaying tick values.
-  external tickFormat([count, format]);
+  tickFormat([count, format]) {
+    return _proxy.callMethod('tickFormat', []);
+  }
 
   /// Create a new scale from an existing scale.
-  external copy();
+  copy() {
+    return _proxy.callMethod('copy', []);
+  }
 }
 
 /// Construct a quantitative scale with an logarithmic transform.
-external Log log();
+Log log() {
+  return _scale.callMethod('log', []);
+}
 
-@JS()
-abstract class Log implements Function {
+class Log {
+  final JsObject _proxy;
+
+  Log._(this._proxy);
+
   call(x) => log(x);
 
   /// Get the range value corresponding to a given domain value.
-  external log(x);
+  log(x) {
+    return _proxy.callMethod('log', []);
+  }
 
   /// Get the domain value corresponding to a given range value.
-  external invert(y);
+  invert(y) {
+    return _proxy.callMethod('invert', []);
+  }
 
   /// Get or set the scale's input domain.
-  external domain([numbers]);
+  domain([numbers]) {
+    return _proxy.callMethod('domain', []);
+  }
 
   /// Get or set the scale's output range.
-  external range([values]);
+  range([values]) {
+    return _proxy.callMethod('range', []);
+  }
 
   /// Set the scale's output range, and enable rounding.
-  external rangeRound(values);
-  external base([base]);
+  rangeRound(values) {
+    return _proxy.callMethod('rangeRound', []);
+  }
+
+  base([base]) {
+    return _proxy.callMethod('base', []);
+  }
 
   /// Get or set the scale's output interpolator.
-  external interpolate([factory]);
+  interpolate([factory]) {
+    return _proxy.callMethod('interpolate', []);
+  }
 
   /// Enable or disable clamping of the output range.
-  external clamp([boolean]);
+  clamp([boolean]) {
+    return _proxy.callMethod('clamp', []);
+  }
 
   /// Extend the scale domain to nice powers of ten.
-  external nice();
+  nice() {
+    return _proxy.callMethod('nice', []);
+  }
 
   /// Get representative values from the input domain.
-  external ticks();
+  ticks() {
+    return _proxy.callMethod('ticks', []);
+  }
 
   /// Get a formatter for displaying tick values.
-  external tickFormat([count, format]);
+  tickFormat([count, format]) {
+    return _proxy.callMethod('tickFormat', []);
+  }
 
   /// Create a new scale from an existing scale.
-  external copy();
+  copy() {
+    return _proxy.callMethod('copy', []);
+  }
 }
 
 /// Construct a linear quantitative scale with a discrete output range.
-external Quantize quantize();
+Quantize quantize() {
+  return _scale.callMethod('quantize', []);
+}
 
-@JS()
-abstract class Quantize implements Function {
+class Quantize {
+  final JsObject _proxy;
+
+  Quantize._(this._proxy);
+
   call(x) => quantize(x);
 
   /// Get the range value corresponding to a given domain value.
-  external quantize(x);
+  quantize(x) {
+    return _proxy.callMethod('quantize', []);
+  }
 
   /// Get the domain values for the specified range value.
-  external invertExtent(y);
+  invertExtent(y) {
+    return _proxy.callMethod('invertExtent', []);
+  }
 
   /// Get or set the scale's input domain.
-  external domain([numbers]);
+  domain([numbers]) {
+    return _proxy.callMethod('domain', []);
+  }
 
   /// Get or set the scale's output range (as discrete values).
-  external range([values]);
+  range([values]) {
+    return _proxy.callMethod('range', []);
+  }
 
   /// Create a new scale from an existing scale.
-  external copy();
+  copy() {
+    return _proxy.callMethod('copy', []);
+  }
 }
 
 /// Construct a quantitative scale mapping to quantiles.
-external Quantile quantile();
+Quantile quantile() {
+  return _scale.callMethod('quantile', []);
+}
 
-@JS()
-abstract class Quantile implements Function {
+class Quantile {
+  final JsObject _proxy;
+
+  Quantile._(this._proxy);
+
   call(x) => quantile(x);
 
   /// Get the range value corresponding to a given domain value.
-  external quantile(x);
+  quantile(x) {
+    return _proxy.callMethod('quantile', []);
+  }
 
   /// Get the domain values for the specified range value.
-  external invertExtent(y);
+  invertExtent(y) {
+    return _proxy.callMethod('invertExtent', []);
+  }
 
   /// Get or set the scale's input domain (as discrete values).
-  external domain([numbers]);
+  domain([numbers]) {
+    return _proxy.callMethod('domain', []);
+  }
 
   /// Get or set the scale's output range (as discrete values).
-  external range([values]);
+  range([values]) {
+    return _proxy.callMethod('range', []);
+  }
 
   /// Get the scale's quantile bin thresholds.
-  external quantiles();
+  quantiles() {
+    return _proxy.callMethod('quantiles', []);
+  }
 
   /// Create a new scale from an existing scale.
-  external copy();
+  copy() {
+    return _proxy.callMethod('copy', []);
+  }
 }
 
 /// Construct a threshold scale with a discrete output range.
-external Threshold threshold();
+Threshold threshold() {
+  return _scale.callMethod('threshold', []);
+}
 
-@JS()
-abstract class Threshold implements Function {
+class Threshold {
+  final JsObject _proxy;
+
+  Threshold._(this._proxy);
+
   call(x) => threshold(x);
 
   /// Get the range value corresponding to a given domain value.
-  external threshold(x);
+  threshold(x) {
+    return _proxy.callMethod('threshold', []);
+  }
 
   /// Get the domain values for the specified range value.
-  external invertExtent(y);
+  invertExtent(y) {
+    return _proxy.callMethod('invertExtent', []);
+  }
 
   /// Get or set the scale's input domain.
-  external domain([domain]);
+  domain([domain]) {
+    return _proxy.callMethod('domain', []);
+  }
 
   /// Get or set the scale's output range (as discrete values).
-  external range([values]);
+  range([values]) {
+    return _proxy.callMethod('range', []);
+  }
 
   /// Create a new scale from an existing scale.
-  external copy();
+  copy() {
+    return _proxy.callMethod('copy', []);
+  }
 }
 
 /// Construct an ordinal scale.
-external Ordinal ordinal();
+Ordinal ordinal() {
+  return _scale.callMethod('ordinal', []);
+}
 
-@JS()
-abstract class Ordinal implements Function {
+class Ordinal {
+  final JsObject _proxy;
+
+  Ordinal._(this._proxy);
+
   call(x) => ordinal(x);
 
   /// Get the range value corresponding to a given domain value.
-  external ordinal(x);
+  ordinal(x) {
+    return _proxy.callMethod('ordinal', []);
+  }
 
   /// Get or set the scale's input domain.
-  external domain([values]);
+  domain([values]) {
+    return _proxy.callMethod('domain', []);
+  }
 
   /// Get or set the scale's output range.
-  external range([values]);
+  range([values]) {
+    return _proxy.callMethod('range', []);
+  }
 
   /// Divide a continuous output range for discrete points.
-  external rangePoints(interval, [padding]);
+  rangePoints(interval, [padding]) {
+    return _proxy.callMethod('rangePoints', []);
+  }
 
   /// Divide a continuous output range for discrete points.
-  external rangeRoundPoints(interval, [padding]);
+  rangeRoundPoints(interval, [padding]) {
+    return _proxy.callMethod('rangeRoundPoints', []);
+  }
 
   /// Divide a continuous output range for discrete bands.
-  external rangeBands(interval, [padding, outerPadding]);
+  rangeBands(interval, [padding, outerPadding]) {
+    return _proxy.callMethod('rangeBands', []);
+  }
 
   /// Divide a continuous output range for discrete bands.
-  external Ordinal rangeRoundBands(interval, [padding, outerPadding]);
+  Ordinal rangeRoundBands(interval, [padding, outerPadding]) {
+    return _proxy.callMethod('rangeRoundBands', []);
+  }
 
   /// Get the discrete range band width.
-  external rangeBand();
+  rangeBand() {
+    return _proxy.callMethod('rangeBand', []);
+  }
 
   /// Get the minimum and maximum values of the output range.
-  external rangeExtent();
+  rangeExtent() {
+    return _proxy.callMethod('rangeExtent', []);
+  }
 
   /// Create a new scale from an existing scale.
-  external copy();
+  copy() {
+    return _proxy.callMethod('copy', []);
+  }
 }
 
 /// Construct an ordinal scale with ten categorical colors.
-external category10();
+category10() {
+  return _scale.callMethod('category10', []);
+}
 
 /// Construct an ordinal scale with twenty categorical colors.
-external category20();
+category20() {
+  return _scale.callMethod('category20', []);
+}
 
 /// Construct an ordinal scale with twenty categorical colors.
-external category20b();
+category20b() {
+  return _scale.callMethod('category20b', []);
+}
 
 /// Construct an ordinal scale with twenty categorical colors.
-external category20c();
+category20c() {
+  return _scale.callMethod('category20c', []);
+}

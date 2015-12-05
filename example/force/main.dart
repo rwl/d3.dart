@@ -1,5 +1,4 @@
 import 'dart:math' as Math;
-import 'package:js/js.dart';
 import 'package:d3/d3.dart' as d3;
 import 'package:d3/scale.dart' as scale;
 import 'package:d3/layout.dart' as layout;
@@ -18,7 +17,7 @@ main() {
       .attr("width", width)
       .attr("height", height);
 
-  d3.json("miserables.json", allowInterop((error, graph) {
+  d3.json("miserables.json", (error, graph) {
     if (error != null) throw error;
 
     force.nodes(graph.nodes).links(graph.links).start();
@@ -29,9 +28,9 @@ main() {
         .enter()
         .append("line")
         .attr("class", "link")
-        .style("stroke-width", allowInterop((d, i, j) {
+        .style("stroke-width", (d, i, j) {
       return Math.sqrt(d['value']);
-    }));
+    });
 
     var node = svg
         .selectAll(".node")
@@ -43,18 +42,16 @@ main() {
         .style("fill", (d, i, j) => color(d['group']))
         .call(force.drag);
 
-    node.append("title").text(allowInterop((d, i, j) => d['name']));
+    node.append("title").text((d, i, j) => d['name']);
 
-    force.on("tick", allowInterop((d) {
+    force.on("tick", (d) {
       link
-          .attr("x1", allowInterop((d, i, j) => d.source['x']))
-          .attr("y1", allowInterop((d, i, j) => d.source['y']))
-          .attr("x2", allowInterop((d, i, j) => d.target['x']))
-          .attr("y2", allowInterop((d, i, j) => d.target['y']));
+          .attr("x1", (d, i, j) => d.source['x'])
+          .attr("y1", (d, i, j) => d.source['y'])
+          .attr("x2", (d, i, j) => d.target['x'])
+          .attr("y2", (d, i, j) => d.target['y']);
 
-      node
-          .attr("cx", allowInterop((d, i, j) => d['x']))
-          .attr("cy", allowInterop((d, i, j) => d['y']));
-    }));
-  }));
+      node.attr("cx", (d, i, j) => d['x']).attr("cy", (d, i, j) => d['y']);
+    });
+  });
 }

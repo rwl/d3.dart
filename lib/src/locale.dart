@@ -1,19 +1,30 @@
-@JS('d3')
 library d3.src.locale;
 
-import 'package:js/js.dart';
+import 'dart:js';
+
+JsObject _d3 = context['d3'];
 
 /// Create a new locale using the specified strings.
-external Locale locale(definition);
+Locale locale(definition) {
+  return _d3.callMethod('locale', []);
+}
 
-@JS()
 class Locale {
+  final JsObject _proxy;
+
+  Locale._(this._proxy);
+
   /// Create a new number formatter.
-  external numberFormat(specifier);
+  numberFormat(specifier) {
+    return _proxy.callMethod('numberFormat', []);
+  }
 
   /// Create a new time formatter / parser.
-  external timeFormat(specifier);
+  timeFormat(specifier) {
+    return _proxy.callMethod('timeFormat', []);
+  }
 
-  @JS('utc.timeFormat')
-  external timeFormatUtc(specifier);
+  timeFormatUtc(specifier) {
+    return _proxy['utc'].callMethod('timeFormat', []);
+  }
 }

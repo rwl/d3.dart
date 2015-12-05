@@ -1,4 +1,3 @@
-import 'package:js/js.dart';
 import 'package:d3/d3.dart' as d3;
 import 'package:d3/scale.dart' as scale;
 import 'package:d3/behavior.dart' as behavior;

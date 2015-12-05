@@ -1,132 +1,218 @@
-@JS('d3')
 library d3.src.transition;
 
 import 'dart:html';
-import 'package:js/js.dart';
+import 'dart:js';
+
+JsObject _d3 = context['d3'];
 
 /// Start an animated transition.
-external Transition transition([selection, name]);
+Transition transition([selection, name]) {
+  return _d3.callMethod('transition', []);
+}
 
-@JS()
 class Transition {
+  final JsObject _proxy;
+
+  Transition._(this._proxy);
+
   /// Specify per-element delay in milliseconds.
-  external Transition delay([delay]);
+  Transition delay([delay]) {
+    return _proxy.callMethod('delay', []);
+  }
 
   /// Specify per-element duration in milliseconds.
-  external Transition duration([duration]);
+  Transition duration([duration]) {
+    return _proxy.callMethod('duration', []);
+  }
 
   /// Specify transition easing function.
-  external Transition ease([value, arguments]);
+  Transition ease([value, arguments]) {
+    return _proxy.callMethod('ease', []);
+  }
 
   /// Smoothly transition to the new attribute value.
-  external Transition attr(name, value);
+  Transition attr(name, value) {
+    return _proxy.callMethod('attr', []);
+  }
 
   /// Smoothly transition between two attribute values.
-  external Transition attrTween(name, tween);
+  Transition attrTween(name, tween) {
+    return _proxy.callMethod('attrTween', []);
+  }
 
   /// Smoothly transition to the new style property value.
-  external Transition style(name, value, [priority]);
+  Transition style(name, value, [priority]) {
+    return _proxy.callMethod('style', []);
+  }
 
   /// Smoothly transition between two style property values.
-  external Transition styleTween(name, tween, [priority]);
+  Transition styleTween(name, tween, [priority]) {
+    return _proxy.callMethod('styleTween', []);
+  }
 
   /// Set the text content when the transition starts.
-  external Transition text(value);
+  Transition text(value) {
+    return _proxy.callMethod('text', []);
+  }
 
   /// Specify a custom tween operator to run as part of the transition.
-  external Transition tween(name, factory);
+  Transition tween(name, factory) {
+    return _proxy.callMethod('tween', []);
+  }
 
   /// Remove selected elements at the end of a transition.
-  external Transition remove();
+  Transition remove() {
+    return _proxy.callMethod('remove', []);
+  }
 
   /// Start a transition on a descendant element for each selected element.
-  external Transition select(selector);
+  Transition select(selector) {
+    return _proxy.callMethod('select', []);
+  }
 
   /// Start a transition on multiple descendants for each selected element.
-  external Transition selectAll(selector);
+  Transition selectAll(selector) {
+    return _proxy.callMethod('selectAll', []);
+  }
 
   /// Filter a transition based on data.
-  external Transition filter(selector);
+  Transition filter(selector) {
+    return _proxy.callMethod('filter', []);
+  }
 
   /// When this transition ends, start another one on the same elements.
-  external Transition transition();
+  Transition transition() {
+    return _proxy.callMethod('transition', []);
+  }
 
   /// Add a listener for transition end events.
-  external Transition each([type, listener]);
+  Transition each([type, listener]) {
+    return _proxy.callMethod('each', []);
+  }
 
   /// Call a function passing in the current transition.
-  external Transition call(function, [arguments]);
+  Transition call(function, [arguments]) {
+    return _proxy.callMethod('call', []);
+  }
 
   /// Returns true if the transition is empty.
-  external bool empty();
+  bool empty() {
+    return _proxy.callMethod('empty', []);
+  }
 
   /// Returns the first node in the transition.
-  external Node node();
+  Node node() {
+    return _proxy.callMethod('node', []);
+  }
 
   /// Returns the number of elements in the selection.
-  external int size();
+  int size() {
+    return _proxy.callMethod('size', []);
+  }
 }
 
 /// Customize transition timing.
-external Ease ease(type, [arguments]);
+Ease ease(type, [arguments]) {
+  return _d3.callMethod('ease', []);
+}
 
-@JS()
 class Ease {
+  final JsObject _proxy;
+
+  Ease._(this._proxy);
+
   /// A parametric easing function.
-  external num ease(t);
+  num ease(t) {
+    return _proxy.callMethod('ease', []);
+  }
 }
 
 /// Start a custom animation timer.
-external timer(function, [delay, time]);
+timer(function, [delay, time]) {
+  return _d3.callMethod('timer', []);
+}
 
 /// Immediately execute any zero-delay timers.
-@JS('timer.flush')
-external flushTimer();
+flushTimer() {
+  return _d3['timer'].callMethod('flush', []);
+}
 
 /// Interpolate two values.
-external Interpolate interpolate(a, b);
+Interpolate interpolate(a, b) {
+  return _d3.callMethod('interpolate', []);
+}
 
-@JS()
 class Interpolate {
+  final JsObject _proxy;
+
+  Interpolate._(this._proxy);
+
   /// A parametric interpolation function.
-  external interpolate(t);
+  interpolate(t) {
+    return _proxy.callMethod('interpolate', []);
+  }
 }
 
 /// Interpolate two numbers.
-external interpolateNumber(a, b);
+interpolateNumber(a, b) {
+  return _d3.callMethod('interpolateNumber', []);
+}
 
 /// Interpolate two integers.
-external interpolateRound(a, b);
+interpolateRound(a, b) {
+  return _d3.callMethod('interpolateRound', []);
+}
 
 /// Interpolate two strings.
-external interpolateString(a, b);
+interpolateString(a, b) {
+  return _d3.callMethod('interpolateString', []);
+}
 
 /// Interpolate two RGB colors.
-external interpolateRgb(a, b);
+interpolateRgb(a, b) {
+  return _d3.callMethod('interpolateRgb', []);
+}
 
 /// Interpolate two HSL colors.
-external interpolateHsl(a, b);
+interpolateHsl(a, b) {
+  return _d3.callMethod('interpolateHsl', []);
+}
 
 /// Interpolate two L*a*b* colors.
-external interpolateLab(a, b);
+interpolateLab(a, b) {
+  return _d3.callMethod('interpolateLab', []);
+}
 
 /// Interpolate two HCL colors.
-external interpolateHcl(a, b);
+interpolateHcl(a, b) {
+  return _d3.callMethod('interpolateHcl', []);
+}
 
 /// Interpolate two arrays of values.
-external interpolateArray(a, b);
+interpolateArray(a, b) {
+  return _d3.callMethod('interpolateArray', []);
+}
 
 /// Interpolate two arbitrary objects.
-external interpolateObject(a, b);
+interpolateObject(a, b) {
+  return _d3.callMethod('interpolateObject', []);
+}
 
 /// Interpolate two 2D matrix transforms.
-external interpolateTransform(a, b);
+interpolateTransform(a, b) {
+  return _d3.callMethod('interpolateTransform', []);
+}
 
 /// Zoom and pan between two points smoothly.
-external interpolateZoom(a, b);
+interpolateZoom(a, b) {
+  return _d3.callMethod('interpolateZoom', []);
+}
 
-@JS('geo.interpolate')
-external geo_interpolate(a, b);
+geo_interpolate(a, b) {
+  return _d3['geo'].callMethod('interpolate', []);
+}
 
 /// Register a custom interpolator.
-external List get interpolators;
+List get interpolators {
+  return _d3['interpolators'];
+}

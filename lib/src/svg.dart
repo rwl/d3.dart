@@ -1,301 +1,495 @@
-@JS('d3.svg')
 library d3.src.svg;
 
-import 'package:js/js.dart';
+import 'dart:js';
+
+JsObject _svg = context['d3']['svg'];
 
 /// Create a new line generator.
-external Line line();
+Line line() {
+  return _svg.callMethod('line', []);
+}
 
-@JS()
-abstract class Line implements Function {
+class Line {
+  final JsObject _proxy;
+
+  Line._(this._proxy);
+
   call(data) => line(data);
 
   /// Generate a piecewise linear curve, as in a line chart.
-  external line(data);
+  line(data) {
+    return _proxy.callMethod('line', []);
+  }
 
   /// Get or set the x-coordinate accessor.
-  external x([x]);
+  x([x]) {
+    return _proxy.callMethod('x', []);
+  }
 
   /// Get or set the y-coordinate accessor.
-  external y([y]);
+  y([y]) {
+    return _proxy.callMethod('y', []);
+  }
 
   /// Get or set the interpolation mode.
-  external interpolate([interpolate]);
+  interpolate([interpolate]) {
+    return _proxy.callMethod('interpolate', []);
+  }
 
   /// Get or set the cardinal spline tension.
-  external tension([tension]);
+  tension([tension]) {
+    return _proxy.callMethod('tension', []);
+  }
 
   /// Control whether the line is defined at a given point.
-  external defined([defined]);
+  defined([defined]) {
+    return _proxy.callMethod('defined', []);
+  }
 }
 
 /// Create a new radial line generator.
-@JS('line.radial')
-external RadialLine radial();
+RadialLine radial() {
+  return _svg['line'].callMethod('radial', []);
+}
 
-@JS()
-abstract class RadialLine implements Function {
+class RadialLine {
+  final JsObject _proxy;
+
+  RadialLine._(this._proxy);
+
   call(data) => line(data);
 
   /// Generate a piecewise linear curve, as in a polar line chart.
-  external line(data);
+  line(data) {
+    return _proxy.callMethod('line', []);
+  }
 
   /// Get or set the radius accessor.
-  external radius([radius]);
+  radius([radius]) {
+    return _proxy.callMethod('radius', []);
+  }
 
   /// Get or set the angle accessor.
-  external angle([angle]);
+  angle([angle]) {
+    return _proxy.callMethod('angle', []);
+  }
 
   /// Get or set the interpolation mode.
-  external interpolate([interpolate]);
+  interpolate([interpolate]) {
+    return _proxy.callMethod('interpolate', []);
+  }
 
   /// Get or set the cardinal spline tension.
-  external tension([tension]);
+  tension([tension]) {
+    return _proxy.callMethod('tension', []);
+  }
 
   /// Control whether the line is defined at a given point.
-  external defined([defined]);
+  defined([defined]) {
+    return _proxy.callMethod('defined', []);
+  }
 }
 
 /// Create a new area generator.
-external Area area();
+Area area() {
+  return _svg.callMethod('area', []);
+}
 
-@JS()
-abstract class Area implements Function {
+class Area {
+  final JsObject _proxy;
+
+  Area._(this._proxy);
+
   call(data) => area(data);
 
   /// Generate a piecewise linear area, as in an area chart.
-  external area(data);
+  area(data) {
+    return _proxy.callMethod('area', []);
+  }
 
   /// Get or set the x-coordinate accessors.
-  external x([x]);
+  x([x]) {
+    return _proxy.callMethod('x', []);
+  }
 
   /// Get or set the x0-coordinate (baseline) accessor.
-  external x0([x0]);
+  x0([x0]) {
+    return _proxy.callMethod('x0', []);
+  }
 
   /// Get or set the x1-coordinate (topline) accessor.
-  external x1([x1]);
+  x1([x1]) {
+    return _proxy.callMethod('x1', []);
+  }
 
   /// Get or set the y-coordinate accessors.
-  external y([y]);
+  y([y]) {
+    return _proxy.callMethod('y', []);
+  }
 
   /// Get or set the y0-coordinate (baseline) accessor.
-  external y0([y0]);
+  y0([y0]) {
+    return _proxy.callMethod('y0', []);
+  }
 
   /// Get or set the y1-coordinate (topline) accessor.
-  external y1([y1]);
+  y1([y1]) {
+    return _proxy.callMethod('y1', []);
+  }
 
   /// Get or set the interpolation mode.
-  external interpolate([interpolate]);
+  interpolate([interpolate]) {
+    return _proxy.callMethod('interpolate', []);
+  }
 
   /// Get or set the cardinal spline tension.
-  external tension([tension]);
+  tension([tension]) {
+    return _proxy.callMethod('tension', []);
+  }
 
   /// Control whether the area is defined at a given point.
 }
 
 /// Create a new area generator.
-@JS('area.radial')
-external RadialArea radialArea();
+RadialArea radialArea() {
+  return _svg['area'].callMethod('radial', []);
+}
 
-abstract class RadialArea implements Function {
+class RadialArea {
+  final JsObject _proxy;
+
+  RadialArea._(this._proxy);
+
   call() => area();
 
   /// Generate a piecewise linear area, as in a polar area chart.
-  external area();
+  area() {
+    return _proxy.callMethod('area', []);
+  }
 
   /// Get or set the radius accessors.
-  external radius([radius]);
+  radius([radius]) {
+    return _proxy.callMethod('radius', []);
+  }
 
   /// Get or set the inner radius (baseline) accessor.
-  external innerRadius([radius]);
+  innerRadius([radius]) {
+    return _proxy.callMethod('innerRadius', []);
+  }
 
   /// Get or set the outer radius (topline) accessor.
-  external outerRadius([radius]);
+  outerRadius([radius]) {
+    return _proxy.callMethod('outerRadius', []);
+  }
 
   /// Get or set the angle accessors.
-  external angle([angle]);
+  angle([angle]) {
+    return _proxy.callMethod('angle', []);
+  }
 
   /// Get or set the angle (baseline) accessor.
-  external startAngle([angle]);
+  startAngle([angle]) {
+    return _proxy.callMethod('startAngle', []);
+  }
 
   /// Get or set the angle (topline) accessor.
-  external endAngle([angle]);
+  endAngle([angle]) {
+    return _proxy.callMethod('endAngle', []);
+  }
 
   /// Control whether the area is defined at a given point.
-  external defined([defined]);
+  defined([defined]) {
+    return _proxy.callMethod('defined', []);
+  }
 }
 
 /// Create a new arc generator.
-external Arc arc();
+Arc arc() {
+  return _svg.callMethod('arc', []);
+}
 
-@JS()
-abstract class Arc implements Function {
+class Arc {
+  final JsObject _proxy;
+
+  Arc._(this._proxy);
+
   call(datum, [index]) => arc(datum, [index]);
 
   /// Generate a solid arc, as in a pie or donut chart.
-  external arc(datum, [index]);
+  arc(datum, [index]) {
+    return _proxy.callMethod('arc', []);
+  }
 
   /// Get or set the inner radius accessor.
-  external innerRadius([radius]);
+  innerRadius([radius]) {
+    return _proxy.callMethod('innerRadius', []);
+  }
 
   /// Get or set the outer radius accessor.
-  external outerRadius([radius]);
+  outerRadius([radius]) {
+    return _proxy.callMethod('outerRadius', []);
+  }
 
   /// Get or set the corner radius accessor.
-  external cornerRadius([radius]);
+  cornerRadius([radius]) {
+    return _proxy.callMethod('cornerRadius', []);
+  }
 
   /// Get or set the pad radius accessor.
-  external padRadius([radius]);
+  padRadius([radius]) {
+    return _proxy.callMethod('padRadius', []);
+  }
 
   /// Get or set the start angle accessor.
-  external startAngle([angle]);
+  startAngle([angle]) {
+    return _proxy.callMethod('startAngle', []);
+  }
 
   /// Get or set the end angle accessor.
-  external endAngle([angle]);
+  endAngle([angle]) {
+    return _proxy.callMethod('endAngle', []);
+  }
 
   /// Get or set the pad angle accessor.
-  external padAngle([angle]);
+  padAngle([angle]) {
+    return _proxy.callMethod('padAngle', []);
+  }
 
   /// Compute the arc centroid.
-  external centroid([arguments]);
+  centroid([arguments]) {
+    return _proxy.callMethod('centroid', []);
+  }
 }
 
 /// Create a new symbol generator.
-external Symbol symbol();
+Symbol symbol() {
+  return _svg.callMethod('symbol', []);
+}
 
-@JS()
-abstract class Symbol implements Function {
+class Symbol {
+  final JsObject _proxy;
+
+  Symbol._(this._proxy);
+
   call(datum, [index]) => symbol(datum, [index]);
 
   /// Generate categorical symbols, as in a scatterplot.
-  external symbol(datum, [index]);
+  symbol(datum, [index]) {
+    return _proxy.callMethod('symbol', []);
+  }
 
   /// Get or set the symbol type accessor.
-  external type([type]);
+  type([type]) {
+    return _proxy.callMethod('type', []);
+  }
 
   /// Get or set the symbol size (in square pixels) accessor.
-  external size([size]);
+  size([size]) {
+    return _proxy.callMethod('size', []);
+  }
 }
 
 /// The array of supported symbol types.
-external List get symbolTypes;
+List get symbolTypes {
+  return _svg['symbolTypes'];
+}
 
 /// Create a new chord generator.
-external Chord chord();
+Chord chord() {
+  return _svg.callMethod('chord', []);
+}
 
-@JS()
-abstract class Chord implements Function {
+class Chord {
+  final JsObject _proxy;
+
+  Chord._(this._proxy);
+
   call(datum, [index]) => chord(datum, [index]);
 
   /// Generate a quadratic Bézier connecting two arcs, as in a chord diagram.
-  external chord(datum, [index]);
+  chord(datum, [index]) {
+    return _proxy.callMethod('chord', []);
+  }
 
   /// Get or set the source arc accessor.
-  external source([source]);
+  source([source]) {
+    return _proxy.callMethod('source', []);
+  }
 
   /// Get or set the target arc accessor.
-  external target([target]);
+  target([target]) {
+    return _proxy.callMethod('target', []);
+  }
 
   /// Get or set the arc radius accessor.
-  external radius([radius]);
+  radius([radius]) {
+    return _proxy.callMethod('radius', []);
+  }
 
   /// Get or set the arc start angle accessor.
-  external startAngle([angle]);
+  startAngle([angle]) {
+    return _proxy.callMethod('startAngle', []);
+  }
 
   /// Get or set the arc end angle accessor.
-  external endAngle([angle]);
+  endAngle([angle]) {
+    return _proxy.callMethod('endAngle', []);
+  }
 }
 
 /// Create a new diagonal generator.
-external Diagonal diagonal();
+Diagonal diagonal() {
+  return _svg.callMethod('diagonal', []);
+}
 
-@JS()
-abstract class Diagonal implements Function {
+class Diagonal {
+  final JsObject _proxy;
+
+  Diagonal._(this._proxy);
+
   call(datum, [index]) => diagonal(datum, [index]);
 
   /// Generate a two-dimensional Bézier connector, as in a node-link diagram.
-  external diagonal(datum, [index]);
+  diagonal(datum, [index]) {
+    return _proxy.callMethod('diagonal', []);
+  }
 
   /// Get or set the source point accessor.
-  external source([source]);
+  source([source]) {
+    return _proxy.callMethod('source', []);
+  }
 
   /// Get or set the target point accessor.
-  external target([target]);
+  target([target]) {
+    return _proxy.callMethod('target', []);
+  }
 
   /// Get or set an optional point transform.
-  external projection([projection]);
+  projection([projection]) {
+    return _proxy.callMethod('projection', []);
+  }
 }
 
-@JS('diagonal.radial')
-external radialDiagonal();
+radialDiagonal() {
+  return _svg['diagonal'].callMethod('radial', []);
+}
 
 /// Create a new axis generator.
-external Axis axis();
+Axis axis() {
+  return _svg.callMethod('axis', []);
+}
 
-@JS()
-abstract class Axis implements Function {
+class Axis {
+  final JsObject _proxy;
+
+  Axis._(this._proxy);
+
   call(selection) => axis(selection);
 
   /// Creates or updates an axis for the given selection or transition.
-  external axis(selection);
+  axis(selection) {
+    return _proxy.callMethod('axis', []);
+  }
 
   /// Get or set the axis scale.
-  external Axis scale([scale]);
+  Axis scale([scale]) {
+    return _proxy.callMethod('scale', []);
+  }
 
   /// Get or set the axis orientation.
-  external Axis orient([orientation]);
+  Axis orient([orientation]) {
+    return _proxy.callMethod('orient', []);
+  }
 
   /// Control how ticks are generated for the axis.
-  external Axis ticks([arguments]);
+  Axis ticks([arguments]) {
+    return _proxy.callMethod('ticks', []);
+  }
 
   /// Specify tick values explicitly.
-  external tickValues([values]);
+  tickValues([values]) {
+    return _proxy.callMethod('tickValues', []);
+  }
 
   /// Specify the size of major, minor and end ticks.
-  external Axis tickSize([inner, outer]);
+  Axis tickSize([inner, outer]) {
+    return _proxy.callMethod('tickSize', []);
+  }
 
   /// Specify the size of inner ticks.
-  external innerTickSize([size]);
+  innerTickSize([size]) {
+    return _proxy.callMethod('innerTickSize', []);
+  }
 
   /// Specify the size of outer ticks.
-  external outerTickSize([size]);
+  outerTickSize([size]) {
+    return _proxy.callMethod('outerTickSize', []);
+  }
 
   /// Specify padding between ticks and tick labels.
-  external tickPadding([padding]);
+  tickPadding([padding]) {
+    return _proxy.callMethod('tickPadding', []);
+  }
 
   /// Override the tick formatting for labels.
-  external tickFormat([format]);
+  tickFormat([format]) {
+    return _proxy.callMethod('tickFormat', []);
+  }
 }
 
 /// Click and drag to select one- or two-dimensional regions.
-external Brush brush();
+Brush brush() {
+  return _svg.callMethod('brush', []);
+}
 
-@JS()
-abstract class Brush implements Function {
+class Brush {
+  final JsObject _proxy;
+
+  Brush._(this._proxy);
+
   call(selection) => brush(selection);
 
   /// Apply a brush to the given selection or transition.
-  external brush(selection);
+  brush(selection) {
+    return _proxy.callMethod('brush', []);
+  }
 
-  /// The brush’s x-scale, for horizontal brushing.
-  external x([scale]);
+  /// The brush's x-scale, for horizontal brushing.
+  x([scale]) {
+    return _proxy.callMethod('x', []);
+  }
 
-  /// The brush’s y-scale, for vertical brushing.
-  external y([scale]);
+  /// The brush's y-scale, for vertical brushing.
+  y([scale]) {
+    return _proxy.callMethod('y', []);
+  }
 
-  /// The brush’s extent in zero, one or two dimensions.
-  external extent([values]);
-  external clamp([clamp]);
+  /// The brush's extent in zero, one or two dimensions.
+  extent([values]) {
+    return _proxy.callMethod('extent', []);
+  }
+
+  clamp([clamp]) {
+    return _proxy.callMethod('clamp', []);
+  }
 
   /// Reset the brush extent.
-  external clear();
+  clear() {
+    return _proxy.callMethod('clear', []);
+  }
 
   /// Whether or not the brush extent is empty.
-  external empty();
+  empty() {
+    return _proxy.callMethod('empty', []);
+  }
 
   /// Listeners for when the brush is moved.
-  external on(type, [listener]);
+  on(type, [listener]) {
+    return _proxy.callMethod('on', []);
+  }
 
   /// Dispatch brush events after setting the extent.
-  external event(selection);
+  event(selection) {
+    return _proxy.callMethod('event', []);
+  }
 }

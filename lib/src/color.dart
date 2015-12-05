@@ -1,76 +1,129 @@
-@JS('d3')
 library d3.src.color;
 
-import 'package:js/js.dart';
+import 'dart:js';
+
+JsObject _d3 = context['d3'];
 
 /// Specify a color in RGB space.
-external Rgb rgb(r, [g, b]);
+Rgb rgb(r, [g, b]) {
+  return _d3.callMethod('rgb', []);
+}
 
-@JS()
 class Rgb {
+  final JsObject _proxy;
+
+  Rgb._(this._proxy);
+
   /// Increase RGB channels by some exponential factor (gamma).
-  external Rgb brighter([k]);
+  Rgb brighter([k]) {
+    return _proxy.callMethod('brighter', []);
+  }
 
   /// Decrease RGB channels by some exponential factor (gamma).
-  external Rgb darker([k]);
+  Rgb darker([k]) {
+    return _proxy.callMethod('darker', []);
+  }
 
   /// Convert from RGB to HSL.
-  external Hsl hsl();
+  Hsl hsl() {
+    return _proxy.callMethod('hsl', []);
+  }
 
   /// Convert an RGB color to a string.
-  external String toString();
+  String toString() {
+    return _proxy.callMethod('toString', []);
+  }
 }
 
 /// Specify a color in HSL space.
-external Hsl hsl(h, [s, l]);
+Hsl hsl(h, [s, l]) {
+  return _d3.callMethod('hsl', []);
+}
 
-@JS()
 class Hsl {
+  final JsObject _proxy;
+
+  Hsl._(this._proxy);
+
   /// Increase lightness by some exponential factor (gamma).
-  external Hsl brighter([k]);
+  Hsl brighter([k]) {
+    return _proxy.callMethod('brighter', []);
+  }
 
   /// Decrease lightness by some exponential factor (gamma).
-  external Hsl darker([k]);
+  Hsl darker([k]) {
+    return _proxy.callMethod('darker', []);
+  }
 
   /// Convert from HSL to RGB.
-  external Rgb rgb();
+  Rgb rgb() {
+    return _proxy.callMethod('rgb', []);
+  }
 
   /// Convert an HSL color to a string.
-  external String toString();
+  String toString() {
+    return _proxy.callMethod('toString', []);
+  }
 }
 
 /// Specify a color in HCL space.
-external Hcl hcl(h, [c, l]);
+Hcl hcl(h, [c, l]) {
+  return _d3.callMethod('hcl', []);
+}
 
-@JS()
 class Hcl {
+  final JsObject _proxy;
+
+  Hcl._(this._proxy);
+
   /// Increase lightness by some exponential factor (gamma).
-  external Hcl brighter([k]);
+  Hcl brighter([k]) {
+    return _proxy.callMethod('brighter', []);
+  }
 
   /// Decrease lightness by some exponential factor (gamma).
-  external Hcl darker([k]);
+  Hcl darker([k]) {
+    return _proxy.callMethod('darker', []);
+  }
 
   /// Convert from HCL to RGB.
-  external Rgb rgb();
+  Rgb rgb() {
+    return _proxy.callMethod('rgb', []);
+  }
 
   /// Convert an HCL color to a string.
-  external String toString();
+  String toString() {
+    return _proxy.callMethod('toString', []);
+  }
 }
 
 /// Specify a color in L*a*b* space.
-external Lab lab(l, [a, b]);
+Lab lab(l, [a, b]) {
+  return _d3.callMethod('lab', []);
+}
 
-@JS()
 class Lab {
+  final JsObject _proxy;
+
+  Lab._(this._proxy);
+
   /// Increase lightness by some exponential factor (gamma).
-  external Lab brighter([k]);
+  Lab brighter([k]) {
+    return _proxy.callMethod('brighter', []);
+  }
 
   /// Decrease lightness by some exponential factor (gamma).
-  external Lab darker([k]);
+  Lab darker([k]) {
+    return _proxy.callMethod('darker', []);
+  }
 
   /// Convert from L*a*b* to RGB.
-  external Rgb rgb();
+  Rgb rgb() {
+    return _proxy.callMethod('rgb', []);
+  }
 
   /// Convert a L*a*b* color to a string.
-  external String toString();
+  String toString() {
+    return _proxy.callMethod('toString', []);
+  }
 }

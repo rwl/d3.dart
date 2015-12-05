@@ -1,4 +1,3 @@
-import 'package:js/js.dart';
 import 'package:d3/d3.dart' as d3;
 import 'package:d3/scale.dart' as scale;
 import 'package:d3/svg.dart' as svg_;
@@ -24,7 +23,7 @@ main() {
       .append("g")
       .attr("transform", "translate(${margin.left},${margin.top})");
 
-  d3.tsv("data.tsv", allowInterop(type), (error, data) {
+  d3.tsv("data.tsv", type, (error, data) {
     if (error != null) throw error;
 
     x.domain(data.map((d) {
@@ -32,9 +31,9 @@ main() {
     }));
     y.domain([
       0,
-      d3.max(data, allowInterop((d, i) {
+      d3.max(data, (d, i) {
         return d['frequency'];
-      }))
+      })
     ]);
 
     svg
@@ -60,13 +59,13 @@ main() {
         .enter()
         .append("rect")
         .attr("class", "bar")
-        .attr("x", allowInterop((d, i, j) {
+        .attr("x", (d, i, j) {
       return x(d['letter']);
-    })).attr("width", x.rangeBand()).attr("y", allowInterop((d, i, j) {
+    }).attr("width", x.rangeBand()).attr("y", (d, i, j) {
       return y(d['frequency']);
-    })).attr("height", allowInterop((d, i, j) {
+    }).attr("height", (d, i, j) {
       return height - y(d['frequency']);
-    }));
+    });
   });
 }
 

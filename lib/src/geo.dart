@@ -1,306 +1,481 @@
-@JS('d3.geo')
 library d3.src.geo;
 
-import 'package:js/js.dart';
+import 'dart:js';
+
+JsObject _geo = context['d3']['geo'];
 
 /// Create a new geographic path generator.
-external Path path();
+Path path() {
+  return _geo.callMethod('path', []);
+}
 
-@JS()
-abstract class Path implements Function {
+class Path {
+  final JsObject _proxy;
+
+  Path._(this._proxy);
+
   call(feature, [index]) => path(feature, index);
 
   /// Project the specified feature and render it to the context.
-  external path(feature, [index]);
+  path(feature, [index]) {
+    return _proxy.callMethod('path', []);
+  }
 
   /// Get or set the geographic projection.
-  external projection([projection]);
+  projection([projection]) {
+    return _proxy.callMethod('projection', []);
+  }
 
   /// Get or set the render context.
-  external context([context]);
+  context([context]) {
+    return _proxy.callMethod('context', []);
+  }
 
   /// Compute the projected area of a given feature.
-  external area(feature);
+  area(feature) {
+    return _proxy.callMethod('area', []);
+  }
 
   /// Compute the projected centroid of a given feature.
-  external centroid(feature);
+  centroid(feature) {
+    return _proxy.callMethod('centroid', []);
+  }
 
   /// Compute the projected bounds of a given feature.
-  external bounds(feature);
+  bounds(feature) {
+    return _proxy.callMethod('bounds', []);
+  }
 
   /// Get or set the radius to display point features.
-  external pointRadius([radius]);
+  pointRadius([radius]) {
+    return _proxy.callMethod('pointRadius', []);
+  }
 }
 
 /// Create a graticule generator.
-external Graticule graticule();
+Graticule graticule() {
+  return _geo.callMethod('graticule', []);
+}
 
-@JS()
-abstract class Graticule implements Function {
+class Graticule {
+  final JsObject _proxy;
+
+  Graticule._(this._proxy);
+
   call() => graticule();
 
   /// Generate a MultiLineString of meridians and parallels.
-  external graticule();
+  graticule() {
+    return _proxy.callMethod('graticule', []);
+  }
 
   /// Generate an array of LineStrings of meridians and parallels.
-  external lines();
+  lines() {
+    return _proxy.callMethod('lines', []);
+  }
 
-  /// Generate a Polygon of the graticule’s extent.
-  external outline();
+  /// Generate a Polygon of the graticule's extent.
+  outline() {
+    return _proxy.callMethod('outline', []);
+  }
 
   /// Get or set the major & minor extents.
-  external extent(extent);
+  extent(extent) {
+    return _proxy.callMethod('extent', []);
+  }
 
   /// Get or set the major extent.
-  external majorExtent(extent);
+  majorExtent(extent) {
+    return _proxy.callMethod('majorExtent', []);
+  }
 
   /// Get or set the minor extent.
-  external minorExtent(extent);
+  minorExtent(extent) {
+    return _proxy.callMethod('minorExtent', []);
+  }
 
   /// Get or set the major & minor step intervals.
-  external step(step);
+  step(step) {
+    return _proxy.callMethod('step', []);
+  }
 
   /// Get or set the major step intervals.
-  external majorStep(step);
+  majorStep(step) {
+    return _proxy.callMethod('majorStep', []);
+  }
 
   /// Get or set the minor step intervals.
-  external minorStep(step);
+  minorStep(step) {
+    return _proxy.callMethod('minorStep', []);
+  }
 
   /// Get or set the latitudinal precision.
-  external precision(precision);
+  precision(precision) {
+    return _proxy.callMethod('precision', []);
+  }
 }
 
 /// Create a circle generator.
-external Circle circle();
+Circle circle() {
+  return _geo.callMethod('circle', []);
+}
 
-@JS()
-abstract class Circle implements Function {
+class Circle {
+  final JsObject _proxy;
+
+  Circle._(this._proxy);
+
   call(arguments) => circle(arguments);
 
   /// Generate a piecewise circle as a Polygon.
-  external circle(arguments);
+  circle(arguments) {
+    return _proxy.callMethod('circle', []);
+  }
 
   /// Specify the origin in latitude and longitude.
-  external origin([origin]);
+  origin([origin]) {
+    return _proxy.callMethod('origin', []);
+  }
 
   /// Specify the angular radius in degrees.
-  external angle([angle]);
+  angle([angle]) {
+    return _proxy.callMethod('angle', []);
+  }
 
   /// Specify the precision of the piecewise circle.
-  external precision([precision]);
+  precision([precision]) {
+    return _proxy.callMethod('precision', []);
+  }
 }
 
 /// Compute the spherical area of a given feature.
-external area(feature);
+area(feature) {
+  return _geo.callMethod('area', []);
+}
 
 /// Compute the spherical centroid of a given feature.
-external centroid(feature);
+centroid(feature) {
+  return _geo.callMethod('centroid', []);
+}
 
 /// Compute the latitude-longitude bounding box for a given feature.
-external bounds(feature);
+bounds(feature) {
+  return _geo.callMethod('bounds', []);
+}
 
 /// Compute the great-arc distance between two points.
-external distance(a, b);
+distance(a, b) {
+  return _geo.callMethod('distance', []);
+}
 
 /// Compute the length of a line string or the perimeter of a polygon.
-external length(feature);
+length(feature) {
+  return _geo.callMethod('length', []);
+}
 
 /// Interpolate between two points along a great arc.
-external interpolate(a, b);
+interpolate(a, b) {
+  return _geo.callMethod('interpolate', []);
+}
 
 /// Create a rotation function for the specified angles [λ, φ, γ].
-external Rotation rotation(rotate);
+Rotation rotation(rotate) {
+  return _geo.callMethod('rotation', []);
+}
 
-@JS()
-abstract class Rotation implements Function {
+class Rotation {
+  final JsObject _proxy;
+
+  Rotation._(this._proxy);
+
   call(location) => rotation(location);
 
   /// Rotate the given location around the sphere.
-  external rotation(location);
+  rotation(location) {
+    return _proxy.callMethod('rotation', []);
+  }
 
   /// Inverse-rotate the given location around the sphere.
-  external invert(location);
+  invert(location) {
+    return _proxy.callMethod('invert', []);
+  }
 }
 
 /// Create a standard projection from a raw projection.
-external Projection projection(raw);
+Projection projection(raw) {
+  return _geo.callMethod('projection', []);
+}
 
-@JS()
-abstract class Projection implements Function {
+class Projection {
+  final JsObject _proxy;
+
+  Projection._(this._proxy);
+
   call(location) => projection(location);
 
   /// Project the specified location.
-  external projection(location);
+  projection(location) {
+    return _proxy.callMethod('projection', []);
+  }
 
   /// Invert the projection for the specified point.
-  external invert(point);
+  invert(point) {
+    return _proxy.callMethod('invert', []);
+  }
 
-  /// Get or set the projection’s three-axis rotation.
-  external rotate([rotation]);
+  /// Get or set the projection's three-axis rotation.
+  rotate([rotation]) {
+    return _proxy.callMethod('rotate', []);
+  }
 
-  /// Get or set the projection’s center location.
-  external center([location]);
+  /// Get or set the projection's center location.
+  center([location]) {
+    return _proxy.callMethod('center', []);
+  }
 
-  /// Get or set the projection’s translation position.
-  external translate([point]);
+  /// Get or set the projection's translation position.
+  translate([point]) {
+    return _proxy.callMethod('translate', []);
+  }
 
-  /// Get or set the projection’s scale factor.
-  external scale([scale]);
+  /// Get or set the projection's scale factor.
+  scale([scale]) {
+    return _proxy.callMethod('scale', []);
+  }
 
-  /// Get or set the radius of the projection’s clip circle.
-  external clipAngle(angle);
+  /// Get or set the radius of the projection's clip circle.
+  clipAngle(angle) {
+    return _proxy.callMethod('clipAngle', []);
+  }
 
-  /// Get or set the projection’s viewport clip extent, in pixels.
-  external clipExtent(extent);
+  /// Get or set the projection's viewport clip extent, in pixels.
+  clipExtent(extent) {
+    return _proxy.callMethod('clipExtent', []);
+  }
 
   /// Get or set the precision threshold for adaptive resampling.
-  external precision(precision);
+  precision(precision) {
+    return _proxy.callMethod('precision', []);
+  }
 
   /// Wrap the specified stream listener, projecting input geometry.
-  external stream(listener);
+  stream(listener) {
+    return _proxy.callMethod('stream', []);
+  }
 }
 
 /// Create a standard projection from a mutable raw projection.
-external Function projectionMutator(rawFactory);
+Function projectionMutator(rawFactory) {
+  return _geo.callMethod('projectionMutator', []);
+}
 
 /// The Albers equal-area conic projection.
-external albers();
+albers() {
+  return _geo.callMethod('albers', []);
+}
 
 /// A composite Albers projection for the United States.
-external albersUsa();
+albersUsa() {
+  return _geo.callMethod('albersUsa', []);
+}
 
 /// The azimuthal equal-area projection.
-external azimuthalEqualArea();
+azimuthalEqualArea() {
+  return _geo.callMethod('azimuthalEqualArea', []);
+}
 
 /// The azimuthal equidistant projection.
-external azimuthalEquidistant();
+azimuthalEquidistant() {
+  return _geo.callMethod('azimuthalEquidistant', []);
+}
 
 /// The conic conformal projection.
-external ConicConformal conicConformal();
+ConicConformal conicConformal() {
+  return _geo.callMethod('conicConformal', []);
+}
 
-@JS()
 class ConicConformal {
+  final JsObject _proxy;
+
+  ConicConformal._(this._proxy);
+
   /// Get or set the projection's two standard parallels.
-  external parallels([parallels]);
+  parallels([parallels]) {
+    return _proxy.callMethod('parallels', []);
+  }
 }
 
 /// The conic equal-area (a.k.a. Albers) projection.
-external ConicEqualArea conicEqualArea();
+ConicEqualArea conicEqualArea() {
+  return _geo.callMethod('conicEqualArea', []);
+}
 
-@JS()
 class ConicEqualArea {
+  final JsObject _proxy;
+
+  ConicEqualArea._(this._proxy);
+
   /// Get or set the projection's two standard parallels.
-  external parallels([parallels]);
+  parallels([parallels]) {
+    return _proxy.callMethod('parallels', []);
+  }
 }
 
 /// The conic equidistant projection.
-external ConicEquidistant conicEquidistant();
+ConicEquidistant conicEquidistant() {
+  return _geo.callMethod('conicEquidistant', []);
+}
 
-@JS()
 class ConicEquidistant {
+  final JsObject _proxy;
+
+  ConicEquidistant._(this._proxy);
+
   /// Get or set the projection's two standard parallels.
-  external parallels([parallels]);
+  parallels([parallels]) {
+    return _proxy.callMethod('parallels', []);
+  }
 }
 
 /// The equirectangular (plate carreé) projection.
-external equirectangular();
+equirectangular() {
+  return _geo.callMethod('equirectangular', []);
+}
 
 /// The gnomonic projection.
-external gnomonic();
+gnomonic() {
+  return _geo.callMethod('gnomonic', []);
+}
 
 /// The spherical Mercator projection.
-external mercator();
+mercator() {
+  return _geo.callMethod('mercator', []);
+}
 
 /// The azimuthal orthographic projection.
-external orthographic();
+orthographic() {
+  return _geo.callMethod('orthographic', []);
+}
 
 /// The azimuthal stereographic projection.
-external stereographic();
+stereographic() {
+  return _geo.callMethod('stereographic', []);
+}
 
 /// The transverse Mercator projection.
-external transverseMercator();
+transverseMercator() {
+  return _geo.callMethod('transverseMercator', []);
+}
 
-@JS('albers.raw')
-external albersRaw(a0, a1);
+albersRaw(a0, a1) {
+  return _geo['albers'].callMethod('raw', []);
+}
 
 /// The raw azimuthal equal-area projection.
-@JS('azimuthalEqualArea.raw')
-external get azimuthalEqualAreaRaw;
+get azimuthalEqualAreaRaw => _geo['azimuthalEqualArea']['raw'];
 
 /// The azimuthal equidistant projection.
-@JS('azimuthalEquidistant.raw')
-external get azimuthalEquidistantRaw;
+get azimuthalEquidistantRaw => _geo['azimuthalEquidistant']['raw'];
 
 /// The raw conic conformal projection.
-@JS('conicConformal.raw')
-external conicConformalRaw(a0, a1);
+conicConformalRaw(a0, a1) {
+  return _geo['conicConformal'].callMethod('raw', []);
+}
 
 /// The raw conic equal-area (a.k.a. Albers) projection.
-@JS('conicEqualArea.raw')
-external conicEqualAreaRaw(a0, a1);
+conicEqualAreaRaw(a0, a1) {
+  return _geo['conicEqualArea'].callMethod('raw', []);
+}
 
 /// The raw conic equidistant projection.
-@JS('conicEquidistant.raw')
-external conicEquidistantRaw(a0, a1);
+conicEquidistantRaw(a0, a1) {
+  return _geo['conicEquidistant'].callMethod('raw', []);
+}
 
 /// The raw equirectangular (plate carrée) projection.
-@JS('equirectangular.raw')
-external get equirectangularRaw;
+get equirectangularRaw => _geo['equirectangular']['raw'];
 
 /// The raw gnomonic projection.
-@JS('gnomonic.raw')
-external get gnomonicRaw;
+get gnomonicRaw => _geo['gnomonic']['raw'];
 
 /// The raw Mercator projection.
-@JS('mercator.raw')
-external get mercatorRaw;
+get mercatorRaw => _geo['mercator']['raw'];
 
 /// The raw azimuthal orthographic projection.
-@JS('orthographic.raw')
-external get orthographicRaw;
+get orthographicRaw => _geo['orthographic']['raw'];
 
 /// The raw azimuthal stereographic projection.
-@JS('stereographic.raw')
-external get stereographicRaw;
+get stereographicRaw => _geo['stereographic']['raw'];
 
 /// Convert a GeoJSON object to a geometry stream.
-external StreamListener stream(object, listener);
+StreamListener stream(object, listener) {
+  return _geo.callMethod('stream', []);
+}
 
-@JS()
 class StreamListener {
+  final JsObject _proxy;
+
+  StreamListener._(this._proxy);
+
   /// Indicate an x, y (and optionally z) coordinate.
-  external point(x, y, [z]);
+  point(x, y, [z]) {
+    return _proxy.callMethod('point', []);
+  }
 
   /// Indicate the start of a line or ring.
-  external lineStart();
+  lineStart() {
+    return _proxy.callMethod('lineStart', []);
+  }
 
   /// Indicate the end of a line or ring.
-  external lineEnd();
+  lineEnd() {
+    return _proxy.callMethod('lineEnd', []);
+  }
 
   /// Indicate the start of a polygon.
-  external polygonStart();
+  polygonStart() {
+    return _proxy.callMethod('polygonStart', []);
+  }
 
   /// Indicate the end of a polygon.
-  external polygonEnd();
+  polygonEnd() {
+    return _proxy.callMethod('polygonEnd', []);
+  }
 
   /// Indicate a sphere.
-  external sphere();
+  sphere() {
+    return _proxy.callMethod('sphere', []);
+  }
 }
 
 /// Transform streaming geometries.
-external StreamTransform transform(methods);
+StreamTransform transform(methods) {
+  return _geo.callMethod('transform', []);
+}
 
-@JS()
 class StreamTransform {
+  final JsObject _proxy;
+
+  StreamTransform._(this._proxy);
+
   /// Wraps a given stream.
-  external stream(listener);
+  stream(listener) {
+    return _proxy.callMethod('stream', []);
+  }
 }
 
 /// A stream transform that clips geometries to a given axis-aligned rectangle.
-external ClipExtent clipExtent();
+ClipExtent clipExtent() {
+  return _geo.callMethod('clipExtent', []);
+}
 
-@JS()
 class ClipExtent {
+  final JsObject _proxy;
+
+  ClipExtent._(this._proxy);
+
   /// Sets the clip extent.
-  external extent([extent]);
+  extent([extent]) {
+    return _proxy.callMethod('extent', []);
+  }
 }

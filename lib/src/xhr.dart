@@ -1,53 +1,90 @@
-@JS('d3')
 library d3.src.xhr;
 
-import 'package:js/js.dart';
+import 'dart:js';
+
+JsObject _d3 = context['d3'];
 
 /// Request a resource using XMLHttpRequest.
-external Xhr xhr(url, [mimeType, callback]);
+Xhr xhr(url, [mimeType, callback]) {
+  return _d3.callMethod('xhr', []);
+}
 
-@JS()
 class Xhr {
+  final JsObject _proxy;
+
+  Xhr._(this._proxy);
+
   /// Set a request header.
-  external header(name, [value]);
+  header(name, [value]) {
+    return _proxy.callMethod('header', []);
+  }
 
   /// Set the Accept request header and override the response MIME type.
-  external mimeType([type]);
-  external responseType(type);
+  mimeType([type]) {
+    return _proxy.callMethod('mimeType', []);
+  }
+
+  responseType(type) {
+    return _proxy.callMethod('responseType', []);
+  }
 
   /// Set a response mapping function.
-  external response(value);
+  response(value) {
+    return _proxy.callMethod('response', []);
+  }
 
   /// Issue a GET request.
-  external get([callback]);
+  get([callback]) {
+    return _proxy.callMethod('get', []);
+  }
 
   /// Issue a POST request.
-  external post([data, callback]);
+  post([data, callback]) {
+    return _proxy.callMethod('post', []);
+  }
 
   /// Issue a request with the specified method and data.
-  external send(method, [data, callback]);
+  send(method, [data, callback]) {
+    return _proxy.callMethod('send', []);
+  }
 
   /// Abort an outstanding request.
-  external abort();
+  abort() {
+    return _proxy.callMethod('abort', []);
+  }
 
   /// Add an event listener for "progress", "load" or "error" events.
-  external on(type, [listener]);
+  on(type, [listener]) {
+    return _proxy.callMethod('on', []);
+  }
 }
 
 /// Request a text file.
-external text(url, [mimeType, callback]);
+text(url, [mimeType, callback]) {
+  return _d3.callMethod('text', []);
+}
 
 /// Request a JSON blob.
-external json(url, [callback]);
+json(url, [callback]) {
+  return _d3.callMethod('json', []);
+}
 
 /// Request an XML document fragment.
-external xml(url, [mimeType, callback]);
+xml(url, [mimeType, callback]) {
+  return _d3.callMethod('xml', []);
+}
 
 /// Request an HTML document fragment.
-external html(url, [callback]);
+html(url, [callback]) {
+  return _d3.callMethod('html', []);
+}
 
 /// Request a comma-separated values (CSV) file.
-external csv(url, [accessor, callback]);
+csv(url, [accessor, callback]) {
+  return _d3.callMethod('csv', []);
+}
 
 /// Request a tab-separated values (TSV) file.
-external tsv(url, [accessor, callback]);
+tsv(url, [accessor, callback]) {
+  return _d3.callMethod('tsv', []);
+}
