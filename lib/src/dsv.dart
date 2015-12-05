@@ -1,15 +1,15 @@
-@JS('d3.dsv')
-library d3.src.csv;
+@JS('d3')
+library d3.src.dsv;
 
 import 'package:js/js.dart';
 
 /// Create a parser/formatter for the specified delimiter and mime type.
-@JS('d3.dsv')
 external dsv(url, [accessor, callback]);
 
-@JS('d3.dsv')
-class Dsv {
-  Dsv(delimiter, mimeType);
+@JS()
+abstract class Dsv implements Function {
+  call(delimiter, mimeType) => dsv(delimiter, mimeType);
+  dsv(delimiter, mimeType);
 
   external parse(string, [accessor]);
   external parseRows(string, [accessor]);
