@@ -1,31 +1,47 @@
 library d3.src.tsv;
 
 import 'dart:js';
+import 'd3.dart';
 
 JsObject _d3 = context['d3'];
 JsObject _tsv = context['d3']['tsv'];
 
 /// Request a tab-separated values (TSV) file.
-tsv(url, [accessor, callback]) {
-  return _d3.callMethod('tsv', []);
+tsv(String url, [accessor(d) = undefined, callback(rows) = undefined]) {
+  var args = [url];
+  if (accessor != undefined) {
+    args.add(accessor);
+  }
+  if (callback != undefined) {
+    args.add(callback);
+  }
+  return _d3.callMethod('tsv', args);
 }
 
 /// Parse a TSV string into objects using the header row.
-parse(string, [accessor]) {
-  return _tsv.callMethod('parse', []);
+List parse(String string, [accessor(d) = undefined]) {
+  var args = [string];
+  if (accessor != undefined) {
+    args.add(accessor);
+  }
+  return _tsv.callMethod('parse', args);
 }
 
 /// Parse a TSV string into tuples, ignoring the header row.
-parseRows(string, [accessor]) {
-  return _tsv.callMethod('parseRows', []);
+List<List> parseRows(String string, [accessor(d) = undefined]) {
+  var args = [string];
+  if (accessor != undefined) {
+    args.add(accessor);
+  }
+  return _tsv.callMethod('parseRows', args);
 }
 
 /// Format an array of objects into a TSV string.
-format(rows) {
-  return _tsv.callMethod('format', []);
+String format(List rows) {
+  return _tsv.callMethod('format', [rows]);
 }
 
 /// Format an array of tuples into a TSV string.
-formatRows(rows) {
-  return _tsv.callMethod('formatRows', []);
+String formatRows(List<List> rows) {
+  return _tsv.callMethod('formatRows', [rows]);
 }

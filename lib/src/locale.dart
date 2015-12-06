@@ -6,7 +6,7 @@ JsObject _d3 = context['d3'];
 
 /// Create a new locale using the specified strings.
 Locale locale(definition) {
-  return _d3.callMethod('locale', []);
+  return new Locale._(_d3.callMethod('locale', [definition]));
 }
 
 class Locale {
@@ -15,16 +15,16 @@ class Locale {
   Locale._(this._proxy);
 
   /// Create a new number formatter.
-  numberFormat(specifier) {
-    return _proxy.callMethod('numberFormat', []);
+  Function numberFormat(String specifier) {
+    return _proxy.callMethod('numberFormat', [specifier]);
   }
 
   /// Create a new time formatter / parser.
-  timeFormat(specifier) {
-    return _proxy.callMethod('timeFormat', []);
+  timeFormat(String specifier) {
+    return _proxy.callMethod('timeFormat', [specifier]);
   }
 
-  timeFormatUtc(specifier) {
-    return _proxy['utc'].callMethod('timeFormat', []);
+  timeFormatUtc(String specifier) {
+    return _proxy['utc'].callMethod('timeFormat', [specifier]);
   }
 }

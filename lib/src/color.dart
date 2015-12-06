@@ -5,8 +5,8 @@ import 'dart:js';
 JsObject _d3 = context['d3'];
 
 /// Specify a color in RGB space.
-Rgb rgb(r, [g, b]) {
-  return _d3.callMethod('rgb', []);
+Rgb rgb(int r, int g, int b) {
+  return new Rgb._(_d3.callMethod('rgb', [r, g, b]));
 }
 
 class Rgb {
@@ -15,29 +15,25 @@ class Rgb {
   Rgb._(this._proxy);
 
   /// Increase RGB channels by some exponential factor (gamma).
-  Rgb brighter([k]) {
-    return _proxy.callMethod('brighter', []);
+  Rgb brighter([num k = 1]) {
+    return new Rgb._(_proxy.callMethod('brighter', [k]));
   }
 
   /// Decrease RGB channels by some exponential factor (gamma).
-  Rgb darker([k]) {
-    return _proxy.callMethod('darker', []);
+  Rgb darker([num k = 1]) {
+    return new Rgb._(_proxy.callMethod('darker', [k]));
   }
 
   /// Convert from RGB to HSL.
-  Hsl hsl() {
-    return _proxy.callMethod('hsl', []);
-  }
+  Hsl hsl() => new Hsl._(_proxy.callMethod('hsl'));
 
   /// Convert an RGB color to a string.
-  String toString() {
-    return _proxy.callMethod('toString', []);
-  }
+  String toString() => _proxy.callMethod('toString');
 }
 
 /// Specify a color in HSL space.
-Hsl hsl(h, [s, l]) {
-  return _d3.callMethod('hsl', []);
+Hsl hsl(num h, num s, num l) {
+  return new Hsl._(_d3.callMethod('hsl', [h, s, l]));
 }
 
 class Hsl {
@@ -46,29 +42,25 @@ class Hsl {
   Hsl._(this._proxy);
 
   /// Increase lightness by some exponential factor (gamma).
-  Hsl brighter([k]) {
-    return _proxy.callMethod('brighter', []);
+  Hsl brighter([num k = 1]) {
+    return new Hsl._(_proxy.callMethod('brighter', [k]));
   }
 
   /// Decrease lightness by some exponential factor (gamma).
-  Hsl darker([k]) {
-    return _proxy.callMethod('darker', []);
+  Hsl darker([num k = 1]) {
+    return new Hsl._(_proxy.callMethod('darker', [k]));
   }
 
   /// Convert from HSL to RGB.
-  Rgb rgb() {
-    return _proxy.callMethod('rgb', []);
-  }
+  Rgb rgb() => new Rgb._(_proxy.callMethod('rgb'));
 
   /// Convert an HSL color to a string.
-  String toString() {
-    return _proxy.callMethod('toString', []);
-  }
+  String toString() => _proxy.callMethod('toString');
 }
 
 /// Specify a color in HCL space.
-Hcl hcl(h, [c, l]) {
-  return _d3.callMethod('hcl', []);
+Hcl hcl(num h, num c, num l) {
+  return new Hcl._(_d3.callMethod('hcl', [h, c, l]));
 }
 
 class Hcl {
@@ -77,29 +69,25 @@ class Hcl {
   Hcl._(this._proxy);
 
   /// Increase lightness by some exponential factor (gamma).
-  Hcl brighter([k]) {
-    return _proxy.callMethod('brighter', []);
+  Hcl brighter([num k = 1]) {
+    return new Hcl._(_proxy.callMethod('brighter', [k]));
   }
 
   /// Decrease lightness by some exponential factor (gamma).
-  Hcl darker([k]) {
-    return _proxy.callMethod('darker', []);
+  Hcl darker([num k = 1]) {
+    return new Hcl._(_proxy.callMethod('darker', [k]));
   }
 
   /// Convert from HCL to RGB.
-  Rgb rgb() {
-    return _proxy.callMethod('rgb', []);
-  }
+  Rgb rgb() => new Rgb._(_proxy.callMethod('rgb'));
 
   /// Convert an HCL color to a string.
-  String toString() {
-    return _proxy.callMethod('toString', []);
-  }
+  String toString() => _proxy.callMethod('toString');
 }
 
 /// Specify a color in L*a*b* space.
-Lab lab(l, [a, b]) {
-  return _d3.callMethod('lab', []);
+Lab lab(num l, num a, num b) {
+  return new Lab._(_d3.callMethod('lab', [l, a, b]));
 }
 
 class Lab {
@@ -108,24 +96,20 @@ class Lab {
   Lab._(this._proxy);
 
   /// Increase lightness by some exponential factor (gamma).
-  Lab brighter([k]) {
-    return _proxy.callMethod('brighter', []);
+  Lab brighter([num k = 1]) {
+    return new Lab._(_proxy.callMethod('brighter', [k]));
   }
 
   /// Decrease lightness by some exponential factor (gamma).
-  Lab darker([k]) {
-    return _proxy.callMethod('darker', []);
+  Lab darker([num k = 1]) {
+    return new Lab._(_proxy.callMethod('darker', [k]));
   }
 
   /// Convert from L*a*b* to RGB.
-  Rgb rgb() {
-    return _proxy.callMethod('rgb', []);
-  }
+  Rgb rgb() => new Rgb._(_proxy.callMethod('rgb'));
 
   /// Convert a L*a*b* color to a string.
-  String toString() {
-    return _proxy.callMethod('toString', []);
-  }
+  String toString() => _proxy.callMethod('toString');
 }
 
 /// For internal use.

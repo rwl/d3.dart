@@ -1,22 +1,22 @@
 library d3.src.internal;
 
 import 'dart:js';
+import 'd3.dart';
 
 JsObject _d3 = context['d3'];
 
 /// Create a function that returns a constant.
-functor(value) {
-  return _d3.callMethod('functor', []);
-}
+functor(value) => _d3.callMethod('functor', [value]);
 
 /// Rebind an inherited getter/setter method to a subclass.
-rebind(target, source, [names]) {
-  return _d3.callMethod('rebind', []);
+rebind(target, source, [List<String> names]) {
+  var args = [target, source]..addAll(names);
+  return _d3.callMethod('rebind', args);
 }
 
 /// Create a custom event dispatcher.
-Dispatch dispatch([types]) {
-  return _d3.callMethod('dispatch', []);
+Dispatch dispatch([List<String> types]) {
+  return new Dispatch._(_d3.callMethod('dispatch', types));
 }
 
 class Dispatch {
@@ -25,12 +25,10 @@ class Dispatch {
   Dispatch._(this._proxy);
 
   /// Register or unregister an event listener.
-  on(type, [listener]) {
-    return _proxy.callMethod('on', []);
+  on(String type, [Function listener = undefined]) {
+    return _proxy.callMethod('on', [type, listener]);
   }
 
   /// Dispatch an event to registered listeners.
-  type([arguments]) {
-    return _proxy.callMethod('type', []);
-  }
+  type(List arguments) => _proxy.callMethod('type', arguments);
 }
