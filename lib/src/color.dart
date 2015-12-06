@@ -127,3 +127,6 @@ class Lab {
     return _proxy.callMethod('toString', []);
   }
 }
+
+/// For internal use.
+JsObject getProxy(arg) => arg._proxy;

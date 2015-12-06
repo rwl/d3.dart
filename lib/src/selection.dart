@@ -320,7 +320,14 @@ class Selection {
   }
 
   /// Call a function passing in the current selection.
-  Selection call(function, [arg1, arg2, arg3, arg4, arg5, arg6, arg7]) {
+  Selection call(function,
+      [arg1 = undefined,
+      arg2 = undefined,
+      arg3 = undefined,
+      arg4 = undefined,
+      arg5 = undefined,
+      arg6 = undefined,
+      arg7 = undefined]) {
     var args = [
       funcVarArgs(function, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
     ];
@@ -336,3 +343,6 @@ class Selection {
   /// Returns the number of elements in the selection.
   int size() => _proxy.callMethod('size');
 }
+
+/// For internal use.
+JsObject getProxy(arg) => arg._proxy;

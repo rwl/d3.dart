@@ -3,11 +3,21 @@ library d3.src.transition;
 import 'dart:html';
 import 'dart:js';
 
+import 'd3.dart';
+import 'selection.dart' as sel;
+import 'color.dart' as color;
+import 'math.dart' as math;
+
 JsObject _d3 = context['d3'];
 
 /// Start an animated transition.
-Transition transition([selection, name]) {
-  return _d3.callMethod('transition', []);
+Transition transition([sel.Selection selection, String name = '']) {
+  var args = [];
+  if (selection != null) {
+    args.add(sel.getProxy(selection));
+  }
+  args.add(name);
+  return _d3.callMethod('transition', args);
 }
 
 class Transition {
@@ -16,205 +26,309 @@ class Transition {
   Transition._(this._proxy);
 
   /// Specify per-element delay in milliseconds.
-  Transition delay([delay]) {
-    return _proxy.callMethod('delay', []);
+  delay([delay = undefined]) {
+    var args = [];
+    if (delay is Function) {
+      args.add(func3VarArgs(delay));
+    } else if (delay != undefined) {
+      args.add(delay);
+    }
+    var retval = _proxy.callMethod('delay', args);
+    if (delay == undefined) {
+      return retval;
+    } else {
+      return new Transition._(retval);
+    }
   }
 
   /// Specify per-element duration in milliseconds.
-  Transition duration([duration]) {
-    return _proxy.callMethod('duration', []);
+  Transition duration([duration = undefined]) {
+    var args = [];
+    if (duration is Function) {
+      args.add(func3VarArgs(duration));
+    } else if (duration != undefined) {
+      args.add(duration);
+    }
+    var retval = _proxy.callMethod('duration', args);
+    if (duration == undefined) {
+      return retval;
+    } else {
+      return new Transition._(retval);
+    }
   }
 
   /// Specify transition easing function.
-  Transition ease([value, arguments]) {
-    return _proxy.callMethod('ease', []);
+  Transition ease([value = undefined, arguments = undefined]) {
+    var args = [];
+    if (value != undefined) {
+      args.add(value);
+    }
+    if (arguments != undefined) {
+      args.add(arguments);
+    }
+    var retval = _proxy.callMethod('ease', args);
+    if (value == undefined) {
+      return retval;
+    } else {
+      return new Transition._(retval);
+    }
   }
 
   /// Smoothly transition to the new attribute value.
-  Transition attr(name, value) {
-    return _proxy.callMethod('attr', []);
+  Transition attr(String name, value) {
+    var args = [name];
+    if (value is Function) {
+      args.add(func3VarArgs(value));
+    } else {
+      args.add(value);
+    }
+    return new Transition._(_proxy.callMethod('attr', args));
   }
 
   /// Smoothly transition between two attribute values.
-  Transition attrTween(name, tween) {
-    return _proxy.callMethod('attrTween', []);
+  Transition attrTween(String name, tween) {
+    var args = [name];
+    if (tween is Function) {
+      args.add(func3VarArgs(tween));
+    } else {
+      args.add(tween);
+    }
+    return new Transition._(_proxy.callMethod('attrTween', args));
   }
 
   /// Smoothly transition to the new style property value.
-  Transition style(name, value, [priority]) {
-    return _proxy.callMethod('style', []);
+  Transition style(String name, value, [String priority = undefined]) {
+    var args = [name];
+    if (value is Function) {
+      args.add(func3VarArgs(value));
+    } else {
+      args.add(value);
+    }
+    if (priority != undefined) {
+      args.add(priority);
+    }
+    return new Transition._(_proxy.callMethod('style', args));
   }
 
   /// Smoothly transition between two style property values.
-  Transition styleTween(name, tween, [priority]) {
-    return _proxy.callMethod('styleTween', []);
+  Transition styleTween(name, tween, [String priority = undefined]) {
+    var args = [name];
+    if (tween is Function) {
+      args.add(func3VarArgs(tween));
+    } else {
+      args.add(tween);
+    }
+    if (priority != undefined) {
+      args.add(priority);
+    }
+    return new Transition._(_proxy.callMethod('styleTween', args));
   }
 
   /// Set the text content when the transition starts.
   Transition text(value) {
-    return _proxy.callMethod('text', []);
+    var args = [];
+    if (value is Function) {
+      args.add(func3VarArgs(value));
+    } else {
+      args.add(value);
+    }
+    return new Transition._(_proxy.callMethod('text', args));
   }
 
   /// Specify a custom tween operator to run as part of the transition.
-  Transition tween(name, factory) {
-    return _proxy.callMethod('tween', []);
+  Transition tween(String name, Function fn) {
+    var args = [name, func3VarArgs(fn)];
+    return new Transition._(_proxy.callMethod('tween', args));
   }
 
   /// Remove selected elements at the end of a transition.
-  Transition remove() {
-    return _proxy.callMethod('remove', []);
-  }
+  Transition remove() => new Transition._(_proxy.callMethod('remove'));
 
   /// Start a transition on a descendant element for each selected element.
-  Transition select(selector) {
-    return _proxy.callMethod('select', []);
+  Transition select(String selector) {
+    var args = [];
+    if (selector is Function) {
+      args.add(func3VarArgs(selector));
+    } else {
+      args.add(selector);
+    }
+    return new Transition._(_proxy.callMethod('select', args));
   }
 
   /// Start a transition on multiple descendants for each selected element.
-  Transition selectAll(selector) {
-    return _proxy.callMethod('selectAll', []);
+  Transition selectAll(String selector) {
+    var args = [];
+    if (selector is Function) {
+      args.add(func3VarArgs(selector));
+    } else {
+      args.add(selector);
+    }
+    return new Transition._(_proxy.callMethod('selectAll', args));
   }
 
   /// Filter a transition based on data.
   Transition filter(selector) {
-    return _proxy.callMethod('filter', []);
+    var args = [];
+    if (selector is Function) {
+      args.add(func3VarArgs(selector));
+    } else {
+      args.add(selector);
+    }
+    return new Transition._(_proxy.callMethod('filter', args));
   }
 
   /// When this transition ends, start another one on the same elements.
-  Transition transition() {
-    return _proxy.callMethod('transition', []);
-  }
+  Transition transition() => new Transition._(_proxy.callMethod('transition'));
 
   /// Add a listener for transition end events.
-  Transition each([type, listener]) {
-    return _proxy.callMethod('each', []);
+  Transition each(Function listener, {String type: undefined}) {
+    var args = [];
+    if (type != undefined) {
+      args.add(type);
+    }
+    args.add(func3VarArgs(listener));
+    return new Transition._(_proxy.callMethod('each', args));
   }
 
   /// Call a function passing in the current transition.
-  Transition call(function, [arguments]) {
-    return _proxy.callMethod('call', []);
+  Transition call(Function function,
+      [arg1 = undefined,
+      arg2 = undefined,
+      arg3 = undefined,
+      arg4 = undefined,
+      arg5 = undefined,
+      arg6 = undefined,
+      arg7 = undefined]) {
+    var args = [
+      funcVarArgs(function, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
+    ];
+    return new Transition._(_proxy.callMethod('call', args));
   }
 
   /// Returns true if the transition is empty.
-  bool empty() {
-    return _proxy.callMethod('empty', []);
-  }
+  bool empty() => _proxy.callMethod('empty');
 
   /// Returns the first node in the transition.
-  Node node() {
-    return _proxy.callMethod('node', []);
-  }
+  Node node() => _proxy.callMethod('node');
 
   /// Returns the number of elements in the selection.
-  int size() {
-    return _proxy.callMethod('size', []);
-  }
+  int size() => _proxy.callMethod('size');
 }
 
 /// Customize transition timing.
-Ease ease(type, [arguments]) {
-  return _d3.callMethod('ease', []);
+Ease ease(String type, [List arguments]) {
+  var args = [type]..addAll(arguments);
+  return new Ease._(_d3.callMethod('ease', args));
 }
 
+/// A parametric easing function.
 class Ease {
   final JsObject _proxy;
 
   Ease._(this._proxy);
 
+  call(t) => ease(t);
+
   /// A parametric easing function.
-  num ease(t) {
-    return _proxy.callMethod('ease', []);
-  }
+  num ease(num t) => _proxy.callMethod('ease', [t]);
 }
 
 /// Start a custom animation timer.
-timer(function, [delay, time]) {
-  return _d3.callMethod('timer', []);
+timer(bool fn(t), [num delay = undefined, time = undefined]) {
+  var args = [fn];
+  if (delay != undefined) {
+    args.add(delay);
+  }
+  if (time != null) {
+    args.add(time);
+  }
+  _d3.callMethod('timer', args);
 }
 
 /// Immediately execute any zero-delay timers.
-flushTimer() {
-  return _d3['timer'].callMethod('flush', []);
-}
+flushTimer() => _d3['timer'].callMethod('flush');
 
 /// Interpolate two values.
 Interpolate interpolate(a, b) {
-  return _d3.callMethod('interpolate', []);
+  return new Interpolate._(_d3.callMethod('interpolate', [a, b]));
 }
 
+/// A parametric interpolation function.
 class Interpolate {
   final JsObject _proxy;
 
   Interpolate._(this._proxy);
 
+  call(t) => interpolate(t);
+
   /// A parametric interpolation function.
-  interpolate(t) {
-    return _proxy.callMethod('interpolate', []);
-  }
+  interpolate(num t) => _proxy.callMethod('interpolate', [t]);
 }
 
 /// Interpolate two numbers.
-interpolateNumber(a, b) {
-  return _d3.callMethod('interpolateNumber', []);
+Interpolate interpolateNumber(num a, num b) {
+  return new Interpolate._(_d3.callMethod('interpolateNumber', [a, b]));
 }
 
 /// Interpolate two integers.
-interpolateRound(a, b) {
-  return _d3.callMethod('interpolateRound', []);
+Interpolate interpolateRound(int a, int b) {
+  return new Interpolate._(_d3.callMethod('interpolateRound', [a, b]));
 }
 
 /// Interpolate two strings.
-interpolateString(a, b) {
-  return _d3.callMethod('interpolateString', []);
+Interpolate interpolateString(String a, String b) {
+  return new Interpolate._(_d3.callMethod('interpolateString', [a, b]));
 }
 
 /// Interpolate two RGB colors.
-interpolateRgb(a, b) {
-  return _d3.callMethod('interpolateRgb', []);
+Interpolate interpolateRgb(color.Rgb a, color.Rgb b) {
+  return new Interpolate._(
+      _d3.callMethod('interpolateRgb', [color.getProxy(a), color.getProxy(b)]));
 }
 
 /// Interpolate two HSL colors.
-interpolateHsl(a, b) {
-  return _d3.callMethod('interpolateHsl', []);
+Interpolate interpolateHsl(color.Hsl a, color.Hsl b) {
+  return new Interpolate._(
+      _d3.callMethod('interpolateHsl', [color.getProxy(a), color.getProxy(b)]));
 }
 
 /// Interpolate two L*a*b* colors.
-interpolateLab(a, b) {
-  return _d3.callMethod('interpolateLab', []);
+Interpolate interpolateLab(color.Lab a, color.Lab b) {
+  return new Interpolate._(
+      _d3.callMethod('interpolateLab', [color.getProxy(a), color.getProxy(b)]));
 }
 
 /// Interpolate two HCL colors.
-interpolateHcl(a, b) {
-  return _d3.callMethod('interpolateHcl', []);
+Interpolate interpolateHcl(color.Hcl a, color.Hcl b) {
+  return new Interpolate._(
+      _d3.callMethod('interpolateHcl', [color.getProxy(a), color.getProxy(b)]));
 }
 
 /// Interpolate two arrays of values.
-interpolateArray(a, b) {
-  return _d3.callMethod('interpolateArray', []);
+Interpolate interpolateArray(List a, List b) {
+  return new Interpolate._(_d3.callMethod(
+      'interpolateArray', [color.getProxy(a), color.getProxy(b)]));
 }
 
 /// Interpolate two arbitrary objects.
-interpolateObject(a, b) {
-  return _d3.callMethod('interpolateObject', []);
+Interpolate interpolateObject(a, b) {
+  return new Interpolate._(_d3.callMethod('interpolateObject', [a, b]));
 }
 
 /// Interpolate two 2D matrix transforms.
-interpolateTransform(a, b) {
-  return _d3.callMethod('interpolateTransform', []);
+Interpolate interpolateTransform(math.Transform a, math.Transform b) {
+  return new Interpolate._(_d3.callMethod(
+      'interpolateTransform', [math.getProxy(a), math.getProxy(b)]));
 }
 
 /// Zoom and pan between two points smoothly.
-interpolateZoom(a, b) {
-  return _d3.callMethod('interpolateZoom', []);
-}
-
-geo_interpolate(a, b) {
-  return _d3['geo'].callMethod('interpolate', []);
+Interpolate interpolateZoom(a, b) {
+  return new Interpolate._(_d3.callMethod('interpolateZoom', [a, b]));
 }
 
 /// Register a custom interpolator.
-List get interpolators {
-  return _d3['interpolators'];
+List<Interpolate> get interpolators {
+  return _d3['interpolators'].map((i) => new Interpolate._(i)).toList();
 }
 
 /// For internal use.
