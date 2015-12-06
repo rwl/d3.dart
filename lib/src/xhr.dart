@@ -1,12 +1,21 @@
 library d3.src.xhr;
 
 import 'dart:js';
+import 'd3.dart';
 
 JsObject _d3 = context['d3'];
 
 /// Request a resource using XMLHttpRequest.
-Xhr xhr(url, [mimeType, callback]) {
-  return _d3.callMethod('xhr', []);
+Xhr xhr(String url,
+    [String mimeType = undefined, callback(err, resp) = undefined]) {
+  var args = [url];
+  if (mimeType != undefined) {
+    args.add(mimeType);
+  }
+  if (callback != undefined) {
+    args.add(callback);
+  }
+  return new Xhr._(_d3.callMethod('xhr', args));
 }
 
 class Xhr {
@@ -15,76 +24,175 @@ class Xhr {
   Xhr._(this._proxy);
 
   /// Set a request header.
-  header(name, [value]) {
-    return _proxy.callMethod('header', []);
+  header(String name, [value = undefined]) {
+    var args = [name];
+    if (value != undefined) {
+      args.add(value);
+    }
+    var retval = _proxy.callMethod('header', args);
+    if (value == undefined) {
+      return retval;
+    } else {
+      return new Xhr._(retval);
+    }
   }
 
   /// Set the Accept request header and override the response MIME type.
-  mimeType([type]) {
-    return _proxy.callMethod('mimeType', []);
+  mimeType([type = undefined]) {
+    var args = [];
+    if (type != undefined) {
+      args.add(type);
+    }
+    var retval = _proxy.callMethod('mimeType', args);
+    if (type == undefined) {
+      return retval;
+    } else {
+      return new Xhr._(retval);
+    }
   }
 
-  responseType(type) {
-    return _proxy.callMethod('responseType', []);
+  responseType([type = undefined]) {
+    var args = [];
+    if (type != undefined) {
+      args.add(type);
+    }
+    var retval = _proxy.callMethod('responseType', args);
+    if (type == undefined) {
+      return retval;
+    } else {
+      return new Xhr._(retval);
+    }
   }
 
   /// Set a response mapping function.
-  response(value) {
-    return _proxy.callMethod('response', []);
+  response([value(req) = undefined]) {
+    var args = [];
+    if (value != undefined) {
+      args.add(value);
+    }
+    var retval = _proxy.callMethod('response', args);
+    if (value == undefined) {
+      return retval;
+    } else {
+      return new Xhr._(retval);
+    }
   }
 
   /// Issue a GET request.
-  get([callback]) {
-    return _proxy.callMethod('get', []);
+  Xhr get([callback(err, resp) = undefined]) {
+    var args = [];
+    if (callback != undefined) {
+      args.add(callback);
+    }
+    return new Xhr._(_proxy.callMethod('get', args));
   }
 
   /// Issue a POST request.
-  post([data, callback]) {
-    return _proxy.callMethod('post', []);
+  Xhr post([data = undefined, callback(err, resp) = undefined]) {
+    var args = [];
+    if (data != undefined) {
+      args.add(data);
+    }
+    if (callback != undefined) {
+      args.add(callback);
+    }
+    return new Xhr._(_proxy.callMethod('post', args));
   }
 
   /// Issue a request with the specified method and data.
-  send(method, [data, callback]) {
-    return _proxy.callMethod('send', []);
+  Xhr send(String method, [data = undefined, callback(err, resp) = undefined]) {
+    var args = [method];
+    if (data != undefined) {
+      args.add(data);
+    }
+    if (callback != undefined) {
+      args.add(callback);
+    }
+    return new Xhr._(_proxy.callMethod('send', args));
   }
 
   /// Abort an outstanding request.
-  abort() {
-    return _proxy.callMethod('abort', []);
-  }
+  abort() => new Xhr._(_proxy.callMethod('abort'));
 
   /// Add an event listener for "progress", "load" or "error" events.
-  on(type, [listener]) {
-    return _proxy.callMethod('on', []);
+  on(String type, [Function listener = undefined]) {
+    var args = [type];
+    if (listener != undefined) {
+      args.add(listener);
+    }
+    var retval = _proxy.callMethod('on', args);
+    if (listener == undefined) {
+      return retval;
+    } else {
+      return new Xhr._(retval);
+    }
   }
 }
 
 /// Request a text file.
-text(url, [mimeType, callback]) {
-  return _d3.callMethod('text', []);
+Xhr text(String url,
+    [String mimeType = undefined, callback(err, resp) = undefined]) {
+  var args = [url];
+  if (mimeType != undefined) {
+    args.add(mimeType);
+  }
+  if (callback != undefined) {
+    args.add(callback);
+  }
+  return new Xhr._(_d3.callMethod('text', args));
 }
 
 /// Request a JSON blob.
-json(url, [callback]) {
-  return _d3.callMethod('json', []);
+Xhr json(String url, [callback(err, resp) = undefined]) {
+  var args = [url];
+  if (callback != undefined) {
+    args.add(callback);
+  }
+  return new Xhr._(_d3.callMethod('json', args));
 }
 
 /// Request an XML document fragment.
-xml(url, [mimeType, callback]) {
-  return _d3.callMethod('xml', []);
+Xhr xml(String url,
+    [String mimeType = undefined, callback(err, resp) = undefined]) {
+  var args = [url];
+  if (mimeType != undefined) {
+    args.add(mimeType);
+  }
+  if (callback != undefined) {
+    args.add(callback);
+  }
+  return new Xhr._(_d3.callMethod('xml', args));
 }
 
 /// Request an HTML document fragment.
-html(url, [callback]) {
-  return _d3.callMethod('html', []);
+Xhr html(String url, [callback(err, resp) = undefined]) {
+  var args = [url];
+  if (callback != undefined) {
+    args.add(callback);
+  }
+  return new Xhr._(_d3.callMethod('html', args));
 }
 
 /// Request a comma-separated values (CSV) file.
-csv(url, [accessor, callback]) {
-  return _d3.callMethod('csv', []);
+Xhr csv(String url, [accessor(d), callback(err, resp) = undefined]) {
+  var args = [url];
+  if (accessor != undefined) {
+    args.add(accessor);
+  }
+  if (callback != undefined) {
+    args.add(callback);
+  }
+  return new Xhr._(_d3.callMethod('csv', args));
 }
 
 /// Request a tab-separated values (TSV) file.
-tsv(url, [accessor, callback]) {
-  return _d3.callMethod('tsv', []);
+Xhr tsv(String url, [accessor(d), callback(err, resp) = undefined]) {
+  var args = [url];
+  if (accessor != undefined) {
+    args.add(accessor);
+  }
+  if (callback != undefined) {
+    args.add(callback);
+  }
+  return new Xhr._(_d3.callMethod('tsv', args));
 }

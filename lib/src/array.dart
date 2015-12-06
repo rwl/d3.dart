@@ -12,7 +12,7 @@ ascending(a, b) => _d3.callMethod('ascending', [a, b]);
 descending(a, b) => _d3.callMethod('descending', [a, b]);
 
 /// Find the minimum value in an array.
-min(array, [accessor(v) = undefined]) {
+min(List array, [accessor(v) = undefined]) {
   var args = [array];
   if (accessor != undefined) {
     args.add(accessor);
@@ -21,7 +21,7 @@ min(array, [accessor(v) = undefined]) {
 }
 
 /// Find the maximum value in an array.
-max(array, [accessor = undefined]) {
+max(List array, [accessor(v) = undefined]) {
   var args = [array];
   if (accessor != undefined) {
     args.add(accessor);
@@ -30,114 +30,164 @@ max(array, [accessor = undefined]) {
 }
 
 /// Find the minimum and maximum value in an array.
-extent(array, [accessor]) {
-  return _d3.callMethod('extent', []);
+extent(List array, [accessor(v) = undefined]) {
+  var args = [array];
+  if (accessor != undefined) {
+    args.add(accessor);
+  }
+  return _d3.callMethod('extent', args);
 }
 
 /// Compute the sum of an array of numbers.
-sum(array, [accessor]) {
-  return _d3.callMethod('sum', []);
+sum(List array, [accessor(v) = undefined]) {
+  var args = [array];
+  if (accessor != undefined) {
+    args.add(accessor);
+  }
+  return _d3.callMethod('sum', args);
 }
 
 /// Compute the arithmetic mean of an array of numbers.
-mean(array, [accessor]) {
-  return _d3.callMethod('mean', []);
+mean(List array, [accessor(v) = undefined]) {
+  var args = [array];
+  if (accessor != undefined) {
+    args.add(accessor);
+  }
+  return _d3.callMethod('mean', args);
 }
 
 /// Compute the median of an array of numbers (the 0.5-quantile).
-median(array, [accessor]) {
-  return _d3.callMethod('median', []);
+median(List array, [accessor(v) = undefined]) {
+  var args = [array];
+  if (accessor != undefined) {
+    args.add(accessor);
+  }
+  return _d3.callMethod('median', args);
 }
 
 /// Compute a quantile for a sorted array of numbers.
-quantile(numbers, p) {
-  return _d3.callMethod('quantile', []);
+quantile(List<num> numbers, num p) {
+  return _d3.callMethod('quantile', [numbers, p]);
 }
 
 /// Compute the variance of an array of numbers.
-variance(array, [accessor]) {
-  return _d3.callMethod('variance', []);
+variance(List array, [accessor(v) = undefined]) {
+  var args = [array];
+  if (accessor != undefined) {
+    args.add(accessor);
+  }
+  return _d3.callMethod('variance', args);
 }
 
 /// Compute the standard deviation of an array of numbers.
-deviation(array, [accessor]) {
-  return _d3.callMethod('deviation', []);
+deviation(List array, [accessor(v) = undefined]) {
+  var args = [array];
+  if (accessor != undefined) {
+    args.add(accessor);
+  }
+  return _d3.callMethod('deviation', args);
 }
 
 /// Search for a value in a sorted array.
-bisectLeft(array, x, [lo, hi]) {
-  return _d3.callMethod('bisectLeft', []);
+bisectLeft(List array, x, [int lo = undefined, int hi = undefined]) {
+  var args = [array, x];
+  if (lo != undefined) {
+    args.add(lo);
+  }
+  if (hi != undefined) {
+    args.add(hi);
+  }
+  return _d3.callMethod('bisectLeft', args);
 }
 
 /// Search for a value in a sorted array.
-bisect(array, x, [lo, hi]) {
-  return _d3.callMethod('bisect', []);
+bisect(List array, x, [int lo = undefined, int hi = undefined]) {
+  var args = [array, x];
+  if (lo != undefined) {
+    args.add(lo);
+  }
+  if (hi != undefined) {
+    args.add(hi);
+  }
+  return _d3.callMethod('bisect', args);
 }
 
 /// Search for a value in a sorted array.
-bisectRight(array, x, [lo, hi]) {
-  return _d3.callMethod('bisectRight', []);
+bisectRight(List array, x, [int lo = undefined, int hi = undefined]) {
+  var args = [array, x];
+  if (lo != undefined) {
+    args.add(lo);
+  }
+  if (hi != undefined) {
+    args.add(hi);
+  }
+  return _d3.callMethod('bisectRight', args);
 }
 
 /// Bisect using an accessor or comparator.
-bisector(accessor) {
-  return _d3.callMethod('bisector', []);
+bisector(accessor(v)) {
+  return _d3.callMethod('bisector', [accessor]);
 }
 
 /// Randomize the order of an array.
-shuffle(array, [lo, hi]) {
-  return _d3.callMethod('shuffle', []);
+shuffle(List array, [int lo = undefined, int hi = undefined]) {
+  var args = [array];
+  if (lo != undefined) {
+    args.add(lo);
+  }
+  if (hi != undefined) {
+    args.add(hi);
+  }
+  return _d3.callMethod('shuffle', args);
 }
 
 /// List the keys of an associative array.
-keys(object) {
-  return _d3.callMethod('keys', []);
-}
+keys(object) => _d3.callMethod('keys', [object]);
 
 /// List the values of an associated array.
-values(object) {
-  return _d3.callMethod('values', []);
-}
+values(object) => _d3.callMethod('values', [object]);
 
 /// List the key-value entries of an associative array.
-entries(object) {
-  return _d3.callMethod('entries', []);
-}
+entries(object) => _d3.callMethod('entries', [object]);
 
 /// Merge multiple arrays into one array.
-merge(arrays) {
-  return _d3.callMethod('merge', []);
-}
+merge(List arrays) => _d3.callMethod('merge', [arrays]);
 
 /// Generate a range of numeric values.
-range([start, stop, step]) {
-  return _d3.callMethod('range', []);
+range([start = undefined, stop = undefined, step = undefined]) {
+  var args = [];
+  if (start != undefined) {
+    args.add(start);
+  }
+  if (stop != undefined) {
+    args.add(stop);
+  }
+  if (step != undefined) {
+    args.add(step);
+  }
+  return _d3.callMethod('range', args);
 }
 
 /// Reorder an array of elements according to an array of indexes.
-permute(array, indexes) {
-  return _d3.callMethod('permute', []);
+permute(List array, List<int> indexes) {
+  return _d3.callMethod('permute', [array, indexes]);
 }
 
 /// Transpose a variable number of arrays.
-zip(arrays) {
-  return _d3.callMethod('zip', []);
-}
+zip(List arrays) => _d3.callMethod('zip', [arrays]);
 
 /// Transpose an array of arrays.
-transpose(matrix) {
-  return _d3.callMethod('transpose', []);
+transpose(List<List> matrix) {
+  return _d3.callMethod('transpose', [matrix]);
 }
 
 /// Returns an array of adjacent pairs of elements.
-pairs(array) {
-  return _d3.callMethod('pairs', []);
+pairs(List array) {
+  return _d3.callMethod('pairs', [array]);
 }
 
 /// Group array elements hierarchically.
-Nest nest() {
-  return _d3.callMethod('nest', []);
-}
+Nest nest() => new Nest._(_d3.callMethod('nest'));
 
 class Nest {
   final JsObject _proxy;
@@ -145,84 +195,78 @@ class Nest {
   Nest._(this._proxy);
 
   /// Add a level to the nest hierarchy.
-  key(function) {
-    return _proxy.callMethod('key', []);
+  key(String function(a)) {
+    return new Nest._(_proxy.callMethod('key', [function]));
   }
 
   /// Sort the current nest level by key.
-  sortKeys(comparator) {
-    return _proxy.callMethod('sortKeys', []);
+  sortKeys(Function comparator) {
+    return new Nest._(_proxy.callMethod('sortKeys', [comparator]));
   }
 
   /// Sort the leaf nest level by value.
-  sortValues(comparator) {
-    return _proxy.callMethod('sortValues', []);
+  sortValues(Function comparator) {
+    return new Nest._(_proxy.callMethod('sortValues', [comparator]));
   }
 
   /// Specify a rollup function for leaf values.
-  rollup(function) {
-    return _proxy.callMethod('rollup', []);
+  rollup(Function function) {
+    return new Nest._(_proxy.callMethod('rollup', [function]));
   }
 
   /// Evaluate the nest operator, returning an associative array.
-  map(array, [mapType]) {
-    return _proxy.callMethod('map', []);
+  map(List array, [Function mapType = undefined]) {
+    var args = [array];
+    if (mapType != undefined) {
+      args.add(mapType);
+    }
+    return _proxy.callMethod('map', args);
   }
 
   /// Evaluate the nest operator, returning an array of key-values tuples.
-  entries(array) {
-    return _proxy.callMethod('entries', []);
+  List entries(List array) {
+    return _proxy.callMethod('entries', [array]);
   }
 }
-/*
-D3Map map([object, key]) {
-  return _d3.callMethod('map', []);
+
+D3Map map([object = undefined, key = undefined]) {
+  var args = [];
+  if (object != undefined) {
+    args.add(object);
+  }
+  if (key != undefined) {
+    args.add(key);
+  }
+  return new D3Map._(_d3.callMethod('map', args));
 }
 
 class D3Map {
   final JsObject _proxy;
 
-  has(key) {
-    return _proxy.callMethod('', []);
-  }
+  D3Map._(this._proxy);
 
-  get(key) {
-    return _proxy.callMethod('', []);
-  }
+  has(key) => _proxy.callMethod('has', [key]);
 
-  set(key, value) {
-    return _proxy.callMethod('', []);
-  }
+  get(key) => _proxy.callMethod('get', [key]);
 
-  remove(key) {
-    return _proxy.callMethod('', []);
-  }
+  set(key, value) => _proxy.callMethod('set', [key, value]);
 
-  keys() {
-    return _proxy.callMethod('', []);
-  }
+  remove(key) => _proxy.callMethod('remove', [key]);
 
-  values() {
-    return _proxy.callMethod('', []);
-  }
+  keys() => _proxy.callMethod('keys');
 
-  entries() {
-    return _proxy.callMethod('', []);
-  }
+  values() => _proxy.callMethod('values');
 
-  forEach(function) {
-    return _proxy.callMethod('', []);
-  }
+  entries() => _proxy.callMethod('entries');
 
-  bool empty() {
-    return _proxy.callMethod('', []);
-  }
+  forEach(function) => _proxy.callMethod('forEach', [function]);
 
-  int size() {
-    return _proxy.callMethod('', []);
-  }
+  bool empty() => _proxy.callMethod('empty');
+
+  int size() => _proxy.callMethod('size');
 }
 
+/*
 D3Set set([array]) {
   return _d3.callMethod('', []);
 }
