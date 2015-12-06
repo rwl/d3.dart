@@ -216,3 +216,6 @@ geo_interpolate(a, b) {
 List get interpolators {
   return _d3['interpolators'];
 }
+
+/// For internal use.
+Transition newTransition(JsObject proxy) => new Transition._(proxy);

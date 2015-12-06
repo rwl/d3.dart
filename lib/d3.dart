@@ -15,7 +15,7 @@ export 'src/scale.dart';
 export 'src/selection.dart';
 export 'src/svg.dart';
 export 'src/time.dart' hide format;
-export 'src/transition.dart';
+export 'src/transition.dart' hide newTransition;
 export 'src/xhr.dart';
 
 class Margin {
