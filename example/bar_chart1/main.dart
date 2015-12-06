@@ -11,6 +11,6 @@ main() {
       .data(data)
       .enter()
       .append("div")
-      .style("width", (d, i, j) => "${x(d)}px")
-      .text((d, i, j) => d);
+      .style("width", (d) => "${x(d)}px")
+      .text((d) => d);
 }

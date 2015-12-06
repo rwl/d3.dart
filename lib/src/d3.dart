@@ -31,30 +31,30 @@ class JsMap extends MapBase<String, dynamic> {
   void clear() => keys.forEach((String k) => _proxy.deleteProperty(k));
 }
 
-Func3Args func3VarArgs(value) {
-  return (elem, data, i) {
+Func4Args func4VarArgs(value) {
+  return allowInteropCaptureThis((elem, data, i, j) {
     if (value is Func0Arg) {
-      value();
+      return value();
     } else if (value is Func1Arg) {
-      value(data);
+      return value(data);
     } else if (value is Func2Args) {
-      value(data, i);
+      return value(data, i);
     } else if (value is Func3Args) {
-      value(elem, data, i);
+      return value(elem, data, i);
     } else {
       throw new ArgumentError.value(value);
     }
-  };
+  });
 }
 
-Func2Args func2VarArgs(value) {
-  return (data, i) {
+Func3Args func2VarArgs(value) {
+  return (data, i, j) {
     if (value is Func0Arg) {
-      value();
+      return value();
     } else if (value is Func1Arg) {
-      value(data);
+      return value(data);
     } else if (value is Func2Args) {
-      value(data, i);
+      return value(data, i);
     } else {
       throw new ArgumentError.value(value);
     }
@@ -66,11 +66,11 @@ Function funcVarArgs(fn, arg1, arg2, arg3, arg4, arg5, arg6, arg7) {
     return (arg0) => fn(arg0);
   } else if (arg2 == undefined) {
     return (arg0, arg1) {
-      fn(arg0, arg1);
+      return fn(arg0, arg1);
     };
   } else if (arg3 == undefined) {
     return (arg0, arg1, arg3) {
-      fn(arg0, arg1, arg3);
+      return fn(arg0, arg1, arg3);
     };
   }
   throw new UnimplementedError('varargs');

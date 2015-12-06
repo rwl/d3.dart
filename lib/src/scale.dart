@@ -1,6 +1,7 @@
 library d3.src.scale;
 
 import 'dart:js';
+import 'd3.dart';
 
 JsObject _scale = context['d3']['scale'];
 
@@ -18,7 +19,7 @@ class LinearScale {
 
   /// Get the range value corresponding to a given domain value.
   linear(x) {
-    return _proxy.callMethod('linear', []);
+    return _proxy.callMethod('call', [_proxy, x]);
   }
 
   /// Get the domain value corresponding to a given range value.
@@ -27,13 +28,31 @@ class LinearScale {
   }
 
   /// Get or set the scale's input domain.
-  LinearScale domain([numbers]) {
-    return _proxy.callMethod('domain', []);
+  domain([List<num> numbers = undefined]) {
+    var args = [];
+    if (numbers != undefined) {
+      args.add(numbers);
+    }
+    var retval = _proxy.callMethod('domain', args);
+    if (numbers == undefined) {
+      return retval;
+    } else {
+      return new LinearScale._(retval);
+    }
   }
 
   /// Get or set the scale's output range.
-  LinearScale range([values]) {
-    return _proxy.callMethod('range', []);
+  LinearScale range([List values = undefined]) {
+    var args = [];
+    if (values != undefined) {
+      args.add(values);
+    }
+    var retval = _proxy.callMethod('range', args);
+    if (values == undefined) {
+      return retval;
+    } else {
+      return new LinearScale._(retval);
+    }
   }
 
   /// Set the scale's output range, and enable rounding.

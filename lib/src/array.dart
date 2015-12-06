@@ -1,27 +1,32 @@
 library d3.src.array;
 
 import 'dart:js';
+import 'd3.dart';
 
 JsObject _d3 = context['d3'];
 
 /// Compare two values for sorting.
-ascending(a, b) {
-  return _d3.callMethod('ascending', []);
-}
+ascending(a, b) => _d3.callMethod('ascending', [a, b]);
 
 /// Compare two values for sorting.
-descending(a, b) {
-  return _d3.callMethod('descending', []);
-}
+descending(a, b) => _d3.callMethod('descending', [a, b]);
 
 /// Find the minimum value in an array.
-min(array, [accessor]) {
-  return _d3.callMethod('min', []);
+min(array, [accessor(v) = undefined]) {
+  var args = [array];
+  if (accessor != undefined) {
+    args.add(accessor);
+  }
+  return _d3.callMethod('min', args);
 }
 
 /// Find the maximum value in an array.
-max(array, [accessor]) {
-  return _d3.callMethod('max', []);
+max(array, [accessor = undefined]) {
+  var args = [array];
+  if (accessor != undefined) {
+    args.add(accessor);
+  }
+  return _d3.callMethod('max', args);
 }
 
 /// Find the minimum and maximum value in an array.

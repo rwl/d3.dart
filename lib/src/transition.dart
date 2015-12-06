@@ -29,7 +29,7 @@ class Transition {
   delay([delay = undefined]) {
     var args = [];
     if (delay is Function) {
-      args.add(func3VarArgs(delay));
+      args.add(func4VarArgs(delay));
     } else if (delay != undefined) {
       args.add(delay);
     }
@@ -45,7 +45,7 @@ class Transition {
   Transition duration([duration = undefined]) {
     var args = [];
     if (duration is Function) {
-      args.add(func3VarArgs(duration));
+      args.add(func4VarArgs(duration));
     } else if (duration != undefined) {
       args.add(duration);
     }
@@ -78,7 +78,7 @@ class Transition {
   Transition attr(String name, value) {
     var args = [name];
     if (value is Function) {
-      args.add(func3VarArgs(value));
+      args.add(func4VarArgs(value));
     } else {
       args.add(value);
     }
@@ -89,7 +89,7 @@ class Transition {
   Transition attrTween(String name, tween) {
     var args = [name];
     if (tween is Function) {
-      args.add(func3VarArgs(tween));
+      args.add(func4VarArgs(tween));
     } else {
       args.add(tween);
     }
@@ -100,7 +100,7 @@ class Transition {
   Transition style(String name, value, [String priority = undefined]) {
     var args = [name];
     if (value is Function) {
-      args.add(func3VarArgs(value));
+      args.add(func4VarArgs(value));
     } else {
       args.add(value);
     }
@@ -114,7 +114,7 @@ class Transition {
   Transition styleTween(name, tween, [String priority = undefined]) {
     var args = [name];
     if (tween is Function) {
-      args.add(func3VarArgs(tween));
+      args.add(func4VarArgs(tween));
     } else {
       args.add(tween);
     }
@@ -128,7 +128,7 @@ class Transition {
   Transition text(value) {
     var args = [];
     if (value is Function) {
-      args.add(func3VarArgs(value));
+      args.add(func4VarArgs(value));
     } else {
       args.add(value);
     }
@@ -137,7 +137,7 @@ class Transition {
 
   /// Specify a custom tween operator to run as part of the transition.
   Transition tween(String name, Function fn) {
-    var args = [name, func3VarArgs(fn)];
+    var args = [name, func4VarArgs(fn)];
     return new Transition._(_proxy.callMethod('tween', args));
   }
 
@@ -148,7 +148,7 @@ class Transition {
   Transition select(String selector) {
     var args = [];
     if (selector is Function) {
-      args.add(func3VarArgs(selector));
+      args.add(func4VarArgs(selector));
     } else {
       args.add(selector);
     }
@@ -159,7 +159,7 @@ class Transition {
   Transition selectAll(String selector) {
     var args = [];
     if (selector is Function) {
-      args.add(func3VarArgs(selector));
+      args.add(func4VarArgs(selector));
     } else {
       args.add(selector);
     }
@@ -170,7 +170,7 @@ class Transition {
   Transition filter(selector) {
     var args = [];
     if (selector is Function) {
-      args.add(func3VarArgs(selector));
+      args.add(func4VarArgs(selector));
     } else {
       args.add(selector);
     }
@@ -186,7 +186,7 @@ class Transition {
     if (type != undefined) {
       args.add(type);
     }
-    args.add(func3VarArgs(listener));
+    args.add(func4VarArgs(listener));
     return new Transition._(_proxy.callMethod('each', args));
   }
 

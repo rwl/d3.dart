@@ -61,7 +61,7 @@ class Selection {
     }
     var args = [name];
     if (value is Function) {
-      args.add(func3VarArgs(value));
+      args.add(func4VarArgs(value));
     } else if (value != undefined) {
       args.add(value);
     }
@@ -80,7 +80,7 @@ class Selection {
     }
     var args = [name];
     if (value is Function) {
-      args.add(func3VarArgs(value));
+      args.add(func4VarArgs(value));
     } else if (value != undefined) {
       args.add(value);
     }
@@ -99,7 +99,7 @@ class Selection {
     }
     var args = [name];
     if (value is Function) {
-      args.add(func3VarArgs(value));
+      args.add(func4VarArgs(value));
     } else if (value != undefined) {
       args.add(value);
     }
@@ -121,7 +121,7 @@ class Selection {
     }
     var args = [name];
     if (value is Function) {
-      args.add(func3VarArgs(value));
+      args.add(func4VarArgs(value));
     } else if (value != undefined) {
       args.add(value);
     }
@@ -137,7 +137,7 @@ class Selection {
   Selection text([value = undefined]) {
     var args = [];
     if (value is Function) {
-      args.add(func3VarArgs(value));
+      args.add(func4VarArgs(value));
     } else if (value != undefined) {
       args.add(value);
     }
@@ -153,7 +153,7 @@ class Selection {
   Selection html([value = undefined]) {
     var args = [];
     if (value is Function) {
-      args.add(func3VarArgs(value));
+      args.add(func4VarArgs(value));
     } else if (value != undefined) {
       args.add(value);
     }
@@ -169,7 +169,7 @@ class Selection {
   Selection append(name) {
     var args = [];
     if (name is Function) {
-      args.add(func3VarArgs(name));
+      args.add(func4VarArgs(name));
     } else {
       args.add(name);
     }
@@ -226,7 +226,7 @@ class Selection {
   Selection filter(selector) {
     var args = [];
     if (selector is Function) {
-      args.add(func3VarArgs(selector));
+      args.add(func4VarArgs(selector));
     } else {
       args.add(selector);
     }
@@ -237,7 +237,7 @@ class Selection {
   Selection datum([value = undefined]) {
     var args = [];
     if (value is Function) {
-      args.add(func3VarArgs(value));
+      args.add(func4VarArgs(value));
     } else if (value != undefined) {
       args.add(value);
     }
@@ -268,7 +268,7 @@ class Selection {
   Selection on(String type, [listener = undefined, capture = undefined]) {
     var args = [type];
     if (listener != undefined) {
-      args.add(func3VarArgs(listener));
+      args.add(func4VarArgs(listener));
     }
     if (capture != undefined) {
       args.add(capture);
@@ -295,7 +295,7 @@ class Selection {
   Selection select(selector) {
     var args = [];
     if (selector is Function) {
-      args.add(func3VarArgs(selector));
+      args.add(func4VarArgs(selector));
     } else {
       args.add(selector);
     }
@@ -306,7 +306,7 @@ class Selection {
   Selection selectAll(selector) {
     var args = [];
     if (selector is Function) {
-      args.add(func3VarArgs(selector));
+      args.add(func4VarArgs(selector));
     } else {
       args.add(selector);
     }
@@ -315,7 +315,7 @@ class Selection {
 
   /// Call a function for each selected element.
   Selection each(Function function) {
-    var args = [func3VarArgs(function)];
+    var args = [func4VarArgs(function)];
     return new Selection._(_proxy.callMethod('each', args));
   }
 
