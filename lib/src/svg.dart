@@ -1,495 +1,1024 @@
 library d3.src.svg;
 
 import 'dart:js';
+import 'd3.dart';
+
+import 'selection.dart' as sel;
+import 'transition.dart' as trans;
+import 'scale.dart' as sc;
 
 JsObject _svg = context['d3']['svg'];
 
 /// Create a new line generator.
-Line line() {
-  return _svg.callMethod('line', []);
-}
+Line line() => new Line._(_svg.callMethod('line'));
 
 class Line {
   final JsObject _proxy;
 
   Line._(this._proxy);
 
-  call(data) => line(data);
-
   /// Generate a piecewise linear curve, as in a line chart.
-  line(data) {
-    return _proxy.callMethod('line', []);
-  }
+  String call(List data) => _proxy.callMethod('call', [_proxy, data]);
 
   /// Get or set the x-coordinate accessor.
-  x([x]) {
-    return _proxy.callMethod('x', []);
+  x([x = undefined]) {
+    var args = [];
+    if (x is Function) {
+      args.add(func4VarArgs(x));
+    } else if (x != undefined) {
+      args.add(x);
+    }
+    var retval = _proxy.callMethod('x', args);
+    if (x == undefined) {
+      return retval;
+    } else {
+      return new Line._(retval);
+    }
   }
 
   /// Get or set the y-coordinate accessor.
-  y([y]) {
-    return _proxy.callMethod('y', []);
+  y([y = undefined]) {
+    var args = [];
+    if (y is Function) {
+      args.add(func4VarArgs(y));
+    } else if (y != undefined) {
+      args.add(y);
+    }
+    var retval = _proxy.callMethod('y', args);
+    if (y == undefined) {
+      return retval;
+    } else {
+      return new Line._(retval);
+    }
   }
 
   /// Get or set the interpolation mode.
-  interpolate([interpolate]) {
-    return _proxy.callMethod('interpolate', []);
+  interpolate([interpolate = undefined]) {
+    var args = [];
+    if (interpolate != undefined) {
+      args.add(interpolate);
+    }
+    var retval = _proxy.callMethod('interpolate', args);
+    if (interpolate == undefined) {
+      return retval;
+    } else {
+      return new Line._(retval);
+    }
   }
 
   /// Get or set the cardinal spline tension.
-  tension([tension]) {
-    return _proxy.callMethod('tension', []);
+  tension([num tension = undefined]) {
+    var args = [];
+    if (tension != undefined) {
+      args.add(tension);
+    }
+    var retval = _proxy.callMethod('tension', args);
+    if (tension == undefined) {
+      return retval;
+    } else {
+      return new Line._(retval);
+    }
   }
 
   /// Control whether the line is defined at a given point.
-  defined([defined]) {
-    return _proxy.callMethod('defined', []);
+  defined([Function defined = undefined]) {
+    var args = [];
+    if (defined != undefined) {
+      args.add(defined);
+    }
+    var retval = _proxy.callMethod('defined', args);
+    if (defined == undefined) {
+      return retval;
+    } else {
+      return new Line._(retval);
+    }
   }
 }
 
 /// Create a new radial line generator.
-RadialLine radial() {
-  return _svg['line'].callMethod('radial', []);
-}
+RadialLine radial() => new RadialLine._(_svg['line'].callMethod('radial'));
 
 class RadialLine {
   final JsObject _proxy;
 
   RadialLine._(this._proxy);
 
-  call(data) => line(data);
-
   /// Generate a piecewise linear curve, as in a polar line chart.
-  line(data) {
-    return _proxy.callMethod('line', []);
-  }
+  String call(List data) => _proxy.callMethod('call', [_proxy, data]);
 
   /// Get or set the radius accessor.
-  radius([radius]) {
-    return _proxy.callMethod('radius', []);
+  radius([radius = undefined]) {
+    var args = [];
+    if (radius != undefined) {
+      args.add(radius);
+    }
+    var retval = _proxy.callMethod('radius', args);
+    if (radius == undefined) {
+      return retval;
+    } else {
+      return new RadialLine._(retval);
+    }
   }
 
   /// Get or set the angle accessor.
-  angle([angle]) {
-    return _proxy.callMethod('angle', []);
+  angle([angle = undefined]) {
+    var args = [];
+    if (angle != undefined) {
+      args.add(angle);
+    }
+    var retval = _proxy.callMethod('angle', args);
+    if (angle == undefined) {
+      return retval;
+    } else {
+      return new RadialLine._(retval);
+    }
   }
 
   /// Get or set the interpolation mode.
-  interpolate([interpolate]) {
-    return _proxy.callMethod('interpolate', []);
+  interpolate([interpolate = undefined]) {
+    var args = [];
+    if (interpolate != undefined) {
+      args.add(interpolate);
+    }
+    var retval = _proxy.callMethod('interpolate', args);
+    if (interpolate == undefined) {
+      return retval;
+    } else {
+      return new RadialLine._(retval);
+    }
   }
 
   /// Get or set the cardinal spline tension.
-  tension([tension]) {
-    return _proxy.callMethod('tension', []);
+  tension([num tension = undefined]) {
+    var args = [];
+    if (tension != undefined) {
+      args.add(tension);
+    }
+    var retval = _proxy.callMethod('tension', args);
+    if (tension == undefined) {
+      return retval;
+    } else {
+      return new RadialLine._(retval);
+    }
   }
 
   /// Control whether the line is defined at a given point.
-  defined([defined]) {
-    return _proxy.callMethod('defined', []);
+  defined([defined = undefined]) {
+    var args = [];
+    if (defined != undefined) {
+      args.add(defined);
+    }
+    var retval = _proxy.callMethod('defined', args);
+    if (defined == undefined) {
+      return retval;
+    } else {
+      return new RadialLine._(retval);
+    }
   }
 }
 
 /// Create a new area generator.
-Area area() {
-  return _svg.callMethod('area', []);
-}
+Area area() => new Area._(_svg.callMethod('area'));
 
 class Area {
   final JsObject _proxy;
 
   Area._(this._proxy);
 
-  call(data) => area(data);
-
   /// Generate a piecewise linear area, as in an area chart.
-  area(data) {
-    return _proxy.callMethod('area', []);
-  }
+  String call(List data) => _proxy.callMethod('area', [_proxy, data]);
 
   /// Get or set the x-coordinate accessors.
-  x([x]) {
-    return _proxy.callMethod('x', []);
+  x([x = undefined]) {
+    var args = [];
+    if (x is Function) {
+      args.add(func4VarArgs(x));
+    } else if (x != undefined) {
+      args.add(x);
+    }
+    var retval = _proxy.callMethod('x', args);
+    if (x == undefined) {
+      return retval;
+    } else {
+      return new Area._(retval);
+    }
   }
 
   /// Get or set the x0-coordinate (baseline) accessor.
-  x0([x0]) {
-    return _proxy.callMethod('x0', []);
+  x0([x0 = undefined]) {
+    var args = [];
+    if (x0 != undefined) {
+      args.add(x0);
+    }
+    var retval = _proxy.callMethod('x0', args);
+    if (x0 == undefined) {
+      return retval;
+    } else {
+      return new Area._(retval);
+    }
   }
 
   /// Get or set the x1-coordinate (topline) accessor.
-  x1([x1]) {
-    return _proxy.callMethod('x1', []);
+  x1([x1 = undefined]) {
+    var args = [];
+    if (x1 != undefined) {
+      args.add(x1);
+    }
+    var retval = _proxy.callMethod('x1', args);
+    if (x1 == undefined) {
+      return retval;
+    } else {
+      return new Area._(retval);
+    }
   }
 
   /// Get or set the y-coordinate accessors.
-  y([y]) {
-    return _proxy.callMethod('y', []);
+  y([y = undefined]) {
+    var args = [];
+    if (y is Function) {
+      args.add(func4VarArgs(y));
+    } else if (y != undefined) {
+      args.add(y);
+    }
+    var retval = _proxy.callMethod('y', args);
+    if (y == undefined) {
+      return retval;
+    } else {
+      return new Area._(retval);
+    }
   }
 
   /// Get or set the y0-coordinate (baseline) accessor.
-  y0([y0]) {
-    return _proxy.callMethod('y0', []);
+  y0([y0 = undefined]) {
+    var args = [];
+    if (y0 != undefined) {
+      args.add(y0);
+    }
+    var retval = _proxy.callMethod('y0', args);
+    if (y0 == undefined) {
+      return retval;
+    } else {
+      return new Area._(retval);
+    }
   }
 
   /// Get or set the y1-coordinate (topline) accessor.
-  y1([y1]) {
-    return _proxy.callMethod('y1', []);
+  y1([y1 = undefined]) {
+    var args = [];
+    if (y1 != undefined) {
+      args.add(y1);
+    }
+    var retval = _proxy.callMethod('y1', args);
+    if (y1 == undefined) {
+      return retval;
+    } else {
+      return new Area._(retval);
+    }
   }
 
   /// Get or set the interpolation mode.
-  interpolate([interpolate]) {
-    return _proxy.callMethod('interpolate', []);
+  interpolate([interpolate = undefined]) {
+    var args = [];
+    if (interpolate != undefined) {
+      args.add(interpolate);
+    }
+    var retval = _proxy.callMethod('interpolate', args);
+    if (interpolate == undefined) {
+      return retval;
+    } else {
+      return new Area._(retval);
+    }
   }
 
   /// Get or set the cardinal spline tension.
-  tension([tension]) {
-    return _proxy.callMethod('tension', []);
+  tension([tension = undefined]) {
+    var args = [];
+    if (tension != undefined) {
+      args.add(tension);
+    }
+    var retval = _proxy.callMethod('tension', args);
+    if (tension == undefined) {
+      return retval;
+    } else {
+      return new Area._(retval);
+    }
   }
 
   /// Control whether the area is defined at a given point.
 }
 
 /// Create a new area generator.
-RadialArea radialArea() {
-  return _svg['area'].callMethod('radial', []);
-}
+RadialArea radialArea() => new RadialArea._(_svg['area'].callMethod('radial'));
 
 class RadialArea {
   final JsObject _proxy;
 
   RadialArea._(this._proxy);
 
-  call() => area();
-
   /// Generate a piecewise linear area, as in a polar area chart.
-  area() {
-    return _proxy.callMethod('area', []);
-  }
+  String call(data) => _proxy.callMethod('call', [_proxy, data]);
 
   /// Get or set the radius accessors.
-  radius([radius]) {
-    return _proxy.callMethod('radius', []);
+  radius([radius = undefined]) {
+    var args = [];
+    if (radius != undefined) {
+      args.add(radius);
+    }
+    var retval = _proxy.callMethod('radius', args);
+    if (radius == undefined) {
+      return retval;
+    } else {
+      return new RadialArea._(retval);
+    }
   }
 
   /// Get or set the inner radius (baseline) accessor.
-  innerRadius([radius]) {
-    return _proxy.callMethod('innerRadius', []);
+  innerRadius([radius = undefined]) {
+    var args = [];
+    if (radius != undefined) {
+      args.add(radius);
+    }
+    var retval = _proxy.callMethod('innerRadius', args);
+    if (radius == undefined) {
+      return retval;
+    } else {
+      return new RadialArea._(retval);
+    }
   }
 
   /// Get or set the outer radius (topline) accessor.
-  outerRadius([radius]) {
-    return _proxy.callMethod('outerRadius', []);
+  outerRadius([radius = undefined]) {
+    var args = [];
+    if (radius != undefined) {
+      args.add(radius);
+    }
+    var retval = _proxy.callMethod('outerRadius', args);
+    if (radius == undefined) {
+      return retval;
+    } else {
+      return new RadialArea._(retval);
+    }
   }
 
   /// Get or set the angle accessors.
-  angle([angle]) {
-    return _proxy.callMethod('angle', []);
+  angle([angle = undefined]) {
+    var args = [];
+    if (angle != undefined) {
+      args.add(angle);
+    }
+    var retval = _proxy.callMethod('angle', args);
+    if (angle == undefined) {
+      return retval;
+    } else {
+      return new RadialArea._(retval);
+    }
   }
 
   /// Get or set the angle (baseline) accessor.
-  startAngle([angle]) {
-    return _proxy.callMethod('startAngle', []);
+  startAngle([angle = undefined]) {
+    var args = [];
+    if (angle != undefined) {
+      args.add(angle);
+    }
+    var retval = _proxy.callMethod('startAngle', args);
+    if (angle == undefined) {
+      return retval;
+    } else {
+      return new RadialArea._(retval);
+    }
   }
 
   /// Get or set the angle (topline) accessor.
-  endAngle([angle]) {
-    return _proxy.callMethod('endAngle', []);
+  endAngle([angle = undefined]) {
+    var args = [];
+    if (angle != undefined) {
+      args.add(angle);
+    }
+    var retval = _proxy.callMethod('endAngle', args);
+    if (angle == undefined) {
+      return retval;
+    } else {
+      return new RadialArea._(retval);
+    }
   }
 
   /// Control whether the area is defined at a given point.
-  defined([defined]) {
-    return _proxy.callMethod('defined', []);
+  defined([Function defined = undefined]) {
+    var args = [];
+    if (defined != undefined) {
+      args.add(defined);
+    }
+    var retval = _proxy.callMethod('defined', args);
+    if (defined == undefined) {
+      return retval;
+    } else {
+      return new RadialArea._(retval);
+    }
   }
 }
 
 /// Create a new arc generator.
-Arc arc() {
-  return _svg.callMethod('arc', []);
-}
+Arc arc() => new Arc._(_svg.callMethod('arc'));
 
 class Arc {
   final JsObject _proxy;
 
   Arc._(this._proxy);
 
-  call(datum, [index]) => arc(datum, [index]);
-
   /// Generate a solid arc, as in a pie or donut chart.
-  arc(datum, [index]) {
-    return _proxy.callMethod('arc', []);
+  String call(datum, [index = undefined]) {
+    var args = [_proxy, datum];
+    if (index != undefined) {
+      args.add(index);
+    }
+    return _proxy.callMethod('call', args);
   }
 
   /// Get or set the inner radius accessor.
-  innerRadius([radius]) {
-    return _proxy.callMethod('innerRadius', []);
+  innerRadius([radius = undefined]) {
+    var args = [];
+    if (radius is Function) {
+      args.add(func4VarArgs(radius));
+    } else if (radius != undefined) {
+      args.add(radius);
+    }
+    var retval = _proxy.callMethod('innerRadius', args);
+    if (radius == undefined) {
+      return retval;
+    } else {
+      return new Arc._(retval);
+    }
   }
 
   /// Get or set the outer radius accessor.
-  outerRadius([radius]) {
-    return _proxy.callMethod('outerRadius', []);
+  outerRadius([radius = undefined]) {
+    var args = [];
+    if (radius is Function) {
+      args.add(func4VarArgs(radius));
+    } else if (radius != undefined) {
+      args.add(radius);
+    }
+    var retval = _proxy.callMethod('outerRadius', args);
+    if (radius == undefined) {
+      return retval;
+    } else {
+      return new Arc._(retval);
+    }
   }
 
   /// Get or set the corner radius accessor.
-  cornerRadius([radius]) {
-    return _proxy.callMethod('cornerRadius', []);
+  cornerRadius([radius = undefined]) {
+    var args = [];
+    if (radius is Function) {
+      args.add(func4VarArgs(radius));
+    } else if (radius != undefined) {
+      args.add(radius);
+    }
+    var retval = _proxy.callMethod('cornerRadius', args);
+    if (radius == undefined) {
+      return retval;
+    } else {
+      return new Arc._(retval);
+    }
   }
 
   /// Get or set the pad radius accessor.
-  padRadius([radius]) {
-    return _proxy.callMethod('padRadius', []);
+  padRadius([radius = undefined]) {
+    var args = [];
+    if (radius is Function) {
+      args.add(func4VarArgs(radius));
+    } else if (radius != undefined) {
+      args.add(radius);
+    }
+    var retval = _proxy.callMethod('padRadius', args);
+    if (radius == undefined) {
+      return retval;
+    } else {
+      return new Arc._(retval);
+    }
   }
 
   /// Get or set the start angle accessor.
-  startAngle([angle]) {
-    return _proxy.callMethod('startAngle', []);
+  startAngle([angle = undefined]) {
+    var args = [];
+    if (angle is Function) {
+      args.add(func4VarArgs(angle));
+    } else if (angle != undefined) {
+      args.add(angle);
+    }
+    var retval = _proxy.callMethod('startAngle', args);
+    if (angle == undefined) {
+      return retval;
+    } else {
+      return new Arc._(retval);
+    }
   }
 
   /// Get or set the end angle accessor.
-  endAngle([angle]) {
-    return _proxy.callMethod('endAngle', []);
+  endAngle([angle = undefined]) {
+    var args = [];
+    if (angle is Function) {
+      args.add(func4VarArgs(angle));
+    } else if (angle != undefined) {
+      args.add(angle);
+    }
+    var retval = _proxy.callMethod('endAngle', args);
+    if (angle == undefined) {
+      return retval;
+    } else {
+      return new Arc._(retval);
+    }
   }
 
   /// Get or set the pad angle accessor.
-  padAngle([angle]) {
-    return _proxy.callMethod('padAngle', []);
+  padAngle([angle = undefined]) {
+    var args = [];
+    if (angle is Function) {
+      args.add(func4VarArgs(angle));
+    } else if (angle != undefined) {
+      args.add(angle);
+    }
+    var retval = _proxy.callMethod('padAngle', args);
+    if (angle == undefined) {
+      return retval;
+    } else {
+      return new Arc._(retval);
+    }
   }
 
   /// Compute the arc centroid.
-  centroid([arguments]) {
-    return _proxy.callMethod('centroid', []);
-  }
+  String centroid([List arguments]) => _proxy.callMethod('centroid', arguments);
 }
 
 /// Create a new symbol generator.
-Symbol symbol() {
-  return _svg.callMethod('symbol', []);
-}
+Symbol symbol() => new Symbol._(_svg.callMethod('symbol'));
 
 class Symbol {
   final JsObject _proxy;
 
   Symbol._(this._proxy);
 
-  call(datum, [index]) => symbol(datum, [index]);
-
   /// Generate categorical symbols, as in a scatterplot.
-  symbol(datum, [index]) {
-    return _proxy.callMethod('symbol', []);
+  call(datum, [index = undefined]) {
+    var args = [_proxy, datum];
+    if (index != undefined) {
+      args.add(index);
+    }
+    return _proxy.callMethod('call', args);
   }
 
   /// Get or set the symbol type accessor.
-  type([type]) {
-    return _proxy.callMethod('type', []);
+  type([type = undefined]) {
+    var args = [];
+    if (type != undefined) {
+      args.add(type);
+    }
+    var retval = _proxy.callMethod('type', args);
+    if (type == undefined) {
+      return retval;
+    } else {
+      return new Symbol._(retval);
+    }
   }
 
   /// Get or set the symbol size (in square pixels) accessor.
-  size([size]) {
-    return _proxy.callMethod('size', []);
+  size([size = undefined]) {
+    var args = [];
+    if (size != undefined) {
+      args.add(size);
+    }
+    var retval = _proxy.callMethod('size', args);
+    if (size == undefined) {
+      return retval;
+    } else {
+      return new Symbol._(retval);
+    }
   }
 }
 
 /// The array of supported symbol types.
-List get symbolTypes {
-  return _svg['symbolTypes'];
-}
+List get symbolTypes => _svg['symbolTypes'];
 
 /// Create a new chord generator.
-Chord chord() {
-  return _svg.callMethod('chord', []);
-}
+Chord chord() => new Chord._(_svg.callMethod('chord'));
 
 class Chord {
   final JsObject _proxy;
 
   Chord._(this._proxy);
 
-  call(datum, [index]) => chord(datum, [index]);
-
   /// Generate a quadratic Bézier connecting two arcs, as in a chord diagram.
-  chord(datum, [index]) {
-    return _proxy.callMethod('chord', []);
+  String call(datum, [index = undefined]) {
+    var args = [_proxy, datum];
+    if (index != undefined) {
+      args.add(index);
+    }
+    return _proxy.callMethod('call', args);
   }
 
   /// Get or set the source arc accessor.
-  source([source]) {
-    return _proxy.callMethod('source', []);
+  source([source = undefined]) {
+    var args = [];
+    if (source is Function) {
+      args.add(func4VarArgs(source));
+    } else if (source != undefined) {
+      args.add(source);
+    }
+    var retval = _proxy.callMethod('source', args);
+    if (source == undefined) {
+      return retval;
+    } else {
+      return new Chord._(retval);
+    }
   }
 
   /// Get or set the target arc accessor.
-  target([target]) {
-    return _proxy.callMethod('target', []);
+  target([target = undefined]) {
+    var args = [];
+    if (target is Function) {
+      args.add(func4VarArgs(target));
+    } else if (target != undefined) {
+      args.add(target);
+    }
+    var retval = _proxy.callMethod('target', args);
+    if (target == undefined) {
+      return retval;
+    } else {
+      return new Chord._(retval);
+    }
   }
 
   /// Get or set the arc radius accessor.
-  radius([radius]) {
-    return _proxy.callMethod('radius', []);
+  radius([radius = undefined]) {
+    var args = [];
+    if (radius is Function) {
+      args.add(func4VarArgs(radius));
+    } else if (radius != undefined) {
+      args.add(radius);
+    }
+    var retval = _proxy.callMethod('radius', args);
+    if (radius == undefined) {
+      return retval;
+    } else {
+      return new Chord._(retval);
+    }
   }
 
   /// Get or set the arc start angle accessor.
-  startAngle([angle]) {
-    return _proxy.callMethod('startAngle', []);
+  startAngle([angle = undefined]) {
+    var args = [];
+    if (angle is Function) {
+      args.add(func4VarArgs(angle));
+    } else if (angle != undefined) {
+      args.add(angle);
+    }
+    var retval = _proxy.callMethod('startAngle', args);
+    if (angle == undefined) {
+      return retval;
+    } else {
+      return new Chord._(retval);
+    }
   }
 
   /// Get or set the arc end angle accessor.
-  endAngle([angle]) {
-    return _proxy.callMethod('endAngle', []);
+  endAngle([angle = undefined]) {
+    var args = [];
+    if (angle is Function) {
+      args.add(func4VarArgs(angle));
+    } else if (angle != undefined) {
+      args.add(angle);
+    }
+    var retval = _proxy.callMethod('endAngle', args);
+    if (angle == undefined) {
+      return retval;
+    } else {
+      return new Chord._(retval);
+    }
   }
 }
 
 /// Create a new diagonal generator.
-Diagonal diagonal() {
-  return _svg.callMethod('diagonal', []);
-}
+Diagonal diagonal() => new Diagonal._(_svg.callMethod('diagonal'));
 
 class Diagonal {
   final JsObject _proxy;
 
   Diagonal._(this._proxy);
 
-  call(datum, [index]) => diagonal(datum, [index]);
-
   /// Generate a two-dimensional Bézier connector, as in a node-link diagram.
-  diagonal(datum, [index]) {
-    return _proxy.callMethod('diagonal', []);
+  call(datum, [index = undefined]) {
+    var args = [_proxy, datum];
+    if (index != undefined) {
+      args.add(index);
+    }
+    return _proxy.callMethod('call', args);
   }
 
   /// Get or set the source point accessor.
-  source([source]) {
-    return _proxy.callMethod('source', []);
+  source([source = undefined]) {
+    var args = [];
+    if (source is Function) {
+      args.add(func4VarArgs(source));
+    } else if (source != undefined) {
+      args.add(source);
+    }
+    var retval = _proxy.callMethod('source', args);
+    if (source == undefined) {
+      return retval;
+    } else {
+      return new Diagonal._(retval);
+    }
   }
 
   /// Get or set the target point accessor.
-  target([target]) {
-    return _proxy.callMethod('target', []);
+  target([target = undefined]) {
+    var args = [];
+    if (target is Function) {
+      args.add(func4VarArgs(target));
+    } else if (target != undefined) {
+      args.add(target);
+    }
+    var retval = _proxy.callMethod('target', args);
+    if (target == undefined) {
+      return retval;
+    } else {
+      return new Diagonal._(retval);
+    }
   }
 
   /// Get or set an optional point transform.
-  projection([projection]) {
-    return _proxy.callMethod('projection', []);
+  projection([projection = undefined]) {
+    var args = [];
+    if (projection is Function) {
+      args.add(func4VarArgs(projection));
+    } else if (projection != undefined) {
+      args.add(projection);
+    }
+    var retval = _proxy.callMethod('projection', args);
+    if (projection == undefined) {
+      return retval;
+    } else {
+      return new Diagonal._(retval);
+    }
   }
 }
 
-radialDiagonal() {
-  return _svg['diagonal'].callMethod('radial', []);
-}
+radialDiagonal() => _svg['diagonal'].callMethod('radial');
 
 /// Create a new axis generator.
-Axis axis() {
-  return _svg.callMethod('axis', []);
-}
+Axis axis() => new Axis._(_svg.callMethod('axis'));
 
 class Axis {
   final JsObject _proxy;
 
   Axis._(this._proxy);
 
-  call(selection) => axis(selection);
-
   /// Creates or updates an axis for the given selection or transition.
-  axis(selection) {
-    return _proxy.callMethod('axis', []);
+  call(selection) {
+    var args = [_proxy];
+    if (selection is sel.Selection) {
+      args.add(sel.getProxy(selection));
+    } else if (selection is trans.Transition) {
+      args.add(trans.getProxy(selection));
+    } else {
+      throw new ArgumentError.value(selection);
+    }
+    return _proxy.callMethod('call', args);
   }
 
   /// Get or set the axis scale.
-  Axis scale([scale]) {
-    return _proxy.callMethod('scale', []);
+  scale([scale = undefined]) {
+    var args = [];
+    if (scale != undefined) {
+      args.add(sc.getProxy(scale));
+    }
+    var retval = _proxy.callMethod('scale', args);
+    if (scale == undefined) {
+      return retval; // TODO: wrap in Scale
+    } else {
+      return new Axis._(retval);
+    }
   }
 
   /// Get or set the axis orientation.
-  Axis orient([orientation]) {
-    return _proxy.callMethod('orient', []);
+  orient([String orientation = undefined]) {
+    var args = [];
+    if (orientation != undefined) {
+      args.add(orientation);
+    }
+    var retval = _proxy.callMethod('orient', args);
+    if (orientation == undefined) {
+      return retval;
+    } else {
+      return new Axis._(retval);
+    }
   }
 
   /// Control how ticks are generated for the axis.
-  Axis ticks([arguments]) {
-    return _proxy.callMethod('ticks', []);
+  ticks([List arguments = undefined]) {
+    var args = [];
+    if (arguments != undefined) {
+      args = arguments;
+    }
+    var retval = _proxy.callMethod('ticks', args);
+    if (arguments == undefined) {
+      return retval;
+    } else {
+      return new Axis._(retval);
+    }
   }
 
   /// Specify tick values explicitly.
-  tickValues([values]) {
-    return _proxy.callMethod('tickValues', []);
+  tickValues([List values = undefined]) {
+    var args = [];
+    if (values != undefined) {
+      args.add(values);
+    }
+    var retval = _proxy.callMethod('tickValues', args);
+    if (values == undefined) {
+      return retval;
+    } else {
+      return new Axis._(retval);
+    }
   }
 
   /// Specify the size of major, minor and end ticks.
-  Axis tickSize([inner, outer]) {
-    return _proxy.callMethod('tickSize', []);
+  tickSize([num inner = undefined, num outer = undefined]) {
+    var args = [];
+    if (inner != undefined) {
+      args.add(inner);
+    }
+    if (outer != undefined) {
+      args.add(outer);
+    }
+    var retval = _proxy.callMethod('tickSize', args);
+    if (inner == undefined) {
+      return retval;
+    } else {
+      return new Axis._(retval);
+    }
   }
 
   /// Specify the size of inner ticks.
-  innerTickSize([size]) {
-    return _proxy.callMethod('innerTickSize', []);
+  innerTickSize([num size = undefined]) {
+    var args = [];
+    if (size != undefined) {
+      args.add(size);
+    }
+    var retval = _proxy.callMethod('innerTickSize', args);
+    if (size == undefined) {
+      return retval;
+    } else {
+      return new Axis._(retval);
+    }
   }
 
   /// Specify the size of outer ticks.
-  outerTickSize([size]) {
-    return _proxy.callMethod('outerTickSize', []);
+  outerTickSize([num size = undefined]) {
+    var args = [];
+    if (size != undefined) {
+      args.add(size);
+    }
+    var retval = _proxy.callMethod('outerTickSize', args);
+    if (size == undefined) {
+      return retval;
+    } else {
+      return new Axis._(retval);
+    }
   }
 
   /// Specify padding between ticks and tick labels.
-  tickPadding([padding]) {
-    return _proxy.callMethod('tickPadding', []);
+  tickPadding([num padding = undefined]) {
+    var args = [];
+    if (padding != undefined) {
+      args.add(padding);
+    }
+    var retval = _proxy.callMethod('tickPadding', args);
+    if (padding == undefined) {
+      return retval;
+    } else {
+      return new Axis._(retval);
+    }
   }
 
   /// Override the tick formatting for labels.
-  tickFormat([format]) {
-    return _proxy.callMethod('tickFormat', []);
+  tickFormat([format = undefined]) {
+    var args = [];
+    if (format is Function) {
+      args.add(func4VarArgs(format));
+    } else if (format != undefined) {
+      args.add(format);
+    }
+    var retval = _proxy.callMethod('tickFormat', args);
+    if (format == undefined) {
+      return retval;
+    } else {
+      return new Axis._(retval);
+    }
   }
 }
 
 /// Click and drag to select one- or two-dimensional regions.
-Brush brush() {
-  return _svg.callMethod('brush', []);
-}
+Brush brush() => new Brush._(_svg.callMethod('brush'));
 
 class Brush {
   final JsObject _proxy;
 
   Brush._(this._proxy);
 
-  call(selection) => brush(selection);
-
   /// Apply a brush to the given selection or transition.
-  brush(selection) {
-    return _proxy.callMethod('brush', []);
+  call(selection) {
+    var args = [_proxy];
+    if (selection is sel.Selection) {
+      args.add(sel.getProxy(selection));
+    } else if (selection is trans.Transition) {
+      args.add(trans.getProxy(selection));
+    } else {
+      throw new ArgumentError.value(selection);
+    }
+    return _proxy.callMethod('call', args);
   }
 
   /// The brush's x-scale, for horizontal brushing.
-  x([scale]) {
-    return _proxy.callMethod('x', []);
+  x([scale = undefined]) {
+    var args = [];
+    if (scale != undefined) {
+      args.add(sc.getProxy(scale));
+    }
+    var retval = _proxy.callMethod('x', args);
+    if (scale == undefined) {
+      return retval; // TODO: wrap in Scale
+    } else {
+      return new Brush._(retval);
+    }
   }
 
   /// The brush's y-scale, for vertical brushing.
-  y([scale]) {
-    return _proxy.callMethod('y', []);
+  y([scale = undefined]) {
+    var args = [];
+    if (scale != undefined) {
+      args.add(sc.getProxy(scale));
+    }
+    var retval = _proxy.callMethod('y', args);
+    if (scale == undefined) {
+      return retval; // TODO: wrap in Scale
+    } else {
+      return new Brush._(retval);
+    }
   }
 
   /// The brush's extent in zero, one or two dimensions.
-  extent([values]) {
-    return _proxy.callMethod('extent', []);
+  extent([values = undefined]) {
+    var args = [];
+    if (values != undefined) {
+      args.add(values);
+    }
+    var retval = _proxy.callMethod('extent', args);
+    if (values == undefined) {
+      return retval;
+    } else {
+      return new Brush._(retval);
+    }
   }
 
-  clamp([clamp]) {
-    return _proxy.callMethod('clamp', []);
+  clamp([clamp = undefined]) {
+    var args = [];
+    if (clamp != undefined) {
+      args.add(clamp);
+    }
+    var retval = _proxy.callMethod('clamp', args);
+    if (clamp == undefined) {
+      return retval;
+    } else {
+      return new Brush._(retval);
+    }
   }
 
   /// Reset the brush extent.
-  clear() {
-    return _proxy.callMethod('clear', []);
-  }
+  clear() => new Brush._(_proxy.callMethod('clear'));
 
   /// Whether or not the brush extent is empty.
-  empty() {
-    return _proxy.callMethod('empty', []);
-  }
+  bool empty() => _proxy.callMethod('empty');
 
   /// Listeners for when the brush is moved.
-  on(type, [listener]) {
-    return _proxy.callMethod('on', []);
+  on(String type, [Function listener = undefined]) {
+    var args = [type];
+    if (listener != undefined) {
+      args.add(listener);
+    }
+    return new Brush._(_proxy.callMethod('on', args));
   }
 
   /// Dispatch brush events after setting the extent.
   event(selection) {
-    return _proxy.callMethod('event', []);
+    var args = [];
+    if (selection is sel.Selection) {
+      args.add(sel.getProxy(selection));
+    } else if (selection is trans.Transition) {
+      args.add(trans.getProxy(selection));
+    } else {
+      throw new ArgumentError.value(selection);
+    }
+    return new Brush._(_proxy.callMethod('event', args));
   }
 }

@@ -655,3 +655,6 @@ Ordinal category20b() => new Ordinal._(_scale.callMethod('category20b'));
 
 /// Construct an ordinal scale with twenty categorical colors.
 Ordinal category20c() => new Ordinal._(_scale.callMethod('category20c'));
+
+/// For internal use.
+JsObject getProxy(arg) => arg._proxy;

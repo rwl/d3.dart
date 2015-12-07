@@ -11,11 +11,11 @@ export 'src/layout.dart' hide Chord, chord;
 export 'src/locale.dart';
 export 'src/math.dart' hide getProxy;
 export 'src/namespace.dart';
-export 'src/scale.dart';
+export 'src/scale.dart' hide getProxy;
 export 'src/selection.dart' hide getProxy;
 export 'src/svg.dart';
 export 'src/time.dart' hide format;
-export 'src/transition.dart' hide newTransition;
+export 'src/transition.dart' hide newTransition, getProxy;
 export 'src/xhr.dart';
 
 class Margin {

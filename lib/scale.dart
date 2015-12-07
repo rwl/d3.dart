@@ -1,3 +1,3 @@
 library d3.scale;
 
-export 'src/scale.dart';
+export 'src/scale.dart' hide getProxy;

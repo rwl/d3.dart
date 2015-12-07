@@ -333,3 +333,6 @@ List<Interpolate> get interpolators {
 
 /// For internal use.
 Transition newTransition(JsObject proxy) => new Transition._(proxy);
+
+/// For internal use.
+JsObject getProxy(arg) => arg._proxy;
