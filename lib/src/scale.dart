@@ -6,26 +6,18 @@ import 'd3.dart';
 JsObject _scale = context['d3']['scale'];
 
 /// Construct a linear quantitative scale.
-LinearScale linear() {
-  return new LinearScale._(_scale.callMethod('linear', []));
-}
+LinearScale linear() => new LinearScale._(_scale.callMethod('linear'));
 
 class LinearScale {
   final JsObject _proxy;
 
   LinearScale._(this._proxy);
 
-  call(x) => linear(x);
-
   /// Get the range value corresponding to a given domain value.
-  linear(x) {
-    return _proxy.callMethod('call', [_proxy, x]);
-  }
+  call(x) => _proxy.callMethod('call', [_proxy, x]);
 
   /// Get the domain value corresponding to a given range value.
-  invert(y) {
-    return _proxy.callMethod('invert', []);
-  }
+  invert(y) => _proxy.callMethod('invert', [y]);
 
   /// Get or set the scale's input domain.
   domain([List<num> numbers = undefined]) {
@@ -42,7 +34,7 @@ class LinearScale {
   }
 
   /// Get or set the scale's output range.
-  LinearScale range([List values = undefined]) {
+  range([List values = undefined]) {
     var args = [];
     if (values != undefined) {
       args.add(values);
@@ -56,44 +48,72 @@ class LinearScale {
   }
 
   /// Set the scale's output range, and enable rounding.
-  rangeRound(values) {
-    return _proxy.callMethod('rangeRound', []);
+  LinearScale rangeRound(List values) {
+    var args = [];
+    if (values != undefined) {
+      args.add(values);
+    }
+    return new LinearScale._(_proxy.callMethod('rangeRound', args));
   }
 
   /// Get or set the scale's output interpolator.
-  interpolate([factory]) {
-    return _proxy.callMethod('interpolate', []);
+  interpolate([Function factory = undefined]) {
+    var args = [];
+    if (factory != undefined) {
+      args.add(factory);
+    }
+    var retval = _proxy.callMethod('interpolate', args);
+    if (factory == undefined) {
+      return retval;
+    } else {
+      return new LinearScale._(retval);
+    }
   }
 
   /// Enable or disable clamping of the output range.
-  clamp([boolean]) {
-    return _proxy.callMethod('clamp', []);
+  clamp([bool boolean = undefined]) {
+    var args = [];
+    if (boolean != undefined) {
+      args.add(boolean);
+    }
+    var retval = _proxy.callMethod('clamp', args);
+    if (boolean == undefined) {
+      return retval;
+    } else {
+      return new LinearScale._(retval);
+    }
   }
 
   /// Extend the scale domain to nice round numbers.
-  nice([count]) {
-    return _proxy.callMethod('nice', []);
+  LinearScale nice([int count = undefined]) {
+    var args = [];
+    if (count != undefined) {
+      args.add(count);
+    }
+    return new LinearScale._(_proxy.callMethod('nice', args));
   }
 
   /// Get representative values from the input domain.
-  ticks([count]) {
-    return _proxy.callMethod('ticks', []);
+  LinearScale ticks([int count = 10]) {
+    return new LinearScale._(_proxy.callMethod('ticks', [count]));
   }
 
   /// Get a formatter for displaying tick values.
-  tickFormat(count, [format]) {
-    return _proxy.callMethod('tickFormat', []);
+  LinearScale tickFormat(int count, [String format = undefined]) {
+    var args = [count];
+    if (format != undefined) {
+      args.add(format);
+    }
+    return new LinearScale._(_proxy.callMethod('tickFormat', args));
   }
 
   /// Create a new scale from an existing scale.
-  copy() {
-    return _proxy.callMethod('copy', []);
-  }
+  copy() => new LinearScale._(_proxy.callMethod('copy'));
 }
 
 /// Construct a linear identity scale.
 IdentityScale identity() {
-  return _scale.callMethod('identity', []);
+  return new IdentityScale._(_scale.callMethod('identity'));
 }
 
 class IdentityScale {
@@ -101,392 +121,537 @@ class IdentityScale {
 
   IdentityScale._(this._proxy);
 
-  call(x) => identity(x);
-
   /// The identity function.
-  identity(x) {
-    return _proxy.callMethod('identity', []);
-  }
+  call(x) => _proxy.callMethod('call', [_proxy, x]);
 
   /// Equivalent to identity; the identity function.
-  invert(x) {
-    return _proxy.callMethod('invert', []);
-  }
+  invert(x) => _proxy.callMethod('invert', [x]);
 
   /// Get or set the scale's domain and range.
-  domain([numbers]) {
-    return _proxy.callMethod('domain', []);
+  domain([List<num> numbers = undefined]) {
+    var args = [];
+    if (numbers != undefined) {
+      args.add(numbers);
+    }
+    var retval = _proxy.callMethod('domain', args);
+    if (numbers == undefined) {
+      return retval;
+    } else {
+      return new IdentityScale._(retval);
+    }
   }
 
   /// Equivalent to identity.domain.
-  range([numbers]) {
-    return _proxy.callMethod('range', []);
+  range([List<num> numbers = undefined]) {
+    var args = [];
+    if (numbers != undefined) {
+      args.add(numbers);
+    }
+    var retval = _proxy.callMethod('range', args);
+    if (numbers == undefined) {
+      return retval;
+    } else {
+      return new IdentityScale._(retval);
+    }
   }
 
   /// Get representative values from the domain.
-  ticks([count]) {
-    return _proxy.callMethod('ticks', []);
+  ticks([int count = 10]) {
+    return new IdentityScale._(_proxy.callMethod('ticks', [count]));
   }
 
   /// Get a formatter for displaying tick values.
-  tickFormat(count, [format]) {
-    return _proxy.callMethod('tickFormat', []);
+  tickFormat(int count, [String format = undefined]) {
+    var args = [count];
+    if (format != undefined) {
+      args.add(format);
+    }
+    return new IdentityScale._(_proxy.callMethod('tickFormat', args));
   }
 
   /// Create a new scale from an existing scale.
-  copy() {
-    return _proxy.callMethod('copy', []);
-  }
+  copy() => new IdentityScale._(_proxy.callMethod('copy'));
 }
 
 /// Construct a quantitative scale with a square root transform.
-Pow sqrt() {
-  return _scale.callMethod('sqrt', []);
-}
+Pow sqrt() => new Pow._(_scale.callMethod('sqrt'));
 
 /// Construct a quantitative scale with an exponential transform.
-Pow pow() {
-  return _scale.callMethod('pow', []);
-}
+Pow pow() => new Pow._(_scale.callMethod('pow'));
 
 class Pow {
   final JsObject _proxy;
 
   Pow._(this._proxy);
 
-  call(x) => pow(x);
-
   /// Get the range value corresponding to a given domain value.
-  pow(x) {
-    return _proxy.callMethod('pow', []);
-  }
+  call(x) => _proxy.callMethod('call', [_proxy, x]);
 
   /// Get the domain value corresponding to a given range value.
-  invert(y) {
-    return _proxy.callMethod('invert', []);
-  }
+  invert(y) => _proxy.callMethod('invert', [y]);
 
   /// Get or set the scale's input domain.
-  domain([numbers]) {
-    return _proxy.callMethod('domain', []);
+  domain([List<num> numbers = undefined]) {
+    var args = [];
+    if (numbers != undefined) {
+      args.add(numbers);
+    }
+    var retval = _proxy.callMethod('domain', args);
+    if (numbers == undefined) {
+      return retval;
+    } else {
+      return new Pow._(retval);
+    }
   }
 
   /// Get or set the scale's output range.
-  range([values]) {
-    return _proxy.callMethod('range', []);
+  range([List<num> numbers = undefined]) {
+    var args = [];
+    if (numbers != undefined) {
+      args.add(numbers);
+    }
+    var retval = _proxy.callMethod('range', args);
+    if (numbers == undefined) {
+      return retval;
+    } else {
+      return new Pow._(retval);
+    }
   }
 
   /// Set the scale's output range, and enable rounding.
-  rangeRound(values) {
-    return _proxy.callMethod('rangeRound', []);
+  Pow rangeRound(List values) {
+    var args = [];
+    if (values != undefined) {
+      args.add(values);
+    }
+    return new Pow._(_proxy.callMethod('rangeRound', args));
   }
 
   /// Get or set the exponent power.
-  exponent([k]) {
-    return _proxy.callMethod('exponent', []);
+  exponent([num k = undefined]) {
+    var args = [];
+    if (k != undefined) {
+      args.add(k);
+    }
+    var retval = _proxy.callMethod('exponent', args);
+    if (k == undefined) {
+      return retval;
+    } else {
+      return new Pow._(retval);
+    }
   }
 
   /// Get or set the scale's output interpolator.
-  interpolate([factory]) {
-    return _proxy.callMethod('interpolate', []);
+  interpolate([Function factory = undefined]) {
+    var args = [];
+    if (factory != undefined) {
+      args.add(factory);
+    }
+    var retval = _proxy.callMethod('interpolate', args);
+    if (factory == undefined) {
+      return retval;
+    } else {
+      return new Pow._(retval);
+    }
   }
 
   /// Enable or disable clamping of the output range.
-  clamp([boolean]) {
-    return _proxy.callMethod('clamp', []);
+  clamp([bool boolean = undefined]) {
+    var args = [];
+    if (boolean != undefined) {
+      args.add(boolean);
+    }
+    var retval = _proxy.callMethod('clamp', args);
+    if (boolean == undefined) {
+      return retval;
+    } else {
+      return new Pow._(retval);
+    }
   }
 
   /// Extend the scale domain to nice round numbers.
-  nice([m]) {
-    return _proxy.callMethod('nice', []);
+  Pow nice([int m = undefined]) {
+    var args = [];
+    if (m != undefined) {
+      args.add(m);
+    }
+    return new Pow._(_proxy.callMethod('nice', args));
   }
 
   /// Get representative values from the input domain.
-  ticks([count]) {
-    return _proxy.callMethod('ticks', []);
+  Pow ticks([int count = 10]) {
+    return new Pow._(_proxy.callMethod('ticks', [count]));
   }
 
   /// Get a formatter for displaying tick values.
-  tickFormat([count, format]) {
-    return _proxy.callMethod('tickFormat', []);
+  Pow tickFormat(int count, [String format = undefined]) {
+    var args = [count];
+    if (format != undefined) {
+      args.add(format);
+    }
+    return new Pow._(_proxy.callMethod('tickFormat', args));
   }
 
   /// Create a new scale from an existing scale.
-  copy() {
-    return _proxy.callMethod('copy', []);
-  }
+  Pow copy() => new Pow._(_proxy.callMethod('copy'));
 }
 
 /// Construct a quantitative scale with an logarithmic transform.
-Log log() {
-  return _scale.callMethod('log', []);
-}
+Log log() => new Log._(_scale.callMethod('log'));
 
 class Log {
   final JsObject _proxy;
 
   Log._(this._proxy);
 
-  call(x) => log(x);
-
   /// Get the range value corresponding to a given domain value.
-  log(x) {
-    return _proxy.callMethod('log', []);
-  }
+  call(x) => _proxy.callMethod('call', [_proxy, x]);
 
   /// Get the domain value corresponding to a given range value.
-  invert(y) {
-    return _proxy.callMethod('invert', []);
-  }
+  invert(y) => _proxy.callMethod('invert', [y]);
 
   /// Get or set the scale's input domain.
-  domain([numbers]) {
-    return _proxy.callMethod('domain', []);
+  domain([List<num> numbers = undefined]) {
+    var args = [];
+    if (numbers != undefined) {
+      args.add(numbers);
+    }
+    var retval = _proxy.callMethod('domain', args);
+    if (numbers == undefined) {
+      return retval;
+    } else {
+      return new Log._(retval);
+    }
   }
 
   /// Get or set the scale's output range.
-  range([values]) {
-    return _proxy.callMethod('range', []);
+  range([List<num> numbers = undefined]) {
+    var args = [];
+    if (numbers != undefined) {
+      args.add(numbers);
+    }
+    var retval = _proxy.callMethod('range', args);
+    if (numbers == undefined) {
+      return retval;
+    } else {
+      return new Log._(retval);
+    }
   }
 
   /// Set the scale's output range, and enable rounding.
-  rangeRound(values) {
-    return _proxy.callMethod('rangeRound', []);
+  Log rangeRound(List values) {
+    var args = [];
+    if (values != undefined) {
+      args.add(values);
+    }
+    return new Log._(_proxy.callMethod('rangeRound', args));
   }
 
-  base([base]) {
-    return _proxy.callMethod('base', []);
+  base([num k = undefined]) {
+    var args = [];
+    if (k != undefined) {
+      args.add(k);
+    }
+    var retval = _proxy.callMethod('base', args);
+    if (k == undefined) {
+      return retval;
+    } else {
+      return new Log._(retval);
+    }
   }
 
   /// Get or set the scale's output interpolator.
-  interpolate([factory]) {
-    return _proxy.callMethod('interpolate', []);
+  interpolate([Function factory = undefined]) {
+    var args = [];
+    if (factory != undefined) {
+      args.add(factory);
+    }
+    var retval = _proxy.callMethod('interpolate', args);
+    if (factory == undefined) {
+      return retval;
+    } else {
+      return new Log._(retval);
+    }
   }
 
   /// Enable or disable clamping of the output range.
-  clamp([boolean]) {
-    return _proxy.callMethod('clamp', []);
+  clamp([bool boolean = undefined]) {
+    var args = [];
+    if (boolean != undefined) {
+      args.add(boolean);
+    }
+    var retval = _proxy.callMethod('clamp', args);
+    if (boolean == undefined) {
+      return retval;
+    } else {
+      return new Log._(retval);
+    }
   }
 
   /// Extend the scale domain to nice powers of ten.
-  nice() {
-    return _proxy.callMethod('nice', []);
-  }
+  Log nice() => new Log._(_proxy.callMethod('nice'));
 
   /// Get representative values from the input domain.
-  ticks() {
-    return _proxy.callMethod('ticks', []);
-  }
+  ticks() => _proxy.callMethod('ticks');
 
   /// Get a formatter for displaying tick values.
-  tickFormat([count, format]) {
-    return _proxy.callMethod('tickFormat', []);
+  Log tickFormat([int count = undefined, String format = undefined]) {
+    var args = [];
+    if (count != undefined) {
+      args.add(count);
+    }
+    if (format != undefined) {
+      args.add(format);
+    }
+    return new Log._(_proxy.callMethod('tickFormat', args));
   }
 
   /// Create a new scale from an existing scale.
-  copy() {
-    return _proxy.callMethod('copy', []);
-  }
+  Log copy() => new Log._(_proxy.callMethod('copy'));
 }
 
 /// Construct a linear quantitative scale with a discrete output range.
-Quantize quantize() {
-  return _scale.callMethod('quantize', []);
-}
+Quantize quantize() => new Quantize._(_scale.callMethod('quantize'));
 
 class Quantize {
   final JsObject _proxy;
 
   Quantize._(this._proxy);
 
-  call(x) => quantize(x);
-
   /// Get the range value corresponding to a given domain value.
-  quantize(x) {
-    return _proxy.callMethod('quantize', []);
-  }
+  call(x) => _proxy.callMethod('call', [_proxy, x]);
 
   /// Get the domain values for the specified range value.
-  invertExtent(y) {
-    return _proxy.callMethod('invertExtent', []);
-  }
+  List invertExtent(y) => _proxy.callMethod('invertExtent', [y]);
 
   /// Get or set the scale's input domain.
-  domain([numbers]) {
-    return _proxy.callMethod('domain', []);
+  domain([List<num> numbers = undefined]) {
+    var args = [];
+    if (numbers != undefined) {
+      args.add(numbers);
+    }
+    var retval = _proxy.callMethod('domain', args);
+    if (numbers == undefined) {
+      return retval;
+    } else {
+      return new Quantize._(retval);
+    }
   }
 
   /// Get or set the scale's output range (as discrete values).
-  range([values]) {
-    return _proxy.callMethod('range', []);
+  range([List<num> numbers = undefined]) {
+    var args = [];
+    if (numbers != undefined) {
+      args.add(numbers);
+    }
+    var retval = _proxy.callMethod('range', args);
+    if (numbers == undefined) {
+      return retval;
+    } else {
+      return new Quantize._(retval);
+    }
   }
 
   /// Create a new scale from an existing scale.
-  copy() {
-    return _proxy.callMethod('copy', []);
-  }
+  Quantize copy() => new Quantize._(_proxy.callMethod('copy'));
 }
 
 /// Construct a quantitative scale mapping to quantiles.
-Quantile quantile() {
-  return _scale.callMethod('quantile', []);
-}
+Quantile quantile() => new Quantile._(_scale.callMethod('quantile'));
 
 class Quantile {
   final JsObject _proxy;
 
   Quantile._(this._proxy);
 
-  call(x) => quantile(x);
-
   /// Get the range value corresponding to a given domain value.
-  quantile(x) {
-    return _proxy.callMethod('quantile', []);
-  }
+  call(x) => _proxy.callMethod('call', [_proxy, x]);
 
   /// Get the domain values for the specified range value.
-  invertExtent(y) {
-    return _proxy.callMethod('invertExtent', []);
-  }
+  List invertExtent(y) => _proxy.callMethod('invertExtent', [y]);
 
   /// Get or set the scale's input domain (as discrete values).
-  domain([numbers]) {
-    return _proxy.callMethod('domain', []);
+  domain([List<num> numbers = undefined]) {
+    var args = [];
+    if (numbers != undefined) {
+      args.add(numbers);
+    }
+    var retval = _proxy.callMethod('domain', args);
+    if (numbers == undefined) {
+      return retval;
+    } else {
+      return new Quantile._(retval);
+    }
   }
 
   /// Get or set the scale's output range (as discrete values).
-  range([values]) {
-    return _proxy.callMethod('range', []);
+  range([List<num> numbers = undefined]) {
+    var args = [];
+    if (numbers != undefined) {
+      args.add(numbers);
+    }
+    var retval = _proxy.callMethod('range', args);
+    if (numbers == undefined) {
+      return retval;
+    } else {
+      return new Quantile._(retval);
+    }
   }
 
   /// Get the scale's quantile bin thresholds.
-  quantiles() {
-    return _proxy.callMethod('quantiles', []);
-  }
+  List quantiles() => _proxy.callMethod('quantiles');
 
   /// Create a new scale from an existing scale.
-  copy() {
-    return _proxy.callMethod('copy', []);
-  }
+  Quantile copy() => new Quantile._(_proxy.callMethod('copy'));
 }
 
 /// Construct a threshold scale with a discrete output range.
-Threshold threshold() {
-  return _scale.callMethod('threshold', []);
-}
+Threshold threshold() => new Threshold._(_scale.callMethod('threshold'));
 
 class Threshold {
   final JsObject _proxy;
 
   Threshold._(this._proxy);
 
-  call(x) => threshold(x);
-
   /// Get the range value corresponding to a given domain value.
-  threshold(x) {
-    return _proxy.callMethod('threshold', []);
-  }
+  call(x) => _proxy.callMethod('threshold', [_proxy, x]);
 
   /// Get the domain values for the specified range value.
-  invertExtent(y) {
-    return _proxy.callMethod('invertExtent', []);
-  }
+  List invertExtent(y) => _proxy.callMethod('invertExtent', [y]);
 
   /// Get or set the scale's input domain.
-  domain([domain]) {
-    return _proxy.callMethod('domain', []);
+  domain([List<num> numbers = undefined]) {
+    var args = [];
+    if (numbers != undefined) {
+      args.add(numbers);
+    }
+    var retval = _proxy.callMethod('domain', args);
+    if (numbers == undefined) {
+      return retval;
+    } else {
+      return new Threshold._(retval);
+    }
   }
 
   /// Get or set the scale's output range (as discrete values).
-  range([values]) {
-    return _proxy.callMethod('range', []);
+  range([List<num> numbers = undefined]) {
+    var args = [];
+    if (numbers != undefined) {
+      args.add(numbers);
+    }
+    var retval = _proxy.callMethod('range', args);
+    if (numbers == undefined) {
+      return retval;
+    } else {
+      return new Threshold._(retval);
+    }
   }
 
   /// Create a new scale from an existing scale.
-  copy() {
-    return _proxy.callMethod('copy', []);
-  }
+  Threshold copy() => new Threshold._(_proxy.callMethod('copy'));
 }
 
 /// Construct an ordinal scale.
-Ordinal ordinal() {
-  return _scale.callMethod('ordinal', []);
-}
+Ordinal ordinal() => new Ordinal._(_scale.callMethod('ordinal'));
 
 class Ordinal {
   final JsObject _proxy;
 
   Ordinal._(this._proxy);
 
-  call(x) => ordinal(x);
-
   /// Get the range value corresponding to a given domain value.
-  ordinal(x) {
-    return _proxy.callMethod('ordinal', []);
-  }
+  call(x) => _proxy.callMethod('call', [_proxy, x]);
 
   /// Get or set the scale's input domain.
-  domain([values]) {
-    return _proxy.callMethod('domain', []);
+  domain([List values = undefined]) {
+    var args = [];
+    if (values != undefined) {
+      args.add(values);
+    }
+    var retval = _proxy.callMethod('domain', args);
+    if (values == undefined) {
+      return retval;
+    } else {
+      return new Ordinal._(retval);
+    }
   }
 
   /// Get or set the scale's output range.
-  range([values]) {
-    return _proxy.callMethod('range', []);
+  range([List values = undefined]) {
+    var args = [];
+    if (values != undefined) {
+      args.add(values);
+    }
+    var retval = _proxy.callMethod('range', args);
+    if (values == undefined) {
+      return retval;
+    } else {
+      return new Ordinal._(retval);
+    }
   }
 
   /// Divide a continuous output range for discrete points.
-  rangePoints(interval, [padding]) {
-    return _proxy.callMethod('rangePoints', []);
+  Ordinal rangePoints(List interval, [num padding = undefined]) {
+    var args = [interval];
+    if (padding != undefined) {
+      args.add(padding);
+    }
+    return new Ordinal._(_proxy.callMethod('rangePoints', args));
   }
 
   /// Divide a continuous output range for discrete points.
-  rangeRoundPoints(interval, [padding]) {
-    return _proxy.callMethod('rangeRoundPoints', []);
+  Ordinal rangeRoundPoints(List interval, [num padding = undefined]) {
+    var args = [interval];
+    if (padding != undefined) {
+      args.add(padding);
+    }
+    return new Ordinal._(_proxy.callMethod('rangeRoundPoints', args));
   }
 
   /// Divide a continuous output range for discrete bands.
-  rangeBands(interval, [padding, outerPadding]) {
-    return _proxy.callMethod('rangeBands', []);
+  Ordinal rangeBands(List interval,
+      [num padding = undefined, num outerPadding = undefined]) {
+    var args = [interval];
+    if (padding != undefined) {
+      args.add(padding);
+    }
+    if (outerPadding != undefined) {
+      args.add(outerPadding);
+    }
+    return new Ordinal._(_proxy.callMethod('rangeBands', args));
   }
 
   /// Divide a continuous output range for discrete bands.
-  Ordinal rangeRoundBands(interval, [padding, outerPadding]) {
-    return _proxy.callMethod('rangeRoundBands', []);
+  Ordinal rangeRoundBands(List interval,
+      [num padding = undefined, num outerPadding = undefined]) {
+    var args = [interval];
+    if (padding != undefined) {
+      args.add(padding);
+    }
+    if (outerPadding != undefined) {
+      args.add(outerPadding);
+    }
+    return new Ordinal._(_proxy.callMethod('rangeRoundBands', args));
   }
 
   /// Get the discrete range band width.
-  rangeBand() {
-    return _proxy.callMethod('rangeBand', []);
-  }
+  rangeBand() => _proxy.callMethod('rangeBand');
 
   /// Get the minimum and maximum values of the output range.
-  rangeExtent() {
-    return _proxy.callMethod('rangeExtent', []);
-  }
+  rangeExtent() => _proxy.callMethod('rangeExtent');
 
   /// Create a new scale from an existing scale.
-  copy() {
-    return _proxy.callMethod('copy', []);
-  }
+  Ordinal copy() => new Ordinal._(_proxy.callMethod('copy'));
 }
 
 /// Construct an ordinal scale with ten categorical colors.
-category10() {
-  return _scale.callMethod('category10', []);
-}
+Ordinal category10() => new Ordinal._(_scale.callMethod('category10'));
 
 /// Construct an ordinal scale with twenty categorical colors.
-category20() {
-  return _scale.callMethod('category20', []);
-}
+Ordinal category20() => new Ordinal._(_scale.callMethod('category20'));
 
 /// Construct an ordinal scale with twenty categorical colors.
-category20b() {
-  return _scale.callMethod('category20b', []);
-}
+Ordinal category20b() => new Ordinal._(_scale.callMethod('category20b'));
 
 /// Construct an ordinal scale with twenty categorical colors.
-category20c() {
-  return _scale.callMethod('category20c', []);
-}
+Ordinal category20c() => new Ordinal._(_scale.callMethod('category20c'));
