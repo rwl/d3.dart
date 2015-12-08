@@ -1,186 +1,281 @@
 library d3.src.geo;
 
 import 'dart:js';
+import 'd3.dart';
 
 JsObject _geo = context['d3']['geo'];
 
 /// Create a new geographic path generator.
-Path path() {
-  return _geo.callMethod('path', []);
-}
+Path path() => new Path._(_geo.callMethod('path'));
 
 class Path {
   final JsObject _proxy;
 
   Path._(this._proxy);
 
-  call(feature, [index]) => path(feature, index);
-
   /// Project the specified feature and render it to the context.
-  path(feature, [index]) {
-    return _proxy.callMethod('path', []);
+  String call(Map feature, [num index = undefined]) {
+    var args = [_proxy, new JsObject.jsify(feature)];
+    if (index != undefined) {
+      args.add(index);
+    }
+    return _proxy.callMethod('call', args);
   }
 
   /// Get or set the geographic projection.
-  projection([projection]) {
-    return _proxy.callMethod('projection', []);
+  projection([projection(coords) = undefined]) {
+    var args = [];
+    if (projection != undefined) {
+      args.add(projection);
+    }
+    var retval = _proxy.callMethod('projection', args);
+    if (projection == undefined) {
+      return retval;
+    } else {
+      return new Path._(retval);
+    }
   }
 
   /// Get or set the render context.
-  context([context]) {
-    return _proxy.callMethod('context', []);
+  context([context = undefined]) {
+    var args = [];
+    if (context != undefined) {
+      args.add(context);
+    }
+    var retval = _proxy.callMethod('context', args);
+    if (context == undefined) {
+      return retval;
+    } else {
+      return new Path._(retval);
+    }
   }
 
   /// Compute the projected area of a given feature.
-  area(feature) {
-    return _proxy.callMethod('area', []);
+  num area(Map feature) {
+    return _proxy.callMethod('area', [new JsObject.jsify(feature)]);
   }
 
   /// Compute the projected centroid of a given feature.
-  centroid(feature) {
-    return _proxy.callMethod('centroid', []);
+  List centroid(Map feature) {
+    return _proxy.callMethod('centroid', [new JsObject.jsify(feature)]);
   }
 
   /// Compute the projected bounds of a given feature.
-  bounds(feature) {
-    return _proxy.callMethod('bounds', []);
+  List bounds(Map feature) {
+    return _proxy.callMethod('bounds', [new JsObject.jsify(feature)]);
   }
 
   /// Get or set the radius to display point features.
-  pointRadius([radius]) {
-    return _proxy.callMethod('pointRadius', []);
+  pointRadius([radius = undefined]) {
+    var args = [];
+    if (radius is Function) {
+      args.add(func4VarArgs(radius));
+    } else if (radius != undefined) {
+      args.add(radius);
+    }
+    var retval = _proxy.callMethod('pointRadius', args);
+    if (radius == undefined) {
+      return retval;
+    } else {
+      return new Path._(retval);
+    }
   }
 }
 
 /// Create a graticule generator.
-Graticule graticule() {
-  return _geo.callMethod('graticule', []);
-}
+Graticule graticule() => new Graticule._(_geo.callMethod('graticule'));
 
 class Graticule {
   final JsObject _proxy;
 
   Graticule._(this._proxy);
 
-  call() => graticule();
-
   /// Generate a MultiLineString of meridians and parallels.
-  graticule() {
-    return _proxy.callMethod('graticule', []);
-  }
+  call() => _proxy.callMethod('call', [_proxy]);
 
   /// Generate an array of LineStrings of meridians and parallels.
-  lines() {
-    return _proxy.callMethod('lines', []);
-  }
+  List lines() => _proxy.callMethod('lines');
 
   /// Generate a Polygon of the graticule's extent.
-  outline() {
-    return _proxy.callMethod('outline', []);
-  }
+  outline() => _proxy.callMethod('outline');
 
   /// Get or set the major & minor extents.
-  extent(extent) {
-    return _proxy.callMethod('extent', []);
+  extent([List extent = undefined]) {
+    var args = [];
+    if (extent != undefined) {
+      args.add(extent);
+    }
+    var retval = _proxy.callMethod('extent', args);
+    if (extent == undefined) {
+      return retval;
+    } else {
+      return new Graticule._(retval);
+    }
   }
 
   /// Get or set the major extent.
-  majorExtent(extent) {
-    return _proxy.callMethod('majorExtent', []);
+  majorExtent([List extent = undefined]) {
+    var args = [];
+    if (extent != undefined) {
+      args.add(extent);
+    }
+    var retval = _proxy.callMethod('majorExtent', args);
+    if (extent == undefined) {
+      return retval;
+    } else {
+      return new Graticule._(retval);
+    }
   }
 
   /// Get or set the minor extent.
-  minorExtent(extent) {
-    return _proxy.callMethod('minorExtent', []);
+  minorExtent([List extent = undefined]) {
+    var args = [];
+    if (extent != undefined) {
+      args.add(extent);
+    }
+    var retval = _proxy.callMethod('minorExtent', args);
+    if (extent == undefined) {
+      return retval;
+    } else {
+      return new Graticule._(retval);
+    }
   }
 
   /// Get or set the major & minor step intervals.
-  step(step) {
-    return _proxy.callMethod('step', []);
+  step([List step = undefined]) {
+    var args = [];
+    if (step != undefined) {
+      args.add(step);
+    }
+    var retval = _proxy.callMethod('step', args);
+    if (step == undefined) {
+      return retval;
+    } else {
+      return new Graticule._(retval);
+    }
   }
 
   /// Get or set the major step intervals.
-  majorStep(step) {
-    return _proxy.callMethod('majorStep', []);
+  majorStep([List step = undefined]) {
+    var args = [];
+    if (step != undefined) {
+      args.add(step);
+    }
+    var retval = _proxy.callMethod('majorStep', args);
+    if (step == undefined) {
+      return retval;
+    } else {
+      return new Graticule._(retval);
+    }
   }
 
   /// Get or set the minor step intervals.
-  minorStep(step) {
-    return _proxy.callMethod('minorStep', []);
+  minorStep([List step = undefined]) {
+    var args = [];
+    if (step != undefined) {
+      args.add(step);
+    }
+    var retval = _proxy.callMethod('minorStep', args);
+    if (step == undefined) {
+      return retval;
+    } else {
+      return new Graticule._(retval);
+    }
   }
 
   /// Get or set the latitudinal precision.
-  precision(precision) {
-    return _proxy.callMethod('precision', []);
+  precision([num precision = undefined]) {
+    var args = [];
+    if (precision != undefined) {
+      args.add(precision);
+    }
+    var retval = _proxy.callMethod('precision', args);
+    if (precision == undefined) {
+      return retval;
+    } else {
+      return new Graticule._(retval);
+    }
   }
 }
 
 /// Create a circle generator.
-Circle circle() {
-  return _geo.callMethod('circle', []);
-}
+Circle circle() => new Circle._(_geo.callMethod('circle'));
 
 class Circle {
   final JsObject _proxy;
 
   Circle._(this._proxy);
 
-  call(arguments) => circle(arguments);
-
   /// Generate a piecewise circle as a Polygon.
-  circle(arguments) {
-    return _proxy.callMethod('circle', []);
+  call(List arguments) {
+    var args = [_proxy]..addAll(arguments);
+    return _proxy.callMethod('call', args);
   }
 
   /// Specify the origin in latitude and longitude.
-  origin([origin]) {
-    return _proxy.callMethod('origin', []);
+  origin([origin = undefined]) {
+    var args = [];
+    if (origin != undefined) {
+      args.add(origin);
+    }
+    var retval = _proxy.callMethod('origin', args);
+    if (origin == undefined) {
+      return retval;
+    } else {
+      return new Circle._(retval);
+    }
   }
 
   /// Specify the angular radius in degrees.
-  angle([angle]) {
-    return _proxy.callMethod('angle', []);
+  angle([num angle = undefined]) {
+    var args = [];
+    if (angle != undefined) {
+      args.add(angle);
+    }
+    var retval = _proxy.callMethod('angle', args);
+    if (angle == undefined) {
+      return retval;
+    } else {
+      return new Circle._(retval);
+    }
   }
 
   /// Specify the precision of the piecewise circle.
-  precision([precision]) {
-    return _proxy.callMethod('precision', []);
+  precision([num precision = undefined]) {
+    var args = [];
+    if (precision != undefined) {
+      args.add(precision);
+    }
+    var retval = _proxy.callMethod('precision', args);
+    if (precision == undefined) {
+      return retval;
+    } else {
+      return new Circle._(retval);
+    }
   }
 }
 
 /// Compute the spherical area of a given feature.
-area(feature) {
-  return _geo.callMethod('area', []);
-}
+num area(feature) => _geo.callMethod('area', [feature]);
 
 /// Compute the spherical centroid of a given feature.
-centroid(feature) {
-  return _geo.callMethod('centroid', []);
-}
+List centroid(feature) => _geo.callMethod('centroid', [feature]);
 
 /// Compute the latitude-longitude bounding box for a given feature.
-bounds(feature) {
-  return _geo.callMethod('bounds', []);
-}
+List bounds(feature) => _geo.callMethod('bounds', [feature]);
 
 /// Compute the great-arc distance between two points.
-distance(a, b) {
-  return _geo.callMethod('distance', []);
-}
+num distance(List a, List b) => _geo.callMethod('distance', [a, b]);
 
 /// Compute the length of a line string or the perimeter of a polygon.
-length(feature) {
-  return _geo.callMethod('length', []);
-}
+num length(feature) => _geo.callMethod('length', [feature]);
 
 /// Interpolate between two points along a great arc.
-interpolate(a, b) {
-  return _geo.callMethod('interpolate', []);
-}
+Function interpolate(List a, List b) => _geo.callMethod('interpolate', [a, b]);
 
 /// Create a rotation function for the specified angles [λ, φ, γ].
 Rotation rotation(rotate) {
-  return _geo.callMethod('rotation', []);
+  return new Rotation._(_geo.callMethod('rotation', [rotate]));
 }
 
 class Rotation {
@@ -188,22 +283,20 @@ class Rotation {
 
   Rotation._(this._proxy);
 
-  call(location) => rotation(location);
-
   /// Rotate the given location around the sphere.
-  rotation(location) {
-    return _proxy.callMethod('rotation', []);
+  List call(List location) {
+    return _proxy.callMethod('call', [_proxy, location]);
   }
 
   /// Inverse-rotate the given location around the sphere.
-  invert(location) {
-    return _proxy.callMethod('invert', []);
+  List invert(List location) {
+    return _proxy.callMethod('invert', [location]);
   }
 }
 
 /// Create a standard projection from a raw projection.
-Projection projection(raw) {
-  return _geo.callMethod('projection', []);
+Projection projection(Function raw) {
+  return new Projection._(_geo.callMethod('projection', [raw]));
 }
 
 class Projection {
@@ -211,87 +304,148 @@ class Projection {
 
   Projection._(this._proxy);
 
-  call(location) => projection(location);
-
   /// Project the specified location.
-  projection(location) {
-    return _proxy.callMethod('projection', []);
+  List call(List location) {
+    return _proxy.callMethod('call', [_proxy, location]);
   }
 
   /// Invert the projection for the specified point.
-  invert(point) {
-    return _proxy.callMethod('invert', []);
+  List invert(List point) {
+    return _proxy.callMethod('invert', [point]);
   }
 
   /// Get or set the projection's three-axis rotation.
-  rotate([rotation]) {
-    return _proxy.callMethod('rotate', []);
+  rotate([List rotation = undefined]) {
+    var args = [];
+    if (rotation != undefined) {
+      args.add(rotation);
+    }
+    var retval = _proxy.callMethod('rotate', args);
+    if (rotation == undefined) {
+      return retval;
+    } else {
+      return new Projection._(retval);
+    }
   }
 
   /// Get or set the projection's center location.
-  center([location]) {
-    return _proxy.callMethod('center', []);
+  center([List location = undefined]) {
+    var args = [];
+    if (location != undefined) {
+      args.add(location);
+    }
+    var retval = _proxy.callMethod('center', args);
+    if (location == undefined) {
+      return retval;
+    } else {
+      return new Projection._(retval);
+    }
   }
 
   /// Get or set the projection's translation position.
-  translate([point]) {
-    return _proxy.callMethod('translate', []);
+  translate([List point = undefined]) {
+    var args = [];
+    if (point != undefined) {
+      args.add(point);
+    }
+    var retval = _proxy.callMethod('translate', args);
+    if (point == undefined) {
+      return retval;
+    } else {
+      return new Projection._(retval);
+    }
   }
 
   /// Get or set the projection's scale factor.
-  scale([scale]) {
-    return _proxy.callMethod('scale', []);
+  scale([num scale = undefined]) {
+    var args = [];
+    if (scale != undefined) {
+      args.add(scale);
+    }
+    var retval = _proxy.callMethod('scale', args);
+    if (scale == undefined) {
+      return retval;
+    } else {
+      return new Projection._(retval);
+    }
   }
 
   /// Get or set the radius of the projection's clip circle.
-  clipAngle(angle) {
-    return _proxy.callMethod('clipAngle', []);
+  clipAngle([num angle = undefined]) {
+    var args = [];
+    if (angle != undefined) {
+      args.add(angle);
+    }
+    var retval = _proxy.callMethod('clipAngle', args);
+    if (angle == undefined) {
+      return retval;
+    } else {
+      return new Projection._(retval);
+    }
   }
 
   /// Get or set the projection's viewport clip extent, in pixels.
-  clipExtent(extent) {
-    return _proxy.callMethod('clipExtent', []);
+  clipExtent([List extent = undefined]) {
+    var args = [];
+    if (extent != undefined) {
+      args.add(extent);
+    }
+    var retval = _proxy.callMethod('clipExtent', args);
+    if (extent == undefined) {
+      return retval;
+    } else {
+      return new Projection._(retval);
+    }
   }
 
   /// Get or set the precision threshold for adaptive resampling.
-  precision(precision) {
-    return _proxy.callMethod('precision', []);
+  precision([num precision = undefined]) {
+    var args = [];
+    if (precision != undefined) {
+      args.add(precision);
+    }
+    var retval = _proxy.callMethod('precision', args);
+    if (precision == undefined) {
+      return retval;
+    } else {
+      return new Projection._(retval);
+    }
   }
 
   /// Wrap the specified stream listener, projecting input geometry.
-  stream(listener) {
-    return _proxy.callMethod('stream', []);
+  StreamListener stream(StreamListener listener) {
+    return new StreamListener._(_proxy.callMethod('stream', [listener._proxy]));
   }
 }
 
 /// Create a standard projection from a mutable raw projection.
-Function projectionMutator(rawFactory) {
-  return _geo.callMethod('projectionMutator', []);
+Function projectionMutator(Function rawFactory) {
+  return _geo.callMethod('projectionMutator', [rawFactory]);
 }
 
 /// The Albers equal-area conic projection.
-albers() {
-  return _geo.callMethod('albers', []);
+Projection albers() {
+  return new Projection._(_geo.callMethod('albers'));
 }
 
 /// A composite Albers projection for the United States.
-albersUsa() {
-  return _geo.callMethod('albersUsa', []);
+Projection albersUsa() {
+  return new Projection._(_geo.callMethod('albersUsa'));
 }
 
 /// The azimuthal equal-area projection.
-azimuthalEqualArea() {
-  return _geo.callMethod('azimuthalEqualArea', []);
+Projection azimuthalEqualArea() {
+  return new Projection._(_geo.callMethod('azimuthalEqualArea'));
 }
 
 /// The azimuthal equidistant projection.
-azimuthalEquidistant() {
-  return _geo.callMethod('azimuthalEquidistant', []);
+Projection azimuthalEquidistant() {
+  return new Projection._(_geo.callMethod('azimuthalEquidistant'));
 }
 
 /// The conic conformal projection.
 ConicConformal conicConformal() {
-  return _geo.callMethod('conicConformal', []);
+  return new ConicConformal._(_geo.callMethod('conicConformal'));
 }
 
 class ConicConformal {
@@ -300,14 +454,23 @@ class ConicConformal {
   ConicConformal._(this._proxy);
 
   /// Get or set the projection's two standard parallels.
-  parallels([parallels]) {
-    return _proxy.callMethod('parallels', []);
+  parallels([List parallels = undefined]) {
+    var args = [];
+    if (parallels != undefined) {
+      args.add(parallels);
+    }
+    var retval = _proxy.callMethod('parallels', args);
+    if (parallels == undefined) {
+      return retval;
+    } else {
+      return new ConicConformal._(retval);
+    }
   }
 }
 
 /// The conic equal-area (a.k.a. Albers) projection.
 ConicEqualArea conicEqualArea() {
-  return _geo.callMethod('conicEqualArea', []);
+  return new ConicEqualArea._(_geo.callMethod('conicEqualArea'));
 }
 
 class ConicEqualArea {
@@ -316,14 +479,23 @@ class ConicEqualArea {
   ConicEqualArea._(this._proxy);
 
   /// Get or set the projection's two standard parallels.
-  parallels([parallels]) {
-    return _proxy.callMethod('parallels', []);
+  parallels([List parallels = undefined]) {
+    var args = [];
+    if (parallels != undefined) {
+      args.add(parallels);
+    }
+    var retval = _proxy.callMethod('parallels', args);
+    if (parallels == undefined) {
+      return retval;
+    } else {
+      return new ConicEqualArea._(retval);
+    }
   }
 }
 
 /// The conic equidistant projection.
 ConicEquidistant conicEquidistant() {
-  return _geo.callMethod('conicEquidistant', []);
+  return new ConicEquidistant._(_geo.callMethod('conicEquidistant'));
 }
 
 class ConicEquidistant {
@@ -332,84 +504,108 @@ class ConicEquidistant {
   ConicEquidistant._(this._proxy);
 
   /// Get or set the projection's two standard parallels.
-  parallels([parallels]) {
-    return _proxy.callMethod('parallels', []);
+  parallels([List parallels = undefined]) {
+    var args = [];
+    if (parallels != undefined) {
+      args.add(parallels);
+    }
+    var retval = _proxy.callMethod('parallels', args);
+    if (parallels == undefined) {
+      return retval;
+    } else {
+      return new ConicEquidistant._(retval);
+    }
   }
 }
 
 /// The equirectangular (plate carreé) projection.
-equirectangular() {
-  return _geo.callMethod('equirectangular', []);
+Projection equirectangular() {
+  return new Projection._(_geo.callMethod('equirectangular'));
 }
 
 /// The gnomonic projection.
-gnomonic() {
-  return _geo.callMethod('gnomonic', []);
+Projection gnomonic() {
+  return new Projection._(_geo.callMethod('gnomonic'));
 }
 
 /// The spherical Mercator projection.
-mercator() {
-  return _geo.callMethod('mercator', []);
+Projection mercator() {
+  return new Projection._(_geo.callMethod('mercator'));
 }
 
 /// The azimuthal orthographic projection.
-orthographic() {
-  return _geo.callMethod('orthographic', []);
+Projection orthographic() {
+  return new Projection._(_geo.callMethod('orthographic'));
 }
 
 /// The azimuthal stereographic projection.
-stereographic() {
-  return _geo.callMethod('stereographic', []);
+Projection stereographic() {
+  return new Projection._(_geo.callMethod('stereographic'));
 }
 
 /// The transverse Mercator projection.
-transverseMercator() {
-  return _geo.callMethod('transverseMercator', []);
+Projection transverseMercator() {
+  return new Projection._(_geo.callMethod('transverseMercator'));
 }
 
-albersRaw(a0, a1) {
-  return _geo['albers'].callMethod('raw', []);
+Projection albersRaw(num a0, num a1) {
+  return new Projection._(_geo['albers'].callMethod('raw', [a0, a1]));
 }
 
 /// The raw azimuthal equal-area projection.
-get azimuthalEqualAreaRaw => _geo['azimuthalEqualArea']['raw'];
+Projection get azimuthalEqualAreaRaw {
+  return new Projection._(_geo['azimuthalEqualArea']['raw']);
+}
 
 /// The azimuthal equidistant projection.
-get azimuthalEquidistantRaw => _geo['azimuthalEquidistant']['raw'];
+Projection get azimuthalEquidistantRaw {
+  return new Projection._(_geo['azimuthalEquidistant']['raw']);
+}
 
 /// The raw conic conformal projection.
-conicConformalRaw(a0, a1) {
-  return _geo['conicConformal'].callMethod('raw', []);
+Projection conicConformalRaw(num a0, num a1) {
+  return new Projection._(_geo['conicConformal'].callMethod('raw', [a0, a1]));
 }
 
 /// The raw conic equal-area (a.k.a. Albers) projection.
-conicEqualAreaRaw(a0, a1) {
-  return _geo['conicEqualArea'].callMethod('raw', []);
+Projection conicEqualAreaRaw(num a0, num a1) {
+  return new Projection._(_geo['conicEqualArea'].callMethod('raw', [a0, a1]));
 }
 
 /// The raw conic equidistant projection.
-conicEquidistantRaw(a0, a1) {
-  return _geo['conicEquidistant'].callMethod('raw', []);
+Projection conicEquidistantRaw(num a0, num a1) {
+  return new Projection._(_geo['conicEquidistant'].callMethod('raw', [a0, a1]));
 }
 
 /// The raw equirectangular (plate carrée) projection.
-get equirectangularRaw => _geo['equirectangular']['raw'];
+Projection get equirectangularRaw {
+  return new Projection._(_geo['equirectangular']['raw']);
+}
 
 /// The raw gnomonic projection.
-get gnomonicRaw => _geo['gnomonic']['raw'];
+Projection get gnomonicRaw {
+  return new Projection._(_geo['gnomonic']['raw']);
+}
 
 /// The raw Mercator projection.
-get mercatorRaw => _geo['mercator']['raw'];
+Projection get mercatorRaw {
+  return new Projection._(_geo['mercator']['raw']);
+}
 
 /// The raw azimuthal orthographic projection.
-get orthographicRaw => _geo['orthographic']['raw'];
+Projection get orthographicRaw {
+  return new Projection._(_geo['orthographic']['raw']);
+}
 
 /// The raw azimuthal stereographic projection.
-get stereographicRaw => _geo['stereographic']['raw'];
+Projection get stereographicRaw {
+  return new Projection._(_geo['stereographic']['raw']);
+}
 
 /// Convert a GeoJSON object to a geometry stream.
-StreamListener stream(object, listener) {
-  return _geo.callMethod('stream', []);
+StreamListener stream(Map object, StreamListener listener) {
+  var args = [new JsObject.jsify(object), listener._proxy];
+  return new StreamListener._(_geo.callMethod('stream', args));
 }
 
 class StreamListener {
@@ -418,39 +614,35 @@ class StreamListener {
   StreamListener._(this._proxy);
 
   /// Indicate an x, y (and optionally z) coordinate.
-  point(x, y, [z]) {
-    return _proxy.callMethod('point', []);
+  point(num x, num y, [num z = undefined]) {
+    var args = [x, y];
+    if (z != undefined) {
+      args.add(z);
+    }
+    var retval = _proxy.callMethod('point', args);
+    return new StreamListener._(retval);
   }
 
   /// Indicate the start of a line or ring.
-  lineStart() {
-    return _proxy.callMethod('lineStart', []);
-  }
+  lineStart() => new StreamListener._(_proxy.callMethod('lineStart'));
 
   /// Indicate the end of a line or ring.
-  lineEnd() {
-    return _proxy.callMethod('lineEnd', []);
-  }
+  lineEnd() => new StreamListener._(_proxy.callMethod('lineEnd'));
 
   /// Indicate the start of a polygon.
-  polygonStart() {
-    return _proxy.callMethod('polygonStart', []);
-  }
+  polygonStart() => new StreamListener._(_proxy.callMethod('polygonStart'));
 
   /// Indicate the end of a polygon.
-  polygonEnd() {
-    return _proxy.callMethod('polygonEnd', []);
-  }
+  polygonEnd() => new StreamListener._(_proxy.callMethod('polygonEnd'));
 
   /// Indicate a sphere.
-  sphere() {
-    return _proxy.callMethod('sphere', []);
-  }
+  sphere() => new StreamListener._(_proxy.callMethod('sphere'));
 }
 
 /// Transform streaming geometries.
-StreamTransform transform(methods) {
-  return _geo.callMethod('transform', []);
+StreamTransform transform(Map methods) {
+  var args = [new JsObject.jsify(methods)];
+  return new StreamTransform._(_geo.callMethod('transform', args));
 }
 
 class StreamTransform {
@@ -459,15 +651,13 @@ class StreamTransform {
   StreamTransform._(this._proxy);
 
   /// Wraps a given stream.
-  stream(listener) {
-    return _proxy.callMethod('stream', []);
+  StreamListener stream(StreamListener listener) {
+    return new StreamListener._(_proxy.callMethod('stream', [listener._proxy]));
   }
 }
 
 /// A stream transform that clips geometries to a given axis-aligned rectangle.
-ClipExtent clipExtent() {
-  return _geo.callMethod('clipExtent', []);
-}
+ClipExtent clipExtent() => new ClipExtent._(_geo.callMethod('clipExtent'));
 
 class ClipExtent {
   final JsObject _proxy;
@@ -475,7 +665,16 @@ class ClipExtent {
   ClipExtent._(this._proxy);
 
   /// Sets the clip extent.
-  extent([extent]) {
-    return _proxy.callMethod('extent', []);
+  extent([List extent = undefined]) {
+    var args = [];
+    if (extent != undefined) {
+      args.add(extent);
+    }
+    var retval = _proxy.callMethod('extent', args);
+    if (extent == undefined) {
+      return retval;
+    } else {
+      return new ClipExtent._(retval);
+    }
   }
 }
