@@ -14,19 +14,16 @@ class Dsv {
 
   Dsv._(this._proxy);
 
-  call(String url, [accessor(d) = undefinedFn, callback(rows) = undefinedFn]) =>
-      dsv(url, accessor, callback);
-
   /// Create a parser/formatter for the specified delimiter and mime type.
-  dsv(String url, [accessor(d) = undefinedFn, callback(rows) = undefinedFn]) {
-    var args = [url];
+  call(String url, [accessor(d) = undefinedFn, callback(rows) = undefinedFn]) {
+    var args = [_proxy, url];
     if (accessor != undefinedFn) {
       args.add(accessor);
     }
     if (callback != undefinedFn) {
       args.add(callback);
     }
-    return _proxy.callMethod('dsv', args);
+    return _proxy.callMethod('call', args);
   }
 
   List parse(String string, [accessor(d) = undefinedFn]) {

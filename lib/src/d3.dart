@@ -86,18 +86,3 @@ Func3Args func2VarArgs(value) {
     }
   };
 }
-
-Function funcVarArgs(fn, arg1, arg2, arg3, arg4, arg5, arg6, arg7) {
-  if (arg1 == undefined) {
-    return (arg0) => fn(arg0);
-  } else if (arg2 == undefined) {
-    return (arg0, arg1) {
-      return fn(arg0, arg1);
-    };
-  } else if (arg3 == undefined) {
-    return (arg0, arg1, arg3) {
-      return fn(arg0, arg1, arg3);
-    };
-  }
-  throw new UnimplementedError('varargs');
-}

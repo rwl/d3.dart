@@ -20,13 +20,13 @@ class LinearScale {
   invert(y) => _proxy.callMethod('invert', [y]);
 
   /// Get or set the scale's input domain.
-  domain([List<num> numbers = undefined]) {
+  domain([List<num> numbers = undefinedList]) {
     var args = [];
-    if (numbers != undefined) {
+    if (numbers != undefinedList) {
       args.add(numbers);
     }
     var retval = _proxy.callMethod('domain', args);
-    if (numbers == undefined) {
+    if (numbers == undefinedList) {
       return retval;
     } else {
       return new LinearScale._(retval);
@@ -34,13 +34,13 @@ class LinearScale {
   }
 
   /// Get or set the scale's output range.
-  range([List values = undefined]) {
+  range([List values = undefinedList]) {
     var args = [];
-    if (values != undefined) {
+    if (values != undefinedList) {
       args.add(values);
     }
     var retval = _proxy.callMethod('range', args);
-    if (values == undefined) {
+    if (values == undefinedList) {
       return retval;
     } else {
       return new LinearScale._(retval);
@@ -49,11 +49,7 @@ class LinearScale {
 
   /// Set the scale's output range, and enable rounding.
   LinearScale rangeRound(List values) {
-    var args = [];
-    if (values != undefined) {
-      args.add(values);
-    }
-    return new LinearScale._(_proxy.callMethod('rangeRound', args));
+    return new LinearScale._(_proxy.callMethod('rangeRound', [values]));
   }
 
   /// Get or set the scale's output interpolator.
@@ -71,7 +67,7 @@ class LinearScale {
   }
 
   /// Enable or disable clamping of the output range.
-  clamp([bool boolean = undefined]) {
+  clamp([/*bool*/ boolean = undefined]) {
     var args = [];
     if (boolean != undefined) {
       args.add(boolean);
@@ -85,9 +81,9 @@ class LinearScale {
   }
 
   /// Extend the scale domain to nice round numbers.
-  LinearScale nice([int count = undefined]) {
+  LinearScale nice([int count = undefinedInt]) {
     var args = [];
-    if (count != undefined) {
+    if (count != undefinedInt) {
       args.add(count);
     }
     return new LinearScale._(_proxy.callMethod('nice', args));
@@ -99,9 +95,9 @@ class LinearScale {
   }
 
   /// Get a formatter for displaying tick values.
-  LinearScale tickFormat(int count, [String format = undefined]) {
+  LinearScale tickFormat(int count, [String format = undefinedString]) {
     var args = [count];
-    if (format != undefined) {
+    if (format != undefinedString) {
       args.add(format);
     }
     return new LinearScale._(_proxy.callMethod('tickFormat', args));
@@ -128,13 +124,13 @@ class IdentityScale {
   invert(x) => _proxy.callMethod('invert', [x]);
 
   /// Get or set the scale's domain and range.
-  domain([List<num> numbers = undefined]) {
+  domain([List<num> numbers = undefinedList]) {
     var args = [];
-    if (numbers != undefined) {
+    if (numbers != undefinedList) {
       args.add(numbers);
     }
     var retval = _proxy.callMethod('domain', args);
-    if (numbers == undefined) {
+    if (numbers == undefinedList) {
       return retval;
     } else {
       return new IdentityScale._(retval);
@@ -142,13 +138,13 @@ class IdentityScale {
   }
 
   /// Equivalent to identity.domain.
-  range([List<num> numbers = undefined]) {
+  range([List<num> numbers = undefinedList]) {
     var args = [];
-    if (numbers != undefined) {
+    if (numbers != undefinedList) {
       args.add(numbers);
     }
     var retval = _proxy.callMethod('range', args);
-    if (numbers == undefined) {
+    if (numbers == undefinedList) {
       return retval;
     } else {
       return new IdentityScale._(retval);
@@ -161,9 +157,9 @@ class IdentityScale {
   }
 
   /// Get a formatter for displaying tick values.
-  tickFormat(int count, [String format = undefined]) {
+  tickFormat(int count, [String format = undefinedString]) {
     var args = [count];
-    if (format != undefined) {
+    if (format != undefinedString) {
       args.add(format);
     }
     return new IdentityScale._(_proxy.callMethod('tickFormat', args));
@@ -191,13 +187,13 @@ class Pow {
   invert(y) => _proxy.callMethod('invert', [y]);
 
   /// Get or set the scale's input domain.
-  domain([List<num> numbers = undefined]) {
+  domain([List<num> numbers = undefinedList]) {
     var args = [];
-    if (numbers != undefined) {
+    if (numbers != undefinedList) {
       args.add(numbers);
     }
     var retval = _proxy.callMethod('domain', args);
-    if (numbers == undefined) {
+    if (numbers == undefinedList) {
       return retval;
     } else {
       return new Pow._(retval);
@@ -205,13 +201,13 @@ class Pow {
   }
 
   /// Get or set the scale's output range.
-  range([List<num> numbers = undefined]) {
+  range([List<num> numbers = undefinedList]) {
     var args = [];
-    if (numbers != undefined) {
+    if (numbers != undefinedList) {
       args.add(numbers);
     }
     var retval = _proxy.callMethod('range', args);
-    if (numbers == undefined) {
+    if (numbers == undefinedList) {
       return retval;
     } else {
       return new Pow._(retval);
@@ -220,21 +216,17 @@ class Pow {
 
   /// Set the scale's output range, and enable rounding.
   Pow rangeRound(List values) {
-    var args = [];
-    if (values != undefined) {
-      args.add(values);
-    }
-    return new Pow._(_proxy.callMethod('rangeRound', args));
+    return new Pow._(_proxy.callMethod('rangeRound', [values]));
   }
 
   /// Get or set the exponent power.
-  exponent([num k = undefined]) {
+  exponent([num k = undefinedNum]) {
     var args = [];
-    if (k != undefined) {
+    if (k != undefinedNum) {
       args.add(k);
     }
     var retval = _proxy.callMethod('exponent', args);
-    if (k == undefined) {
+    if (k == undefinedNum) {
       return retval;
     } else {
       return new Pow._(retval);
@@ -256,7 +248,7 @@ class Pow {
   }
 
   /// Enable or disable clamping of the output range.
-  clamp([bool boolean = undefined]) {
+  clamp([/*bool*/ boolean = undefined]) {
     var args = [];
     if (boolean != undefined) {
       args.add(boolean);
@@ -270,9 +262,9 @@ class Pow {
   }
 
   /// Extend the scale domain to nice round numbers.
-  Pow nice([int m = undefined]) {
+  Pow nice([int m = undefinedInt]) {
     var args = [];
-    if (m != undefined) {
+    if (m != undefinedInt) {
       args.add(m);
     }
     return new Pow._(_proxy.callMethod('nice', args));
@@ -284,9 +276,9 @@ class Pow {
   }
 
   /// Get a formatter for displaying tick values.
-  Pow tickFormat(int count, [String format = undefined]) {
+  Pow tickFormat(int count, [String format = undefinedString]) {
     var args = [count];
-    if (format != undefined) {
+    if (format != undefinedString) {
       args.add(format);
     }
     return new Pow._(_proxy.callMethod('tickFormat', args));
@@ -311,13 +303,13 @@ class Log {
   invert(y) => _proxy.callMethod('invert', [y]);
 
   /// Get or set the scale's input domain.
-  domain([List<num> numbers = undefined]) {
+  domain([List<num> numbers = undefinedList]) {
     var args = [];
-    if (numbers != undefined) {
+    if (numbers != undefinedList) {
       args.add(numbers);
     }
     var retval = _proxy.callMethod('domain', args);
-    if (numbers == undefined) {
+    if (numbers == undefinedList) {
       return retval;
     } else {
       return new Log._(retval);
@@ -325,13 +317,13 @@ class Log {
   }
 
   /// Get or set the scale's output range.
-  range([List<num> numbers = undefined]) {
+  range([List<num> numbers = undefinedList]) {
     var args = [];
-    if (numbers != undefined) {
+    if (numbers != undefinedList) {
       args.add(numbers);
     }
     var retval = _proxy.callMethod('range', args);
-    if (numbers == undefined) {
+    if (numbers == undefinedList) {
       return retval;
     } else {
       return new Log._(retval);
@@ -340,20 +332,16 @@ class Log {
 
   /// Set the scale's output range, and enable rounding.
   Log rangeRound(List values) {
-    var args = [];
-    if (values != undefined) {
-      args.add(values);
-    }
-    return new Log._(_proxy.callMethod('rangeRound', args));
+    return new Log._(_proxy.callMethod('rangeRound', [values]));
   }
 
-  base([num k = undefined]) {
+  base([num k = undefinedNum]) {
     var args = [];
-    if (k != undefined) {
+    if (k != undefinedNum) {
       args.add(k);
     }
     var retval = _proxy.callMethod('base', args);
-    if (k == undefined) {
+    if (k == undefinedNum) {
       return retval;
     } else {
       return new Log._(retval);
@@ -375,7 +363,7 @@ class Log {
   }
 
   /// Enable or disable clamping of the output range.
-  clamp([bool boolean = undefined]) {
+  clamp([/*bool*/ boolean = undefined]) {
     var args = [];
     if (boolean != undefined) {
       args.add(boolean);
@@ -395,12 +383,12 @@ class Log {
   ticks() => _proxy.callMethod('ticks');
 
   /// Get a formatter for displaying tick values.
-  Log tickFormat([int count = undefined, String format = undefined]) {
+  Log tickFormat([int count = undefinedInt, String format = undefinedString]) {
     var args = [];
-    if (count != undefined) {
+    if (count != undefinedInt) {
       args.add(count);
     }
-    if (format != undefined) {
+    if (format != undefinedString) {
       args.add(format);
     }
     return new Log._(_proxy.callMethod('tickFormat', args));
@@ -425,13 +413,13 @@ class Quantize {
   List invertExtent(y) => _proxy.callMethod('invertExtent', [y]);
 
   /// Get or set the scale's input domain.
-  domain([List<num> numbers = undefined]) {
+  domain([List<num> numbers = undefinedList]) {
     var args = [];
-    if (numbers != undefined) {
+    if (numbers != undefinedList) {
       args.add(numbers);
     }
     var retval = _proxy.callMethod('domain', args);
-    if (numbers == undefined) {
+    if (numbers == undefinedList) {
       return retval;
     } else {
       return new Quantize._(retval);
@@ -439,13 +427,13 @@ class Quantize {
   }
 
   /// Get or set the scale's output range (as discrete values).
-  range([List<num> numbers = undefined]) {
+  range([List<num> numbers = undefinedList]) {
     var args = [];
-    if (numbers != undefined) {
+    if (numbers != undefinedList) {
       args.add(numbers);
     }
     var retval = _proxy.callMethod('range', args);
-    if (numbers == undefined) {
+    if (numbers == undefinedList) {
       return retval;
     } else {
       return new Quantize._(retval);
@@ -471,13 +459,13 @@ class Quantile {
   List invertExtent(y) => _proxy.callMethod('invertExtent', [y]);
 
   /// Get or set the scale's input domain (as discrete values).
-  domain([List<num> numbers = undefined]) {
+  domain([List<num> numbers = undefinedList]) {
     var args = [];
-    if (numbers != undefined) {
+    if (numbers != undefinedList) {
       args.add(numbers);
     }
     var retval = _proxy.callMethod('domain', args);
-    if (numbers == undefined) {
+    if (numbers == undefinedList) {
       return retval;
     } else {
       return new Quantile._(retval);
@@ -485,13 +473,13 @@ class Quantile {
   }
 
   /// Get or set the scale's output range (as discrete values).
-  range([List<num> numbers = undefined]) {
+  range([List<num> numbers = undefinedList]) {
     var args = [];
-    if (numbers != undefined) {
+    if (numbers != undefinedList) {
       args.add(numbers);
     }
     var retval = _proxy.callMethod('range', args);
-    if (numbers == undefined) {
+    if (numbers == undefinedList) {
       return retval;
     } else {
       return new Quantile._(retval);
@@ -520,13 +508,13 @@ class Threshold {
   List invertExtent(y) => _proxy.callMethod('invertExtent', [y]);
 
   /// Get or set the scale's input domain.
-  domain([List<num> numbers = undefined]) {
+  domain([List<num> numbers = undefinedList]) {
     var args = [];
-    if (numbers != undefined) {
+    if (numbers != undefinedList) {
       args.add(numbers);
     }
     var retval = _proxy.callMethod('domain', args);
-    if (numbers == undefined) {
+    if (numbers == undefinedList) {
       return retval;
     } else {
       return new Threshold._(retval);
@@ -534,13 +522,13 @@ class Threshold {
   }
 
   /// Get or set the scale's output range (as discrete values).
-  range([List<num> numbers = undefined]) {
+  range([List<num> numbers = undefinedList]) {
     var args = [];
-    if (numbers != undefined) {
+    if (numbers != undefinedList) {
       args.add(numbers);
     }
     var retval = _proxy.callMethod('range', args);
-    if (numbers == undefined) {
+    if (numbers == undefinedList) {
       return retval;
     } else {
       return new Threshold._(retval);

@@ -20,38 +20,38 @@ main() {
   d3.json("miserables.json", (error, graph) {
     if (error != null) throw error;
 
-    force.nodes(graph.nodes).links(graph.links).start();
+    force.nodes(graph['nodes']).links(graph['links']).start();
 
     var link = svg
         .selectAll(".link")
-        .data(graph.links)
+        .data(graph['links'])
         .enter()
         .append("line")
         .attr("class", "link")
-        .style("stroke-width", (d, i, j) {
+        .style("stroke-width", (d) {
       return Math.sqrt(d['value']);
     });
 
     var node = svg
         .selectAll(".node")
-        .data(graph.nodes)
+        .data(graph['nodes'])
         .enter()
         .append("circle")
         .attr("class", "node")
         .attr("r", 5)
-        .style("fill", (d, i, j) => color(d['group']))
-        .call(force.drag);
+        .style("fill", (d) => color(d['group']))
+        .call((_) => force.drag());
 
-    node.append("title").text((d, i, j) => d['name']);
+    node.append("title").text((d) => d['name']);
 
     force.on("tick", (d) {
       link
-          .attr("x1", (d, i, j) => d.source['x'])
-          .attr("y1", (d, i, j) => d.source['y'])
-          .attr("x2", (d, i, j) => d.target['x'])
-          .attr("y2", (d, i, j) => d.target['y']);
+          .attr("x1", (d) => d['source']['x'])
+          .attr("y1", (d) => d['source']['y'])
+          .attr("x2", (d) => d['target']['x'])
+          .attr("y2", (d) => d['target']['y']);
 
-      node.attr("cx", (d, i, j) => d['x']).attr("cy", (d, i, j) => d['y']);
+      node.attr("cx", (d) => d['x']).attr("cy", (d) => d['y']);
     });
   });
 }

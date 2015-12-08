@@ -31,7 +31,7 @@ main() {
     }).toList());
     y.domain([
       0,
-      d3.max(data, (d, i) {
+      d3.max(data, (d) {
         return d['frequency'];
       })
     ]);
@@ -59,17 +59,17 @@ main() {
         .enter()
         .append("rect")
         .attr("class", "bar")
-        .attr("x", (d, i, j) {
+        .attr("x", (d) {
       return x(d['letter']);
-    }).attr("width", x.rangeBand()).attr("y", (d, i, j) {
+    }).attr("width", x.rangeBand()).attr("y", (d) {
       return y(d['frequency']);
-    }).attr("height", (d, i, j) {
+    }).attr("height", (d) {
       return height - y(d['frequency']);
     });
   });
 }
 
-type(d, i) {
+type(d) {
   d['frequency'] = double.parse(d['frequency']);
   return d;
 }

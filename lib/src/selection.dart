@@ -328,9 +328,28 @@ class Selection {
       arg5 = undefined,
       arg6 = undefined,
       arg7 = undefined]) {
-    var args = [
-      funcVarArgs(function, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
-    ];
+    var args = [function];
+    if (arg1 != undefined) {
+      args.add(arg1);
+    }
+    if (arg2 != undefined) {
+      args.add(arg2);
+    }
+    if (arg3 != undefined) {
+      args.add(arg3);
+    }
+    if (arg4 != undefined) {
+      args.add(arg4);
+    }
+    if (arg5 != undefined) {
+      args.add(arg5);
+    }
+    if (arg6 != undefined) {
+      args.add(arg6);
+    }
+    if (arg7 != undefined) {
+      args.add(arg7);
+    }
     return new Selection._(_proxy.callMethod('call', args));
   }
 

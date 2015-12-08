@@ -58,6 +58,8 @@ class Zoom {
       args.add(sel.getProxy(selection));
     } else if (selection is trans.Transition) {
       args.add(trans.getProxy(selection));
+    } else if (selection is JsArray) {
+      args.add(selection);
     } else {
       throw new ArgumentError.value(selection);
     }
@@ -79,7 +81,7 @@ class Zoom {
   }
 
   /// The current scale factor.
-  Zoom scale([num scale = undefinedNum]) {
+  scale([num scale = undefinedNum]) {
     var args = [];
     if (scale != undefinedNum) {
       args.add(scale);
@@ -93,7 +95,7 @@ class Zoom {
   }
 
   /// Optional limits on the scale factor.
-  Zoom scaleExtent([List extent = undefinedList]) {
+  scaleExtent([List extent = undefinedList]) {
     var args = [];
     if (extent != undefinedList) {
       args.add(extent);
@@ -107,7 +109,7 @@ class Zoom {
   }
 
   /// An optional focal point for mousewheel zooming.
-  Zoom center([List center = undefinedList]) {
+  center([List center = undefinedList]) {
     var args = [];
     if (center != undefinedList) {
       args.add(center);
@@ -121,7 +123,7 @@ class Zoom {
   }
 
   /// The dimensions of the viewport.
-  Zoom size([List size = undefinedList]) {
+  size([List size = undefinedList]) {
     var args = [];
     if (size != undefinedList) {
       args.add(size);
@@ -164,7 +166,7 @@ class Zoom {
 
   /// Listeners for when the scale or translate changes.
   Zoom on(String type, Function listener) {
-    return new Zoom._(_proxy.callMethod('on', [type, listener]));
+    return new Zoom._(_proxy.callMethod('on', [type, func4VarArgs(listener)]));
   }
 
   /// Dispatch zoom events after setting the scale or translate.
@@ -174,14 +176,16 @@ class Zoom {
       args.add(sel.getProxy(selection));
     } else if (selection is trans.Transition) {
       args.add(trans.getProxy(selection));
+    } else if (selection is JsArray) {
+      args.add(selection);
     } else {
       throw new ArgumentError.value(selection);
     }
-    return _proxy.callMethod('event', args);
+    return new Zoom._(_proxy.callMethod('event', args));
   }
 
   /// Get or set the dblclick transition duration.
-  Zoom duration([num duration = undefinedNum]) {
+  duration([num duration = undefinedNum]) {
     var args = [];
     if (duration != undefinedNum) {
       args.add(sc.getProxy(duration));

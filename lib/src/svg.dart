@@ -780,6 +780,8 @@ class Axis {
       args.add(sel.getProxy(selection));
     } else if (selection is trans.Transition) {
       args.add(trans.getProxy(selection));
+    } else if (selection is JsArray) {
+      args.add(selection);
     } else {
       throw new ArgumentError.value(selection);
     }
@@ -939,6 +941,8 @@ class Brush {
       args.add(sel.getProxy(selection));
     } else if (selection is trans.Transition) {
       args.add(trans.getProxy(selection));
+    } else if (selection is JsArray) {
+      args.add(selection);
     } else {
       throw new ArgumentError.value(selection);
     }
@@ -1022,6 +1026,8 @@ class Brush {
       args.add(sel.getProxy(selection));
     } else if (selection is trans.Transition) {
       args.add(trans.getProxy(selection));
+    } else if (selection is JsArray) {
+      args.add(selection);
     } else {
       throw new ArgumentError.value(selection);
     }

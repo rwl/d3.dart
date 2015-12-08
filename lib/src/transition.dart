@@ -17,7 +17,7 @@ Transition transition([sel.Selection selection, String name = '']) {
     args.add(sel.getProxy(selection));
   }
   args.add(name);
-  return _d3.callMethod('transition', args);
+  return new Transition._(_d3.callMethod('transition', args));
 }
 
 class Transition {
@@ -42,7 +42,7 @@ class Transition {
   }
 
   /// Specify per-element duration in milliseconds.
-  Transition duration([duration = undefined]) {
+  duration([duration = undefined]) {
     var args = [];
     if (duration is Function) {
       args.add(func4VarArgs(duration));
@@ -58,7 +58,7 @@ class Transition {
   }
 
   /// Specify transition easing function.
-  Transition ease([value = undefined, arguments = undefined]) {
+  ease([value = undefined, arguments = undefined]) {
     var args = [];
     if (value != undefined) {
       args.add(value);
@@ -137,7 +137,7 @@ class Transition {
 
   /// Specify a custom tween operator to run as part of the transition.
   Transition tween(String name, Function fn) {
-    var args = [name, func4VarArgs(fn)];
+    var args = [name, func3VarArgs(fn)];
     return new Transition._(_proxy.callMethod('tween', args));
   }
 
@@ -199,9 +199,28 @@ class Transition {
       arg5 = undefined,
       arg6 = undefined,
       arg7 = undefined]) {
-    var args = [
-      funcVarArgs(function, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
-    ];
+    var args = [function];
+    if (arg1 != undefined) {
+      args.add(arg1);
+    }
+    if (arg2 != undefined) {
+      args.add(arg2);
+    }
+    if (arg3 != undefined) {
+      args.add(arg3);
+    }
+    if (arg4 != undefined) {
+      args.add(arg4);
+    }
+    if (arg5 != undefined) {
+      args.add(arg5);
+    }
+    if (arg6 != undefined) {
+      args.add(arg6);
+    }
+    if (arg7 != undefined) {
+      args.add(arg7);
+    }
     return new Transition._(_proxy.callMethod('call', args));
   }
 
@@ -227,10 +246,8 @@ class Ease {
 
   Ease._(this._proxy);
 
-  call(t) => ease(t);
-
   /// A parametric easing function.
-  num ease(num t) => _proxy.callMethod('ease', [t]);
+  num call(num t) => _proxy.callMethod('call', [_proxy, t]);
 }
 
 /// Start a custom animation timer.
@@ -259,10 +276,8 @@ class Interpolate {
 
   Interpolate._(this._proxy);
 
-  call(t) => interpolate(t);
-
   /// A parametric interpolation function.
-  interpolate(num t) => _proxy.callMethod('interpolate', [t]);
+  call(num t) => _proxy.callMethod('call', [_proxy, t]);
 }
 
 /// Interpolate two numbers.
