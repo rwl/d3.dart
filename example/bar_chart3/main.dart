@@ -13,7 +13,7 @@ main() {
 
   var xAxis = svg_.axis().scale(x).orient("bottom");
 
-  var yAxis = svg_.axis().scale(y).orient("left").ticks(10); //[10, "%"]);
+  var yAxis = svg_.axis().scale(y).orient("left").ticks(10, "%");
 
   var svg = d3
       .select("body")
@@ -28,7 +28,7 @@ main() {
 
     x.domain(data.map((d) {
       return d['letter'];
-    }));
+    }).toList());
     y.domain([
       0,
       d3.max(data, (d, i) {

@@ -12,55 +12,55 @@ ascending(a, b) => _d3.callMethod('ascending', [a, b]);
 descending(a, b) => _d3.callMethod('descending', [a, b]);
 
 /// Find the minimum value in an array.
-min(List array, [accessor(v) = undefined]) {
+min(List array, [accessor(v) = undefinedFn]) {
   var args = [array];
-  if (accessor != undefined) {
-    args.add(accessor);
+  if (accessor != undefinedFn) {
+    args.add(func3VarArgs(accessor));
   }
   return _d3.callMethod('min', args);
 }
 
 /// Find the maximum value in an array.
-max(List array, [accessor(v) = undefined]) {
+max(List array, [Function accessor = undefinedFn]) {
   var args = [array];
-  if (accessor != undefined) {
-    args.add(accessor);
+  if (accessor != undefinedFn) {
+    args.add(func3VarArgs(accessor));
   }
   return _d3.callMethod('max', args);
 }
 
 /// Find the minimum and maximum value in an array.
-extent(List array, [accessor(v) = undefined]) {
+extent(List array, [accessor(v) = undefinedFn]) {
   var args = [array];
-  if (accessor != undefined) {
-    args.add(accessor);
+  if (accessor != undefinedFn) {
+    args.add(func3VarArgs(accessor));
   }
   return _d3.callMethod('extent', args);
 }
 
 /// Compute the sum of an array of numbers.
-sum(List array, [accessor(v) = undefined]) {
+sum(List array, [accessor(v) = undefinedFn]) {
   var args = [array];
-  if (accessor != undefined) {
-    args.add(accessor);
+  if (accessor != undefinedFn) {
+    args.add(func3VarArgs(accessor));
   }
   return _d3.callMethod('sum', args);
 }
 
 /// Compute the arithmetic mean of an array of numbers.
-mean(List array, [accessor(v) = undefined]) {
+mean(List array, [accessor(v) = undefinedFn]) {
   var args = [array];
-  if (accessor != undefined) {
-    args.add(accessor);
+  if (accessor != undefinedFn) {
+    args.add(func3VarArgs(accessor));
   }
   return _d3.callMethod('mean', args);
 }
 
 /// Compute the median of an array of numbers (the 0.5-quantile).
-median(List array, [accessor(v) = undefined]) {
+median(List array, [accessor(v) = undefinedFn]) {
   var args = [array];
-  if (accessor != undefined) {
-    args.add(accessor);
+  if (accessor != undefinedFn) {
+    args.add(func3VarArgs(accessor));
   }
   return _d3.callMethod('median', args);
 }
@@ -71,54 +71,54 @@ quantile(List<num> numbers, num p) {
 }
 
 /// Compute the variance of an array of numbers.
-variance(List array, [accessor(v) = undefined]) {
+variance(List array, [accessor(v) = undefinedFn]) {
   var args = [array];
-  if (accessor != undefined) {
-    args.add(accessor);
+  if (accessor != undefinedFn) {
+    args.add(func3VarArgs(accessor));
   }
   return _d3.callMethod('variance', args);
 }
 
 /// Compute the standard deviation of an array of numbers.
-deviation(List array, [accessor(v) = undefined]) {
+deviation(List array, [accessor(v) = undefinedFn]) {
   var args = [array];
-  if (accessor != undefined) {
-    args.add(accessor);
+  if (accessor != undefinedFn) {
+    args.add(func3VarArgs(accessor));
   }
   return _d3.callMethod('deviation', args);
 }
 
 /// Search for a value in a sorted array.
-bisectLeft(List array, x, [int lo = undefined, int hi = undefined]) {
+bisectLeft(List array, x, [int lo = undefinedInt, int hi = undefinedInt]) {
   var args = [array, x];
-  if (lo != undefined) {
+  if (lo != undefinedInt) {
     args.add(lo);
   }
-  if (hi != undefined) {
+  if (hi != undefinedInt) {
     args.add(hi);
   }
   return _d3.callMethod('bisectLeft', args);
 }
 
 /// Search for a value in a sorted array.
-bisect(List array, x, [int lo = undefined, int hi = undefined]) {
+bisect(List array, x, [int lo = undefinedInt, int hi = undefinedInt]) {
   var args = [array, x];
-  if (lo != undefined) {
+  if (lo != undefinedInt) {
     args.add(lo);
   }
-  if (hi != undefined) {
+  if (hi != undefinedInt) {
     args.add(hi);
   }
   return _d3.callMethod('bisect', args);
 }
 
 /// Search for a value in a sorted array.
-bisectRight(List array, x, [int lo = undefined, int hi = undefined]) {
+bisectRight(List array, x, [int lo = undefinedInt, int hi = undefinedInt]) {
   var args = [array, x];
-  if (lo != undefined) {
+  if (lo != undefinedInt) {
     args.add(lo);
   }
-  if (hi != undefined) {
+  if (hi != undefinedInt) {
     args.add(hi);
   }
   return _d3.callMethod('bisectRight', args);
@@ -130,12 +130,12 @@ bisector(accessor(v)) {
 }
 
 /// Randomize the order of an array.
-shuffle(List array, [int lo = undefined, int hi = undefined]) {
+shuffle(List array, [int lo = undefinedInt, int hi = undefinedInt]) {
   var args = [array];
-  if (lo != undefined) {
+  if (lo != undefinedInt) {
     args.add(lo);
   }
-  if (hi != undefined) {
+  if (hi != undefinedInt) {
     args.add(hi);
   }
   return _d3.callMethod('shuffle', args);
@@ -215,9 +215,9 @@ class Nest {
   }
 
   /// Evaluate the nest operator, returning an associative array.
-  map(List array, [Function mapType = undefined]) {
+  map(List array, [Function mapType = undefinedFn]) {
     var args = [array];
-    if (mapType != undefined) {
+    if (mapType != undefinedFn) {
       args.add(mapType);
     }
     return _proxy.callMethod('map', args);

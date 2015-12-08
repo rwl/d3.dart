@@ -57,13 +57,13 @@ class LinearScale {
   }
 
   /// Get or set the scale's output interpolator.
-  interpolate([Function factory = undefined]) {
+  interpolate([Function factory = undefinedFn]) {
     var args = [];
-    if (factory != undefined) {
+    if (factory != undefinedFn) {
       args.add(factory);
     }
     var retval = _proxy.callMethod('interpolate', args);
-    if (factory == undefined) {
+    if (factory == undefinedFn) {
       return retval;
     } else {
       return new LinearScale._(retval);
@@ -242,13 +242,13 @@ class Pow {
   }
 
   /// Get or set the scale's output interpolator.
-  interpolate([Function factory = undefined]) {
+  interpolate([Function factory = undefinedFn]) {
     var args = [];
-    if (factory != undefined) {
+    if (factory != undefinedFn) {
       args.add(factory);
     }
     var retval = _proxy.callMethod('interpolate', args);
-    if (factory == undefined) {
+    if (factory == undefinedFn) {
       return retval;
     } else {
       return new Pow._(retval);
@@ -361,13 +361,13 @@ class Log {
   }
 
   /// Get or set the scale's output interpolator.
-  interpolate([Function factory = undefined]) {
+  interpolate([Function factory = undefinedFn]) {
     var args = [];
-    if (factory != undefined) {
+    if (factory != undefinedFn) {
       args.add(factory);
     }
     var retval = _proxy.callMethod('interpolate', args);
-    if (factory == undefined) {
+    if (factory == undefinedFn) {
       return retval;
     } else {
       return new Log._(retval);
@@ -563,13 +563,13 @@ class Ordinal {
   call(x) => _proxy.callMethod('call', [_proxy, x]);
 
   /// Get or set the scale's input domain.
-  domain([List values = undefined]) {
+  domain([List values = undefinedList]) {
     var args = [];
-    if (values != undefined) {
+    if (values != undefinedList) {
       args.add(values);
     }
     var retval = _proxy.callMethod('domain', args);
-    if (values == undefined) {
+    if (values == undefinedList) {
       return retval;
     } else {
       return new Ordinal._(retval);
@@ -577,13 +577,13 @@ class Ordinal {
   }
 
   /// Get or set the scale's output range.
-  range([List values = undefined]) {
+  range([List values = undefinedList]) {
     var args = [];
-    if (values != undefined) {
+    if (values != undefinedList) {
       args.add(values);
     }
     var retval = _proxy.callMethod('range', args);
-    if (values == undefined) {
+    if (values == undefinedList) {
       return retval;
     } else {
       return new Ordinal._(retval);
@@ -591,18 +591,18 @@ class Ordinal {
   }
 
   /// Divide a continuous output range for discrete points.
-  Ordinal rangePoints(List interval, [num padding = undefined]) {
+  Ordinal rangePoints(List interval, [num padding = undefinedNum]) {
     var args = [interval];
-    if (padding != undefined) {
+    if (padding != undefinedNum) {
       args.add(padding);
     }
     return new Ordinal._(_proxy.callMethod('rangePoints', args));
   }
 
   /// Divide a continuous output range for discrete points.
-  Ordinal rangeRoundPoints(List interval, [num padding = undefined]) {
+  Ordinal rangeRoundPoints(List interval, [num padding = undefinedNum]) {
     var args = [interval];
-    if (padding != undefined) {
+    if (padding != undefinedNum) {
       args.add(padding);
     }
     return new Ordinal._(_proxy.callMethod('rangeRoundPoints', args));
@@ -610,12 +610,12 @@ class Ordinal {
 
   /// Divide a continuous output range for discrete bands.
   Ordinal rangeBands(List interval,
-      [num padding = undefined, num outerPadding = undefined]) {
+      [num padding = undefinedNum, num outerPadding = undefinedNum]) {
     var args = [interval];
-    if (padding != undefined) {
+    if (padding != undefinedNum) {
       args.add(padding);
     }
-    if (outerPadding != undefined) {
+    if (outerPadding != undefinedNum) {
       args.add(outerPadding);
     }
     return new Ordinal._(_proxy.callMethod('rangeBands', args));
@@ -623,12 +623,12 @@ class Ordinal {
 
   /// Divide a continuous output range for discrete bands.
   Ordinal rangeRoundBands(List interval,
-      [num padding = undefined, num outerPadding = undefined]) {
+      [num padding = undefinedNum, num outerPadding = undefinedNum]) {
     var args = [interval];
-    if (padding != undefined) {
+    if (padding != undefinedNum) {
       args.add(padding);
     }
-    if (outerPadding != undefined) {
+    if (outerPadding != undefinedNum) {
       args.add(outerPadding);
     }
     return new Ordinal._(_proxy.callMethod('rangeRoundBands', args));

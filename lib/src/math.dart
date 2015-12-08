@@ -7,24 +7,24 @@ JsObject _d3 = context['d3'];
 JsObject _random = context['d3']['random'];
 
 /// Generate a random number with a normal distribution.
-Function normal([num mean = undefined, num deviation = undefined]) {
+Function normal([num mean = undefinedNum, num deviation = undefinedNum]) {
   var args = [];
-  if (mean != undefined) {
+  if (mean != undefinedNum) {
     args.add(mean);
   }
-  if (deviation != undefined) {
+  if (deviation != undefinedNum) {
     args.add(deviation);
   }
   return _random.callMethod('normal', args);
 }
 
 /// Generate a random number with a log-normal distribution.
-Function logNormal([num mean = undefined, num deviation = undefined]) {
+Function logNormal([num mean = undefinedNum, num deviation = undefinedNum]) {
   var args = [];
-  if (mean != undefined) {
+  if (mean != undefinedNum) {
     args.add(mean);
   }
-  if (deviation != undefined) {
+  if (deviation != undefinedNum) {
     args.add(deviation);
   }
   return _random.callMethod('logNormal', args);

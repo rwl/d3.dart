@@ -14,32 +14,32 @@ class Dsv {
 
   Dsv._(this._proxy);
 
-  call(String url, [accessor(d) = undefined, callback(rows) = undefined]) =>
+  call(String url, [accessor(d) = undefinedFn, callback(rows) = undefinedFn]) =>
       dsv(url, accessor, callback);
 
   /// Create a parser/formatter for the specified delimiter and mime type.
-  dsv(String url, [accessor(d) = undefined, callback(rows) = undefined]) {
+  dsv(String url, [accessor(d) = undefinedFn, callback(rows) = undefinedFn]) {
     var args = [url];
-    if (accessor != undefined) {
+    if (accessor != undefinedFn) {
       args.add(accessor);
     }
-    if (callback != undefined) {
+    if (callback != undefinedFn) {
       args.add(callback);
     }
     return _proxy.callMethod('dsv', args);
   }
 
-  List parse(String string, [accessor(d) = undefined]) {
+  List parse(String string, [accessor(d) = undefinedFn]) {
     var args = [string];
-    if (accessor != undefined) {
+    if (accessor != undefinedFn) {
       args.add(accessor);
     }
     return _proxy.callMethod('parse', args);
   }
 
-  List<List> parseRows(String string, [accessor(d) = undefined]) {
+  List<List> parseRows(String string, [accessor(d) = undefinedFn]) {
     var args = [string];
-    if (accessor != undefined) {
+    if (accessor != undefinedFn) {
       args.add(accessor);
     }
     return _proxy.callMethod('parseRows', args);

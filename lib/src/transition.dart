@@ -111,14 +111,14 @@ class Transition {
   }
 
   /// Smoothly transition between two style property values.
-  Transition styleTween(name, tween, [String priority = undefined]) {
+  Transition styleTween(name, tween, [String priority = undefinedString]) {
     var args = [name];
     if (tween is Function) {
       args.add(func4VarArgs(tween));
     } else {
       args.add(tween);
     }
-    if (priority != undefined) {
+    if (priority != undefinedString) {
       args.add(priority);
     }
     return new Transition._(_proxy.callMethod('styleTween', args));
@@ -181,9 +181,9 @@ class Transition {
   Transition transition() => new Transition._(_proxy.callMethod('transition'));
 
   /// Add a listener for transition end events.
-  Transition each(Function listener, {String type: undefined}) {
+  Transition each(Function listener, {String type: undefinedString}) {
     var args = [];
-    if (type != undefined) {
+    if (type != undefinedString) {
       args.add(type);
     }
     args.add(func4VarArgs(listener));
@@ -234,9 +234,9 @@ class Ease {
 }
 
 /// Start a custom animation timer.
-timer(bool fn(t), [num delay = undefined, time = undefined]) {
+timer(bool fn(t), [num delay = undefinedNum, time = undefined]) {
   var args = [fn];
-  if (delay != undefined) {
+  if (delay != undefinedNum) {
     args.add(delay);
   }
   if (time != null) {

@@ -67,13 +67,13 @@ class Line {
   }
 
   /// Get or set the cardinal spline tension.
-  tension([num tension = undefined]) {
+  tension([num tension = undefinedNum]) {
     var args = [];
-    if (tension != undefined) {
+    if (tension != undefinedNum) {
       args.add(tension);
     }
     var retval = _proxy.callMethod('tension', args);
-    if (tension == undefined) {
+    if (tension == undefinedNum) {
       return retval;
     } else {
       return new Line._(retval);
@@ -81,13 +81,13 @@ class Line {
   }
 
   /// Control whether the line is defined at a given point.
-  defined([Function defined = undefined]) {
+  defined([Function defined = undefinedFn]) {
     var args = [];
-    if (defined != undefined) {
+    if (defined != undefinedFn) {
       args.add(defined);
     }
     var retval = _proxy.callMethod('defined', args);
-    if (defined == undefined) {
+    if (defined == undefinedFn) {
       return retval;
     } else {
       return new Line._(retval);
@@ -149,13 +149,13 @@ class RadialLine {
   }
 
   /// Get or set the cardinal spline tension.
-  tension([num tension = undefined]) {
+  tension([num tension = undefinedNum]) {
     var args = [];
-    if (tension != undefined) {
+    if (tension != undefinedNum) {
       args.add(tension);
     }
     var retval = _proxy.callMethod('tension', args);
-    if (tension == undefined) {
+    if (tension == undefinedNum) {
       return retval;
     } else {
       return new RadialLine._(retval);
@@ -801,13 +801,13 @@ class Axis {
   }
 
   /// Get or set the axis orientation.
-  orient([String orientation = undefined]) {
+  orient([String orientation = undefinedString]) {
     var args = [];
-    if (orientation != undefined) {
+    if (orientation != undefinedString) {
       args.add(orientation);
     }
     var retval = _proxy.callMethod('orient', args);
-    if (orientation == undefined) {
+    if (orientation == undefinedString) {
       return retval;
     } else {
       return new Axis._(retval);
@@ -815,13 +815,19 @@ class Axis {
   }
 
   /// Control how ticks are generated for the axis.
-  ticks([List arguments = undefined]) {
+  ticks([arg1 = undefined, arg2 = undefined, arg3 = undefined]) {
     var args = [];
-    if (arguments != undefined) {
-      args = arguments;
+
+    if (arg1 != undefined) {
+      args.add(arg1);
+    } else if (arg2 != undefined) {
+      args.add(arg2);
+    } else if (arg3 != undefined) {
+      args.add(arg3);
     }
+
     var retval = _proxy.callMethod('ticks', args);
-    if (arguments == undefined) {
+    if (arg1 == undefined) {
       return retval;
     } else {
       return new Axis._(retval);
@@ -829,13 +835,13 @@ class Axis {
   }
 
   /// Specify tick values explicitly.
-  tickValues([List values = undefined]) {
+  tickValues([List values = undefinedList]) {
     var args = [];
-    if (values != undefined) {
+    if (values != undefinedList) {
       args.add(values);
     }
     var retval = _proxy.callMethod('tickValues', args);
-    if (values == undefined) {
+    if (values == undefinedList) {
       return retval;
     } else {
       return new Axis._(retval);
@@ -843,16 +849,16 @@ class Axis {
   }
 
   /// Specify the size of major, minor and end ticks.
-  tickSize([num inner = undefined, num outer = undefined]) {
+  tickSize([num inner = undefinedNum, num outer = undefinedNum]) {
     var args = [];
-    if (inner != undefined) {
+    if (inner != undefinedNum) {
       args.add(inner);
     }
-    if (outer != undefined) {
+    if (outer != undefinedNum) {
       args.add(outer);
     }
     var retval = _proxy.callMethod('tickSize', args);
-    if (inner == undefined) {
+    if (inner == undefinedNum) {
       return retval;
     } else {
       return new Axis._(retval);
@@ -860,13 +866,13 @@ class Axis {
   }
 
   /// Specify the size of inner ticks.
-  innerTickSize([num size = undefined]) {
+  innerTickSize([num size = undefinedNum]) {
     var args = [];
-    if (size != undefined) {
+    if (size != undefinedNum) {
       args.add(size);
     }
     var retval = _proxy.callMethod('innerTickSize', args);
-    if (size == undefined) {
+    if (size == undefinedNum) {
       return retval;
     } else {
       return new Axis._(retval);
@@ -874,13 +880,13 @@ class Axis {
   }
 
   /// Specify the size of outer ticks.
-  outerTickSize([num size = undefined]) {
+  outerTickSize([num size = undefinedNum]) {
     var args = [];
-    if (size != undefined) {
+    if (size != undefinedNum) {
       args.add(size);
     }
     var retval = _proxy.callMethod('outerTickSize', args);
-    if (size == undefined) {
+    if (size == undefinedNum) {
       return retval;
     } else {
       return new Axis._(retval);
@@ -888,13 +894,13 @@ class Axis {
   }
 
   /// Specify padding between ticks and tick labels.
-  tickPadding([num padding = undefined]) {
+  tickPadding([num padding = undefinedNum]) {
     var args = [];
-    if (padding != undefined) {
+    if (padding != undefinedNum) {
       args.add(padding);
     }
     var retval = _proxy.callMethod('tickPadding', args);
-    if (padding == undefined) {
+    if (padding == undefinedNum) {
       return retval;
     } else {
       return new Axis._(retval);
@@ -1001,9 +1007,9 @@ class Brush {
   bool empty() => _proxy.callMethod('empty');
 
   /// Listeners for when the brush is moved.
-  on(String type, [Function listener = undefined]) {
+  on(String type, [Function listener = undefinedFn]) {
     var args = [type];
-    if (listener != undefined) {
+    if (listener != undefinedFn) {
       args.add(listener);
     }
     return new Brush._(_proxy.callMethod('on', args));

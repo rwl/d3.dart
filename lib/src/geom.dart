@@ -17,13 +17,13 @@ class Voronoi {
   List call(List data) => _proxy.callMethod('call', [_proxy, data]);
 
   /// Get or set the x-coordinate accessor for each point.
-  x([Function x = undefined]) {
+  x([Function x = undefinedFn]) {
     var args = [];
-    if (x != undefined) {
+    if (x != undefinedFn) {
       args.add(x);
     }
     var retval = _proxy.callMethod('x', args);
-    if (x == undefined) {
+    if (x == undefinedFn) {
       return retval;
     } else {
       return new Voronoi._(retval);
@@ -31,13 +31,13 @@ class Voronoi {
   }
 
   /// Get or set the y-coordinate accessor for each point.
-  y([Function y = undefined]) {
+  y([Function y = undefinedFn]) {
     var args = [];
-    if (y != undefined) {
+    if (y != undefinedFn) {
       args.add(y);
     }
     var retval = _proxy.callMethod('y', args);
-    if (y == undefined) {
+    if (y == undefinedFn) {
       return retval;
     } else {
       return new Voronoi._(retval);
@@ -45,13 +45,13 @@ class Voronoi {
   }
 
   /// Get or set the clip extent for the tesselation.
-  clipExtent([List extent = undefined]) {
+  clipExtent([List extent = undefinedList]) {
     var args = [];
-    if (extent != undefined) {
+    if (extent != undefinedList) {
       args.add(extent);
     }
     var retval = _proxy.callMethod('clipExtent', args);
-    if (extent == undefined) {
+    if (extent == undefinedList) {
       return retval;
     } else {
       return new Voronoi._(retval);
@@ -76,59 +76,59 @@ class Quadtree {
 
   /// Constructs a quadtree for an array of points.
   Root call(List points,
-      [num x2_x1 = undefined,
-      num y2_y1 = undefined,
-      num x2 = undefined,
-      num y2 = undefined]) {
+      [num x2_x1 = undefinedNum,
+      num y2_y1 = undefinedNum,
+      num x2 = undefinedNum,
+      num y2 = undefinedNum]) {
     var args = [_proxy, points];
-    if (x2_x1 != undefined) {
+    if (x2_x1 != undefinedNum) {
       args.add(x2_x1);
     }
-    if (y2_y1 != undefined) {
+    if (y2_y1 != undefinedNum) {
       args.add(y2_y1);
     }
-    if (x2 != undefined) {
+    if (x2 != undefinedNum) {
       args.add(x2);
     }
-    if (y2 != undefined) {
+    if (y2 != undefinedNum) {
       args.add(y2);
     }
     return new Root._(_proxy.callMethod('call', args));
   }
 
-  x([Function x = undefined]) {
+  x([Function x = undefinedFn]) {
     var args = [];
-    if (x != undefined) {
+    if (x != undefinedFn) {
       args.add(x);
     }
     var retval = _proxy.callMethod('x', args);
-    if (x == undefined) {
+    if (x == undefinedFn) {
       return retval;
     } else {
       return new Quadtree._(retval);
     }
   }
 
-  y([Function y = undefined]) {
+  y([Function y = undefinedFn]) {
     var args = [];
-    if (y != undefined) {
+    if (y != undefinedFn) {
       args.add(y);
     }
     var retval = _proxy.callMethod('y', args);
-    if (y == undefined) {
+    if (y == undefinedFn) {
       return retval;
     } else {
       return new Quadtree._(retval);
     }
   }
 
-  extent([List extent = undefined]) {
+  extent([List extent = undefinedList]) {
     var args = [];
-    if (extent != undefined) {
+    if (extent != undefinedList) {
       args.add(extent);
     }
     var retval = _proxy.callMethod('extent', args);
-    if (extent == undefined) {
+    if (extent == undefinedList) {
       return retval;
     } else {
       return new Quadtree._(retval);
@@ -187,13 +187,13 @@ class Hull {
   hull(List vertices) => _proxy.callMethod('hull', [vertices]);
 
   /// Get or set the x-coordinate accessor.
-  x([Function x = undefined]) {
+  x([Function x = undefinedFn]) {
     var args = [];
-    if (x != undefined) {
+    if (x != undefinedFn) {
       args.add(x);
     }
     var retval = _proxy.callMethod('x', args);
-    if (x == undefined) {
+    if (x == undefinedFn) {
       return retval;
     } else {
       return new Hull._(retval);
@@ -201,13 +201,13 @@ class Hull {
   }
 
   /// Get or set the y-coordinate accessor.
-  y([Function y = undefined]) {
+  y([Function y = undefinedFn]) {
     var args = [];
-    if (y != undefined) {
+    if (y != undefinedFn) {
       args.add(y);
     }
     var retval = _proxy.callMethod('y', args);
-    if (y == undefined) {
+    if (y == undefinedFn) {
       return retval;
     } else {
       return new Hull._(retval);
