@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:math' as math;
-import 'package:d3/d3.dart';
+import 'package:d3/js/d3.dart';
 
 final r = new math.Random();
 

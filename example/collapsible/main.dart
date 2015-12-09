@@ -1,4 +1,4 @@
-import 'package:d3/d3.dart';
+import 'package:d3/js/d3.dart';
 
 main() {
   var margin = new Margin(top: 20, right: 120, bottom: 20, left: 120);
