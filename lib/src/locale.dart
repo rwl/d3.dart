@@ -14,6 +14,8 @@ class Locale {
 
   Locale._(this._proxy);
 
+  factory Locale(definition) => locale(definition);
+
   /// Create a new number formatter.
   Function numberFormat(String specifier) {
     return _proxy.callMethod('numberFormat', [specifier]);

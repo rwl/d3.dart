@@ -13,6 +13,8 @@ class Path {
 
   Path._(this._proxy);
 
+  factory Path() => path();
+
   /// Project the specified feature and render it to the context.
   String call(Map feature, [num index = undefinedNum]) {
     var args = [_proxy, new JsObject.jsify(feature)];
@@ -89,6 +91,8 @@ class Graticule {
   final JsObject _proxy;
 
   Graticule._(this._proxy);
+
+  factory Graticule() => graticule();
 
   /// Generate a MultiLineString of meridians and parallels.
   call() => _proxy.callMethod('call', [_proxy]);
@@ -206,6 +210,8 @@ class Circle {
 
   Circle._(this._proxy);
 
+  factory Circle() => circle();
+
   /// Generate a piecewise circle as a Polygon.
   call(List arguments) {
     var args = [_proxy]..addAll(arguments);
@@ -283,6 +289,8 @@ class Rotation {
 
   Rotation._(this._proxy);
 
+  factory Rotation(rotate) => rotation(rotate);
+
   /// Rotate the given location around the sphere.
   List call(List location) {
     return _proxy.callMethod('call', [_proxy, location]);
@@ -303,6 +311,8 @@ class Projection {
   final JsObject _proxy;
 
   Projection._(this._proxy);
+
+  factory Projection(Function raw) => projection(raw);
 
   /// Project the specified location.
   List call(List location) {
@@ -453,6 +463,8 @@ class ConicConformal {
 
   ConicConformal._(this._proxy);
 
+  factory ConicConformal() => conicConformal();
+
   /// Get or set the projection's two standard parallels.
   parallels([List parallels = undefinedList]) {
     var args = [];
@@ -478,6 +490,8 @@ class ConicEqualArea {
 
   ConicEqualArea._(this._proxy);
 
+  factory ConicEqualArea() => conicEqualArea();
+
   /// Get or set the projection's two standard parallels.
   parallels([List parallels = undefinedList]) {
     var args = [];
@@ -502,6 +516,8 @@ class ConicEquidistant {
   final JsObject _proxy;
 
   ConicEquidistant._(this._proxy);
+
+  factory ConicEquidistant() => conicEquidistant();
 
   /// Get or set the projection's two standard parallels.
   parallels([List parallels = undefinedList]) {
@@ -613,6 +629,9 @@ class StreamListener {
 
   StreamListener._(this._proxy);
 
+  factory StreamListener(Map object, StreamListener listener) =>
+      stream(object, listener);
+
   /// Indicate an x, y (and optionally z) coordinate.
   point(num x, num y, [num z = undefinedNum]) {
     var args = [x, y];
@@ -650,6 +669,8 @@ class StreamTransform {
 
   StreamTransform._(this._proxy);
 
+  factory StreamTransform(Map methods) => transform(methods);
+
   /// Wraps a given stream.
   StreamListener stream(StreamListener listener) {
     return new StreamListener._(_proxy.callMethod('stream', [listener._proxy]));
@@ -663,6 +684,8 @@ class ClipExtent {
   final JsObject _proxy;
 
   ClipExtent._(this._proxy);
+
+  factory ClipExtent() => clipExtent();
 
   /// Sets the clip extent.
   extent([List extent = undefinedList]) {

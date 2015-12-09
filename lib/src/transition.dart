@@ -12,18 +12,22 @@ JsObject _d3 = context['d3'];
 
 /// Start an animated transition.
 Transition transition([sel.Selection selection, String name = '']) {
-  var args = [];
-  if (selection != null) {
-    args.add(sel.getProxy(selection));
-  }
-  args.add(name);
-  return new Transition._(_d3.callMethod('transition', args));
+  return new Transition(selection, name);
 }
 
 class Transition {
   final JsObject _proxy;
 
   Transition._(this._proxy);
+
+  factory Transition([sel.Selection selection, String name = '']) {
+    var args = [];
+    if (selection != null) {
+      args.add(sel.getProxy(selection));
+    }
+    args.add(name);
+    return new Transition._(_d3.callMethod('transition', args));
+  }
 
   /// Specify per-element delay in milliseconds.
   delay([delay = undefined]) {
@@ -246,6 +250,8 @@ class Ease {
 
   Ease._(this._proxy);
 
+  factory Ease(String type, [List arguments]) => ease(type, arguments);
+
   /// A parametric easing function.
   num call(num t) => _proxy.callMethod('call', [_proxy, t]);
 }
@@ -275,6 +281,42 @@ class Interpolate {
   final JsObject _proxy;
 
   Interpolate._(this._proxy);
+
+  factory Interpolate(a, b) => interpolate(a, b);
+
+  /// Interpolate two numbers.
+  factory Interpolate.number(num a, num b) => interpolateNumber(a, b);
+
+  /// Interpolate two integers.
+  factory Interpolate.round(int a, int b) => interpolateRound(a, b);
+
+  /// Interpolate two strings.
+  factory Interpolate.string(String a, String b) => interpolateString(a, b);
+
+  /// Interpolate two RGB colors.
+  factory Interpolate.rgb(color.Rgb a, color.Rgb b) => interpolateRgb(a, b);
+
+  /// Interpolate two HSL colors.
+  factory Interpolate.hsl(color.Hsl a, color.Hsl b) => interpolateHsl(a, b);
+
+  /// Interpolate two L*a*b* colors.
+  factory Interpolate.lab(color.Lab a, color.Lab b) => interpolateLab(a, b);
+
+  /// Interpolate two HCL colors.
+  factory Interpolate.hcl(color.Hcl a, color.Hcl b) => interpolateHcl(a, b);
+
+  /// Interpolate two arrays of values.
+  factory Interpolate.array(List a, List b) => interpolateArray(a, b);
+
+  /// Interpolate two arbitrary objects.
+  factory Interpolate.object(a, b) => interpolateObject(a, b);
+
+  /// Interpolate two 2D matrix transforms.
+  factory Interpolate.transform(math.Transform a, math.Transform b) =>
+      interpolateTransform(a, b);
+
+  /// Zoom and pan between two points smoothly.
+  factory Interpolate.zoom(a, b) => interpolateZoom(a, b);
 
   /// A parametric interpolation function.
   call(num t) => _proxy.callMethod('call', [_proxy, t]);

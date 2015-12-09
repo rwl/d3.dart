@@ -13,6 +13,8 @@ class Voronoi {
 
   Voronoi._(this._proxy);
 
+  factory Voronoi() => voronoi();
+
   /// Compute the Voronoi tessellation for the specified points.
   List call(List data) => _proxy.callMethod('call', [_proxy, data]);
 
@@ -73,6 +75,8 @@ class Quadtree {
   final JsObject _proxy;
 
   Quadtree._(this._proxy);
+
+  factory Quadtree() => quadtree();
 
   /// Constructs a quadtree for an array of points.
   Root call(List points,
@@ -163,6 +167,8 @@ class Polygon {
 
   Polygon._(this._proxy);
 
+  factory Polygon(List vertices) => polygon(vertices);
+
   /// Compute the counterclockwise area of this polygon.
   num area() => _proxy.callMethod('area');
 
@@ -183,8 +189,10 @@ class Hull {
 
   Hull._(this._proxy);
 
+  factory Hull() => hull();
+
   /// Compute the convex hull for the given array of points.
-  hull(List vertices) => _proxy.callMethod('hull', [vertices]);
+  call(List vertices) => _proxy.callMethod('call', [_proxy, vertices]);
 
   /// Get or set the x-coordinate accessor.
   x([Function x = undefinedFn]) {

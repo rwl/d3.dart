@@ -16,6 +16,8 @@ class Drag {
 
   Drag._(this._proxy);
 
+  factory Drag() => drag();
+
   Drag on(String type, [Function listener = undefinedFn]) {
     var args = [];
     if (listener != undefinedFn) {
@@ -50,6 +52,8 @@ class Zoom {
   final JsObject _proxy;
 
   Zoom._(this._proxy);
+
+  factory Zoom() => zoom();
 
   /// Apply the zoom behavior to the selected elements.
   call(selection) {

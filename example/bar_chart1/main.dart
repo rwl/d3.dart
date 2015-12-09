@@ -1,12 +1,11 @@
-import 'package:d3/d3.dart' as d3;
+import 'package:d3/d3.dart';
 
 main() {
   var data = [4, 8, 15, 16, 23, 42];
 
-  var x = d3.linear().domain([0, d3.max(data)]).range([0, 420]);
+  var x = new LinearScale().domain([0, max(data)]).range([0, 420]);
 
-  d3
-      .select('.chart')
+  new Selection('.chart')
       .selectAll('div')
       .data(data)
       .enter()

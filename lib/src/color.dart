@@ -14,6 +14,8 @@ class Rgb {
 
   Rgb._(this._proxy);
 
+  factory Rgb(int r, int g, int b) => rgb(r, g, b);
+
   /// Increase RGB channels by some exponential factor (gamma).
   Rgb brighter([num k = 1]) {
     return new Rgb._(_proxy.callMethod('brighter', [k]));
@@ -40,6 +42,8 @@ class Hsl {
   final JsObject _proxy;
 
   Hsl._(this._proxy);
+
+  factory Hsl(num h, num s, num l) => hsl(h, s, l);
 
   /// Increase lightness by some exponential factor (gamma).
   Hsl brighter([num k = 1]) {
@@ -68,6 +72,8 @@ class Hcl {
 
   Hcl._(this._proxy);
 
+  factory Hcl(num h, num c, num l) => hcl(h, c, l);
+
   /// Increase lightness by some exponential factor (gamma).
   Hcl brighter([num k = 1]) {
     return new Hcl._(_proxy.callMethod('brighter', [k]));
@@ -94,6 +100,8 @@ class Lab {
   final JsObject _proxy;
 
   Lab._(this._proxy);
+
+  factory Lab(num l, num a, num b) => lab(l, a, b);
 
   /// Increase lightness by some exponential factor (gamma).
   Lab brighter([num k = 1]) {

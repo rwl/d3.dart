@@ -13,6 +13,8 @@ class LinearScale {
 
   LinearScale._(this._proxy);
 
+  factory LinearScale() => linear();
+
   /// Get the range value corresponding to a given domain value.
   call(x) => _proxy.callMethod('call', [_proxy, x]);
 
@@ -117,6 +119,8 @@ class IdentityScale {
 
   IdentityScale._(this._proxy);
 
+  factory IdentityScale() => identity();
+
   /// The identity function.
   call(x) => _proxy.callMethod('call', [_proxy, x]);
 
@@ -179,6 +183,10 @@ class Pow {
   final JsObject _proxy;
 
   Pow._(this._proxy);
+
+  factory Pow() => pow();
+
+  factory Pow.sqrt() => sqrt();
 
   /// Get the range value corresponding to a given domain value.
   call(x) => _proxy.callMethod('call', [_proxy, x]);
@@ -296,6 +304,8 @@ class Log {
 
   Log._(this._proxy);
 
+  factory Log() => log();
+
   /// Get the range value corresponding to a given domain value.
   call(x) => _proxy.callMethod('call', [_proxy, x]);
 
@@ -406,6 +416,8 @@ class Quantize {
 
   Quantize._(this._proxy);
 
+  factory Quantize() => quantize();
+
   /// Get the range value corresponding to a given domain value.
   call(x) => _proxy.callMethod('call', [_proxy, x]);
 
@@ -451,6 +463,8 @@ class Quantile {
   final JsObject _proxy;
 
   Quantile._(this._proxy);
+
+  factory Quantile() => quantile();
 
   /// Get the range value corresponding to a given domain value.
   call(x) => _proxy.callMethod('call', [_proxy, x]);
@@ -501,6 +515,8 @@ class Threshold {
 
   Threshold._(this._proxy);
 
+  factory Threshold() => threshold();
+
   /// Get the range value corresponding to a given domain value.
   call(x) => _proxy.callMethod('threshold', [_proxy, x]);
 
@@ -546,6 +562,16 @@ class Ordinal {
   final JsObject _proxy;
 
   Ordinal._(this._proxy);
+
+  factory Ordinal() => ordinal();
+
+  factory Ordinal.category10() => category10();
+
+  factory Ordinal.category20() => category20();
+
+  factory Ordinal.category20b() => category20b();
+
+  factory Ordinal.category20c() => category20c();
 
   /// Get the range value corresponding to a given domain value.
   call(x) => _proxy.callMethod('call', [_proxy, x]);

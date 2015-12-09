@@ -194,6 +194,8 @@ class Nest {
 
   Nest._(this._proxy);
 
+  factory Nest() => nest();
+
   /// Add a level to the nest hierarchy.
   key(String function(a)) {
     return new Nest._(_proxy.callMethod('key', [function]));
@@ -244,6 +246,8 @@ class D3Map {
   final JsObject _proxy;
 
   D3Map._(this._proxy);
+
+  factory D3Map([object = undefined, key = undefined]) => map(object, key);
 
   has(key) => _proxy.callMethod('has', [key]);
 

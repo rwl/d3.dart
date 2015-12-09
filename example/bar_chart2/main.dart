@@ -1,15 +1,14 @@
-import 'package:d3/d3.dart' as d3;
-import 'package:d3/scale.dart' as scale;
+import 'package:d3/d3.dart';
 
 main() {
   var width = 420, barHeight = 20;
 
-  var x = scale.linear().range([0, width]);
+  var x = new LinearScale().range([0, width]);
 
-  var chart = d3.select(".chart").attr("width", width);
+  var chart = new Selection(".chart").attr("width", width);
 
-  d3.tsv("data.tsv", type, (error, data) {
-    x.domain([0, d3.max(data, (d) => d['value'])]);
+  new Xhr.tsv("data.tsv", type, (error, data) {
+    x.domain([0, max(data, (d) => d['value'])]);
 
     chart.attr("height", barHeight * data.length);
 
@@ -35,6 +34,6 @@ main() {
 }
 
 type(d, i) {
-  d['value'] = double.parse(d['value']); // coerce to number
+  d['value'] = double.parse(d['value']);
   return d;
 }

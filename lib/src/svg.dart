@@ -17,6 +17,8 @@ class Line {
 
   Line._(this._proxy);
 
+  factory Line() => line();
+
   /// Generate a piecewise linear curve, as in a line chart.
   String call(List data) => _proxy.callMethod('call', [_proxy, data]);
 
@@ -103,6 +105,8 @@ class RadialLine {
 
   RadialLine._(this._proxy);
 
+  factory RadialLine() => radial();
+
   /// Generate a piecewise linear curve, as in a polar line chart.
   String call(List data) => _proxy.callMethod('call', [_proxy, data]);
 
@@ -184,6 +188,8 @@ class Area {
   final JsObject _proxy;
 
   Area._(this._proxy);
+
+  factory Area() => area();
 
   /// Generate a piecewise linear area, as in an area chart.
   String call(List data) => _proxy.callMethod('area', [_proxy, data]);
@@ -315,6 +321,8 @@ class RadialArea {
 
   RadialArea._(this._proxy);
 
+  factory RadialArea() => radialArea();
+
   /// Generate a piecewise linear area, as in a polar area chart.
   String call(data) => _proxy.callMethod('call', [_proxy, data]);
 
@@ -424,6 +432,8 @@ class Arc {
   final JsObject _proxy;
 
   Arc._(this._proxy);
+
+  factory Arc() => arc();
 
   /// Generate a solid arc, as in a pie or donut chart.
   String call(datum, [index = undefined]) {
@@ -558,6 +568,8 @@ class Symbol {
 
   Symbol._(this._proxy);
 
+  factory Symbol() => symbol();
+
   /// Generate categorical symbols, as in a scatterplot.
   call(datum, [index = undefined]) {
     var args = [_proxy, datum];
@@ -606,6 +618,8 @@ class Chord {
   final JsObject _proxy;
 
   Chord._(this._proxy);
+
+  factory Chord() => chord();
 
   /// Generate a quadratic Bézier connecting two arcs, as in a chord diagram.
   String call(datum, [index = undefined]) {
@@ -705,6 +719,8 @@ class Diagonal {
 
   Diagonal._(this._proxy);
 
+  factory Diagonal() => diagonal();
+
   /// Generate a two-dimensional Bézier connector, as in a node-link diagram.
   call(datum, [index = undefined]) {
     var args = [_proxy, datum];
@@ -772,6 +788,8 @@ class Axis {
   final JsObject _proxy;
 
   Axis._(this._proxy);
+
+  factory Axis() => axis();
 
   /// Creates or updates an axis for the given selection or transition.
   call(selection) {
@@ -933,6 +951,8 @@ class Brush {
   final JsObject _proxy;
 
   Brush._(this._proxy);
+
+  factory Brush() => brush();
 
   /// Apply a brush to the given selection or transition.
   call(selection) {

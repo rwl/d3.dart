@@ -47,6 +47,8 @@ class Transform {
 
   Transform._(this._proxy);
 
+  factory Transform(String string) => transform(string);
+
   /// Returns the rotation angle of this transform, in degrees.
   num get rotate => _proxy['rotate'];
 

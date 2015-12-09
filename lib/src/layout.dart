@@ -13,6 +13,8 @@ class Bundle {
 
   Bundle._(this._proxy);
 
+  factory Bundle() => bundle();
+
   /// Apply Holten's hierarchical bundling algorithm to edges.
   call(links) => _proxy.callMethod('call', [_proxy, new JsObject.jsify(links)]);
 }
@@ -24,6 +26,8 @@ class Chord {
   final JsObject _proxy;
 
   Chord._(this._proxy);
+
+  factory Chord() => chord();
 
   /// Get or set the matrix data backing the layout.
   matrix([List<List> matrix = undefinedList]) {
@@ -109,6 +113,8 @@ class Cluster {
   final JsObject _proxy;
 
   Cluster._(this._proxy);
+
+  factory Cluster() => cluster();
 
   /// Alias for cluster.nodes.
   call(root) => _proxy.callMethod('call', [_proxy, root]);
@@ -210,6 +216,8 @@ class Force {
   final JsObject _proxy;
 
   Force._(this._proxy);
+
+  factory Force() => force();
 
   /// Get or set the layout size in x and y.
   size([List size = undefinedList]) {
@@ -400,6 +408,8 @@ class Hierarchy {
 
   Hierarchy._(this._proxy);
 
+  factory Hierarchy() => hierarchy();
+
   /// Alias for hierarchy.nodes.
   call(root) => _proxy.callMethod('call', [_proxy, root]);
 
@@ -462,6 +472,8 @@ class Histogram {
   final JsObject _proxy;
 
   Histogram._(this._proxy);
+
+  factory Histogram() => histogram();
 
   /// Compute the distribution of data using quantized bins.
   List<List> call(List values, [int index = undefinedInt]) {
@@ -538,6 +550,8 @@ class Pack {
   final JsObject _proxy;
 
   Pack._(this._proxy);
+
+  factory Pack() => pack();
 
   /// Alias for pack.nodes.
   call(root) => new Pack._(_proxy.callMethod('call', [_proxy, root]));
@@ -641,6 +655,8 @@ class Partition {
 
   Partition._(this._proxy);
 
+  factory Partition() => partition();
+
   /// Alias for partition.nodes.
   call(root) => _proxy.callMethod('call', [_proxy, root]);
 
@@ -714,6 +730,8 @@ class Pie {
   final JsObject _proxy;
 
   Pie._(this._proxy);
+
+  factory Pie() => pie();
 
   /// Compute the start and end angles for arcs in a pie or donut chart.
   call(List values, [int index = undefinedInt]) {
@@ -808,6 +826,8 @@ class Stack {
   final JsObject _proxy;
 
   Stack._(this._proxy);
+
+  factory Stack() => stack();
 
   /// Compute the baseline for each series in a stacked bar or area chart.
   call(List layers, [int index = undefinedInt]) {
@@ -911,6 +931,8 @@ class Tree {
 
   Tree._(this._proxy);
 
+  factory Tree() => tree();
+
   /// Alias for tree.nodes.
   call(root) => _proxy.callMethod('call', [_proxy, root]);
 
@@ -1011,6 +1033,8 @@ class Treemap {
   final JsObject _proxy;
 
   Treemap._(this._proxy);
+
+  factory Treemap() => treemap();
 
   /// Alias for treemap.nodes.
   call(root) => _proxy.callMethod('call', [_proxy, root]);

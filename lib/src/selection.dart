@@ -54,6 +54,10 @@ class Selection {
 
   Selection._(this._proxy);
 
+  Selection(selector) : _proxy = _d3.callMethod('select', [selector]);
+
+  Selection.all(selector) : _proxy = _d3.callMethod('selectAll', [selector]);
+
   /// Get or set attribute values.
   attr(name, [value = undefined]) {
     if (name is Map) {

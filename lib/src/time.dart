@@ -15,6 +15,12 @@ class Format {
 
   Format._(this._proxy);
 
+  factory Format(String specifier) => format(specifier);
+
+  factory Format.multi(List formats) => multi(formats);
+
+  factory Format.utc(String specifier) => utcFormat(specifier);
+
   /// Format a date into a string.
   String call(DateTime date) => _proxy.callMethod('call', [_proxy, date]);
 
@@ -44,6 +50,10 @@ class TimeScale {
   final JsObject _proxy;
 
   TimeScale._(this._proxy);
+
+  factory TimeScale() => scale();
+
+  factory TimeScale.utc() => utcScale();
 
   /// Get the range value corresponding to a given domain value.
   call(x) => _proxy.callMethod('call', [_proxy, x]);
@@ -159,6 +169,8 @@ class Interval {
   final JsObject _proxy;
 
   Interval._(this._proxy);
+
+  factory Interval() => interval();
 
   /// Alias for interval.floor.
   DateTime call(DateTime date) {

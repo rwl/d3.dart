@@ -14,6 +14,8 @@ class Dsv {
 
   Dsv._(this._proxy);
 
+  factory Dsv(String delimiter, String mimeType) => dsv(delimiter, mimeType);
+
   /// Create a parser/formatter for the specified delimiter and mime type.
   call(String url, [accessor(d) = undefinedFn, callback(rows) = undefinedFn]) {
     var args = [_proxy, url];

@@ -1,23 +1,19 @@
-import 'dart:math' as Math;
-import 'package:d3/d3.dart' as d3;
-import 'package:d3/scale.dart' as scale;
-import 'package:d3/layout.dart' as layout;
+import 'dart:math' as math;
+import 'package:d3/d3.dart';
 
 main() {
   var width = 960, height = 500;
 
-  var color = scale.category20();
+  var color = new Ordinal.category20();
 
-  layout.Force force =
-      layout.force().charge(-120).linkDistance(30).size([width, height]);
+  var force = new Force().charge(-120).linkDistance(30).size([width, height]);
 
-  var svg = d3
-      .select("body")
+  var svg = new Selection("body")
       .append("svg")
       .attr("width", width)
       .attr("height", height);
 
-  d3.json("miserables.json", (error, graph) {
+  new Xhr.json("miserables.json", (error, graph) {
     if (error != null) throw error;
 
     force.nodes(graph['nodes']).links(graph['links']).start();
@@ -29,7 +25,7 @@ main() {
         .append("line")
         .attr("class", "link")
         .style("stroke-width", (d) {
-      return Math.sqrt(d['value']);
+      return math.sqrt(d['value']);
     });
 
     var node = svg

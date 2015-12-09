@@ -23,6 +23,35 @@ class Xhr {
 
   Xhr._(this._proxy);
 
+  factory Xhr(String url,
+          [String mimeType = undefinedString,
+          callback(err, resp) = undefinedFn]) =>
+      xhr(url, mimeType, callback);
+
+  factory Xhr.text(String url,
+          [String mimeType = undefinedString,
+          callback(err, resp) = undefinedFn]) =>
+      text(url, mimeType, callback);
+
+  factory Xhr.json(String url, [callback(err, resp) = undefinedFn]) =>
+      json(url, callback);
+
+  factory Xhr.xml(String url,
+          [String mimeType = undefinedString,
+          callback(err, resp) = undefinedFn]) =>
+      xml(url, mimeType, callback);
+
+  factory Xhr.html(String url, [callback(err, resp) = undefinedFn]) =>
+      html(url, callback);
+
+  factory Xhr.csv(String url,
+          [accessor(d) = undefinedFn, callback(err, resp) = undefinedFn]) =>
+      csv(url, accessor, callback);
+
+  factory Xhr.tsv(String url,
+          [accessor = undefinedFn, callback(err, resp) = undefinedFn]) =>
+      tsv(url, accessor, callback);
+
   /// Set a request header.
   header(String name, [value = undefined]) {
     var args = [name];
