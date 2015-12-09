@@ -22,7 +22,7 @@ Selection selectAll(selector) {
 }
 
 /// Access the current user event for interaction.
-Event get event => _d3['event'];
+get event => _d3['event'];
 
 /// Gets the mouse position relative to a specified container.
 List mouse(Element container) {
