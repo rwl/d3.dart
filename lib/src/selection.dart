@@ -1,9 +1,18 @@
 library d3.src.selection;
 
+import 'dart:html';
 import 'js/selection.dart' as sel;
 
+typedef SelectionFn(data);
+typedef SelectionFunc(data, int i);
+typedef SelectionFunction(Element elem, data, int i);
+
+abstract class AbstractSelection {
+  dynamic get js;
+}
+
 /// A selection is an array of elements pulled from the current document.
-class Selection {
+class Selection implements AbstractSelection {
   final sel.Selection js;
 
   Selection._(this.js);
@@ -22,8 +31,35 @@ class Selection {
     return new UpdateSelection._(js.data(values));
   }
 
+  /// Create and append new elements.
+  Selection append(String name) => new Selection._(js.append(name));
+
+  /// Set style properties.
+  Styles<String> get style => new Styles<String>._(this);
+
+  /// Set style properties.
+  Styles<SelectionFn> get styleFn => new Styles<SelectionFn>._(this);
+
+  /// Set text content.
+  void set text(String value) {
+    js.text(value);
+  }
+
+  /// Set text content.
+  void set textFn(SelectionFn value) {
+    js.text(value);
+  }
+
   /// Get or set attribute values.
   Attr<String> get attr => new Attr<String>._(this);
+
+  /// Get or set attribute values.
+  Attr<SelectionFn> get attrFn => new Attr<SelectionFn>._(this);
+
+  /// Call a function passing in the current selection.
+  void call(Function function) {
+    js.call(function);
+  }
 }
 
 class UpdateSelection {
@@ -43,30 +79,11 @@ class EnterSelection {
   EnterSelection._(this.js);
 
   /// Create and append new elements.
-  void append(String name) {
-    js.append(name);
-  }
-
-  /// Set style properties.
-  Styles<String> get style => new Styles<String>._(this);
-
-  /// Set style properties.
-  Styles<Function> get styleFn => new Styles<Function>._(this);
-
-  /// Set text content.
-  void set textFn(Function value) {
-    js.text(value);
-  }
-
-  /// Get or set attribute values.
-  Attr<String> get attr => new Attr<String>._(this);
-
-  /// Get or set attribute values.
-  Attr<Function> get attrFn => new Attr<Function>._(this);
+  Selection append(String name) => new Selection._(js.append(name));
 }
 
 class Styles<T> {
-  final _selection;
+  final Selection _selection;
   Styles._(this._selection);
 
   void operator []=(String name, T value) {
@@ -75,7 +92,7 @@ class Styles<T> {
 }
 
 class Attr<T> {
-  final _selection;
+  final Selection _selection;
   Attr._(this._selection);
 
   void operator []=(String name, T value) {

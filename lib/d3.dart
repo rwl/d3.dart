@@ -6,6 +6,8 @@ library d3;
 
 export 'src/selection.dart';
 export 'src/scale.dart';
+export 'src/svg.dart';
+export 'src/xhr.dart';
 
 class Margin {
   final num top, right, bottom, left;

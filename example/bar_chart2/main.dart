@@ -6,26 +6,21 @@ main() {
 
   var x = new LinearScale<num>()..range = [0, width];
 
-  var chart = new Selection(".chart")..attr["width"] = width.toString();
+  var chart = new Selection(".chart")..attr["width"] = "$width";
 
-  new Xhr.tsv("data.tsv", type, (error, data) {
+  tsv("data.tsv", type).then((List data) {
     x.domain = [0, max(data.map((d) => d['value']))];
 
     chart.attr["height"] = "${barHeight * data.length}";
 
-    var bar = chart.selectAll("g").setData(data).enter()
-      ..append("g")
-      ..attrFn["transform"] = (d, i) => "translate(0,${i * barHeight})";
+    var bar = chart.selectAll("g").setData(data).enter().append("g")
+      ..attrFn["transform"] = (_, int i) => "translate(0,${i * barHeight})";
 
-    bar
-      ..append("rect")
-      ..attrFn["width"] = ((d) {
-        return x(d['value']);
-      })
+    bar.append("rect")
+      ..attrFn["width"] = ((d) => x(d['value']))
       ..attr["height"] = "${barHeight - 1}";
 
-    bar
-      ..append("text")
+    bar.append("text")
       ..attrFn["x"] = ((d) => x(d['value']) - 3)
       ..attr["y"] = "${barHeight / 2}"
       ..attr["dy"] = ".35em"
@@ -33,7 +28,7 @@ main() {
   });
 }
 
-type(d, i) {
+type(d) {
   d['value'] = double.parse(d['value']);
   return d;
 }
