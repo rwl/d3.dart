@@ -31,4 +31,9 @@ class Axis {
       js.ticks(count, format);
     }
   }
+
+  /// Specify the size of inner ticks.
+  void set tickSize(num size) {
+    js.tickSize(size);
+  }
 }

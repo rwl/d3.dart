@@ -17,6 +17,9 @@ class LinearScale<T> implements Scale {
     js.domain(numbers.toList());
   }
 
+  /// Get or set the scale's input domain.
+  List<num> get domain => js.domain();
+
   /// Get or set the scale's output range.
   void set range(Iterable<T> values) {
     js.range(values.toList());

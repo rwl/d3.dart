@@ -4,9 +4,11 @@
 /// A strongly typed interface to the `d3.js.*` libraries for idiomatic Dart.
 library d3;
 
+export 'src/behavior.dart';
 export 'src/selection.dart';
 export 'src/scale.dart';
 export 'src/svg.dart';
+export 'src/transition.dart';
 export 'src/xhr.dart';
 
 class Margin {
