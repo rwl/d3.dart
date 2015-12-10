@@ -2,7 +2,7 @@ library d3.src.layout;
 
 import 'dart:async';
 import 'js/layout.dart' as layout;
-import 'selection.dart';
+import 'd3.dart';
 
 /// Position linked nodes using physical simulation.
 class Force {
@@ -45,12 +45,12 @@ class Force {
     js.drag();
   }
 
-  Stream<Selected> get onTick {
+  Stream<JsMap> get onTick {
     var ctrl = new StreamController(onCancel: () {
       js.on('tick', null);
     });
-    js.on('tick', (elem, data, i) {
-      ctrl.add(new Selected(elem, data, i));
+    js.on('tick', (event) {
+      ctrl.add(new JsMap(event));
     });
     return ctrl.stream;
   }

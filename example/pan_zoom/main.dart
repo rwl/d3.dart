@@ -40,8 +40,8 @@ main() {
     ..call(zoom);
 
   svg.append("rect")
-    ..attr["width"] = width
-    ..attr["height"] = height;
+    ..attr["width"] = "$width"
+    ..attr["height"] = "$height";
 
   svg.append("g")
     ..attr["class"] = "x axis"

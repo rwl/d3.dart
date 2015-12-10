@@ -6,3 +6,4 @@ homepage: https://github.com/rwl/d3.dart
 dev_dependencies:
   browser: any
   quiver: any
+  test: any

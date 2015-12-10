@@ -29,7 +29,7 @@ main() {
     var node =
         svg.selectAll(".node").setData(graph['nodes']).enter().append("circle")
           ..attr["class"] = "node"
-          ..attr["r"] = 5
+          ..attr["r"] = "5"
           ..styleFn["fill"] = ((d) => color(d['group']))
           ..call((_) => force.drag());
 

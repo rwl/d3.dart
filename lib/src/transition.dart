@@ -1,7 +1,6 @@
 library d3.src.transition;
 
 import 'js/transition.dart' as transition;
-import 'selection.dart';
 
 /// A special type of selection where the operators apply smoothly
 /// over time rather than instantaneously.

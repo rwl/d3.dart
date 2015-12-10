@@ -73,7 +73,7 @@ class Selection {
     if (value == undefined) {
       return retval;
     } else {
-      return new Selection._(retval);
+      return this;
     }
   }
 
@@ -119,7 +119,7 @@ class Selection {
   }
 
   /// Get or set raw properties.
-  Selection property(name, [value = undefined]) {
+  property(name, [value = undefined]) {
     if (name is Map) {
       name = new JsObject.jsify(name);
     }
@@ -138,7 +138,7 @@ class Selection {
   }
 
   /// Get or set text content.
-  Selection text([value = undefined]) {
+  text([value = undefined]) {
     var args = [];
     if (value is Function) {
       args.add(func4VarArgs(value));
@@ -154,7 +154,7 @@ class Selection {
   }
 
   /// Get or set inner HTML content.
-  Selection html([value = undefined]) {
+  html([value = undefined]) {
     var args = [];
     if (value is Function) {
       args.add(func4VarArgs(value));
@@ -198,9 +198,11 @@ class Selection {
 
   /// Get or set data for a group of elements, while computing a
   /// relational join.
-  Selection data([values = undefined, key = undefined]) {
+  data([values = undefined, key = undefined]) {
     var args = [];
-    if (values != undefined) {
+    if (values is Function) {
+      args.add(func3VarArgs(values));
+    } else if (values != undefined) {
       args.add(values);
     }
     if (key is Function) {
@@ -238,7 +240,7 @@ class Selection {
   }
 
   /// Get or set data for individual elements, without computing a join.
-  Selection datum([value = undefined]) {
+  datum([value = undefined]) {
     var args = [];
     if (value is Function) {
       args.add(func4VarArgs(value));
@@ -269,7 +271,7 @@ class Selection {
   }
 
   /// Add or remove event listeners for interaction.
-  Selection on(String type, [listener = undefined, capture = undefined]) {
+  on(String type, [listener = undefined, capture = undefined]) {
     var args = [type];
     if (listener != undefined) {
       args.add(func4VarArgs(listener));
@@ -320,7 +322,8 @@ class Selection {
   /// Call a function for each selected element.
   Selection each(Function function) {
     var args = [func4VarArgs(function)];
-    return new Selection._(_proxy.callMethod('each', args));
+    _proxy.callMethod('each', args);
+    return this;
   }
 
   /// Call a function passing in the current selection.
@@ -361,10 +364,16 @@ class Selection {
   bool empty() => _proxy.callMethod('empty');
 
   /// Returns the first node in the selection.
-  Node node() => _proxy.callMethod('node');
+  Element node() => _proxy.callMethod('node');
 
   /// Returns the number of elements in the selection.
   int size() => _proxy.callMethod('size');
+
+  dynamic operator [](val) {
+    return _proxy[val];
+  }
+
+  int get length => _proxy['length'];
 }
 
 /// For internal use.

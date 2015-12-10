@@ -18,8 +18,24 @@ class Drag {
 
   factory Drag() => drag();
 
+  /// Apply the drag behavior to the selected elements.
+  call(selection) {
+    var args = [_proxy];
+    if (selection is sel.Selection) {
+      args.add(sel.getProxy(selection));
+    } else if (selection is trans.Transition) {
+      args.add(trans.getProxy(selection));
+    } else if (selection is JsArray) {
+      args.add(selection);
+    } else {
+      throw new ArgumentError.value(selection);
+    }
+    print('args: $args');
+    return new Drag._(_proxy.callMethod('call', args));
+  }
+
   Drag on(String type, [Function listener = undefinedFn]) {
-    var args = [];
+    var args = [type];
     if (listener != undefinedFn) {
       args.add(listener);
     }
@@ -67,6 +83,7 @@ class Zoom {
     } else {
       throw new ArgumentError.value(selection);
     }
+    print("ARGS: $args");
     return new Zoom._(_proxy.callMethod('call', args));
   }
 

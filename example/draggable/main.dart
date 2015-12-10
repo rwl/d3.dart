@@ -18,18 +18,18 @@ main() {
 
   new Xhr.json("graph.json", (error, graph) {
     graph['links'].forEach((d) {
-      d.source = graph.nodes[d.source];
-      d.target = graph.nodes[d.target];
+      d['source'] = graph['nodes'][d['source']];
+      d['target'] = graph['nodes'][d['target']];
     });
 
     link = link
-        .data(graph.links)
+        .data(graph['links'])
         .enter()
         .append("line")
-        .attr("x1", (d) => d.source.x)
-        .attr("y1", (d) => d.source.y)
-        .attr("x2", (d) => d.target.x)
-        .attr("y2", (d) => d.target.y);
+        .attr("x1", (d) => d['source']['x'])
+        .attr("y1", (d) => d['source']['y'])
+        .attr("x2", (d) => d['target']['x'])
+        .attr("y2", (d) => d['target']['y']);
 
     brush.call(new Brush()
         .x(new IdentityScale().domain([0, width]))
@@ -53,12 +53,12 @@ main() {
     }));
 
     node = node
-        .data(graph.nodes)
+        .data(graph['nodes'])
         .enter()
         .append("circle")
         .attr("r", 4)
-        .attr("cx", (d) => d.x)
-        .attr("cy", (d) => d.y)
+        .attr("cx", (d) => d['x'])
+        .attr("cy", (d) => d['y'])
         .on("mousedown", (elem, d, i) {
       if (!d.selected) {
         // Don't deselect on shift-drag.
@@ -102,29 +102,20 @@ main() {
 }
 
 nudge(node, link, dx, dy) {
-  node.filter((d) {
-    return d.selected;
-  }).attr("cx", (d) {
-    return d.x += dx;
-  }).attr("cy", (d) {
-    return d.y += dy;
-  });
+  node
+      .filter((d) => d.selected)
+      .attr("cx", (d) => d.x += dx)
+      .attr("cy", (d) => d.y += dy);
 
-  link.filter((d) {
-    return d.source.selected;
-  }).attr("x1", (d) {
-    return d.source.x;
-  }).attr("y1", (d) {
-    return d.source.y;
-  });
+  link
+      .filter((d) => d.source.selected)
+      .attr("x1", (d) => d.source.x)
+      .attr("y1", (d) => d.source.y);
 
-  link.filter((d) {
-    return d.target.selected;
-  }).attr("x2", (d) {
-    return d.target.x;
-  }).attr("y2", (d) {
-    return d.target.y;
-  });
+  link
+      .filter((d) => d.target.selected)
+      .attr("x2", (d) => d.target.x)
+      .attr("y2", (d) => d.target.y);
 
   event.preventDefault();
 }
