@@ -29,7 +29,18 @@ class LinearScale<T> implements Scale {
 /// For discrete input domains, such as names or categories.
 class OrdinalScale<T> implements Scale {
   final scale.Ordinal js;
+
+  OrdinalScale._(this.js);
+
   OrdinalScale() : js = scale.ordinal();
+
+  factory OrdinalScale.category10() => new OrdinalScale._(scale.category10());
+
+  factory OrdinalScale.category20() => new OrdinalScale._(scale.category20());
+
+  factory OrdinalScale.category20b() => new OrdinalScale._(scale.category20b());
+
+  factory OrdinalScale.category20c() => new OrdinalScale._(scale.category20c());
 
   /// Set the scale's input domain.
   void set domain(Iterable<T> values) {

@@ -10,13 +10,7 @@ import 'selection.dart';
 class Zoom {
   final behavior.Zoom js;
 
-  final StreamController<Selected> _zoomCtrl = new StreamController.broadcast();
-
-  Zoom() : js = behavior.zoom() {
-    js.on('zoom', (Element elem, d, int i) {
-      _zoomCtrl.add(new Selected(elem, d, i));
-    });
-  }
+  Zoom() : js = behavior.zoom();
 
   /// Apply the zoom behavior to the selected elements.
   void call(AbstractSelection selection) {
@@ -71,5 +65,13 @@ class Zoom {
     js.event(selection.js);
   }
 
-  Stream<Selected> get onZoom => _zoomCtrl.stream;
+  Stream<Selected> get onZoom {
+    var ctrl = new StreamController<Selected>(onCancel: () {
+      js.on('zoom', null);
+    });
+    js.on('zoom', (Element elem, data, int i) {
+      ctrl.add(new Selected(elem, data, i));
+    });
+    return ctrl.stream;
+  }
 }

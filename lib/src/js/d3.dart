@@ -1,7 +1,6 @@
-library d3.src;
+library d3.js.src;
 
 import 'dart:js';
-import 'dart:collection';
 
 undefinedFn([_, __]) {}
 
@@ -20,26 +19,6 @@ typedef Func3Args(elem, data, i);
 typedef Func2Args(data, i);
 typedef Func1Arg(data);
 typedef Func0Arg();
-
-class JsMap extends MapBase<String, dynamic> {
-  final JsObject _proxy;
-
-  JsMap(this._proxy);
-
-  Iterable<String> get keys => context['Object'].callMethod('keys', [_proxy]);
-
-  dynamic operator [](String key) => _proxy[key];
-
-  void operator []=(String key, value) {
-    _proxy[key] = value;
-  }
-
-  remove(String key) {
-    _proxy.deleteProperty(key);
-  }
-
-  void clear() => keys.forEach((String k) => _proxy.deleteProperty(k));
-}
 
 Func4Args func4VarArgs(value) {
   return allowInteropCaptureThis((elem, data, i, j) {
