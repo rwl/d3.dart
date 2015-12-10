@@ -1034,7 +1034,7 @@ class Brush {
   on(String type, [Function listener = undefinedFn]) {
     var args = [type];
     if (listener != undefinedFn) {
-      args.add(listener);
+      args.add(func4VarArgs(listener));
     }
     return new Brush._(_proxy.callMethod('on', args));
   }

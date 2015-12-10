@@ -70,18 +70,18 @@ class Zoom {
   /// Dispatch zoom events after setting the scale or translate.
   void event(selection) {
     if (selection is Selection) {
-      js.call(selection.js);
+      js.event(selection.js);
     } else if (selection is Transition) {
-      js.call(selection.js);
+      js.event(selection.js);
     } else {
-      js.call(selection);
+      js.event(selection);
     }
   }
 
   Stream<Selected> get onZoom {
     var ctrl = new StreamController<Selected>(onCancel: () {
       js.on('zoom', null);
-    });
+    }, sync: true);
     js.on('zoom', (Element elem, data, int i) {
       ctrl.add(new Selected(elem, data, i));
     });

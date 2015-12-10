@@ -1,12 +1,14 @@
+import 'dart:html' show Event;
 import 'package:d3/js/d3.dart';
 
 main() {
   var width = 960, height = 500;
-  bool shiftKey;
+  bool shiftKey = false;
 
-  var svg = new Selection("body").attr("tabindex", 1).each((elem, d, i) {
+  var body = new Selection("body").attr("tabindex", 1).each((elem, d, i) {
     elem.focus();
-  }).append("svg").attr("width", width).attr("height", height);
+  });
+  var svg = body.append("svg").attr("width", width).attr("height", height);
 
   var link = svg.append("g").attr("class", "link").selectAll("line");
 
@@ -36,20 +38,20 @@ main() {
         .y(new IdentityScale().domain([0, height]))
         .on("brushstart", (d) {
       node.each((d) {
-        d.previouslySelected = shiftKey && d.selected;
+        d['previouslySelected'] = shiftKey && d['selected'];
       });
     }).on("brush", () {
-      var extent = event.target.extent();
+      var extent = event['target'].callMethod('extent');
       node.classed("selected", (d) {
-        return d.selected = d.previouslySelected ^
-            (extent[0][0] <= d.x &&
-                d.x < extent[1][0] &&
-                extent[0][1] <= d.y &&
-                d.y < extent[1][1]);
+        return d['selected'] = d['previouslySelected'] !=
+            (extent[0][0] <= d['x'] &&
+                d['x'] < extent[1][0] &&
+                extent[0][1] <= d['y'] &&
+                d['y'] < extent[1][1]);
       });
     }).on("brushend", (elem, d, i) {
-      event.target.clear();
-      select(elem).call(event.target);
+      event['target'].callMethod('clear');
+      select(elem).call(event['target']);
     }));
 
     node = node
@@ -60,23 +62,23 @@ main() {
         .attr("cx", (d) => d['x'])
         .attr("cy", (d) => d['y'])
         .on("mousedown", (elem, d, i) {
-      if (!d.selected) {
+      if (d['selected'] == false) {
         // Don't deselect on shift-drag.
         if (!shiftKey) {
-          node.classed("selected", (p) => p.selected = d == p);
+          node.classed("selected", (p) => p['selected'] = d == p);
         } else {
-          select(elem).classed("selected", d.selected = true);
+          select(elem).classed("selected", d['selected'] = true);
         }
       }
     }).on("mouseup", (elem, d, i) {
-      if (d.selected && shiftKey) {
-        select(elem).classed("selected", d.selected = false);
+      if (d['selected'] == true && shiftKey) {
+        select(elem).classed("selected", d['selected'] = false);
       }
     }).call(new Drag()
-            .on("drag", (d) => nudge(node, link, event.dx, event.dy)));
+            .on("drag", (d) => nudge(node, link, event['dx'], event['dy'])));
   });
 
-  svg.on("keydown.brush", () {
+  body.on("keydown", () {
     if (!event.metaKey) {
       switch (event.keyCode) {
         case 38:
@@ -96,26 +98,28 @@ main() {
     shiftKey = event.shiftKey || event.metaKey;
   });
 
-  svg.on("keyup.brush", () {
+  body.on("keyup", () {
     shiftKey = event.shiftKey || event.metaKey;
   });
 }
 
 nudge(node, link, dx, dy) {
   node
-      .filter((d) => d.selected)
-      .attr("cx", (d) => d.x += dx)
-      .attr("cy", (d) => d.y += dy);
+      .filter((d) => d['selected'])
+      .attr("cx", (d) => d['x'] += dx)
+      .attr("cy", (d) => d['y'] += dy);
 
   link
-      .filter((d) => d.source.selected)
-      .attr("x1", (d) => d.source.x)
-      .attr("y1", (d) => d.source.y);
+      .filter((d) => d['source']['selected'])
+      .attr("x1", (d) => d['source']['x'])
+      .attr("y1", (d) => d['source']['y']);
 
   link
-      .filter((d) => d.target.selected)
-      .attr("x2", (d) => d.target.x)
-      .attr("y2", (d) => d.target.y);
+      .filter((d) => d['target']['selected'])
+      .attr("x2", (d) => d['target']['x'])
+      .attr("y2", (d) => d['target']['y']);
 
-  event.preventDefault();
+  if (event is Event) {
+    event.preventDefault();
+  }
 }
