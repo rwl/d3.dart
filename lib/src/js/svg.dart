@@ -723,6 +723,9 @@ class Diagonal {
 
   /// Generate a two-dimensional Bézier connector, as in a node-link diagram.
   call(datum, [index = undefined]) {
+    if (datum is Map) {
+      datum = new JsObject.jsify(datum);
+    }
     var args = [_proxy, datum];
     if (index != undefined) {
       args.add(index);
@@ -869,16 +872,16 @@ class Axis {
   }
 
   /// Specify the size of major, minor and end ticks.
-  tickSize([num inner = undefinedNum, num outer = undefinedNum]) {
+  tickSize([inner = undefined, outer = undefined]) {
     var args = [];
-    if (inner != undefinedNum) {
+    if (inner != undefined) {
       args.add(inner);
     }
-    if (outer != undefinedNum) {
+    if (outer != undefined) {
       args.add(outer);
     }
     var retval = _proxy.callMethod('tickSize', args);
-    if (inner == undefinedNum) {
+    if (inner == undefined) {
       return retval;
     } else {
       return new Axis._(retval);
@@ -886,13 +889,13 @@ class Axis {
   }
 
   /// Specify the size of inner ticks.
-  innerTickSize([num size = undefinedNum]) {
+  innerTickSize([size = undefined]) {
     var args = [];
-    if (size != undefinedNum) {
+    if (size != undefined) {
       args.add(size);
     }
     var retval = _proxy.callMethod('innerTickSize', args);
-    if (size == undefinedNum) {
+    if (size == undefined) {
       return retval;
     } else {
       return new Axis._(retval);
@@ -900,13 +903,13 @@ class Axis {
   }
 
   /// Specify the size of outer ticks.
-  outerTickSize([num size = undefinedNum]) {
+  outerTickSize([size = undefined]) {
     var args = [];
-    if (size != undefinedNum) {
+    if (size != undefined) {
       args.add(size);
     }
     var retval = _proxy.callMethod('outerTickSize', args);
-    if (size == undefinedNum) {
+    if (size == undefined) {
       return retval;
     } else {
       return new Axis._(retval);
@@ -914,13 +917,13 @@ class Axis {
   }
 
   /// Specify padding between ticks and tick labels.
-  tickPadding([num padding = undefinedNum]) {
+  tickPadding([padding = undefined]) {
     var args = [];
-    if (padding != undefinedNum) {
+    if (padding != undefined) {
       args.add(padding);
     }
     var retval = _proxy.callMethod('tickPadding', args);
-    if (padding == undefinedNum) {
+    if (padding == undefined) {
       return retval;
     } else {
       return new Axis._(retval);

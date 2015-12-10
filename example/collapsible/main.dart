@@ -1,4 +1,5 @@
 import 'package:d3/js/d3.dart';
+import 'package:d3/d3.dart' show Margin;
 
 main() {
   var margin = new Margin(top: 20, right: 120, bottom: 20, left: 120);
@@ -7,9 +8,9 @@ main() {
 
   var i = 0, duration = 750;
 
-  var tree = new Tree().size([height, width]);
+  Tree tree = new Tree().size([height, width]);
 
-  var diagonal = new Diagonal().projection((d) => [d.y, d.x]);
+  var diagonal = new Diagonal().projection((d) => [d['y'], d['x']]);
 
   var svg = new Selection("body")
       .append("svg")
@@ -22,57 +23,61 @@ main() {
 
   update(root, source) {
     // Compute the new tree layout.
-    var nodes = tree.nodes(root).reverse(), links = tree.links(nodes);
+    var nodes = tree.nodes(root).callMethod('reverse');
+    var links = tree.links(nodes);
 
     // Normalize for fixed-depth.
     nodes.forEach((d) {
-      d.y = d.depth * 180;
+      d['y'] = d['depth'] * 180;
     });
 
     // Update the nodes...
-    var node = svg.selectAll("g.node").data(nodes, (d) => d.id || (d.id = ++i));
+    var node = svg.selectAll("g.node").data(nodes, (d) {
+      return d['id'] != null ? d['id'] : (d['id'] = ++i);
+    });
 
     // Enter any new nodes at the parent's previous position.
     var nodeEnter = node
         .enter()
         .append("g")
         .attr("class", "node")
-        .attr("transform", (d) => "translate(${source.y0},${source.x0})")
+        .attr("transform", (d) => "translate(${source['y0']},${source['x0']})")
         .on("click", (d) {
       // Toggle children on click.
-      if (d.children) {
-        d._children = d.children;
-        d.children = null;
+      if (d['children'] != null) {
+        d['_children'] = d['children'];
+        d['children'] = null;
       } else {
-        d.children = d._children;
-        d._children = null;
+        d['children'] = d['_children'];
+        d['_children'] = null;
       }
       update(root, d);
     });
 
-    nodeEnter
-        .append("circle")
-        .attr("r", 1e-6)
-        .style("fill", (d) => d._children ? "lightsteelblue" : "#fff");
+    nodeEnter.append("circle").attr("r", 1e-6).style(
+        "fill", (d) => d['_children'] != null ? "lightsteelblue" : "#fff");
 
     nodeEnter
         .append("text")
-        .attr("x", (d) => d.children || d._children ? -10 : 10)
+        .attr("x",
+            (d) => d['children'] != null || d['_children'] != null ? -10 : 10)
         .attr("dy", ".35em")
-        .attr("text-anchor", (d) => d.children || d._children ? "end" : "start")
-        .text((d) => d.name)
+        .attr(
+            "text-anchor",
+            (d) => d['children'] != null || d['_children'] != null
+                ? "end"
+                : "start")
+        .text((d) => d['name'])
         .style("fill-opacity", 1e-6);
 
     // Transition nodes to their new position.
     var nodeUpdate = node
         .transition()
         .duration(duration)
-        .attr("transform", (d) => "translate(${d.y},${d.x})");
+        .attr("transform", (d) => "translate(${d['y']},${d['x']})");
 
-    nodeUpdate
-        .select("circle")
-        .attr("r", 4.5)
-        .style("fill", (d) => d._children ? "lightsteelblue" : "#fff");
+    nodeUpdate.select("circle").attr("r", 4.5).style(
+        "fill", (d) => d['_children'] != null ? "lightsteelblue" : "#fff");
 
     nodeUpdate.select("text").style("fill-opacity", 1);
 
@@ -81,7 +86,7 @@ main() {
         .exit()
         .transition()
         .duration(duration)
-        .attr("transform", (d) => "translate(${source.y},${source.x})")
+        .attr("transform", (d) => "translate(${source['y']},${source['x']})")
         .remove();
 
     nodeExit.select("circle").attr("r", 1e-6);
@@ -89,11 +94,11 @@ main() {
     nodeExit.select("text").style("fill-opacity", 1e-6);
 
     // Update the links...
-    var link = svg.selectAll("path.link").data(links, (d) => d.target.id);
+    var link = svg.selectAll("path.link").data(links, (d) => d['target']['id']);
 
     // Enter any new links at the parent's previous position.
     link.enter().insert("path", "g").attr("class", "link").attr("d", (d) {
-      var o = {'x': source.x0, 'y': source.y0};
+      var o = {'x': source['x0'], 'y': source['y0']};
       return diagonal({'source': o, 'target': o});
     });
 
@@ -102,33 +107,33 @@ main() {
 
     // Transition exiting nodes to the parent's new position.
     link.exit().transition().duration(duration).attr("d", (d) {
-      var o = {'x': source.x, 'y': source.y};
+      var o = {'x': source['x'], 'y': source['y']};
       return diagonal({'source': o, 'target': o});
     }).remove();
 
     // Stash the old positions for transition.
     nodes.forEach((d) {
-      d.x0 = d.x;
-      d.y0 = d.y;
+      d['x0'] = d['x'];
+      d['y0'] = d['y'];
     });
   }
 
   new Xhr.json("flare.json", (error, flare) {
-    if (error) throw error;
+    if (error != null) throw error;
 
     var root = flare;
-    root.x0 = height / 2;
-    root.y0 = 0;
+    root['x0'] = height / 2;
+    root['y0'] = 0;
 
     collapse(d) {
-      if (d.children) {
-        d._children = d.children;
-        d._children.forEach(collapse);
-        d.children = null;
+      if (d['children'] != null) {
+        d['_children'] = d['children'];
+        d['_children'].forEach(collapse);
+        d['children'] = null;
       }
     }
 
-    root.children.forEach(collapse);
+    root['children'].forEach(collapse);
     update(root, root);
   });
 }

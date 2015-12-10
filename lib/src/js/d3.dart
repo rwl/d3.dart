@@ -52,16 +52,18 @@ Func3Args func3VarArgs(value) {
   });
 }
 
-Func3Args func2VarArgs(value) {
-  return (data, i, j) {
+Func2Args func2VarArgs(value) {
+  return allowInteropCaptureThis((values, data, i) {
     if (value is Func0Arg) {
       return value();
     } else if (value is Func1Arg) {
       return value(data);
     } else if (value is Func2Args) {
       return value(data, i);
+    } else if (value is Func3Args) {
+      return value(values, data, i);
     } else {
       throw new ArgumentError.value(value);
     }
-  };
+  });
 }

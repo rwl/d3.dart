@@ -937,10 +937,10 @@ class Tree {
   call(root) => _proxy.callMethod('call', [_proxy, root]);
 
   /// Compute the tree layout and return the array of nodes.
-  List nodes(root) => _proxy.callMethod('nodes', [root]);
+  /*List*/ nodes(root) => _proxy.callMethod('nodes', [root]);
 
   /// Compute the parent-child links between tree nodes.
-  List links(nodes) => _proxy.callMethod('links', [nodes]);
+  /*List*/ links(nodes) => _proxy.callMethod('links', [nodes]);
 
   /// Get or set the children accessor function.
   children([Function children = undefinedFn]) {

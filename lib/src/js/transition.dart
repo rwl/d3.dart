@@ -101,7 +101,7 @@ class Transition {
   }
 
   /// Smoothly transition to the new style property value.
-  Transition style(String name, value, [String priority = undefined]) {
+  Transition style(String name, value, [priority = undefined]) {
     var args = [name];
     if (value is Function) {
       args.add(func4VarArgs(value));
