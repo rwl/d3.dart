@@ -1,6 +1,7 @@
 library d3.src.transition;
 
 import 'js/transition.dart' as transition;
+import 'selection.dart';
 
 /// A special type of selection where the operators apply smoothly
 /// over time rather than instantaneously.
@@ -19,6 +20,11 @@ class Transition {
   /// Specify a custom tween operator to run as part of the transition.
   void tween(String name, Function fn()) {
     js.tween(name, fn);
+  }
+
+  /// Call a function passing in the current transition.
+  void call(function(selection)) {
+    js.call(function);
   }
 }
 

@@ -10,7 +10,11 @@ abstract class Scale {
 /// A linear quantitative scale.
 class LinearScale<T> implements Scale {
   final scale.LinearScale js;
+
   LinearScale() : js = scale.linear();
+
+  /// Get the range value corresponding to a given domain value.
+  T call(num x) => js.call(x);
 
   /// Set the scale's input domain.
   void set domain(Iterable<num> numbers) {
@@ -27,7 +31,7 @@ class LinearScale<T> implements Scale {
 }
 
 /// For discrete input domains, such as names or categories.
-class OrdinalScale<T> implements Scale {
+class OrdinalScale<T, U> implements Scale {
   final scale.Ordinal js;
 
   OrdinalScale._(this.js);
@@ -41,6 +45,9 @@ class OrdinalScale<T> implements Scale {
   factory OrdinalScale.category20b() => new OrdinalScale._(scale.category20b());
 
   factory OrdinalScale.category20c() => new OrdinalScale._(scale.category20c());
+
+  /// Get the range value corresponding to a given domain value.
+  U call(T x) => js.call(x);
 
   /// Set the scale's input domain.
   void set domain(Iterable<T> values) {

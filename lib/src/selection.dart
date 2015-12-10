@@ -16,12 +16,8 @@ class Selected {
   Selected(this.elem, this.data, this.i);
 }
 
-abstract class AbstractSelection {
-  dynamic get js;
-}
-
 /// A selection is an array of elements pulled from the current document.
-class Selection implements AbstractSelection {
+class Selection {
   final sel.Selection js;
 
   Selection._(this.js);
@@ -68,8 +64,11 @@ class Selection implements AbstractSelection {
   /// Get or set attribute values.
   Attr<SelectionFn> get attrFn => new Attr<SelectionFn>._(this);
 
+  /// Get or set attribute values.
+  Attr<SelectionFunc> get attrFunc => new Attr<SelectionFunc>._(this);
+
   /// Call a function passing in the current selection.
-  void call(function(AbstractSelection s)) {
+  void call(function(selection)) {
     js.call(function);
   }
 

@@ -1,11 +1,12 @@
 library d3.src.behavior;
 
-import 'dart:html';
+import 'dart:html' show Element;
 import 'dart:async';
 
 import 'js/behavior.dart' as behavior;
 import 'scale.dart';
 import 'selection.dart';
+import 'transition.dart';
 
 class Zoom {
   final behavior.Zoom js;
@@ -13,8 +14,14 @@ class Zoom {
   Zoom() : js = behavior.zoom();
 
   /// Apply the zoom behavior to the selected elements.
-  void call(AbstractSelection selection) {
-    js.call(selection.js);
+  void call(selection) {
+    if (selection is Selection) {
+      js.call(selection.js);
+    } else if (selection is Transition) {
+      js.call(selection.js);
+    } else {
+      js.call(selection);
+    }
   }
 
   /// An optional scale whose domain is bound to the x extent of the viewport.
@@ -61,8 +68,14 @@ class Zoom {
   List get center => js.center();
 
   /// Dispatch zoom events after setting the scale or translate.
-  void event(AbstractSelection selection) {
-    js.event(selection.js);
+  void event(selection) {
+    if (selection is Selection) {
+      js.call(selection.js);
+    } else if (selection is Transition) {
+      js.call(selection.js);
+    } else {
+      js.call(selection);
+    }
   }
 
   Stream<Selected> get onZoom {

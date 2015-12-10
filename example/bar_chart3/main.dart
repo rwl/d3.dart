@@ -6,7 +6,7 @@ main() {
   var width = 960 - margin.left - margin.right;
   var height = 500 - margin.top - margin.bottom;
 
-  var x = new OrdinalScale<num>()..rangeRoundBands([0, width], 0.1);
+  var x = new OrdinalScale()..rangeRoundBands([0, width], 0.1);
 
   var y = new LinearScale<num>()..range = [height, 0];
 
@@ -47,7 +47,7 @@ main() {
     svg.selectAll(".bar").setData(data).enter().append("rect")
       ..attr["class"] = "bar"
       ..attrFn["x"] = ((d) => x(d['letter']))
-      ..attr["width"] = x.rangeBand
+      ..attr["width"] = "${x.rangeBand}"
       ..attrFn["y"] = ((d) => y(d['frequency']))
       ..attrFn["height"] = (d) => height - y(d['frequency']);
   }, onError: (err) => throw err);

@@ -3,14 +3,21 @@ library d3.src.svg;
 import 'js/svg.dart' as svg;
 import 'scale.dart';
 import 'selection.dart';
+import 'transition.dart';
 
 class Axis {
   final svg.Axis js;
   Axis() : js = svg.axis();
 
   /// Creates or updates an axis for the given selection or transition.
-  void call(AbstractSelection selection) {
-    js.call(selection.js);
+  void call(selection) {
+    if (selection is Selection) {
+      js.call(selection.js);
+    } else if (selection is Transition) {
+      js.call(selection.js);
+    } else {
+      js.call(selection);
+    }
   }
 
   /// Get or set the axis scale.

@@ -14,7 +14,7 @@ main() {
     chart.attr["height"] = "${barHeight * data.length}";
 
     var bar = chart.selectAll("g").setData(data).enter().append("g")
-      ..attrFn["transform"] = (_, int i) => "translate(0,${i * barHeight})";
+      ..attrFunc["transform"] = (_, int i) => "translate(0,${i * barHeight})";
 
     bar.append("rect")
       ..attrFn["width"] = ((d) => x(d['value']))
