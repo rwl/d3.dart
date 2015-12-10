@@ -19,10 +19,9 @@ main() {
     ..orient = "left"
     ..ticks(10, "%");
 
-  var svg = new Selection("body").append("svg")
+  var svg = (new Selection("body").append("svg")
     ..attr["width"] = "${width + margin.left + margin.right}"
-    ..attr["height"] = "${height + margin.top + margin.bottom}";
-  svg.append("g")
+    ..attr["height"] = "${height + margin.top + margin.bottom}").append("g")
     ..attr["transform"] = "translate(${margin.left},${margin.top})";
 
   tsv("data.tsv", type).then((List data) {

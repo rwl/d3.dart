@@ -1,6 +1,6 @@
 /// D3 is a library for manipulating documents based on data. D3 helps you
 /// bring data to life using HTML, SVG and CSS.
-library d3;
+library d3.js;
 
 export '../src/js/array.dart' hide quantile;
 export '../src/js/behavior.dart';
