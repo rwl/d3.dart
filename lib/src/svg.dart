@@ -1,5 +1,7 @@
 library d3.src.svg;
 
+import 'dart:html' show Element;
+import 'dart:async';
 import 'js/svg.dart' as svg;
 import 'scale.dart';
 import 'selection.dart';
@@ -63,5 +65,66 @@ class Diagonal {
   /// Get or set an optional point transform.
   void set projectionFn(SelectionFn projection) {
     js.projection(projection);
+  }
+}
+
+/// Click and drag to select one- or two-dimensional regions.
+class Brush {
+  final svg.Brush js;
+
+  Brush() : js = svg.brush();
+
+  /// Apply a brush to the given selection or transition.
+  void call(selection) {
+    if (selection is Selection) {
+      js.call(selection.js);
+    } else if (selection is Transition) {
+      js.call(selection.js);
+    } else {
+      js.call(selection);
+    }
+  }
+
+  /// The brush's x-scale, for horizontal brushing.
+  void set x(Scale scale) {
+    js.x(scale.js);
+  }
+
+  /// The brush's y-scale, for vertical brushing.
+  void set y(Scale scale) {
+    js.y(scale.js);
+  }
+
+  /// Listen for when the brush is moved.
+  Stream<Selected> get onBrushStart {
+    var ctrl = new StreamController<Selected>(onCancel: () {
+      js.on('brushstart', null);
+    }, sync: true);
+    js.on('brushstart', (Element elem, data, int i) {
+      ctrl.add(new Selected(elem, data, i));
+    });
+    return ctrl.stream;
+  }
+
+  /// Listen for when the brush is moved.
+  Stream<Selected> get onBrush {
+    var ctrl = new StreamController<Selected>(onCancel: () {
+      js.on('brush', null);
+    }, sync: true);
+    js.on('brush', (Element elem, data, int i) {
+      ctrl.add(new Selected(elem, data, i));
+    });
+    return ctrl.stream;
+  }
+
+  /// Listen for when the brush is moved.
+  Stream<Selected> get onBrushEnd {
+    var ctrl = new StreamController<Selected>(onCancel: () {
+      js.on('brushend', null);
+    }, sync: true);
+    js.on('brushend', (Element elem, data, int i) {
+      ctrl.add(new Selected(elem, data, i));
+    });
+    return ctrl.stream;
   }
 }

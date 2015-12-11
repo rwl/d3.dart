@@ -1,13 +1,16 @@
 library d3.src.selection;
 
 import 'dart:async';
-import 'dart:html';
+import 'dart:html' show Element, Node;
 import 'js/selection.dart' as sel;
 import 'transition.dart' as trans;
 
 typedef SelectionFn(data);
 typedef SelectionFunc(data, int i);
 typedef SelectionFunction(Element elem, data, int i);
+
+/// Access the current user event for interaction.
+dynamic get event => sel.event;
 
 class Selected {
   final Element elem;
@@ -25,12 +28,30 @@ class Selection {
   /// Select an element from the current document.
   Selection(String selector) : js = sel.select(selector);
 
+  /// Select an element from the current document.
+  Selection.node(Node node) : js = sel.select(node);
+
   /// Select multiple elements from the current document.
   Selection.all(String selector) : js = sel.selectAll(selector);
 
   /// Subselect multiple descendants for each selected element.
   Selection selectAll(String selector) {
     return new Selection._(js.selectAll(selector));
+  }
+
+  /// Call a function for each selected element.
+  void each(SelectionFunction function) {
+    js.each(function);
+  }
+
+  /// Call a function for each selected element.
+  void eachFn(SelectionFn function) {
+    js.each(function);
+  }
+
+  /// Set data for individual elements, without computing a join.
+  void set datumFn(SelectionFn value) {
+    js.datum(value);
   }
 
   /// Set data for a group of elements, while computing a
@@ -73,9 +94,20 @@ class Selection {
   /// Get or set attribute values.
   Attr<SelectionFunc> get attrFunc => new Attr<SelectionFunc>._(this);
 
+  /// Add or remove CSS classes.
+  Classed<String> get classed => new Classed<String>._(this);
+
+  /// Add or remove CSS classes.
+  Classed<SelectionFn> get classedFn => new Classed<SelectionFn>._(this);
+
   /// Call a function passing in the current selection.
   void call(function(selection)) {
     js.call(function);
+  }
+
+  /// Filter a selection based on data.
+  Selection filterFn(SelectionFn selector) {
+    return new Selection._(js.filter(selector));
   }
 
   /// Subselect a descendant element for each selected element.
@@ -85,7 +117,7 @@ class Selection {
   Stream<Selected> on(String type, {bool capture: false}) {
     var ctrl = new StreamController<Selected>(onCancel: () {
       js.on(type, null);
-    });
+    }, sync: true);
     js.on(type, (elem, d, i) {
       ctrl.add(new Selected(elem, d, i));
     }, capture);
@@ -154,6 +186,15 @@ class Attr<T> {
 
   void operator []=(String name, T value) {
     _selection.js.attr(name, value);
+  }
+}
+
+class Classed<T> {
+  final _selection;
+  Classed._(this._selection);
+
+  void operator []=(String name, T value) {
+    _selection.js.classed(name, value);
   }
 }
 

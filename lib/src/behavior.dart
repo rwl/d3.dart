@@ -8,6 +8,53 @@ import 'scale.dart';
 import 'selection.dart';
 import 'transition.dart';
 
+class Drag {
+  final behavior.Drag js;
+
+  Drag() : js = behavior.drag();
+
+  /// Apply the drag behavior to the selected elements.
+  void call(selection) {
+    if (selection is Selection) {
+      js.call(selection.js);
+    } else if (selection is Transition) {
+      js.call(selection.js);
+    } else {
+      js.call(selection);
+    }
+  }
+
+  Stream<Selected> get onDragStart {
+    var ctrl = new StreamController<Selected>(onCancel: () {
+      js.on('dragstart', null);
+    }, sync: true);
+    js.on('dragstart', (Element elem, data, int i) {
+      ctrl.add(new Selected(elem, data, i));
+    });
+    return ctrl.stream;
+  }
+
+  Stream<Selected> get onDrag {
+    var ctrl = new StreamController<Selected>(onCancel: () {
+      js.on('drag', null);
+    }, sync: true);
+    js.on('drag', (Element elem, data, int i) {
+      ctrl.add(new Selected(elem, data, i));
+    });
+    return ctrl.stream;
+  }
+
+  Stream<Selected> get onDragEnd {
+    var ctrl = new StreamController<Selected>(onCancel: () {
+      js.on('dragend', null);
+    }, sync: true);
+    js.on('dragstart', (Element elem, data, int i) {
+      ctrl.add(new Selected(elem, data, i));
+    });
+    return ctrl.stream;
+  }
+}
+
 class Zoom {
   final behavior.Zoom js;
 
@@ -78,11 +125,31 @@ class Zoom {
     }
   }
 
+  Stream<Selected> get onZoomStart {
+    var ctrl = new StreamController<Selected>(onCancel: () {
+      js.on('zoomstart', null);
+    }, sync: true);
+    js.on('zoomstart', (Element elem, data, int i) {
+      ctrl.add(new Selected(elem, data, i));
+    });
+    return ctrl.stream;
+  }
+
   Stream<Selected> get onZoom {
     var ctrl = new StreamController<Selected>(onCancel: () {
       js.on('zoom', null);
     }, sync: true);
     js.on('zoom', (Element elem, data, int i) {
+      ctrl.add(new Selected(elem, data, i));
+    });
+    return ctrl.stream;
+  }
+
+  Stream<Selected> get onZoomEnd {
+    var ctrl = new StreamController<Selected>(onCancel: () {
+      js.on('zoomend', null);
+    }, sync: true);
+    js.on('zoomend', (Element elem, data, int i) {
       ctrl.add(new Selected(elem, data, i));
     });
     return ctrl.stream;

@@ -30,6 +30,21 @@ class LinearScale<T> implements Scale {
   }
 }
 
+/// Construct a linear identity scale.
+class IdentityScale<T> implements Scale {
+  final scale.IdentityScale js;
+
+  IdentityScale() : js = scale.identity();
+
+  /// The identity function.
+  T call(num x) => js.call(x);
+
+  /// Get or set the scale's domain and range.
+  void set domain(List<num> numbers) {
+    js.domain(numbers);
+  }
+}
+
 /// For discrete input domains, such as names or categories.
 class OrdinalScale<T, U> implements Scale {
   final scale.Ordinal js;
