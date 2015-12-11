@@ -35,8 +35,14 @@ class Selection {
 
   /// Set data for a group of elements, while computing a
   /// relational join.
-  UpdateSelection setData(List values) {
-    return new UpdateSelection._(js.data(values));
+  UpdateSelection setData(List values, [SelectionFn key]) {
+    sel.Selection retval;
+    if (key != null) {
+      retval = js.data(values, key);
+    } else {
+      retval = js.data(values);
+    }
+    return new UpdateSelection._(retval);
   }
 
   /// Create and append new elements.
@@ -101,6 +107,16 @@ class UpdateSelection {
   EnterSelection enter() {
     return new EnterSelection._(js.enter());
   }
+
+  /// Returns elements that are no longer needed.
+  Selection exit() {
+    return new Selection._(js.exit());
+  }
+
+  /// Start a transition on the selected elements.
+  trans.Transition transition() {
+    return trans.newTransition(js.transition());
+  }
 }
 
 class EnterSelection {
@@ -110,10 +126,21 @@ class EnterSelection {
 
   /// Create and append new elements.
   Selection append(String name) => new Selection._(js.append(name));
+
+  /// Create and insert new elements before existing elements.
+  Selection insert(String name, [String before]) {
+    sel.Selection retval;
+    if (before != null) {
+      retval = js.insert(name, before);
+    } else {
+      retval = js.insert(name);
+    }
+    return new Selection._(retval);
+  }
 }
 
 class Styles<T> {
-  final Selection _selection;
+  final _selection;
   Styles._(this._selection);
 
   void operator []=(String name, T value) {
@@ -122,10 +149,16 @@ class Styles<T> {
 }
 
 class Attr<T> {
-  final Selection _selection;
+  final _selection;
   Attr._(this._selection);
 
   void operator []=(String name, T value) {
     _selection.js.attr(name, value);
   }
 }
+
+/// For internal use.
+Attr newAttr(selection) => new Attr._(selection);
+
+/// For internal use.
+Styles newStyles(selection) => new Styles._(selection);

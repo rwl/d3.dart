@@ -1,6 +1,7 @@
 library d3.src.transition;
 
 import 'js/transition.dart' as transition;
+import 'selection.dart' show Attr, newAttr, SelectionFn, Styles, newStyles;
 
 /// A special type of selection where the operators apply smoothly
 /// over time rather than instantaneously.
@@ -20,6 +21,24 @@ class Transition {
   void tween(String name, Function fn()) {
     js.tween(name, fn);
   }
+
+  /// Set style properties.
+  Styles<String> get style => newStyles(this);
+
+  /// Set style properties.
+  Styles<SelectionFn> get styleFn => newStyles(this);
+
+  /// Get or set attribute values.
+  Attr<String> get attr => newAttr(this);
+
+  /// Get or set attribute values.
+  Attr<SelectionFn> get attrFn => newAttr(this);
+
+  /// Subselect a descendant element for each selected element.
+  Transition select(String selector) => new Transition._(js.select(selector));
+
+  /// Remove selected elements at the end of a transition.
+  Transition remove() => new Transition._(js.remove());
 
   /// Call a function passing in the current transition.
   void call(function(selection)) {

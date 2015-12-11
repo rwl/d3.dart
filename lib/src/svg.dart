@@ -44,3 +44,24 @@ class Axis {
     js.tickSize(size);
   }
 }
+
+/// Create a new diagonal generator.
+class Diagonal {
+  final svg.Diagonal js;
+
+  Diagonal() : js = svg.diagonal();
+
+  /// Generate a two-dimensional Bézier connector, as in a node-link diagram.
+  String call(dynamic datum, [int index]) {
+    if (index != null) {
+      return js.call(datum, index);
+    } else {
+      return js.call(datum);
+    }
+  }
+
+  /// Get or set an optional point transform.
+  void set projectionFn(SelectionFn projection) {
+    js.projection(projection);
+  }
+}

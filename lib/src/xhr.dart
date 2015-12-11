@@ -1,17 +1,19 @@
 library d3.src.xhr;
 
+import 'dart:js';
 import 'dart:async';
 import 'js/xhr.dart' as xhr;
-import 'd3.dart';
+//import 'd3.dart';
 
 /// Request a JSON blob.
-Future<JsMap> json(String url) {
-  var completer = new Completer<JsMap>();
+Future<JsObject> json(String url) {
+  var completer = new Completer<JsObject>();
   xhr.json(url, (err, resp) {
     if (err != null) {
       completer.completeError(err);
     } else {
-      completer.complete(new JsMap(resp));
+//      completer.complete(new JsMap(resp));
+      completer.complete(resp);
     }
   });
   return completer.future;

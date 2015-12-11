@@ -1,5 +1,6 @@
 library d3.src.layout;
 
+import 'dart:js';
 import 'dart:async';
 import 'js/layout.dart' as layout;
 import 'd3.dart';
@@ -54,4 +55,22 @@ class Force {
     });
     return ctrl.stream;
   }
+}
+
+/// Position a tree of nodes tidily.
+class Tree {
+  final layout.Tree js;
+
+  Tree() : js = layout.tree();
+
+  /// Specify the layout size in x and y.
+  void set size(List size) {
+    js.size(size);
+  }
+
+  /// Compute the tree layout and return the array of nodes.
+  JsObject nodes(JsObject root) => js.nodes(root);
+
+  /// Compute the parent-child links between tree nodes.
+  JsObject links(JsObject nodes) => js.links(nodes);
 }
