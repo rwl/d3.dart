@@ -1,12 +1,17 @@
 library d3.src.js.color;
 
 import 'dart:js';
+import 'd3.dart';
 
 JsObject _d3 = context['d3'];
 
 /// Specify a color in RGB space.
-Rgb rgb(int r, int g, int b) {
-  return new Rgb._(_d3.callMethod('rgb', [r, g, b]));
+Rgb rgb(r, [int g, int b]) {
+  if (g == null) {
+    return new Rgb._(_d3.callMethod('rgb', [r]));
+  } else {
+    return new Rgb._(_d3.callMethod('rgb', [r, g, b]));
+  }
 }
 
 class Rgb {
@@ -16,14 +21,24 @@ class Rgb {
 
   factory Rgb(int r, int g, int b) => rgb(r, g, b);
 
+  factory Rgb.string(String color) => rgb(color);
+
   /// Increase RGB channels by some exponential factor (gamma).
-  Rgb brighter([num k = 1]) {
-    return new Rgb._(_proxy.callMethod('brighter', [k]));
+  Rgb brighter([num k = undefinedNum]) {
+    var args = [];
+    if (k != undefinedNum) {
+      args.add(k);
+    }
+    return new Rgb._(_proxy.callMethod('brighter', args));
   }
 
   /// Decrease RGB channels by some exponential factor (gamma).
-  Rgb darker([num k = 1]) {
-    return new Rgb._(_proxy.callMethod('darker', [k]));
+  Rgb darker([num k = undefinedNum]) {
+    var args = [];
+    if (k != undefinedNum) {
+      args.add(k);
+    }
+    return new Rgb._(_proxy.callMethod('darker', args));
   }
 
   /// Convert from RGB to HSL.
