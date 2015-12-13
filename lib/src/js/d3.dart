@@ -21,7 +21,7 @@ typedef Func1Arg(data);
 typedef Func0Arg();
 
 Func4Args func4VarArgs(value) {
-  return allowInteropCaptureThis((elem, data, i, j) {
+  return new JsFunction.withThis((elem, data, i, j) {
     if (value is Func0Arg) {
       return value();
     } else if (value is Func1Arg) {
@@ -37,7 +37,7 @@ Func4Args func4VarArgs(value) {
 }
 
 Func3Args func3VarArgs(value) {
-  return allowInteropCaptureThis((elem, data, i) {
+  return new JsFunction.withThis((elem, data, i) {
     if (value is Func0Arg) {
       return value();
     } else if (value is Func1Arg) {
@@ -53,7 +53,7 @@ Func3Args func3VarArgs(value) {
 }
 
 Func2Args func2VarArgs(value) {
-  return allowInteropCaptureThis((values, data, i) {
+  return new JsFunction.withThis((values, data, i) {
     if (value is Func0Arg) {
       return value();
     } else if (value is Func1Arg) {

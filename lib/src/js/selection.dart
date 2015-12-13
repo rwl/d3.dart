@@ -203,7 +203,7 @@ class Selection {
     if (values is Function) {
       args.add(func3VarArgs(values));
     } else if (values != undefined) {
-      args.add(values);
+      args.add(new JsObject.jsify(values));
     }
     if (key is Function) {
       args.add(func2VarArgs(key));

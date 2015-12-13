@@ -25,7 +25,7 @@ class LinearScale {
   domain([List<num> numbers = undefinedList]) {
     var args = [];
     if (numbers != undefinedList) {
-      args.add(numbers);
+      args.add(new JsObject.jsify(numbers));
     }
     var retval = _proxy.callMethod('domain', args);
     if (numbers == undefinedList) {
@@ -39,7 +39,7 @@ class LinearScale {
   range([List values = undefinedList]) {
     var args = [];
     if (values != undefinedList) {
-      args.add(values);
+      args.add(new JsObject.jsify(values));
     }
     var retval = _proxy.callMethod('range', args);
     if (values == undefinedList) {
