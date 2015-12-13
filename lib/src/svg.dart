@@ -7,6 +7,32 @@ import 'scale.dart';
 import 'selection.dart';
 import 'transition.dart';
 
+class Arc {
+  final svg.Arc js;
+
+  /// Create a new arc generator.
+  Arc() : js = svg.arc();
+
+  /// Generate a solid arc, as in a pie or donut chart.
+  String call(dynamic datum, [int index]) {
+    if (index != null) {
+      return js.call(datum, index);
+    } else {
+      return js.call(datum);
+    }
+  }
+
+  /// Set the inner radius accessor.
+  void set innerRadius(num radius) {
+    js.innerRadius(radius);
+  }
+
+  /// Set the outer radius accessor.
+  void set outerRadius(num radius) {
+    js.outerRadius(radius);
+  }
+}
+
 class Axis {
   final svg.Axis js;
   Axis() : js = svg.axis();
@@ -65,6 +91,27 @@ class Diagonal {
   /// Get or set an optional point transform.
   void set projectionFn(SelectionFn projection) {
     js.projection(projection);
+  }
+}
+
+class Chord {
+  final svg.Chord js;
+
+  /// Create a new chord generator.
+  Chord() : js = svg.chord();
+
+  /// Generate a quadratic Bézier connecting two arcs, as in a chord diagram.
+  String call(dynamic datum, [int index]) {
+    if (index != null) {
+      return js.call(datum, index);
+    } else {
+      return js.call(datum);
+    }
+  }
+
+  /// Set the arc radius accessor.
+  void set radius(num radius) {
+    js.radius(radius);
   }
 }
 

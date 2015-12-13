@@ -198,7 +198,7 @@ class Cluster {
   value([Function value = undefinedFn]) {
     var args = [];
     if (value != undefinedFn) {
-      args.add(value);
+      args.add(func3VarArgs(value));
     }
     var retval = _proxy.callMethod('value', args);
     if (value == undefinedFn) {

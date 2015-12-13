@@ -8,6 +8,7 @@ import 'transition.dart' as trans;
 typedef SelectionFn(data);
 typedef SelectionFunc(data, int i);
 typedef SelectionFunction(Element elem, data, int i);
+typedef Comparator(a, b);
 
 /// Access the current user event for interaction.
 dynamic get event => sel.event;
@@ -57,6 +58,18 @@ class Selection {
   /// Set data for a group of elements, while computing a
   /// relational join.
   UpdateSelection setData(List values, [SelectionFn key]) {
+    sel.Selection retval;
+    if (key != null) {
+      retval = js.data(values, key);
+    } else {
+      retval = js.data(values);
+    }
+    return new UpdateSelection._(retval);
+  }
+
+  /// Set data for a group of elements, while computing a
+  /// relational join.
+  UpdateSelection setDataFn(List values(), [SelectionFn key]) {
     sel.Selection retval;
     if (key != null) {
       retval = js.data(values, key);

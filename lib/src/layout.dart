@@ -74,3 +74,41 @@ class Tree {
   /// Compute the parent-child links between tree nodes.
   JsObject links(JsObject nodes) => js.links(nodes);
 }
+
+/// Produce a chord diagram from a matrix of relationships.
+class ChordLayout {
+  final layout.Chord js;
+
+  ChordLayout() : js = layout.chord();
+
+  /// Get or set the matrix data backing the layout.
+  void set matrix(List<List> matrix) {
+    js.matrix(matrix);
+  }
+
+  /// Set the angular padding between chord segments.
+  void set padding(num padding) {
+    js.padding(padding);
+  }
+
+  /// Set the comparator function for groups.
+  void set sortGroups(Comparator comparator) {
+    js.sortGroups(comparator);
+  }
+
+  /// Set the comparator function for subgroups.
+  void set sortSubgroups(Comparator comparator) {
+    js.sortSubgroups(comparator);
+  }
+
+  /// Set the comparator function for chords (z-order).
+  void set sortChords(Comparator comparator) {
+    js.sortChords(comparator);
+  }
+
+  /// Retrieve the computed chord angles.
+  List chords() => js.chords();
+
+  /// Retrieve the computed group angles.
+  List groups() => js.groups();
+}

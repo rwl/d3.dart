@@ -4,7 +4,9 @@
 /// A strongly typed interface to the `d3.js.*` libraries for idiomatic Dart.
 library d3;
 
+export 'src/array.dart';
 export 'src/behavior.dart';
+export 'src/color.dart';
 export 'src/layout.dart';
 export 'src/selection.dart';
 export 'src/scale.dart';
