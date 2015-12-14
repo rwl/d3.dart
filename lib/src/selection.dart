@@ -111,7 +111,7 @@ class Selection {
   Attr<SelectionFunc> get attrFunc => new Attr<SelectionFunc>._(this);
 
   /// Add or remove CSS classes.
-  Classed<String> get classed => new Classed<String>._(this);
+  Classed<bool> get classed => new Classed<bool>._(this);
 
   /// Add or remove CSS classes.
   Classed<SelectionFn> get classedFn => new Classed<SelectionFn>._(this);

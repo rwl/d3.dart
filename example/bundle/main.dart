@@ -1,34 +1,30 @@
 import 'dart:js';
 import 'dart:math' as Math;
-import 'package:d3/js/d3.dart';
+import 'package:d3/d3.dart';
 import 'package:d3/js/d3.dart' as d3;
-import 'package:d3/js/layout.dart' as layout;
 
 main() {
   var diameter = 960;
   var radius = diameter / 2;
   var innerRadius = radius - 120;
 
-  Cluster cluster = layout.cluster().size([360, innerRadius])
-      .sort(null)
-      .value((d) => d['size']);
+  var cluster = new Cluster()
+    ..size = [360, innerRadius]
+    ..sort = null
+    ..value = (d) => d['size'];
 
-  var bundle = layout.bundle();
+  var bundle = new Bundle();
 
-  var line = d3
-      .radial()
-      .interpolate("bundle")
-      .tension(.85)
-      .radius((d) => d['y'])
-      .angle((d) => d['x'] / 180 * Math.PI);
+  var line = new RadialLine()
+    ..interpolate = "bundle"
+    ..tension = .85
+    ..radiusFn = ((d) => d['y'])
+    ..angleFn = ((d) => d['x'] / 180 * Math.PI);
 
-  var svg = d3
-      .select("body")
-      .append("svg")
-      .attr("width", diameter)
-      .attr("height", diameter)
-      .append("g")
-      .attr("transform", "translate($radius,$radius)");
+  var svg = (new Selection("body").append("svg")
+    ..attr["width"] = "$diameter"
+    ..attr["height"] = "$diameter").append("g")
+    ..attr["transform"] = "translate($radius,$radius)";
 
   var link = svg.append("g").selectAll(".link");
   var node = svg.append("g").selectAll(".node");
@@ -40,55 +36,61 @@ main() {
     var nodes = cluster.nodes(hierarchy);
     var links = packageImports(nodes);
 
-    link = link.data(bundle(links)).enter().append("path").each((d) {
-      d['source'] = d[0];
-      d['target'] = d[d.length - 1];
-    }).attr("class", "link").attr("d", line);
+    link = link.setData(bundle(links)).enter().append("path")
+      ..eachFn((d) {
+        d['source'] = d[0];
+        d['target'] = d[d.length - 1];
+      })
+      ..attr["class"] = "link"
+      ..attrFn["d"] = line;
 
     node = node
-        .data(nodes
+        .setData(nodes
             .where((n) => n['children'] == null || n['children'].length == 0)
             .toList())
         .enter()
         .append("text")
-        .attr("class", "node")
-        .attr("dy", ".31em")
-        .attr(
-            "transform",
-            (d) => "rotate(${d['x'] - 90})"
-                "translate(${d['y'] + 8},0)"
-                "${d['x'] < 180 ? "" : "rotate(180)"}")
-        .style("text-anchor", (d) => d['x'] < 180 ? "start" : "end")
-        .text((d) => d['key'])
-        .on("mouseover", (d) => mouseovered(node, link, d))
-        .on("mouseout", (d) => mouseouted(node, link, d));
+          ..attr["class"] = "node"
+          ..attr["dy"] = ".31em"
+          ..attrFn["transform"] = ((d) => "rotate(${d['x'] - 90})"
+              "translate(${d['y'] + 8},0)"
+              "${d['x'] < 180 ? "" : "rotate(180)"}")
+          ..styleFn["text-anchor"] = ((d) => d['x'] < 180 ? "start" : "end")
+          ..textFn = ((d) => d['key'])
+          ..on("mouseover").listen((s) => mouseovered(node, link, s.data))
+          ..on("mouseout").listen((s) => mouseouted(node, link, s.data));
   });
 }
 
-mouseovered(node, link, d) {
-  node.each((n) {
+mouseovered(Selection node, Selection link, d) {
+  node.eachFn((n) {
     n['target'] = n['source'] = false;
   });
 
-  link.classed("link--target", (l) {
-    if (l['target'] == d) return l['source']['source'] = true;
-  }).classed("link--source", (l) {
-    if (l['source'] == d) return l['target']['target'] = true;
-  }).filter((l) {
-    return l['target'] == d || l['source'] == d;
-  }).each((elem, _, __) {
-    elem.parentNode.append(elem);
-  });
+  link
+    ..classedFn["link--target"] = ((l) {
+      if (l['target'] == d) return l['source']['source'] = true;
+    })
+    ..classedFn["link--source"] = ((l) {
+      if (l['source'] == d) return l['target']['target'] = true;
+    });
+  link
+      .filterFn((l) => l['target'] == d || l['source'] == d)
+      .each((elem, _, __) => elem.parentNode.append(elem));
 
   node
-      .classed("node--target", (n) => n['target'])
-      .classed("node--source", (n) => n['source']);
+    ..classedFn["node--target"] = ((n) => n['target'])
+    ..classedFn["node--source"] = ((n) => n['source']);
 }
 
-mouseouted(node, link, d) {
-  link.classed("link--target", false).classed("link--source", false);
+mouseouted(Selection node, Selection link, d) {
+  link
+    ..classed["link--target"] = false
+    ..classed["link--source"] = false;
 
-  node.classed("node--target", false).classed("node--source", false);
+  node
+    ..classed["node--target"] = false
+    ..classed["node--source"] = false;
 }
 
 // Lazily construct the package hierarchy from class names.

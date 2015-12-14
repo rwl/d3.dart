@@ -7,6 +7,36 @@ import 'scale.dart';
 import 'selection.dart';
 import 'transition.dart';
 
+class RadialLine {
+  final svg.RadialLine js;
+
+  /// Create a new radial line generator.
+  RadialLine() : js = svg.radial();
+
+  /// Generate a piecewise linear curve, as in a polar line chart.
+  String call(List data) => js.call(data);
+
+  /// Set the radius accessor.
+  void set radiusFn(SelectionFn radius) {
+    js.radius(radius);
+  }
+
+  /// Set the angle accessor.
+  void set angleFn(SelectionFn angle) {
+    js.angle(angle);
+  }
+
+  /// Set the interpolation mode.
+  void set interpolate(String interpolate) {
+    js.interpolate(interpolate);
+  }
+
+  /// Get or set the cardinal spline tension.
+  void set tension(num tension) {
+    js.tension(tension);
+  }
+}
+
 class Arc {
   final svg.Arc js;
 

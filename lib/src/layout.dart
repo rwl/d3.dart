@@ -5,6 +5,47 @@ import 'dart:async';
 import 'js/layout.dart' as layout;
 import 'd3.dart';
 
+/// Construct a new default bundle layout.
+class Bundle {
+  final layout.Bundle js;
+
+  Bundle() : js = layout.bundle();
+
+  /// Apply Holten's hierarchical bundling algorithm to edges.
+  call(links) => js.call(links);
+}
+
+/// Cluster entities into a dendrogram.
+class Cluster {
+  final layout.Cluster js;
+
+  Cluster() : js = layout.cluster();
+
+  /// Alias for cluster.nodes.
+  List call(dynamic root) => js.call(root);
+
+  /// Compute the cluster layout and return the array of nodes.
+  List nodes(root) => js.nodes(root);
+
+  /// Compute the parent-child links between tree nodes.
+  List links(nodes) => js.links(nodes);
+
+  /// Set the layout size in x and y.
+  void set size(List size) {
+    js.size(size);
+  }
+
+  /// Set the comparator function for sibling nodes.
+  void set sort(Function comparator) {
+    js.sort(comparator);
+  }
+
+  /// Specify a fixed size for each node.
+  void set value(Function value) {
+    js.value(value);
+  }
+}
+
 /// Position linked nodes using physical simulation.
 class Force {
   final layout.Force js;

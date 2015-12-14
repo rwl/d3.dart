@@ -68,14 +68,14 @@ main() {
             node.classedFn["selected"] = (p) => p['selected'] = s.data == p;
           } else {
             new Selection.node(s.elem).classed["selected"] =
-                "${s.data['selected'] = true}";
+                s.data['selected'] = true;
           }
         }
       })
       ..on("mouseup").listen((s) {
         if (s.data['selected'] == true && shiftKey) {
           new Selection.node(s.elem).classed["selected"] =
-              "${s.data['selected'] = false}";
+              s.data['selected'] = false;
         }
       })
       ..call(new Drag()
