@@ -115,7 +115,9 @@ class RadialLine {
   /// Get or set the radius accessor.
   radius([radius = undefined]) {
     var args = [];
-    if (radius != undefined) {
+    if (radius is Function) {
+      args.add(func3VarArgs(radius));
+    } else if (radius != undefined) {
       args.add(radius);
     }
     var retval = _proxy.callMethod('radius', args);
@@ -129,7 +131,9 @@ class RadialLine {
   /// Get or set the angle accessor.
   angle([angle = undefined]) {
     var args = [];
-    if (angle != undefined) {
+    if (angle is Function) {
+      args.add(func3VarArgs(angle));
+    } else if (angle != undefined) {
       args.add(angle);
     }
     var retval = _proxy.callMethod('angle', args);
@@ -171,7 +175,9 @@ class RadialLine {
   /// Control whether the line is defined at a given point.
   defined([defined = undefined]) {
     var args = [];
-    if (defined != undefined) {
+    if (defined is Function) {
+      args.add(func3VarArgs(defined));
+    } else if (defined != undefined) {
       args.add(defined);
     }
     var retval = _proxy.callMethod('defined', args);
