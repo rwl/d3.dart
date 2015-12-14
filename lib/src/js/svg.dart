@@ -20,7 +20,8 @@ class Line {
   factory Line() => line();
 
   /// Generate a piecewise linear curve, as in a line chart.
-  String call(List data) => _proxy.callMethod('call', [_proxy, data]);
+  String call(List data) =>
+      _proxy.callMethod('call', [_proxy, new JsObject.jsify(data)]);
 
   /// Get or set the x-coordinate accessor.
   x([x = undefined]) {
@@ -108,7 +109,8 @@ class RadialLine {
   factory RadialLine() => radial();
 
   /// Generate a piecewise linear curve, as in a polar line chart.
-  String call(List data) => _proxy.callMethod('call', [_proxy, data]);
+  String call(List data) =>
+      _proxy.callMethod('call', [_proxy, new JsObject.jsify(data)]);
 
   /// Get or set the radius accessor.
   radius([radius = undefined]) {
@@ -192,7 +194,8 @@ class Area {
   factory Area() => area();
 
   /// Generate a piecewise linear area, as in an area chart.
-  String call(List data) => _proxy.callMethod('area', [_proxy, data]);
+  String call(List data) =>
+      _proxy.callMethod('area', [_proxy, new JsObject.jsify(data)]);
 
   /// Get or set the x-coordinate accessors.
   x([x = undefined]) {
@@ -324,7 +327,15 @@ class RadialArea {
   factory RadialArea() => radialArea();
 
   /// Generate a piecewise linear area, as in a polar area chart.
-  String call(data) => _proxy.callMethod('call', [_proxy, data]);
+  String call(data) {
+    var args = [_proxy];
+    if (data is Map || data is List) {
+      args.add(new JsObject.jsify(data));
+    } else {
+      args.add(data);
+    }
+    return _proxy.callMethod('call', args);
+  }
 
   /// Get or set the radius accessors.
   radius([radius = undefined]) {
@@ -437,7 +448,12 @@ class Arc {
 
   /// Generate a solid arc, as in a pie or donut chart.
   String call(datum, [index = undefined]) {
-    var args = [_proxy, datum];
+    var args = [_proxy];
+    if (datum is Map || datum is List) {
+      args.add(new JsObject.jsify(datum));
+    } else {
+      args.add(datum);
+    }
     if (index != undefined) {
       args.add(index);
     }
@@ -572,7 +588,12 @@ class Symbol {
 
   /// Generate categorical symbols, as in a scatterplot.
   call(datum, [index = undefined]) {
-    var args = [_proxy, datum];
+    var args = [_proxy];
+    if (datum is Map || datum is List) {
+      args.add(new JsObject.jsify(datum));
+    } else {
+      args.add(datum);
+    }
     if (index != undefined) {
       args.add(index);
     }
@@ -623,7 +644,12 @@ class Chord {
 
   /// Generate a quadratic Bézier connecting two arcs, as in a chord diagram.
   String call(datum, [index = undefined]) {
-    var args = [_proxy, datum];
+    var args = [_proxy];
+    if (datum is Map || datum is List) {
+      args.add(new JsObject.jsify(datum));
+    } else {
+      args.add(datum);
+    }
     if (index != undefined) {
       args.add(index);
     }
@@ -723,7 +749,7 @@ class Diagonal {
 
   /// Generate a two-dimensional Bézier connector, as in a node-link diagram.
   call(datum, [index = undefined]) {
-    if (datum is Map) {
+    if (datum is Map || datum is List) {
       datum = new JsObject.jsify(datum);
     }
     var args = [_proxy, datum];
@@ -769,7 +795,26 @@ class Diagonal {
   projection([projection = undefined]) {
     var args = [];
     if (projection is Function) {
-      args.add(func4VarArgs(projection));
+      var fn = (elem, data, i, j) {
+        if (projection is Func0Arg) {
+          return projection();
+        } else if (projection is Func1Arg) {
+          return projection(data);
+        } else if (projection is Func2Args) {
+          return projection(data, i);
+        } else if (projection is Func3Args) {
+          return projection(elem, data, i);
+        } else {
+          throw new ArgumentError.value(projection);
+        }
+      };
+      args.add(new JsFunction.withThis((elem, data, i, j) {
+        var point = fn(elem, data, i, j);
+        if (point is List) {
+          point = new JsObject.jsify(point);
+        }
+        return point;
+      }));
     } else if (projection != undefined) {
       args.add(projection);
     }
@@ -861,7 +906,7 @@ class Axis {
   tickValues([List values = undefinedList]) {
     var args = [];
     if (values != undefinedList) {
-      args.add(values);
+      args.add(new JsObject.jsify(values));
     }
     var retval = _proxy.callMethod('tickValues', args);
     if (values == undefinedList) {
@@ -1003,7 +1048,9 @@ class Brush {
   /// The brush's extent in zero, one or two dimensions.
   extent([values = undefined]) {
     var args = [];
-    if (values != undefined) {
+    if (values is List) {
+      args.add(new JsObject.jsify(values));
+    } else if (values != undefined) {
       args.add(values);
     }
     var retval = _proxy.callMethod('extent', args);

@@ -38,10 +38,10 @@ List<List> parseRows(String string, [accessor(d) = undefinedFn]) {
 
 /// Format an array of objects into a TSV string.
 String format(List rows) {
-  return _tsv.callMethod('format', [rows]);
+  return _tsv.callMethod('format', [new JsObject.jsify(rows)]);
 }
 
 /// Format an array of tuples into a TSV string.
 String formatRows(List<List> rows) {
-  return _tsv.callMethod('formatRows', [rows]);
+  return _tsv.callMethod('formatRows', [new JsObject.jsify(rows)]);
 }

@@ -33,7 +33,7 @@ class Chord {
   matrix([List<List> matrix = undefinedList]) {
     var args = [];
     if (matrix != undefinedList) {
-      args.add(matrix);
+      args.add(new JsObject.jsify(matrix));
     }
     var retval = _proxy.callMethod('matrix', args);
     if (matrix == undefinedList) {
@@ -171,7 +171,7 @@ class Cluster {
   size([List size = undefinedList]) {
     var args = [];
     if (size != undefinedList) {
-      args.add(size);
+      args.add(new JsObject.jsify(size));
     }
     var retval = _proxy.callMethod('size', args);
     if (size == undefinedList) {
@@ -184,7 +184,7 @@ class Cluster {
   nodeSize([List nodeSize = undefinedList]) {
     var args = [];
     if (nodeSize != undefinedList) {
-      args.add(nodeSize);
+      args.add(new JsObject.jsify(nodeSize));
     }
     var retval = _proxy.callMethod('nodeSize', args);
     if (nodeSize == undefinedList) {
@@ -223,7 +223,7 @@ class Force {
   size([List size = undefinedList]) {
     var args = [];
     if (size != undefinedList) {
-      args.add(size);
+      args.add(new JsObject.jsify(size));
     }
     var retval = _proxy.callMethod('size', args);
     if (size == undefinedList) {
@@ -341,7 +341,7 @@ class Force {
   nodes([List nodes = undefinedList]) {
     var args = [];
     if (nodes != undefinedList) {
-      args.add(nodes);
+      args.add(new JsObject.jsify(nodes));
     }
     var retval = _proxy.callMethod('nodes', args);
     if (nodes == undefinedList) {
@@ -477,7 +477,7 @@ class Histogram {
 
   /// Compute the distribution of data using quantized bins.
   List<List> call(List values, [int index = undefinedInt]) {
-    var args = [_proxy, values];
+    var args = [_proxy, new JsObject.jsify(values)];
     if (index != undefinedInt) {
       args.add(index);
     }
@@ -517,7 +517,9 @@ class Histogram {
   /// Specify how values are organized into bins.
   bins([count_thresholds_function = undefined]) {
     var args = [];
-    if (count_thresholds_function != undefined) {
+    if (count_thresholds_function is List) {
+      args.add(new JsObject.jsify(count_thresholds_function));
+    } else if (count_thresholds_function != undefined) {
       args.add(count_thresholds_function);
     }
     var retval = _proxy.callMethod('bins', args);
@@ -608,7 +610,7 @@ class Pack {
   size([List size = undefinedList]) {
     var args = [];
     if (size != undefinedList) {
-      args.add(size);
+      args.add(new JsObject.jsify(size));
     }
     var retval = _proxy.callMethod('size', args);
     if (size == undefinedList) {
@@ -712,7 +714,7 @@ class Partition {
   size([List size = undefinedList]) {
     var args = [];
     if (size != undefinedList) {
-      args.add(size);
+      args.add(new JsObject.jsify(size));
     }
     var retval = _proxy.callMethod('size', args);
     if (size == undefinedList) {
@@ -735,7 +737,7 @@ class Pie {
 
   /// Compute the start and end angles for arcs in a pie or donut chart.
   call(List values, [int index = undefinedInt]) {
-    var args = [_proxy, values];
+    var args = [_proxy, new JsObject.jsify(values)];
     if (index != undefinedInt) {
       args.add(index);
     }
@@ -831,7 +833,7 @@ class Stack {
 
   /// Compute the baseline for each series in a stacked bar or area chart.
   call(List layers, [int index = undefinedInt]) {
-    var args = [_proxy, values];
+    var args = [_proxy, new JsObject.jsify(layers)];
     if (index != undefinedInt) {
       args.add(index);
     }
@@ -974,7 +976,7 @@ class Tree {
   size([List size = undefinedList]) {
     var args = [];
     if (size != undefinedList) {
-      args.add(size);
+      args.add(new JsObject.jsify(size));
     }
     var retval = _proxy.callMethod('size', args);
     if (size == undefinedList) {
@@ -988,7 +990,7 @@ class Tree {
   nodeSize([List nodeSize = undefinedList]) {
     var args = [];
     if (nodeSize != undefinedList) {
-      args.add(nodeSize);
+      args.add(new JsObject.jsify(nodeSize));
     }
     var retval = _proxy.callMethod('nodeSize', args);
     if (nodeSize == undefinedList) {
@@ -1091,7 +1093,7 @@ class Treemap {
   size([List size = undefinedList]) {
     var args = [];
     if (size != undefinedList) {
-      args.add(size);
+      args.add(new JsObject.jsify(size));
     }
     var retval = _proxy.callMethod('size', args);
     if (size == undefinedList) {

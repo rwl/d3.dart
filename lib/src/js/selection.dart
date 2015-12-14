@@ -5,6 +5,7 @@ import 'dart:html';
 
 import 'd3.dart';
 import 'transition.dart' as trans;
+import 'color.dart' as color;
 
 JsObject _d3 = context['d3'];
 
@@ -103,8 +104,36 @@ class Selection {
     }
     var args = [name];
     if (value is Function) {
-      args.add(func4VarArgs(value));
+      var fn = (elem, data, i) {
+        if (value is Func0Arg) {
+          return value();
+        } else if (value is Func1Arg) {
+          return value(data);
+        } else if (value is Func2Args) {
+          return value(data, i);
+        } else if (value is Func3Args) {
+          return value(elem, data, i);
+        } else {
+          throw new ArgumentError.value(value);
+        }
+      };
+      args.add(new JsFunction.withThis((elem, data, i, j) {
+        var v = fn(elem, data, i);
+        if (v is color.Rgb ||
+            v is color.Hsl ||
+            v is color.Hcl ||
+            v is color.Lab) {
+          v = color.getProxy(v);
+        }
+        return v;
+      }));
     } else if (value != undefined) {
+      if (value is color.Rgb ||
+          value is color.Hsl ||
+          value is color.Hcl ||
+          value is color.Lab) {
+        value = color.getProxy(value);
+      }
       args.add(value);
     }
     if (priority != undefined) {
@@ -202,8 +231,10 @@ class Selection {
     var args = [];
     if (values is Function) {
       args.add(func3VarArgs(values));
-    } else if (values != undefined) {
+    } else if (values is List || values is Map) {
       args.add(new JsObject.jsify(values));
+    } else if (values != undefined) {
+      args.add(values);
     }
     if (key is Function) {
       args.add(func2VarArgs(key));
@@ -244,6 +275,8 @@ class Selection {
     var args = [];
     if (value is Function) {
       args.add(func4VarArgs(value));
+    } else if (value is List || value is List) {
+      args.add(new JsObject.jsify(value));
     } else if (value != undefined) {
       args.add(value);
     }

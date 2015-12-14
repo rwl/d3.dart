@@ -30,7 +30,8 @@ class Format {
 
 /// Create a new local multi-resolution time formatter.
 Format multi(List formats) {
-  return new Format._(_time['format'].callMethod('multi', [formats]));
+  return new Format._(
+      _time['format'].callMethod('multi', [new JsObject.jsify(formats)]));
 }
 
 /// Create a new UTC time formatter for a given specifier.
@@ -65,7 +66,7 @@ class TimeScale {
   domain([List dates = undefinedList]) {
     var args = [];
     if (dates != undefinedList) {
-      args.add(dates);
+      args.add(new JsObject.jsify(dates));
     }
     var retval = _proxy.callMethod('domain', args);
     if (dates == undefinedList) {
@@ -91,7 +92,7 @@ class TimeScale {
   range([List values = undefinedList]) {
     var args = [];
     if (values != undefinedList) {
-      args.add(values);
+      args.add(new JsObject.jsify(values));
     }
     var retval = _proxy.callMethod('range', args);
     if (values == undefinedList) {
@@ -105,7 +106,7 @@ class TimeScale {
   rangeRound([List values = undefinedList]) {
     var args = [];
     if (values != undefinedList) {
-      args.add(values);
+      args.add(new JsObject.jsify(values));
     }
     var retval = _proxy.callMethod('rangeRound', args);
     if (values == undefinedList) {

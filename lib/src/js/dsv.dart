@@ -45,10 +45,10 @@ class Dsv {
   }
 
   String format(List rows) {
-    return _proxy.callMethod('format', [rows]);
+    return _proxy.callMethod('format', [new JsObject.jsify(rows)]);
   }
 
   String formatRows(List<List> rows) {
-    return _proxy.callMethod('formatRows', [rows]);
+    return _proxy.callMethod('formatRows', [new JsObject.jsify(rows)]);
   }
 }

@@ -262,7 +262,7 @@ timer(bool fn(t), [num delay = undefinedNum, time = undefined]) {
   if (delay != undefinedNum) {
     args.add(delay);
   }
-  if (time != null) {
+  if (time != undefined) {
     args.add(time);
   }
   _d3.callMethod('timer', args);
@@ -273,6 +273,12 @@ flushTimer() => _d3['timer'].callMethod('flush');
 
 /// Interpolate two values.
 Interpolate interpolate(a, b) {
+  if (a is Map || a is List) {
+    a = new JsObject.jsify(a);
+  }
+  if (b is Map || b is List) {
+    b = new JsObject.jsify(b);
+  }
   return new Interpolate._(_d3.callMethod('interpolate', [a, b]));
 }
 
@@ -364,7 +370,7 @@ Interpolate interpolateHcl(color.Hcl a, color.Hcl b) {
 /// Interpolate two arrays of values.
 Interpolate interpolateArray(List a, List b) {
   return new Interpolate._(_d3.callMethod(
-      'interpolateArray', [color.getProxy(a), color.getProxy(b)]));
+      'interpolateArray', [new JsObject.jsify(a), new JsObject.jsify(b)]));
 }
 
 /// Interpolate two arbitrary objects.

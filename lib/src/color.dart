@@ -2,7 +2,11 @@ library d3.src.color;
 
 import 'js/color.dart' as color;
 
-class Rgb {
+abstract class Color {
+  dynamic get js;
+}
+
+class Rgb implements Color {
   final color.Rgb js;
 
   Rgb._(this.js);

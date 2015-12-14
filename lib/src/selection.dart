@@ -1,9 +1,12 @@
 library d3.src.selection;
 
+//import 'dart:js';
 import 'dart:async';
 import 'dart:html' show Element, Node;
 import 'js/selection.dart' as sel;
 import 'transition.dart' as trans;
+import 'color.dart' as color;
+import 'js/d3.dart';
 
 typedef SelectionFn(data);
 typedef SelectionFunc(data, int i);
@@ -189,7 +192,34 @@ class Styles<T> {
   Styles._(this._selection);
 
   void operator []=(String name, T value) {
-    _selection.js.style(name, value);
+    var arg;
+    if (value is Function) {
+      var fn = (elem, data, i) {
+        if (value is Func0Arg) {
+          return (value as Func0Arg)();
+        } else if (value is Func1Arg) {
+          return (value as Func1Arg)(data);
+        } else if (value is Func2Args) {
+          return (value as Func2Args)(data, i);
+        } else if (value is Func3Args) {
+          return (value as Func3Args)(elem, data, i);
+        } else {
+          throw new ArgumentError.value(value);
+        }
+      };
+      arg = (elem, data, i) {
+        var v = fn(elem, data, i);
+        if (v is color.Color) {
+          v = v.js;
+        }
+        return v;
+      };
+    } else if (value is color.Color) {
+      arg = (value as color.Color).js;
+    } else {
+      arg = value;
+    }
+    _selection.js.style(name, arg);
   }
 }
 

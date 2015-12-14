@@ -24,7 +24,9 @@ class LinearScale {
   /// Get or set the scale's input domain.
   domain([List<num> numbers = undefinedList]) {
     var args = [];
-    if (numbers != undefinedList) {
+    if (numbers is JsObject) {
+      args.add(numbers);
+    } else if (numbers != undefinedList) {
       args.add(new JsObject.jsify(numbers));
     }
     var retval = _proxy.callMethod('domain', args);
@@ -51,7 +53,8 @@ class LinearScale {
 
   /// Set the scale's output range, and enable rounding.
   LinearScale rangeRound(List values) {
-    return new LinearScale._(_proxy.callMethod('rangeRound', [values]));
+    return new LinearScale._(
+        _proxy.callMethod('rangeRound', [new JsObject.jsify(values)]));
   }
 
   /// Get or set the scale's output interpolator.
@@ -131,7 +134,7 @@ class IdentityScale {
   domain([List<num> numbers = undefinedList]) {
     var args = [];
     if (numbers != undefinedList) {
-      args.add(numbers);
+      args.add(new JsObject.jsify(numbers));
     }
     var retval = _proxy.callMethod('domain', args);
     if (numbers == undefinedList) {
@@ -145,7 +148,7 @@ class IdentityScale {
   range([List<num> numbers = undefinedList]) {
     var args = [];
     if (numbers != undefinedList) {
-      args.add(numbers);
+      args.add(new JsObject.jsify(numbers));
     }
     var retval = _proxy.callMethod('range', args);
     if (numbers == undefinedList) {
@@ -198,7 +201,7 @@ class Pow {
   domain([List<num> numbers = undefinedList]) {
     var args = [];
     if (numbers != undefinedList) {
-      args.add(numbers);
+      args.add(new JsObject.jsify(numbers));
     }
     var retval = _proxy.callMethod('domain', args);
     if (numbers == undefinedList) {
@@ -212,7 +215,7 @@ class Pow {
   range([List<num> numbers = undefinedList]) {
     var args = [];
     if (numbers != undefinedList) {
-      args.add(numbers);
+      args.add(new JsObject.jsify(numbers));
     }
     var retval = _proxy.callMethod('range', args);
     if (numbers == undefinedList) {
@@ -224,7 +227,8 @@ class Pow {
 
   /// Set the scale's output range, and enable rounding.
   Pow rangeRound(List values) {
-    return new Pow._(_proxy.callMethod('rangeRound', [values]));
+    return new Pow._(
+        _proxy.callMethod('rangeRound', [new JsObject.jsify(values)]));
   }
 
   /// Get or set the exponent power.
@@ -316,7 +320,7 @@ class Log {
   domain([List<num> numbers = undefinedList]) {
     var args = [];
     if (numbers != undefinedList) {
-      args.add(numbers);
+      args.add(new JsObject.jsify(numbers));
     }
     var retval = _proxy.callMethod('domain', args);
     if (numbers == undefinedList) {
@@ -330,7 +334,7 @@ class Log {
   range([List<num> numbers = undefinedList]) {
     var args = [];
     if (numbers != undefinedList) {
-      args.add(numbers);
+      args.add(new JsObject.jsify(numbers));
     }
     var retval = _proxy.callMethod('range', args);
     if (numbers == undefinedList) {
@@ -342,7 +346,8 @@ class Log {
 
   /// Set the scale's output range, and enable rounding.
   Log rangeRound(List values) {
-    return new Log._(_proxy.callMethod('rangeRound', [values]));
+    return new Log._(
+        _proxy.callMethod('rangeRound', [new JsObject.jsify(values)]));
   }
 
   base([num k = undefinedNum]) {
@@ -428,7 +433,7 @@ class Quantize {
   domain([List<num> numbers = undefinedList]) {
     var args = [];
     if (numbers != undefinedList) {
-      args.add(numbers);
+      args.add(new JsObject.jsify(numbers));
     }
     var retval = _proxy.callMethod('domain', args);
     if (numbers == undefinedList) {
@@ -442,7 +447,7 @@ class Quantize {
   range([List<num> numbers = undefinedList]) {
     var args = [];
     if (numbers != undefinedList) {
-      args.add(numbers);
+      args.add(new JsObject.jsify(numbers));
     }
     var retval = _proxy.callMethod('range', args);
     if (numbers == undefinedList) {
@@ -476,7 +481,7 @@ class Quantile {
   domain([List<num> numbers = undefinedList]) {
     var args = [];
     if (numbers != undefinedList) {
-      args.add(numbers);
+      args.add(new JsObject.jsify(numbers));
     }
     var retval = _proxy.callMethod('domain', args);
     if (numbers == undefinedList) {
@@ -490,7 +495,7 @@ class Quantile {
   range([List<num> numbers = undefinedList]) {
     var args = [];
     if (numbers != undefinedList) {
-      args.add(numbers);
+      args.add(new JsObject.jsify(numbers));
     }
     var retval = _proxy.callMethod('range', args);
     if (numbers == undefinedList) {
@@ -527,7 +532,7 @@ class Threshold {
   domain([List<num> numbers = undefinedList]) {
     var args = [];
     if (numbers != undefinedList) {
-      args.add(numbers);
+      args.add(new JsObject.jsify(numbers));
     }
     var retval = _proxy.callMethod('domain', args);
     if (numbers == undefinedList) {
@@ -541,7 +546,7 @@ class Threshold {
   range([List<num> numbers = undefinedList]) {
     var args = [];
     if (numbers != undefinedList) {
-      args.add(numbers);
+      args.add(new JsObject.jsify(numbers));
     }
     var retval = _proxy.callMethod('range', args);
     if (numbers == undefinedList) {
@@ -580,7 +585,7 @@ class Ordinal {
   domain([List values = undefinedList]) {
     var args = [];
     if (values != undefinedList) {
-      args.add(values);
+      args.add(new JsObject.jsify(values));
     }
     var retval = _proxy.callMethod('domain', args);
     if (values == undefinedList) {
@@ -594,7 +599,7 @@ class Ordinal {
   range([List values = undefinedList]) {
     var args = [];
     if (values != undefinedList) {
-      args.add(values);
+      args.add(new JsObject.jsify(values));
     }
     var retval = _proxy.callMethod('range', args);
     if (values == undefinedList) {
@@ -606,7 +611,7 @@ class Ordinal {
 
   /// Divide a continuous output range for discrete points.
   Ordinal rangePoints(List interval, [num padding = undefinedNum]) {
-    var args = [interval];
+    var args = [new JsObject.jsify(interval)];
     if (padding != undefinedNum) {
       args.add(padding);
     }
@@ -615,7 +620,7 @@ class Ordinal {
 
   /// Divide a continuous output range for discrete points.
   Ordinal rangeRoundPoints(List interval, [num padding = undefinedNum]) {
-    var args = [interval];
+    var args = [new JsObject.jsify(interval)];
     if (padding != undefinedNum) {
       args.add(padding);
     }
@@ -625,7 +630,7 @@ class Ordinal {
   /// Divide a continuous output range for discrete bands.
   Ordinal rangeBands(List interval,
       [num padding = undefinedNum, num outerPadding = undefinedNum]) {
-    var args = [interval];
+    var args = [new JsObject.jsify(interval)];
     if (padding != undefinedNum) {
       args.add(padding);
     }
@@ -638,7 +643,7 @@ class Ordinal {
   /// Divide a continuous output range for discrete bands.
   Ordinal rangeRoundBands(List interval,
       [num padding = undefinedNum, num outerPadding = undefinedNum]) {
-    var args = [interval];
+    var args = [new JsObject.jsify(interval)];
     if (padding != undefinedNum) {
       args.add(padding);
     }

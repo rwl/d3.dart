@@ -16,7 +16,8 @@ class Voronoi {
   factory Voronoi() => voronoi();
 
   /// Compute the Voronoi tessellation for the specified points.
-  List call(List data) => _proxy.callMethod('call', [_proxy, data]);
+  List call(List data) =>
+      _proxy.callMethod('call', [_proxy, new JsObject.jsify(data)]);
 
   /// Get or set the x-coordinate accessor for each point.
   x([Function x = undefinedFn]) {
@@ -50,7 +51,7 @@ class Voronoi {
   clipExtent([List extent = undefinedList]) {
     var args = [];
     if (extent != undefinedList) {
-      args.add(extent);
+      args.add(new JsObject.jsify(extent));
     }
     var retval = _proxy.callMethod('clipExtent', args);
     if (extent == undefinedList) {
@@ -61,10 +62,12 @@ class Voronoi {
   }
 
   /// Compute the Delaunay mesh as a network of links.
-  List links(List data) => _proxy.callMethod('links', [data]);
+  List links(List data) =>
+      _proxy.callMethod('links', [new JsObject.jsify(data)]);
 
   /// Compute the Delaunay mesh as a triangular tessellation.
-  List triangles(List data) => _proxy.callMethod('triangles', [data]);
+  List triangles(List data) =>
+      _proxy.callMethod('triangles', [new JsObject.jsify(data)]);
 }
 
 Quadtree quadtree() {
@@ -84,7 +87,7 @@ class Quadtree {
       num y2_y1 = undefinedNum,
       num x2 = undefinedNum,
       num y2 = undefinedNum]) {
-    var args = [_proxy, points];
+    var args = [_proxy, new JsObject.jsify(points)];
     if (x2_x1 != undefinedNum) {
       args.add(x2_x1);
     }
@@ -129,7 +132,7 @@ class Quadtree {
   extent([List extent = undefinedList]) {
     var args = [];
     if (extent != undefinedList) {
-      args.add(extent);
+      args.add(new JsObject.jsify(extent));
     }
     var retval = _proxy.callMethod('extent', args);
     if (extent == undefinedList) {
@@ -146,7 +149,8 @@ class Root {
   Root._(this._proxy);
 
   /// Add a point to the quadtree.
-  add(List point) => new Root._(_proxy.callMethod('add', [point]));
+  add(List point) =>
+      new Root._(_proxy.callMethod('add', [new JsObject.jsify(point)]));
 
   /// Recursively visit nodes in the quadtree.
   visit(callback(node, x1, y1, x2, y2)) {
@@ -154,12 +158,14 @@ class Root {
   }
 
   /// Find the closest point in the quadtree.
-  List find(List point) => _proxy.callMethod('find', [point]);
+  List find(List point) =>
+      _proxy.callMethod('find', [new JsObject.jsify(point)]);
 }
 
 /// Create a polygon from the specified array of points.
 Polygon polygon(List vertices) {
-  return new Polygon._(_geom.callMethod('polygon', [vertices]));
+  return new Polygon._(
+      _geom.callMethod('polygon', [new JsObject.jsify(vertices)]));
 }
 
 class Polygon {
@@ -192,7 +198,8 @@ class Hull {
   factory Hull() => hull();
 
   /// Compute the convex hull for the given array of points.
-  call(List vertices) => _proxy.callMethod('call', [_proxy, vertices]);
+  call(List vertices) =>
+      _proxy.callMethod('call', [_proxy, new JsObject.jsify(vertices)]);
 
   /// Get or set the x-coordinate accessor.
   x([Function x = undefinedFn]) {

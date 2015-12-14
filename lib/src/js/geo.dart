@@ -107,7 +107,7 @@ class Graticule {
   extent([List extent = undefinedList]) {
     var args = [];
     if (extent != undefinedList) {
-      args.add(extent);
+      args.add(new JsObject.jsify(extent));
     }
     var retval = _proxy.callMethod('extent', args);
     if (extent == undefinedList) {
@@ -121,7 +121,7 @@ class Graticule {
   majorExtent([List extent = undefinedList]) {
     var args = [];
     if (extent != undefinedList) {
-      args.add(extent);
+      args.add(new JsObject.jsify(extent));
     }
     var retval = _proxy.callMethod('majorExtent', args);
     if (extent == undefinedList) {
@@ -135,7 +135,7 @@ class Graticule {
   minorExtent([List extent = undefinedList]) {
     var args = [];
     if (extent != undefinedList) {
-      args.add(extent);
+      args.add(new JsObject.jsify(extent));
     }
     var retval = _proxy.callMethod('minorExtent', args);
     if (extent == undefinedList) {
@@ -149,7 +149,7 @@ class Graticule {
   step([List step = undefinedList]) {
     var args = [];
     if (step != undefinedList) {
-      args.add(step);
+      args.add(new JsObject.jsify(step));
     }
     var retval = _proxy.callMethod('step', args);
     if (step == undefinedList) {
@@ -163,7 +163,7 @@ class Graticule {
   majorStep([List step = undefinedList]) {
     var args = [];
     if (step != undefinedList) {
-      args.add(step);
+      args.add(new JsObject.jsify(step));
     }
     var retval = _proxy.callMethod('majorStep', args);
     if (step == undefinedList) {
@@ -177,7 +177,7 @@ class Graticule {
   minorStep([List step = undefinedList]) {
     var args = [];
     if (step != undefinedList) {
-      args.add(step);
+      args.add(new JsObject.jsify(step));
     }
     var retval = _proxy.callMethod('minorStep', args);
     if (step == undefinedList) {
@@ -221,7 +221,9 @@ class Circle {
   /// Specify the origin in latitude and longitude.
   origin([origin = undefined]) {
     var args = [];
-    if (origin != undefined) {
+    if (origin is List) {
+      args.add(new JsObject.jsify(origin));
+    } else if (origin != undefined) {
       args.add(origin);
     }
     var retval = _proxy.callMethod('origin', args);
@@ -271,17 +273,25 @@ List centroid(feature) => _geo.callMethod('centroid', [feature]);
 List bounds(feature) => _geo.callMethod('bounds', [feature]);
 
 /// Compute the great-arc distance between two points.
-num distance(List a, List b) => _geo.callMethod('distance', [a, b]);
+num distance(List a, List b) =>
+    _geo.callMethod('distance', [new JsObject.jsify(a), new JsObject.jsify(b)]);
 
 /// Compute the length of a line string or the perimeter of a polygon.
 num length(feature) => _geo.callMethod('length', [feature]);
 
 /// Interpolate between two points along a great arc.
-Function interpolate(List a, List b) => _geo.callMethod('interpolate', [a, b]);
+Function interpolate(List a, List b) => _geo.callMethod(
+    'interpolate', [new JsObject.jsify(a), new JsObject.jsify(b)]);
 
 /// Create a rotation function for the specified angles [λ, φ, γ].
 Rotation rotation(rotate) {
-  return new Rotation._(_geo.callMethod('rotation', [rotate]));
+  var args = [];
+  if (rotate is List) {
+    args.add(new JsObject.jsify(rotate));
+  } else {
+    args.add(rotate);
+  }
+  return new Rotation._(_geo.callMethod('rotation', args));
 }
 
 class Rotation {
@@ -293,12 +303,12 @@ class Rotation {
 
   /// Rotate the given location around the sphere.
   List call(List location) {
-    return _proxy.callMethod('call', [_proxy, location]);
+    return _proxy.callMethod('call', [_proxy, new JsObject.jsify(location)]);
   }
 
   /// Inverse-rotate the given location around the sphere.
   List invert(List location) {
-    return _proxy.callMethod('invert', [location]);
+    return _proxy.callMethod('invert', [new JsObject.jsify(location)]);
   }
 }
 
@@ -316,19 +326,19 @@ class Projection {
 
   /// Project the specified location.
   List call(List location) {
-    return _proxy.callMethod('call', [_proxy, location]);
+    return _proxy.callMethod('call', [_proxy, new JsObject.jsify(location)]);
   }
 
   /// Invert the projection for the specified point.
   List invert(List point) {
-    return _proxy.callMethod('invert', [point]);
+    return _proxy.callMethod('invert', [new JsObject.jsify(point)]);
   }
 
   /// Get or set the projection's three-axis rotation.
   rotate([List rotation = undefinedList]) {
     var args = [];
     if (rotation != undefinedList) {
-      args.add(rotation);
+      args.add(new JsObject.jsify(rotation));
     }
     var retval = _proxy.callMethod('rotate', args);
     if (rotation == undefinedList) {
@@ -342,7 +352,7 @@ class Projection {
   center([List location = undefinedList]) {
     var args = [];
     if (location != undefinedList) {
-      args.add(location);
+      args.add(new JsObject.jsify(location));
     }
     var retval = _proxy.callMethod('center', args);
     if (location == undefinedList) {
@@ -356,7 +366,7 @@ class Projection {
   translate([List point = undefinedList]) {
     var args = [];
     if (point != undefinedList) {
-      args.add(point);
+      args.add(new JsObject.jsify(point));
     }
     var retval = _proxy.callMethod('translate', args);
     if (point == undefinedList) {
@@ -398,7 +408,7 @@ class Projection {
   clipExtent([List extent = undefinedList]) {
     var args = [];
     if (extent != undefinedList) {
-      args.add(extent);
+      args.add(new JsObject.jsify(extent));
     }
     var retval = _proxy.callMethod('clipExtent', args);
     if (extent == undefinedList) {
@@ -458,10 +468,8 @@ ConicConformal conicConformal() {
   return new ConicConformal._(_geo.callMethod('conicConformal'));
 }
 
-class ConicConformal {
-  final JsObject _proxy;
-
-  ConicConformal._(this._proxy);
+class ConicConformal extends Projection {
+  ConicConformal._(proxy) : super._(proxy);
 
   factory ConicConformal() => conicConformal();
 
@@ -469,7 +477,7 @@ class ConicConformal {
   parallels([List parallels = undefinedList]) {
     var args = [];
     if (parallels != undefinedList) {
-      args.add(parallels);
+      args.add(new JsObject.jsify(parallels));
     }
     var retval = _proxy.callMethod('parallels', args);
     if (parallels == undefinedList) {
@@ -485,10 +493,8 @@ ConicEqualArea conicEqualArea() {
   return new ConicEqualArea._(_geo.callMethod('conicEqualArea'));
 }
 
-class ConicEqualArea {
-  final JsObject _proxy;
-
-  ConicEqualArea._(this._proxy);
+class ConicEqualArea extends Projection {
+  ConicEqualArea._(proxy) : super._(proxy);
 
   factory ConicEqualArea() => conicEqualArea();
 
@@ -496,7 +502,7 @@ class ConicEqualArea {
   parallels([List parallels = undefinedList]) {
     var args = [];
     if (parallels != undefinedList) {
-      args.add(parallels);
+      args.add(new JsObject.jsify(parallels));
     }
     var retval = _proxy.callMethod('parallels', args);
     if (parallels == undefinedList) {
@@ -512,10 +518,8 @@ ConicEquidistant conicEquidistant() {
   return new ConicEquidistant._(_geo.callMethod('conicEquidistant'));
 }
 
-class ConicEquidistant {
-  final JsObject _proxy;
-
-  ConicEquidistant._(this._proxy);
+class ConicEquidistant extends Projection {
+  ConicEquidistant._(proxy) : super._(proxy);
 
   factory ConicEquidistant() => conicEquidistant();
 
@@ -523,7 +527,7 @@ class ConicEquidistant {
   parallels([List parallels = undefinedList]) {
     var args = [];
     if (parallels != undefinedList) {
-      args.add(parallels);
+      args.add(new JsObject.jsify(parallels));
     }
     var retval = _proxy.callMethod('parallels', args);
     if (parallels == undefinedList) {
@@ -691,7 +695,7 @@ class ClipExtent {
   extent([List extent = undefinedList]) {
     var args = [];
     if (extent != undefinedList) {
-      args.add(extent);
+      args.add(new JsObject.jsify(extent));
     }
     var retval = _proxy.callMethod('extent', args);
     if (extent == undefinedList) {

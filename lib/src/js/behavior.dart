@@ -89,7 +89,7 @@ class Zoom {
   translate([List translate = undefinedList]) {
     var args = [];
     if (translate != undefinedList) {
-      args.add(translate);
+      args.add(new JsObject.jsify(translate));
     }
     var retval = _proxy.callMethod('translate', args);
     if (translate == undefinedList) {
@@ -117,7 +117,7 @@ class Zoom {
   scaleExtent([List extent = undefinedList]) {
     var args = [];
     if (extent != undefinedList) {
-      args.add(extent);
+      args.add(new JsObject.jsify(extent));
     }
     var retval = _proxy.callMethod('scaleExtent', args);
     if (extent == undefinedList) {
@@ -131,7 +131,7 @@ class Zoom {
   center([List center = undefinedList]) {
     var args = [];
     if (center != undefinedList) {
-      args.add(center);
+      args.add(new JsObject.jsify(center));
     }
     var retval = _proxy.callMethod('center', args);
     if (center == undefinedList) {
@@ -145,7 +145,7 @@ class Zoom {
   size([List size = undefinedList]) {
     var args = [];
     if (size != undefinedList) {
-      args.add(size);
+      args.add(new JsObject.jsify(size));
     }
     var retval = _proxy.callMethod('size', args);
     if (size == undefinedList) {

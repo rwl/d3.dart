@@ -38,10 +38,10 @@ List<List> parseRows(String string, [accessor(d) = undefinedFn]) {
 
 /// Format an array of objects into a CSV string.
 String format(List rows) {
-  return _csv.callMethod('format', [rows]);
+  return _csv.callMethod('format', [new JsObject.jsify(rows)]);
 }
 
 /// Format an array of tuples into a CSV string.
 String formatRows(List<List> rows) {
-  return _csv.callMethod('formatRows', [rows]);
+  return _csv.callMethod('formatRows', [new JsObject.jsify(rows)]);
 }
