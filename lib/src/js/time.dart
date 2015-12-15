@@ -63,13 +63,13 @@ class TimeScale {
   invert(y) => _proxy.callMethod('invert', [y]);
 
   /// Get or set the scale's input domain.
-  domain([List dates = undefinedList]) {
+  domain([/*List*/ dates = undefined]) {
     var args = [];
-    if (dates != undefinedList) {
+    if (dates != undefined) {
       args.add(new JsObject.jsify(dates));
     }
     var retval = _proxy.callMethod('domain', args);
-    if (dates == undefinedList) {
+    if (dates == undefined) {
       return retval;
     } else {
       return new TimeScale._(retval);
@@ -89,13 +89,13 @@ class TimeScale {
   }
 
   /// Get or set the scale's output range.
-  range([List values = undefinedList]) {
+  range([/*List*/ values = undefined]) {
     var args = [];
-    if (values != undefinedList) {
+    if (values != undefined) {
       args.add(new JsObject.jsify(values));
     }
     var retval = _proxy.callMethod('range', args);
-    if (values == undefinedList) {
+    if (values == undefined) {
       return retval;
     } else {
       return new TimeScale._(retval);
@@ -103,13 +103,13 @@ class TimeScale {
   }
 
   /// Set the scale's output range, and enable rounding.
-  rangeRound([List values = undefinedList]) {
+  rangeRound([/*List*/ values = undefined]) {
     var args = [];
-    if (values != undefinedList) {
+    if (values != undefined) {
       args.add(new JsObject.jsify(values));
     }
     var retval = _proxy.callMethod('rangeRound', args);
-    if (values == undefinedList) {
+    if (values == undefined) {
       return retval;
     } else {
       return new TimeScale._(retval);
@@ -117,13 +117,13 @@ class TimeScale {
   }
 
   /// Get or set the scale's output interpolator.
-  interpolate([Function factory = undefinedFn]) {
+  interpolate([/*Function*/ factory = undefined]) {
     var args = [];
-    if (factory != undefinedFn) {
+    if (factory != undefined) {
       args.add(factory);
     }
     var retval = _proxy.callMethod('interpolate', args);
-    if (factory == undefinedFn) {
+    if (factory == undefined) {
       return retval;
     } else {
       return new TimeScale._(retval);
@@ -194,9 +194,9 @@ class Interval {
   }
 
   /// Returns dates within the specified range.
-  range(start, stop, [num step = undefinedNum]) {
+  range(start, stop, [/*num*/ step = undefined]) {
     var args = [start, stop];
-    if (step != undefinedNum) {
+    if (step != undefined) {
       args.add(step);
     }
     return _proxy.callMethod('range', args);
@@ -254,126 +254,126 @@ Interval get month => new Interval._(_time['month']);
 Interval get year => new Interval._(_time['year']);
 
 /// Alias for second.range.
-List seconds(start, stop, [num step = undefinedNum]) {
+List seconds(start, stop, [/*num*/ step = undefined]) {
   var args = [start, stop];
-  if (step != undefinedNum) {
+  if (step != undefined) {
     args.add(step);
   }
   return _time.callMethod('seconds', args);
 }
 
 /// Alias for minute.range.
-List minutes(start, stop, [num step = undefinedNum]) {
+List minutes(start, stop, [/*num*/ step = undefined]) {
   var args = [start, stop];
-  if (step != undefinedNum) {
+  if (step != undefined) {
     args.add(step);
   }
   return _time.callMethod('minutes', args);
 }
 
 /// Alias for hour.range.
-List hours(start, stop, [num step = undefinedNum]) {
+List hours(start, stop, [/*num*/ step = undefined]) {
   var args = [start, stop];
-  if (step != undefinedNum) {
+  if (step != undefined) {
     args.add(step);
   }
   return _time.callMethod('hours', args);
 }
 
 /// Alias for day.range.
-List days(start, stop, [num step = undefinedNum]) {
+List days(start, stop, [/*num*/ step = undefined]) {
   var args = [start, stop];
-  if (step != undefinedNum) {
+  if (step != undefined) {
     args.add(step);
   }
   return _time.callMethod('days', args);
 }
 
 /// Alias for sunday.range.
-List weeks(start, stop, [num step = undefinedNum]) {
+List weeks(start, stop, [/*num*/ step = undefined]) {
   var args = [start, stop];
-  if (step != undefinedNum) {
+  if (step != undefined) {
     args.add(step);
   }
   return _time.callMethod('weeks', args);
 }
 
 /// Alias for sunday.range.
-List sundays(start, stop, [num step = undefinedNum]) {
+List sundays(start, stop, [/*num*/ step = undefined]) {
   var args = [start, stop];
-  if (step != undefinedNum) {
+  if (step != undefined) {
     args.add(step);
   }
   return _time.callMethod('sundays', args);
 }
 
 /// Alias for monday.range.
-List mondays(start, stop, [num step = undefinedNum]) {
+List mondays(start, stop, [/*num*/ step = undefined]) {
   var args = [start, stop];
-  if (step != undefinedNum) {
+  if (step != undefined) {
     args.add(step);
   }
   return _time.callMethod('mondays', args);
 }
 
 /// Alias for tuesday.range.
-List tuesdays(start, stop, [num step = undefinedNum]) {
+List tuesdays(start, stop, [/*num*/ step = undefined]) {
   var args = [start, stop];
-  if (step != undefinedNum) {
+  if (step != undefined) {
     args.add(step);
   }
   return _time.callMethod('tuesdays', args);
 }
 
 /// Alias for wednesday.range.
-List wednesdays(start, stop, [num step = undefinedNum]) {
+List wednesdays(start, stop, [/*num*/ step = undefined]) {
   var args = [start, stop];
-  if (step != undefinedNum) {
+  if (step != undefined) {
     args.add(step);
   }
   return _time.callMethod('wednesdays', args);
 }
 
 /// Alias for thursday.range.
-List thursdays(start, stop, [num step = undefinedNum]) {
+List thursdays(start, stop, [/*num*/ step = undefined]) {
   var args = [start, stop];
-  if (step != undefinedNum) {
+  if (step != undefined) {
     args.add(step);
   }
   return _time.callMethod('thursdays', args);
 }
 
 /// Alias for friday.range.
-List fridays(start, stop, [num step = undefinedNum]) {
+List fridays(start, stop, [/*num*/ step = undefined]) {
   var args = [start, stop];
-  if (step != undefinedNum) {
+  if (step != undefined) {
     args.add(step);
   }
   return _time.callMethod('fridays', args);
 }
 
 /// Alias for saturday.range.
-List saturdays(start, stop, [num step = undefinedNum]) {
+List saturdays(start, stop, [/*num*/ step = undefined]) {
   var args = [start, stop];
-  if (step != undefinedNum) {
+  if (step != undefined) {
     args.add(step);
   }
   return _time.callMethod('saturdays', args);
 }
 
 /// Alias for month.range.
-List months(start, stop, [num step = undefinedNum]) {
+List months(start, stop, [/*num*/ step = undefined]) {
   var args = [start, stop];
-  if (step != undefinedNum) {
+  if (step != undefined) {
     args.add(step);
   }
   return _time.callMethod('months', args);
 }
 
 /// Alias for year.range.
-List years(start, stop, [num step = undefinedNum]) {
+List years(start, stop, [/*num*/ step = undefined]) {
   var args = [start, stop];
-  if (step != undefinedNum) {
+  if (step != undefined) {
     args.add(step);
   }
   return _time.callMethod('years', args);

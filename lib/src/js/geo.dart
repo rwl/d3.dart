@@ -16,14 +16,14 @@ class Path {
   factory Path() => path();
 
   /// Project the specified feature and render it to the context.
-  String call(feature, [num index = undefinedNum]) {
+  String call(feature, [/*num*/ index = undefined]) {
     var args = [_proxy];
     if (feature is Map || feature is List) {
       args.add(new JsObject.jsify(feature));
     } else {
       args.add(feature);
     }
-    if (index != undefinedNum) {
+    if (index != undefined) {
       args.add(index);
     }
     return _proxy.callMethod('call', args);
@@ -109,13 +109,13 @@ class Graticule {
   outline() => _proxy.callMethod('outline');
 
   /// Get or set the major & minor extents.
-  extent([List extent = undefinedList]) {
+  extent([/*List*/ extent = undefined]) {
     var args = [];
-    if (extent != undefinedList) {
+    if (extent != undefined) {
       args.add(new JsObject.jsify(extent));
     }
     var retval = _proxy.callMethod('extent', args);
-    if (extent == undefinedList) {
+    if (extent == undefined) {
       return retval;
     } else {
       return new Graticule._(retval);
@@ -123,13 +123,13 @@ class Graticule {
   }
 
   /// Get or set the major extent.
-  majorExtent([List extent = undefinedList]) {
+  majorExtent([/*List*/ extent = undefined]) {
     var args = [];
-    if (extent != undefinedList) {
+    if (extent != undefined) {
       args.add(new JsObject.jsify(extent));
     }
     var retval = _proxy.callMethod('majorExtent', args);
-    if (extent == undefinedList) {
+    if (extent == undefined) {
       return retval;
     } else {
       return new Graticule._(retval);
@@ -137,13 +137,13 @@ class Graticule {
   }
 
   /// Get or set the minor extent.
-  minorExtent([List extent = undefinedList]) {
+  minorExtent([/*List*/ extent = undefined]) {
     var args = [];
-    if (extent != undefinedList) {
+    if (extent != undefined) {
       args.add(new JsObject.jsify(extent));
     }
     var retval = _proxy.callMethod('minorExtent', args);
-    if (extent == undefinedList) {
+    if (extent == undefined) {
       return retval;
     } else {
       return new Graticule._(retval);
@@ -151,13 +151,13 @@ class Graticule {
   }
 
   /// Get or set the major & minor step intervals.
-  step([List step = undefinedList]) {
+  step([/*List*/ step = undefined]) {
     var args = [];
-    if (step != undefinedList) {
+    if (step != undefined) {
       args.add(new JsObject.jsify(step));
     }
     var retval = _proxy.callMethod('step', args);
-    if (step == undefinedList) {
+    if (step == undefined) {
       return retval;
     } else {
       return new Graticule._(retval);
@@ -165,13 +165,13 @@ class Graticule {
   }
 
   /// Get or set the major step intervals.
-  majorStep([List step = undefinedList]) {
+  majorStep([/*List*/ step = undefined]) {
     var args = [];
-    if (step != undefinedList) {
+    if (step != undefined) {
       args.add(new JsObject.jsify(step));
     }
     var retval = _proxy.callMethod('majorStep', args);
-    if (step == undefinedList) {
+    if (step == undefined) {
       return retval;
     } else {
       return new Graticule._(retval);
@@ -179,13 +179,13 @@ class Graticule {
   }
 
   /// Get or set the minor step intervals.
-  minorStep([List step = undefinedList]) {
+  minorStep([/*List*/ step = undefined]) {
     var args = [];
-    if (step != undefinedList) {
+    if (step != undefined) {
       args.add(new JsObject.jsify(step));
     }
     var retval = _proxy.callMethod('minorStep', args);
-    if (step == undefinedList) {
+    if (step == undefined) {
       return retval;
     } else {
       return new Graticule._(retval);
@@ -193,13 +193,13 @@ class Graticule {
   }
 
   /// Get or set the latitudinal precision.
-  precision([num precision = undefinedNum]) {
+  precision([/*num*/ precision = undefined]) {
     var args = [];
-    if (precision != undefinedNum) {
+    if (precision != undefined) {
       args.add(precision);
     }
     var retval = _proxy.callMethod('precision', args);
-    if (precision == undefinedNum) {
+    if (precision == undefined) {
       return retval;
     } else {
       return new Graticule._(retval);
@@ -240,13 +240,13 @@ class Circle {
   }
 
   /// Specify the angular radius in degrees.
-  angle([num angle = undefinedNum]) {
+  angle([/*num*/ angle = undefined]) {
     var args = [];
-    if (angle != undefinedNum) {
+    if (angle != undefined) {
       args.add(angle);
     }
     var retval = _proxy.callMethod('angle', args);
-    if (angle == undefinedNum) {
+    if (angle == undefined) {
       return retval;
     } else {
       return new Circle._(retval);
@@ -254,13 +254,13 @@ class Circle {
   }
 
   /// Specify the precision of the piecewise circle.
-  precision([num precision = undefinedNum]) {
+  precision([/*num*/ precision = undefined]) {
     var args = [];
-    if (precision != undefinedNum) {
+    if (precision != undefined) {
       args.add(precision);
     }
     var retval = _proxy.callMethod('precision', args);
-    if (precision == undefinedNum) {
+    if (precision == undefined) {
       return retval;
     } else {
       return new Circle._(retval);
@@ -340,13 +340,13 @@ class Projection {
   }
 
   /// Get or set the projection's three-axis rotation.
-  rotate([List rotation = undefinedList]) {
+  rotate([/*List*/ rotation = undefined]) {
     var args = [];
-    if (rotation != undefinedList) {
+    if (rotation != undefined) {
       args.add(new JsObject.jsify(rotation));
     }
     var retval = _proxy.callMethod('rotate', args);
-    if (rotation == undefinedList) {
+    if (rotation == undefined) {
       return retval;
     } else {
       return new Projection._(retval);
@@ -354,13 +354,13 @@ class Projection {
   }
 
   /// Get or set the projection's center location.
-  center([List location = undefinedList]) {
+  center([/*List*/ location = undefined]) {
     var args = [];
-    if (location != undefinedList) {
+    if (location != undefined) {
       args.add(new JsObject.jsify(location));
     }
     var retval = _proxy.callMethod('center', args);
-    if (location == undefinedList) {
+    if (location == undefined) {
       return retval;
     } else {
       return new Projection._(retval);
@@ -368,13 +368,13 @@ class Projection {
   }
 
   /// Get or set the projection's translation position.
-  translate([List point = undefinedList]) {
+  translate([/*List*/ point = undefined]) {
     var args = [];
-    if (point != undefinedList) {
+    if (point != undefined) {
       args.add(new JsObject.jsify(point));
     }
     var retval = _proxy.callMethod('translate', args);
-    if (point == undefinedList) {
+    if (point == undefined) {
       return retval;
     } else {
       return new Projection._(retval);
@@ -382,13 +382,13 @@ class Projection {
   }
 
   /// Get or set the projection's scale factor.
-  scale([num scale = undefinedNum]) {
+  scale([/*num*/ scale = undefined]) {
     var args = [];
-    if (scale != undefinedNum) {
+    if (scale != undefined) {
       args.add(scale);
     }
     var retval = _proxy.callMethod('scale', args);
-    if (scale == undefinedNum) {
+    if (scale == undefined) {
       return retval;
     } else {
       return new Projection._(retval);
@@ -396,13 +396,13 @@ class Projection {
   }
 
   /// Get or set the radius of the projection's clip circle.
-  clipAngle([num angle = undefinedNum]) {
+  clipAngle([/*num*/ angle = undefined]) {
     var args = [];
-    if (angle != undefinedNum) {
+    if (angle != undefined) {
       args.add(angle);
     }
     var retval = _proxy.callMethod('clipAngle', args);
-    if (angle == undefinedNum) {
+    if (angle == undefined) {
       return retval;
     } else {
       return new Projection._(retval);
@@ -410,13 +410,13 @@ class Projection {
   }
 
   /// Get or set the projection's viewport clip extent, in pixels.
-  clipExtent([List extent = undefinedList]) {
+  clipExtent([/*List*/ extent = undefined]) {
     var args = [];
-    if (extent != undefinedList) {
+    if (extent != undefined) {
       args.add(new JsObject.jsify(extent));
     }
     var retval = _proxy.callMethod('clipExtent', args);
-    if (extent == undefinedList) {
+    if (extent == undefined) {
       return retval;
     } else {
       return new Projection._(retval);
@@ -424,13 +424,13 @@ class Projection {
   }
 
   /// Get or set the precision threshold for adaptive resampling.
-  precision([num precision = undefinedNum]) {
+  precision([/*num*/ precision = undefined]) {
     var args = [];
-    if (precision != undefinedNum) {
+    if (precision != undefined) {
       args.add(precision);
     }
     var retval = _proxy.callMethod('precision', args);
-    if (precision == undefinedNum) {
+    if (precision == undefined) {
       return retval;
     } else {
       return new Projection._(retval);
@@ -479,13 +479,13 @@ class ConicConformal extends Projection {
   factory ConicConformal() => conicConformal();
 
   /// Get or set the projection's two standard parallels.
-  parallels([List parallels = undefinedList]) {
+  parallels([/*List*/ parallels = undefined]) {
     var args = [];
-    if (parallels != undefinedList) {
+    if (parallels != undefined) {
       args.add(new JsObject.jsify(parallels));
     }
     var retval = _proxy.callMethod('parallels', args);
-    if (parallels == undefinedList) {
+    if (parallels == undefined) {
       return retval;
     } else {
       return new ConicConformal._(retval);
@@ -504,13 +504,13 @@ class ConicEqualArea extends Projection {
   factory ConicEqualArea() => conicEqualArea();
 
   /// Get or set the projection's two standard parallels.
-  parallels([List parallels = undefinedList]) {
+  parallels([/*List*/ parallels = undefined]) {
     var args = [];
-    if (parallels != undefinedList) {
+    if (parallels != undefined) {
       args.add(new JsObject.jsify(parallels));
     }
     var retval = _proxy.callMethod('parallels', args);
-    if (parallels == undefinedList) {
+    if (parallels == undefined) {
       return retval;
     } else {
       return new ConicEqualArea._(retval);
@@ -529,13 +529,13 @@ class ConicEquidistant extends Projection {
   factory ConicEquidistant() => conicEquidistant();
 
   /// Get or set the projection's two standard parallels.
-  parallels([List parallels = undefinedList]) {
+  parallels([/*List*/ parallels = undefined]) {
     var args = [];
-    if (parallels != undefinedList) {
+    if (parallels != undefined) {
       args.add(new JsObject.jsify(parallels));
     }
     var retval = _proxy.callMethod('parallels', args);
-    if (parallels == undefinedList) {
+    if (parallels == undefined) {
       return retval;
     } else {
       return new ConicEquidistant._(retval);
@@ -642,9 +642,9 @@ class StreamListener {
       stream(object, listener);
 
   /// Indicate an x, y (and optionally z) coordinate.
-  point(num x, num y, [num z = undefinedNum]) {
+  point(num x, num y, [/*num*/ z = undefined]) {
     var args = [x, y];
-    if (z != undefinedNum) {
+    if (z != undefined) {
       args.add(z);
     }
     var retval = _proxy.callMethod('point', args);
@@ -697,13 +697,13 @@ class ClipExtent {
   factory ClipExtent() => clipExtent();
 
   /// Sets the clip extent.
-  extent([List extent = undefinedList]) {
+  extent([/*List*/ extent = undefined]) {
     var args = [];
-    if (extent != undefinedList) {
+    if (extent != undefined) {
       args.add(new JsObject.jsify(extent));
     }
     var retval = _proxy.callMethod('extent', args);
-    if (extent == undefinedList) {
+    if (extent == undefined) {
       return retval;
     } else {
       return new ClipExtent._(retval);

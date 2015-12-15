@@ -9,9 +9,9 @@ JsObject _d3 = context['d3'];
 functor(value) => _d3.callMethod('functor', [value]);
 
 /// Rebind an inherited getter/setter method to a subclass.
-rebind(target, source, [List<String> names = undefinedList]) {
+rebind(target, source, [/*List<String>*/ names = undefined]) {
   var args = [target, source];
-  if (names != undefinedList) {
+  if (names != undefined) {
     args.addAll(names);
   }
   return _d3.callMethod('rebind', args);
@@ -28,9 +28,9 @@ class Dispatch {
   Dispatch._(this._proxy);
 
   /// Register or unregister an event listener.
-  on(String type, [Function listener = undefinedFn]) {
+  on(String type, [/*Function*/ listener = undefined]) {
     var args = [type];
-    if (listener != undefinedFn) {
+    if (listener != undefined) {
       args.add(listener);
     }
     return _proxy.callMethod('on', args);

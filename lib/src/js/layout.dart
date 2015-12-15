@@ -30,13 +30,13 @@ class Chord {
   factory Chord() => chord();
 
   /// Get or set the matrix data backing the layout.
-  matrix([List<List> matrix = undefinedList]) {
+  matrix([/*List<List>*/ matrix = undefined]) {
     var args = [];
-    if (matrix != undefinedList) {
+    if (matrix != undefined) {
       args.add(new JsObject.jsify(matrix));
     }
     var retval = _proxy.callMethod('matrix', args);
-    if (matrix == undefinedList) {
+    if (matrix == undefined) {
       return retval;
     } else {
       return new Chord._(retval);
@@ -44,13 +44,13 @@ class Chord {
   }
 
   /// Get or set the angular padding between chord segments.
-  padding([num padding = undefinedNum]) {
+  padding([/*num*/ padding = undefined]) {
     var args = [];
-    if (padding != undefinedNum) {
+    if (padding != undefined) {
       args.add(padding);
     }
     var retval = _proxy.callMethod('padding', args);
-    if (padding == undefinedNum) {
+    if (padding == undefined) {
       return retval;
     } else {
       return new Chord._(retval);
@@ -58,13 +58,13 @@ class Chord {
   }
 
   /// Get or set the comparator function for groups.
-  sortGroups([Function comparator = undefinedFn]) {
+  sortGroups([/*Function*/ comparator = undefined]) {
     var args = [];
-    if (comparator != undefinedFn) {
+    if (comparator != undefined) {
       args.add(comparator);
     }
     var retval = _proxy.callMethod('sortGroups', args);
-    if (comparator == undefinedFn) {
+    if (comparator == undefined) {
       return retval;
     } else {
       return new Chord._(retval);
@@ -72,13 +72,13 @@ class Chord {
   }
 
   /// Get or set the comparator function for subgroups.
-  sortSubgroups([Function comparator = undefinedFn]) {
+  sortSubgroups([/*Function*/ comparator = undefined]) {
     var args = [];
-    if (comparator != undefinedFn) {
+    if (comparator != undefined) {
       args.add(comparator);
     }
     var retval = _proxy.callMethod('sortSubgroups', args);
-    if (comparator == undefinedFn) {
+    if (comparator == undefined) {
       return retval;
     } else {
       return new Chord._(retval);
@@ -86,13 +86,13 @@ class Chord {
   }
 
   /// Get or set the comparator function for chords (z-order).
-  sortChords([Function comparator = undefinedFn]) {
+  sortChords([/*Function*/ comparator = undefined]) {
     var args = [];
-    if (comparator != undefinedFn) {
+    if (comparator != undefined) {
       args.add(comparator);
     }
     var retval = _proxy.callMethod('sortChords', args);
-    if (comparator == undefinedFn) {
+    if (comparator == undefined) {
       return retval;
     } else {
       return new Chord._(retval);
@@ -136,13 +136,13 @@ class Cluster {
   }
 
   /// Get or set the accessor function for child nodes.
-  children([Function children = undefinedFn]) {
+  children([/*Function*/ children = undefined]) {
     var args = [];
-    if (children != undefinedFn) {
+    if (children != undefined) {
       args.add(children);
     }
     var retval = _proxy.callMethod('children', args);
-    if (children == undefinedFn) {
+    if (children == undefined) {
       return retval;
     } else {
       return new Cluster._(retval);
@@ -150,13 +150,13 @@ class Cluster {
   }
 
   /// Get or set the comparator function for sibling nodes.
-  sort([Function comparator = undefinedFn]) {
+  sort([/*Function*/ comparator = undefined]) {
     var args = [];
-    if (comparator != undefinedFn) {
+    if (comparator != undefined) {
       args.add(comparator);
     }
     var retval = _proxy.callMethod('sort', args);
-    if (comparator == undefinedFn) {
+    if (comparator == undefined) {
       return retval;
     } else {
       return new Cluster._(retval);
@@ -164,13 +164,13 @@ class Cluster {
   }
 
   /// Get or set the spacing function between neighboring nodes.
-  separation([Function separation = undefinedFn]) {
+  separation([/*Function*/ separation = undefined]) {
     var args = [];
-    if (separation != undefinedFn) {
+    if (separation != undefined) {
       args.add(separation);
     }
     var retval = _proxy.callMethod('separation', args);
-    if (separation == undefinedFn) {
+    if (separation == undefined) {
       return retval;
     } else {
       return new Cluster._(retval);
@@ -178,26 +178,26 @@ class Cluster {
   }
 
   /// Get or set the layout size in x and y.
-  size([List size = undefinedList]) {
+  size([/*List*/ size = undefined]) {
     var args = [];
-    if (size != undefinedList) {
+    if (size != undefined) {
       args.add(new JsObject.jsify(size));
     }
     var retval = _proxy.callMethod('size', args);
-    if (size == undefinedList) {
+    if (size == undefined) {
       return retval;
     } else {
       return new Cluster._(retval);
     }
   }
 
-  nodeSize([List nodeSize = undefinedList]) {
+  nodeSize([/*List*/ nodeSize = undefined]) {
     var args = [];
-    if (nodeSize != undefinedList) {
+    if (nodeSize != undefined) {
       args.add(new JsObject.jsify(nodeSize));
     }
     var retval = _proxy.callMethod('nodeSize', args);
-    if (nodeSize == undefinedList) {
+    if (nodeSize == undefined) {
       return retval;
     } else {
       return new Cluster._(retval);
@@ -205,13 +205,13 @@ class Cluster {
   }
 
   /// Specify a fixed size for each node.
-  value([Function value = undefinedFn]) {
+  value([/*Function*/ value = undefined]) {
     var args = [];
-    if (value != undefinedFn) {
+    if (value != undefined) {
       args.add(func3VarArgs(value));
     }
     var retval = _proxy.callMethod('value', args);
-    if (value == undefinedFn) {
+    if (value == undefined) {
       return retval;
     } else {
       return new Cluster._(retval);
@@ -230,13 +230,13 @@ class Force {
   factory Force() => force();
 
   /// Get or set the layout size in x and y.
-  size([List size = undefinedList]) {
+  size([/*List*/ size = undefined]) {
     var args = [];
-    if (size != undefinedList) {
+    if (size != undefined) {
       args.add(new JsObject.jsify(size));
     }
     var retval = _proxy.callMethod('size', args);
-    if (size == undefinedList) {
+    if (size == undefined) {
       return retval;
     } else {
       return new Force._(retval);
@@ -276,13 +276,13 @@ class Force {
   }
 
   /// Get or set the friction coefficient.
-  friction([num friction = undefinedNum]) {
+  friction([/*num*/ friction = undefined]) {
     var args = [];
-    if (friction != undefinedNum) {
+    if (friction != undefined) {
       args.add(friction);
     }
     var retval = _proxy.callMethod('friction', args);
-    if (friction == undefinedNum) {
+    if (friction == undefined) {
       return retval;
     } else {
       return new Force._(retval);
@@ -306,13 +306,13 @@ class Force {
   }
 
   /// Get or set the maximum charge distance.
-  chargeDistance([num distance = undefinedNum]) {
+  chargeDistance([/*num*/ distance = undefined]) {
     var args = [];
-    if (distance != undefinedNum) {
+    if (distance != undefined) {
       args.add(distance);
     }
     var retval = _proxy.callMethod('chargeDistance', args);
-    if (distance == undefinedNum) {
+    if (distance == undefined) {
       return retval;
     } else {
       return new Force._(retval);
@@ -320,13 +320,13 @@ class Force {
   }
 
   /// Get or set the accuracy of the charge interaction.
-  theta([num theta = undefinedNum]) {
+  theta([/*num*/ theta = undefined]) {
     var args = [];
-    if (theta != undefinedNum) {
+    if (theta != undefined) {
       args.add(theta);
     }
     var retval = _proxy.callMethod('theta', args);
-    if (theta == undefinedNum) {
+    if (theta == undefined) {
       return retval;
     } else {
       return new Force._(retval);
@@ -334,13 +334,13 @@ class Force {
   }
 
   /// Get or set the gravity strength.
-  gravity([num gravity = undefinedNum]) {
+  gravity([/*num*/ gravity = undefined]) {
     var args = [];
-    if (gravity != undefinedNum) {
+    if (gravity != undefined) {
       args.add(gravity);
     }
     var retval = _proxy.callMethod('gravity', args);
-    if (gravity == undefinedNum) {
+    if (gravity == undefined) {
       return retval;
     } else {
       return new Force._(retval);
@@ -348,13 +348,13 @@ class Force {
   }
 
   /// Get or set the array of nodes to layout.
-  nodes([List nodes = undefinedList]) {
+  nodes([/*List*/ nodes = undefined]) {
     var args = [];
-    if (nodes != undefinedList) {
+    if (nodes != undefined) {
       args.add(new JsObject.jsify(nodes));
     }
     var retval = _proxy.callMethod('nodes', args);
-    if (nodes == undefinedList) {
+    if (nodes == undefined) {
       return retval;
     } else {
       return new Force._(retval);
@@ -362,13 +362,13 @@ class Force {
   }
 
   /// Get or set the array of links between nodes.
-  links([List links = undefinedList]) {
+  links([/*List*/ links = undefined]) {
     var args = [];
-    if (links != undefinedList) {
+    if (links != undefined) {
       args.add(new JsObject.jsify(links));
     }
     var retval = _proxy.callMethod('links', args);
-    if (links == undefinedList) {
+    if (links == undefined) {
       return retval;
     } else {
       return new Force._(retval);
@@ -379,13 +379,13 @@ class Force {
   Force start() => new Force._(_proxy.callMethod('start'));
 
   /// Get or set the layout's cooling parameter.
-  alpha([num value = undefinedNum]) {
+  alpha([/*num*/ value = undefined]) {
     var args = [];
-    if (value != undefinedNum) {
+    if (value != undefined) {
       args.add(value);
     }
     var retval = _proxy.callMethod('alpha', args);
-    if (value == undefinedNum) {
+    if (value == undefined) {
       return retval;
     } else {
       return new Force._(retval);
@@ -430,13 +430,13 @@ class Hierarchy {
   List links(nodes) => _proxy.callMethod('links', [nodes]);
 
   /// Get or set the accessor function for child nodes.
-  children([Function accessor = undefinedFn]) {
+  children([/*Function*/ accessor = undefined]) {
     var args = [];
-    if (accessor != undefinedFn) {
+    if (accessor != undefined) {
       args.add(accessor);
     }
     var retval = _proxy.callMethod('children', args);
-    if (accessor == undefinedFn) {
+    if (accessor == undefined) {
       return retval;
     } else {
       return new Hierarchy._(retval);
@@ -444,13 +444,13 @@ class Hierarchy {
   }
 
   /// Get or set the comparator function for sibling nodes.
-  sort([Function comparator = undefinedFn]) {
+  sort([/*Function*/ comparator = undefined]) {
     var args = [];
-    if (comparator != undefinedFn) {
+    if (comparator != undefined) {
       args.add(comparator);
     }
     var retval = _proxy.callMethod('sort', args);
-    if (comparator == undefinedFn) {
+    if (comparator == undefined) {
       return retval;
     } else {
       return new Hierarchy._(retval);
@@ -458,13 +458,13 @@ class Hierarchy {
   }
 
   /// Get or set the value accessor function.
-  value([Function value = undefinedFn]) {
+  value([/*Function*/ value = undefined]) {
     var args = [];
-    if (value != undefinedFn) {
+    if (value != undefined) {
       args.add(value);
     }
     var retval = _proxy.callMethod('value', args);
-    if (value == undefinedFn) {
+    if (value == undefined) {
       return retval;
     } else {
       return new Hierarchy._(retval);
@@ -486,22 +486,22 @@ class Histogram {
   factory Histogram() => histogram();
 
   /// Compute the distribution of data using quantized bins.
-  List<List> call(List values, [int index = undefinedInt]) {
+  List<List> call(List values, [/*int*/ index = undefined]) {
     var args = [_proxy, new JsObject.jsify(values)];
-    if (index != undefinedInt) {
+    if (index != undefined) {
       args.add(index);
     }
     return _proxy.callMethod('call', args);
   }
 
   /// Get or set the value accessor function.
-  value([Function accessor = undefinedFn]) {
+  value([/*Function*/ accessor = undefined]) {
     var args = [];
-    if (accessor != undefinedFn) {
+    if (accessor != undefined) {
       args.add(accessor);
     }
     var retval = _proxy.callMethod('value', args);
-    if (accessor == undefinedFn) {
+    if (accessor == undefined) {
       return retval;
     } else {
       return new Histogram._(retval);
@@ -575,13 +575,13 @@ class Pack {
   List links(nodes) => _proxy.callMethod('links', [nodes]);
 
   /// Get or set the children accessor function.
-  children([Function children = undefinedFn]) {
+  children([/*Function*/ children = undefined]) {
     var args = [];
-    if (children != undefinedFn) {
+    if (children != undefined) {
       args.add(children);
     }
     var retval = _proxy.callMethod('children', args);
-    if (children == undefinedFn) {
+    if (children == undefined) {
       return retval;
     } else {
       return new Pack._(retval);
@@ -589,13 +589,13 @@ class Pack {
   }
 
   /// Control the order in which sibling nodes are traversed.
-  sort([Function comparator = undefinedFn]) {
+  sort([/*Function*/ comparator = undefined]) {
     var args = [];
-    if (comparator != undefinedFn) {
+    if (comparator != undefined) {
       args.add(comparator);
     }
     var retval = _proxy.callMethod('sort', args);
-    if (comparator == undefinedFn) {
+    if (comparator == undefined) {
       return retval;
     } else {
       return new Pack._(retval);
@@ -603,13 +603,13 @@ class Pack {
   }
 
   /// Get or set the value accessor used to size circles.
-  value([Function value = undefinedFn]) {
+  value([/*Function*/ value = undefined]) {
     var args = [];
-    if (value != undefinedFn) {
+    if (value != undefined) {
       args.add(value);
     }
     var retval = _proxy.callMethod('value', args);
-    if (value == undefinedFn) {
+    if (value == undefined) {
       return retval;
     } else {
       return new Pack._(retval);
@@ -617,13 +617,13 @@ class Pack {
   }
 
   /// Specify the layout size in x and y.
-  size([List size = undefinedList]) {
+  size([/*List*/ size = undefined]) {
     var args = [];
-    if (size != undefinedList) {
+    if (size != undefined) {
       args.add(new JsObject.jsify(size));
     }
     var retval = _proxy.callMethod('size', args);
-    if (size == undefinedList) {
+    if (size == undefined) {
       return retval;
     } else {
       return new Pack._(retval);
@@ -645,13 +645,13 @@ class Pack {
   }
 
   /// Specify the layout padding in (approximate) pixels.
-  padding([num padding = undefinedNum]) {
+  padding([/*num*/ padding = undefined]) {
     var args = [];
-    if (padding != undefinedNum) {
+    if (padding != undefined) {
       args.add(padding);
     }
     var retval = _proxy.callMethod('padding', args);
-    if (padding == undefinedNum) {
+    if (padding == undefined) {
       return retval;
     } else {
       return new Pack._(retval);
@@ -679,13 +679,13 @@ class Partition {
   List links(nodes) => _proxy.callMethod('links', [nodes]);
 
   /// Get or set the children accessor function.
-  children([Function children = undefinedFn]) {
+  children([/*Function*/ children = undefined]) {
     var args = [];
-    if (children != undefinedFn) {
+    if (children != undefined) {
       args.add(children);
     }
     var retval = _proxy.callMethod('children', args);
-    if (children == undefinedFn) {
+    if (children == undefined) {
       return retval;
     } else {
       return new Partition._(retval);
@@ -693,13 +693,13 @@ class Partition {
   }
 
   /// Control the order in which sibling nodes are traversed.
-  sort([Function comparator = undefinedFn]) {
+  sort([/*Function*/ comparator = undefined]) {
     var args = [];
-    if (comparator != undefinedFn) {
+    if (comparator != undefined) {
       args.add(comparator);
     }
     var retval = _proxy.callMethod('sort', args);
-    if (comparator == undefinedFn) {
+    if (comparator == undefined) {
       return retval;
     } else {
       return new Partition._(retval);
@@ -707,13 +707,13 @@ class Partition {
   }
 
   /// Get or set the value accessor used to size circles.
-  value([Function value = undefinedFn]) {
+  value([/*Function*/ value = undefined]) {
     var args = [];
-    if (value != undefinedFn) {
+    if (value != undefined) {
       args.add(value);
     }
     var retval = _proxy.callMethod('value', args);
-    if (value == undefinedFn) {
+    if (value == undefined) {
       return retval;
     } else {
       return new Partition._(retval);
@@ -721,13 +721,13 @@ class Partition {
   }
 
   /// Specify the layout size in x and y.
-  size([List size = undefinedList]) {
+  size([/*List*/ size = undefined]) {
     var args = [];
-    if (size != undefinedList) {
+    if (size != undefined) {
       args.add(new JsObject.jsify(size));
     }
     var retval = _proxy.callMethod('size', args);
-    if (size == undefinedList) {
+    if (size == undefined) {
       return retval;
     } else {
       return new Partition._(retval);
@@ -746,22 +746,22 @@ class Pie {
   factory Pie() => pie();
 
   /// Compute the start and end angles for arcs in a pie or donut chart.
-  call(List values, [int index = undefinedInt]) {
+  call(List values, [/*int*/ index = undefined]) {
     var args = [_proxy, new JsObject.jsify(values)];
-    if (index != undefinedInt) {
+    if (index != undefined) {
       args.add(index);
     }
     return _proxy.callMethod('call', args);
   }
 
   /// Get or set the value accessor function.
-  value([Function accessor = undefinedFn]) {
+  value([/*Function*/ accessor = undefined]) {
     var args = [];
-    if (accessor != undefinedFn) {
+    if (accessor != undefined) {
       args.add(accessor);
     }
     var retval = _proxy.callMethod('value', args);
-    if (accessor == undefinedFn) {
+    if (accessor == undefined) {
       return retval;
     } else {
       return new Pie._(retval);
@@ -769,13 +769,13 @@ class Pie {
   }
 
   /// Control the clockwise order of pie slices.
-  sort([Function comparator = undefinedFn]) {
+  sort([/*Function*/ comparator = undefined]) {
     var args = [];
-    if (comparator != undefinedFn) {
+    if (comparator != undefined) {
       args.add(comparator);
     }
     var retval = _proxy.callMethod('sort', args);
-    if (comparator == undefinedFn) {
+    if (comparator == undefined) {
       return retval;
     } else {
       return new Pie._(retval);
@@ -842,22 +842,22 @@ class Stack {
   factory Stack() => stack();
 
   /// Compute the baseline for each series in a stacked bar or area chart.
-  call(List layers, [int index = undefinedInt]) {
+  call(List layers, [/*int*/ index = undefined]) {
     var args = [_proxy, new JsObject.jsify(layers)];
-    if (index != undefinedInt) {
+    if (index != undefined) {
       args.add(index);
     }
     return _proxy.callMethod('call', args);
   }
 
   /// Get or set the values accessor function per series.
-  values([Function accessor = undefinedFn]) {
+  values([/*Function*/ accessor = undefined]) {
     var args = [];
-    if (accessor != undefinedFn) {
+    if (accessor != undefined) {
       args.add(accessor);
     }
     var retval = _proxy.callMethod('values', args);
-    if (accessor == undefinedFn) {
+    if (accessor == undefined) {
       return retval;
     } else {
       return new Stack._(retval);
@@ -865,13 +865,13 @@ class Stack {
   }
 
   /// Specify the overall baseline algorithm.
-  offset([String offset = undefinedString]) {
+  offset([/*String*/ offset = undefined]) {
     var args = [];
-    if (offset != undefinedString) {
+    if (offset != undefined) {
       args.add(offset);
     }
     var retval = _proxy.callMethod('offset', args);
-    if (offset == undefinedString) {
+    if (offset == undefined) {
       return retval;
     } else {
       return new Stack._(retval);
@@ -879,13 +879,13 @@ class Stack {
   }
 
   /// Control the order in which series are stacked.
-  order([String order = undefinedString]) {
+  order([/*String*/ order = undefined]) {
     var args = [];
-    if (order != undefinedString) {
+    if (order != undefined) {
       args.add(order);
     }
     var retval = _proxy.callMethod('order', args);
-    if (order == undefinedString) {
+    if (order == undefined) {
       return retval;
     } else {
       return new Stack._(retval);
@@ -893,13 +893,13 @@ class Stack {
   }
 
   /// Get or set the x-dimension accessor function.
-  x([Function accessor = undefinedFn]) {
+  x([/*Function*/ accessor = undefined]) {
     var args = [];
-    if (accessor != undefinedFn) {
+    if (accessor != undefined) {
       args.add(accessor);
     }
     var retval = _proxy.callMethod('x', args);
-    if (accessor == undefinedFn) {
+    if (accessor == undefined) {
       return retval;
     } else {
       return new Stack._(retval);
@@ -907,13 +907,13 @@ class Stack {
   }
 
   /// Get or set the y-dimension accessor function.
-  y([Function accessor = undefinedFn]) {
+  y([/*Function*/ accessor = undefined]) {
     var args = [];
-    if (accessor != undefinedFn) {
+    if (accessor != undefined) {
       args.add(accessor);
     }
     var retval = _proxy.callMethod('y', args);
-    if (accessor == undefinedFn) {
+    if (accessor == undefined) {
       return retval;
     } else {
       return new Stack._(retval);
@@ -921,13 +921,13 @@ class Stack {
   }
 
   /// Get or set the output function for storing the baseline.
-  out([Function setter = undefinedFn]) {
+  out([/*Function*/ setter = undefined]) {
     var args = [];
-    if (setter != undefinedFn) {
+    if (setter != undefined) {
       args.add(setter);
     }
     var retval = _proxy.callMethod('out', args);
-    if (setter == undefinedFn) {
+    if (setter == undefined) {
       return retval;
     } else {
       return new Stack._(retval);
@@ -955,13 +955,13 @@ class Tree {
   /*List*/ links(nodes) => _proxy.callMethod('links', [nodes]);
 
   /// Get or set the children accessor function.
-  children([Function children = undefinedFn]) {
+  children([/*Function*/ children = undefined]) {
     var args = [];
-    if (children != undefinedFn) {
+    if (children != undefined) {
       args.add(children);
     }
     var retval = _proxy.callMethod('children', args);
-    if (children == undefinedFn) {
+    if (children == undefined) {
       return retval;
     } else {
       return new Tree._(retval);
@@ -969,13 +969,13 @@ class Tree {
   }
 
   /// Get or set the spacing function between neighboring nodes.
-  separation([Function separation = undefinedFn]) {
+  separation([/*Function*/ separation = undefined]) {
     var args = [];
-    if (separation != undefinedFn) {
+    if (separation != undefined) {
       args.add(separation);
     }
     var retval = _proxy.callMethod('separation', args);
-    if (separation == undefinedFn) {
+    if (separation == undefined) {
       return retval;
     } else {
       return new Tree._(retval);
@@ -983,13 +983,13 @@ class Tree {
   }
 
   /// Specify the layout size in x and y.
-  size([List size = undefinedList]) {
+  size([/*List*/ size = undefined]) {
     var args = [];
-    if (size != undefinedList) {
+    if (size != undefined) {
       args.add(new JsObject.jsify(size));
     }
     var retval = _proxy.callMethod('size', args);
-    if (size == undefinedList) {
+    if (size == undefined) {
       return retval;
     } else {
       return new Tree._(retval);
@@ -997,13 +997,13 @@ class Tree {
   }
 
   /// Specify a fixed size for each node.
-  nodeSize([List nodeSize = undefinedList]) {
+  nodeSize([/*List*/ nodeSize = undefined]) {
     var args = [];
-    if (nodeSize != undefinedList) {
+    if (nodeSize != undefined) {
       args.add(new JsObject.jsify(nodeSize));
     }
     var retval = _proxy.callMethod('nodeSize', args);
-    if (nodeSize == undefinedList) {
+    if (nodeSize == undefined) {
       return retval;
     } else {
       return new Tree._(retval);
@@ -1011,26 +1011,26 @@ class Tree {
   }
 
   /// Control the order in which sibling nodes are traversed.
-  sort([Function comparator = undefinedFn]) {
+  sort([/*Function*/ comparator = undefined]) {
     var args = [];
-    if (comparator != undefinedFn) {
+    if (comparator != undefined) {
       args.add(comparator);
     }
     var retval = _proxy.callMethod('sort', args);
-    if (comparator == undefinedFn) {
+    if (comparator == undefined) {
       return retval;
     } else {
       return new Tree._(retval);
     }
   }
 
-  value([Function value = undefinedFn]) {
+  value([/*Function*/ value = undefined]) {
     var args = [];
-    if (value != undefinedFn) {
+    if (value != undefined) {
       args.add(value);
     }
     var retval = _proxy.callMethod('value', args);
-    if (value == undefinedFn) {
+    if (value == undefined) {
       return retval;
     } else {
       return new Tree._(retval);
@@ -1058,13 +1058,13 @@ class Treemap {
   List links(nodes) => _proxy.callMethod('links', [nodes]);
 
   /// Get or set the children accessor function.
-  children([Function children = undefinedFn]) {
+  children([/*Function*/ children = undefined]) {
     var args = [];
-    if (children != undefinedFn) {
+    if (children != undefined) {
       args.add(children);
     }
     var retval = _proxy.callMethod('children', args);
-    if (children == undefinedFn) {
+    if (children == undefined) {
       return retval;
     } else {
       return new Treemap._(retval);
@@ -1072,13 +1072,13 @@ class Treemap {
   }
 
   /// Control the order in which sibling nodes are traversed.
-  sort([Function comparator = undefinedFn]) {
+  sort([/*Function*/ comparator = undefined]) {
     var args = [];
-    if (comparator != undefinedFn) {
+    if (comparator != undefined) {
       args.add(comparator);
     }
     var retval = _proxy.callMethod('sort', args);
-    if (comparator == undefinedFn) {
+    if (comparator == undefined) {
       return retval;
     } else {
       return new Treemap._(retval);
@@ -1086,13 +1086,13 @@ class Treemap {
   }
 
   /// Get or set the value accessor used to size treemap cells.
-  value([Function value = undefinedFn]) {
+  value([/*Function*/ value = undefined]) {
     var args = [];
-    if (value != undefinedFn) {
+    if (value != undefined) {
       args.add(value);
     }
     var retval = _proxy.callMethod('value', args);
-    if (value == undefinedFn) {
+    if (value == undefined) {
       return retval;
     } else {
       return new Treemap._(retval);
@@ -1100,13 +1100,13 @@ class Treemap {
   }
 
   /// Specify the layout size in x and y.
-  size([List size = undefinedList]) {
+  size([/*List*/ size = undefined]) {
     var args = [];
-    if (size != undefinedList) {
+    if (size != undefined) {
       args.add(new JsObject.jsify(size));
     }
     var retval = _proxy.callMethod('size', args);
-    if (size == undefinedList) {
+    if (size == undefined) {
       return retval;
     } else {
       return new Treemap._(retval);
@@ -1156,26 +1156,26 @@ class Treemap {
   }
 
   /// Change the treemap layout algorithm.
-  mode([String mode = undefinedString]) {
+  mode([/*String*/ mode = undefined]) {
     var args = [];
-    if (mode != undefinedString) {
+    if (mode != undefined) {
       args.add(mode);
     }
     var retval = _proxy.callMethod('mode', args);
-    if (mode == undefinedString) {
+    if (mode == undefined) {
       return retval;
     } else {
       return new Treemap._(retval);
     }
   }
 
-  ratio([num ratio = undefinedNum]) {
+  ratio([/*num*/ ratio = undefined]) {
     var args = [];
-    if (ratio != undefinedNum) {
+    if (ratio != undefined) {
       args.add(ratio);
     }
     var retval = _proxy.callMethod('ratio', args);
-    if (ratio == undefinedNum) {
+    if (ratio == undefined) {
       return retval;
     } else {
       return new Treemap._(retval);

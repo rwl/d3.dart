@@ -17,28 +17,28 @@ class Dsv {
   factory Dsv(String delimiter, String mimeType) => dsv(delimiter, mimeType);
 
   /// Create a parser/formatter for the specified delimiter and mime type.
-  call(String url, [accessor(d) = undefinedFn, callback(rows) = undefinedFn]) {
+  call(String url, [accessor = undefined, callback = undefined]) {
     var args = [_proxy, url];
-    if (accessor != undefinedFn) {
+    if (accessor != undefined) {
       args.add(accessor);
     }
-    if (callback != undefinedFn) {
+    if (callback != undefined) {
       args.add(callback);
     }
     return _proxy.callMethod('call', args);
   }
 
-  List parse(String string, [accessor(d) = undefinedFn]) {
+  List parse(String string, [accessor = undefined]) {
     var args = [string];
-    if (accessor != undefinedFn) {
+    if (accessor != undefined) {
       args.add(accessor);
     }
     return _proxy.callMethod('parse', args);
   }
 
-  List<List> parseRows(String string, [accessor(d) = undefinedFn]) {
+  List<List> parseRows(String string, [accessor = undefined]) {
     var args = [string];
-    if (accessor != undefinedFn) {
+    if (accessor != undefined) {
       args.add(accessor);
     }
     return _proxy.callMethod('parseRows', args);

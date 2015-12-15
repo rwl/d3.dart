@@ -33,26 +33,26 @@ class Drag {
     return new Drag._(_proxy.callMethod('call', args));
   }
 
-  Drag on(String type, [Function listener = undefinedFn]) {
+  Drag on(String type, [/*Function*/ listener = undefined]) {
     var args = [type];
-    if (listener != undefinedFn) {
+    if (listener != undefined) {
       args.add(func4VarArgs(listener));
     }
     var retval = _proxy.callMethod('on', args);
-    if (listener == undefinedFn) {
+    if (listener == undefined) {
       return retval;
     } else {
       return new Drag._(retval);
     }
   }
 
-  Drag origin([Function origin = undefinedFn]) {
+  Drag origin([/*Function*/ origin = undefined]) {
     var args = [];
-    if (origin != undefinedFn) {
+    if (origin != undefined) {
       args.add(origin);
     }
     var retval = _proxy.callMethod('origin', args);
-    if (origin == undefinedFn) {
+    if (origin == undefined) {
       return retval;
     } else {
       return new Drag._(retval);
@@ -86,13 +86,13 @@ class Zoom {
   }
 
   /// The current translate offset.
-  translate([List translate = undefinedList]) {
+  translate([/*List*/ translate = undefined]) {
     var args = [];
-    if (translate != undefinedList) {
+    if (translate != undefined) {
       args.add(new JsObject.jsify(translate));
     }
     var retval = _proxy.callMethod('translate', args);
-    if (translate == undefinedList) {
+    if (translate == undefined) {
       return retval;
     } else {
       return new Zoom._(retval);
@@ -100,13 +100,13 @@ class Zoom {
   }
 
   /// The current scale factor.
-  scale([num scale = undefinedNum]) {
+  scale([/*num*/ scale = undefined]) {
     var args = [];
-    if (scale != undefinedNum) {
+    if (scale != undefined) {
       args.add(scale);
     }
     var retval = _proxy.callMethod('scale', args);
-    if (scale == undefinedNum) {
+    if (scale == undefined) {
       return retval;
     } else {
       return new Zoom._(retval);
@@ -114,13 +114,13 @@ class Zoom {
   }
 
   /// Optional limits on the scale factor.
-  scaleExtent([List extent = undefinedList]) {
+  scaleExtent([/*List*/ extent = undefined]) {
     var args = [];
-    if (extent != undefinedList) {
+    if (extent != undefined) {
       args.add(new JsObject.jsify(extent));
     }
     var retval = _proxy.callMethod('scaleExtent', args);
-    if (extent == undefinedList) {
+    if (extent == undefined) {
       return retval;
     } else {
       return new Zoom._(retval);
@@ -128,13 +128,13 @@ class Zoom {
   }
 
   /// An optional focal point for mousewheel zooming.
-  center([List center = undefinedList]) {
+  center([/*List*/ center = undefined]) {
     var args = [];
-    if (center != undefinedList) {
+    if (center != undefined) {
       args.add(new JsObject.jsify(center));
     }
     var retval = _proxy.callMethod('center', args);
-    if (center == undefinedList) {
+    if (center == undefined) {
       return retval;
     } else {
       return new Zoom._(retval);
@@ -142,13 +142,13 @@ class Zoom {
   }
 
   /// The dimensions of the viewport.
-  size([List size = undefinedList]) {
+  size([/*List*/ size = undefined]) {
     var args = [];
-    if (size != undefinedList) {
+    if (size != undefined) {
       args.add(new JsObject.jsify(size));
     }
     var retval = _proxy.callMethod('size', args);
-    if (size == undefinedList) {
+    if (size == undefined) {
       return retval;
     } else {
       return new Zoom._(retval);
@@ -204,13 +204,13 @@ class Zoom {
   }
 
   /// Get or set the dblclick transition duration.
-  duration([num duration = undefinedNum]) {
+  duration([/*num*/ duration = undefined]) {
     var args = [];
-    if (duration != undefinedNum) {
+    if (duration != undefined) {
       args.add(sc.getProxy(duration));
     }
     var retval = _proxy.callMethod('duration', args);
-    if (duration == undefinedNum) {
+    if (duration == undefined) {
       return retval;
     } else {
       return new Zoom._(retval);

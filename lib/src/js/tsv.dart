@@ -7,30 +7,31 @@ JsObject _d3 = context['d3'];
 JsObject _tsv = context['d3']['tsv'];
 
 /// Request a tab-separated values (TSV) file.
-tsv(String url, [accessor(d) = undefinedFn, callback(rows) = undefinedFn]) {
+tsv(String url,
+    [/*Function*/ accessor = undefined, /*Function*/ callback = undefined]) {
   var args = [url];
-  if (accessor != undefinedFn) {
+  if (accessor != undefined) {
     args.add(accessor);
   }
-  if (callback != undefinedFn) {
+  if (callback != undefined) {
     args.add(callback);
   }
   return _d3.callMethod('tsv', args);
 }
 
 /// Parse a TSV string into objects using the header row.
-List parse(String string, [accessor(d) = undefinedFn]) {
+List parse(String string, [/*Function*/ accessor = undefined]) {
   var args = [string];
-  if (accessor != undefinedFn) {
+  if (accessor != undefined) {
     args.add(accessor);
   }
   return _tsv.callMethod('parse', args);
 }
 
 /// Parse a TSV string into tuples, ignoring the header row.
-List<List> parseRows(String string, [accessor(d) = undefinedFn]) {
+List<List> parseRows(String string, [/*Function*/ accessor = undefined]) {
   var args = [string];
-  if (accessor != undefinedFn) {
+  if (accessor != undefined) {
     args.add(accessor);
   }
   return _tsv.callMethod('parseRows', args);

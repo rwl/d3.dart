@@ -7,30 +7,31 @@ JsObject _d3 = context['d3'];
 JsObject _csv = context['d3']['csv'];
 
 /// Request a comma-separated values (CSV) file.
-csv(String url, [accessor(d) = undefinedFn, callback(rows) = undefinedFn]) {
+csv(String url,
+    [/*Function*/ accessor = undefined, /*Function*/ callback = undefined]) {
   var args = [url];
-  if (accessor != undefinedFn) {
+  if (accessor != undefined) {
     args.add(accessor);
   }
-  if (callback != undefinedFn) {
+  if (callback != undefined) {
     args.add(callback);
   }
   return _d3.callMethod('csv', args);
 }
 
 /// Parse a CSV string into objects using the header row.
-List parse(String string, [accessor(d) = undefinedFn]) {
+List parse(String string, [/*Function*/ accessor = undefined]) {
   var args = [string];
-  if (accessor != undefinedFn) {
+  if (accessor != undefined) {
     args.add(accessor);
   }
   return _csv.callMethod('parse', args);
 }
 
 /// Parse a CSV string into tuples, ignoring the header row.
-List<List> parseRows(String string, [accessor(d) = undefinedFn]) {
+List<List> parseRows(String string, [/*Function*/ accessor = undefined]) {
   var args = [string];
-  if (accessor != undefinedFn) {
+  if (accessor != undefined) {
     args.add(accessor);
   }
   return _csv.callMethod('parseRows', args);

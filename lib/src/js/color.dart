@@ -24,18 +24,18 @@ class Rgb {
   factory Rgb.string(String color) => rgb(color);
 
   /// Increase RGB channels by some exponential factor (gamma).
-  Rgb brighter([num k = undefinedNum]) {
+  Rgb brighter([/*num*/ k = undefined]) {
     var args = [];
-    if (k != undefinedNum) {
+    if (k != undefined) {
       args.add(k);
     }
     return new Rgb._(_proxy.callMethod('brighter', args));
   }
 
   /// Decrease RGB channels by some exponential factor (gamma).
-  Rgb darker([num k = undefinedNum]) {
+  Rgb darker([/*num*/ k = undefined]) {
     var args = [];
-    if (k != undefinedNum) {
+    if (k != undefined) {
       args.add(k);
     }
     return new Rgb._(_proxy.callMethod('darker', args));

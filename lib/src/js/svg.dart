@@ -70,13 +70,13 @@ class Line {
   }
 
   /// Get or set the cardinal spline tension.
-  tension([num tension = undefinedNum]) {
+  tension([/*num*/ tension = undefined]) {
     var args = [];
-    if (tension != undefinedNum) {
+    if (tension != undefined) {
       args.add(tension);
     }
     var retval = _proxy.callMethod('tension', args);
-    if (tension == undefinedNum) {
+    if (tension == undefined) {
       return retval;
     } else {
       return new Line._(retval);
@@ -84,13 +84,13 @@ class Line {
   }
 
   /// Control whether the line is defined at a given point.
-  defined([Function defined = undefinedFn]) {
+  defined([/*Function*/ defined = undefined]) {
     var args = [];
-    if (defined != undefinedFn) {
+    if (defined != undefined) {
       args.add(defined);
     }
     var retval = _proxy.callMethod('defined', args);
-    if (defined == undefinedFn) {
+    if (defined == undefined) {
       return retval;
     } else {
       return new Line._(retval);
@@ -159,13 +159,13 @@ class RadialLine {
   }
 
   /// Get or set the cardinal spline tension.
-  tension([num tension = undefinedNum]) {
+  tension([/*num*/ tension = undefined]) {
     var args = [];
-    if (tension != undefinedNum) {
+    if (tension != undefined) {
       args.add(tension);
     }
     var retval = _proxy.callMethod('tension', args);
-    if (tension == undefinedNum) {
+    if (tension == undefined) {
       return retval;
     } else {
       return new RadialLine._(retval);
@@ -875,13 +875,13 @@ class Axis {
   }
 
   /// Get or set the axis orientation.
-  orient([String orientation = undefinedString]) {
+  orient([/*String*/ orientation = undefined]) {
     var args = [];
-    if (orientation != undefinedString) {
+    if (orientation != undefined) {
       args.add(orientation);
     }
     var retval = _proxy.callMethod('orient', args);
-    if (orientation == undefinedString) {
+    if (orientation == undefined) {
       return retval;
     } else {
       return new Axis._(retval);
@@ -909,13 +909,13 @@ class Axis {
   }
 
   /// Specify tick values explicitly.
-  tickValues([List values = undefinedList]) {
+  tickValues([/*List*/ values = undefined]) {
     var args = [];
-    if (values != undefinedList) {
+    if (values != undefined) {
       args.add(new JsObject.jsify(values));
     }
     var retval = _proxy.callMethod('tickValues', args);
-    if (values == undefinedList) {
+    if (values == undefined) {
       return retval;
     } else {
       return new Axis._(retval);
@@ -1087,9 +1087,9 @@ class Brush {
   bool empty() => _proxy.callMethod('empty');
 
   /// Listeners for when the brush is moved.
-  on(String type, [Function listener = undefinedFn]) {
+  on(String type, [/*Function*/ listener = undefined]) {
     var args = [type];
-    if (listener != undefinedFn) {
+    if (listener != undefined) {
       args.add(func4VarArgs(listener));
     }
     return new Brush._(_proxy.callMethod('on', args));

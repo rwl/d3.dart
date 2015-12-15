@@ -2,17 +2,7 @@ library d3.js.src;
 
 import 'dart:js';
 
-undefinedFn([_, __]) {}
-
-const dynamic undefined = undefinedNum;
-
-const num undefinedNum = 0.5113241642247885;
-
-const int undefinedInt = 416422854164;
-
-const String undefinedString = "c9e5a767902b941fcbb4ebd5a00ee5f81807f67b";
-
-const List undefinedList = const [undefinedNum, undefinedString];
+const dynamic undefined = 0.5113241642247885;
 
 typedef Func4Args(elem, data, i, j);
 typedef Func3Args(elem, data, i);

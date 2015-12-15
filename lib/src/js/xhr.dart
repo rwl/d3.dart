@@ -7,12 +7,12 @@ JsObject _d3 = context['d3'];
 
 /// Request a resource using XMLHttpRequest.
 Xhr xhr(String url,
-    [String mimeType = undefinedString, callback(err, resp) = undefinedFn]) {
+    [/*String*/ mimeType = undefined, /*Function*/ callback = undefined]) {
   var args = [url];
-  if (mimeType != undefinedString) {
+  if (mimeType != undefined) {
     args.add(mimeType);
   }
-  if (callback != undefinedFn) {
+  if (callback != undefined) {
     args.add(callback);
   }
   return new Xhr._(_d3.callMethod('xhr', args));
@@ -24,32 +24,34 @@ class Xhr {
   Xhr._(this._proxy);
 
   factory Xhr(String url,
-          [String mimeType = undefinedString,
-          callback(err, resp) = undefinedFn]) =>
+          [/*String*/ mimeType = undefined,
+          /*Function*/ callback = undefined]) =>
       xhr(url, mimeType, callback);
 
   factory Xhr.text(String url,
-          [String mimeType = undefinedString,
-          callback(err, resp) = undefinedFn]) =>
+          [/*String*/ mimeType = undefined,
+          /*Function*/ callback = undefined]) =>
       text(url, mimeType, callback);
 
-  factory Xhr.json(String url, [callback(err, resp) = undefinedFn]) =>
+  factory Xhr.json(String url, [/*Function*/ callback = undefined]) =>
       json(url, callback);
 
   factory Xhr.xml(String url,
-          [String mimeType = undefinedString,
-          callback(err, resp) = undefinedFn]) =>
+          [/*String*/ mimeType = undefined,
+          /*Function*/ callback = undefined]) =>
       xml(url, mimeType, callback);
 
-  factory Xhr.html(String url, [callback(err, resp) = undefinedFn]) =>
+  factory Xhr.html(String url, [/*Function*/ callback = undefined]) =>
       html(url, callback);
 
   factory Xhr.csv(String url,
-          [accessor(d) = undefinedFn, callback(err, resp) = undefinedFn]) =>
+          [/*Function*/ accessor = undefined, /*Function*/ callback =
+              undefined]) =>
       csv(url, accessor, callback);
 
   factory Xhr.tsv(String url,
-          [accessor = undefinedFn, callback(err, resp) = undefinedFn]) =>
+          [/*Function*/ accessor = undefined, /*Function*/ callback =
+              undefined]) =>
       tsv(url, accessor, callback);
 
   /// Set a request header.
@@ -94,13 +96,13 @@ class Xhr {
   }
 
   /// Set a response mapping function.
-  response([value(req) = undefinedFn]) {
+  response([/*Function*/ value(req) = undefined]) {
     var args = [];
-    if (value != undefinedFn) {
+    if (value != undefined) {
       args.add(value);
     }
     var retval = _proxy.callMethod('response', args);
-    if (value == undefinedFn) {
+    if (value == undefined) {
       return retval;
     } else {
       return new Xhr._(retval);
@@ -108,21 +110,21 @@ class Xhr {
   }
 
   /// Issue a GET request.
-  Xhr get([callback(err, resp) = undefinedFn]) {
+  Xhr get([/*Function*/ callback = undefined]) {
     var args = [];
-    if (callback != undefinedFn) {
+    if (callback != undefined) {
       args.add(callback);
     }
     return new Xhr._(_proxy.callMethod('get', args));
   }
 
   /// Issue a POST request.
-  Xhr post([data = undefined, callback(err, resp) = undefinedFn]) {
+  Xhr post([data = undefined, /*Function*/ callback = undefined]) {
     var args = [];
     if (data != undefined) {
       args.add(data);
     }
-    if (callback != undefinedFn) {
+    if (callback != undefined) {
       args.add(callback);
     }
     return new Xhr._(_proxy.callMethod('post', args));
@@ -130,12 +132,12 @@ class Xhr {
 
   /// Issue a request with the specified method and data.
   Xhr send(String method,
-      [data = undefined, callback(err, resp) = undefinedFn]) {
+      [data = undefined, /*Function*/ callback = undefined]) {
     var args = [method];
     if (data != undefined) {
       args.add(data);
     }
-    if (callback != undefinedFn) {
+    if (callback != undefined) {
       args.add(callback);
     }
     return new Xhr._(_proxy.callMethod('send', args));
@@ -145,13 +147,13 @@ class Xhr {
   abort() => new Xhr._(_proxy.callMethod('abort'));
 
   /// Add an event listener for "progress", "load" or "error" events.
-  on(String type, [Function listener = undefinedFn]) {
+  on(String type, [/*Function*/ listener = undefined]) {
     var args = [type];
-    if (listener != undefinedFn) {
+    if (listener != undefined) {
       args.add(listener);
     }
     var retval = _proxy.callMethod('on', args);
-    if (listener == undefinedFn) {
+    if (listener == undefined) {
       return retval;
     } else {
       return new Xhr._(retval);
@@ -161,21 +163,21 @@ class Xhr {
 
 /// Request a text file.
 Xhr text(String url,
-    [String mimeType = undefinedString, callback(err, resp) = undefinedFn]) {
+    [/*String*/ mimeType = undefined, /*Function*/ callback = undefined]) {
   var args = [url];
-  if (mimeType != undefinedString) {
+  if (mimeType != undefined) {
     args.add(mimeType);
   }
-  if (callback != undefinedFn) {
+  if (callback != undefined) {
     args.add(callback);
   }
   return new Xhr._(_d3.callMethod('text', args));
 }
 
 /// Request a JSON blob.
-Xhr json(String url, [callback(err, resp) = undefinedFn]) {
+Xhr json(String url, [/*Function*/ callback = undefined]) {
   var args = [url];
-  if (callback != undefinedFn) {
+  if (callback != undefined) {
     args.add(callback);
   }
   return new Xhr._(_d3.callMethod('json', args));
@@ -183,21 +185,21 @@ Xhr json(String url, [callback(err, resp) = undefinedFn]) {
 
 /// Request an XML document fragment.
 Xhr xml(String url,
-    [String mimeType = undefinedString, callback(err, resp) = undefinedFn]) {
+    [/*String*/ mimeType = undefined, /*Function*/ callback = undefined]) {
   var args = [url];
-  if (mimeType != undefinedString) {
+  if (mimeType != undefined) {
     args.add(mimeType);
   }
-  if (callback != undefinedFn) {
+  if (callback != undefined) {
     args.add(callback);
   }
   return new Xhr._(_d3.callMethod('xml', args));
 }
 
 /// Request an HTML document fragment.
-Xhr html(String url, [callback(err, resp) = undefinedFn]) {
+Xhr html(String url, [/*Function*/ callback = undefined]) {
   var args = [url];
-  if (callback != undefinedFn) {
+  if (callback != undefined) {
     args.add(callback);
   }
   return new Xhr._(_d3.callMethod('html', args));
@@ -205,12 +207,12 @@ Xhr html(String url, [callback(err, resp) = undefinedFn]) {
 
 /// Request a comma-separated values (CSV) file.
 Xhr csv(String url,
-    [accessor(d) = undefinedFn, callback(err, resp) = undefinedFn]) {
+    [/*Function*/ accessor = undefined, /*Function*/ callback = undefined]) {
   var args = [url];
-  if (accessor != undefinedFn) {
+  if (accessor != undefined) {
     args.add(accessor);
   }
-  if (callback != undefinedFn) {
+  if (callback != undefined) {
     args.add(callback);
   }
   return new Xhr._(_d3.callMethod('csv', args));
@@ -218,12 +220,12 @@ Xhr csv(String url,
 
 /// Request a tab-separated values (TSV) file.
 Xhr tsv(String url,
-    [accessor = undefinedFn, callback(err, resp) = undefinedFn]) {
+    [/*Function*/ accessor = undefined, /*Function*/ callback = undefined]) {
   var args = [url];
-  if (accessor != undefinedFn) {
+  if (accessor != undefined) {
     args.add(func3VarArgs(accessor));
   }
-  if (callback != undefinedFn) {
+  if (callback != undefined) {
     args.add(callback);
   }
   return new Xhr._(_d3.callMethod('tsv', args));

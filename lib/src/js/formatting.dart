@@ -11,9 +11,9 @@ Function format(String specifier) {
 }
 
 /// Returns the SI prefix for the specified value and precision.
-formatPrefix(value, [num precision = undefinedNum]) {
+formatPrefix(value, [/*num*/ precision = undefined]) {
   var args = [value];
-  if (precision != undefinedNum) {
+  if (precision != undefined) {
     args.add(precision);
   }
   return _d3.callMethod('formatPrefix', args);

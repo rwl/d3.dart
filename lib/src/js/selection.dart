@@ -289,9 +289,9 @@ class Selection {
   }
 
   /// Sort elements in the document based on data.
-  Selection sort([comparator(a, b) = undefinedFn]) {
+  Selection sort([/*Function*/ comparator = undefined]) {
     var args = [];
-    if (comparator != undefinedFn) {
+    if (comparator != undefined) {
       args.add(comparator);
     }
     var retval = _proxy.callMethod('sort', args);
