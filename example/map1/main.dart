@@ -34,13 +34,13 @@ main() {
       .attr("class", "sphere")
       .attr("d", path);
 
-  d3.json("ne_50m_admin_0_countries_lakes.geojson", (error, world) {
+  d3.json("ne_110m_admin_0_countries_lakes.geojson", (error, world) {
     if (error != null) throw error;
 
     g.append("path").datum(world).attr("class", "land").attr("d", path);
   });
 
-  d3.json("ne_50m_admin_0_boundary_lines_land.geojson", (error, world) {
+  d3.json("ne_110m_admin_0_boundary_lines_land.geojson", (error, world) {
     if (error != null) throw error;
     g.append("path").datum(world).attr("class", "boundary").attr("d", path);
   });
