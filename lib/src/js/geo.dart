@@ -16,8 +16,13 @@ class Path {
   factory Path() => path();
 
   /// Project the specified feature and render it to the context.
-  String call(Map feature, [num index = undefinedNum]) {
-    var args = [_proxy, new JsObject.jsify(feature)];
+  String call(feature, [num index = undefinedNum]) {
+    var args = [_proxy];
+    if (feature is Map || feature is List) {
+      args.add(new JsObject.jsify(feature));
+    } else {
+      args.add(feature);
+    }
     if (index != undefinedNum) {
       args.add(index);
     }
@@ -25,13 +30,13 @@ class Path {
   }
 
   /// Get or set the geographic projection.
-  projection([projection(coords) = undefinedFn]) {
+  projection([Projection projection]) {
     var args = [];
-    if (projection != undefinedFn) {
-      args.add(projection);
+    if (projection != null) {
+      args.add(projection._proxy);
     }
     var retval = _proxy.callMethod('projection', args);
-    if (projection == undefinedFn) {
+    if (projection == null) {
       return retval;
     } else {
       return new Path._(retval);
