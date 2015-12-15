@@ -8,7 +8,7 @@ main() {
     ..domain = [0, max(data)]
     ..range = [0, 420];
 
-  new Selection('.chart').selectAll('div').setData(data).enter().append("div")
+  new Selection('.chart').selectAll('div').data(data).enter().append("div")
     ..styleFn["width"] = ((d) => "${x(d)}px")
     ..textFn = (d) => d;
 }

@@ -60,7 +60,7 @@ class Selection {
 
   /// Set data for a group of elements, while computing a
   /// relational join.
-  UpdateSelection setData(List values, [SelectionFn key]) {
+  UpdateSelection data(List values, [SelectionFn key]) {
     sel.Selection retval;
     if (key != null) {
       retval = js.data(values, key);

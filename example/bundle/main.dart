@@ -36,7 +36,7 @@ main() {
     var nodes = cluster.nodes(hierarchy);
     var links = packageImports(nodes);
 
-    link = link.setData(bundle(links)).enter().append("path")
+    link = link.data(bundle(links)).enter().append("path")
       ..eachFn((d) {
         d['source'] = d[0];
         d['target'] = d[d.length - 1];
@@ -45,7 +45,7 @@ main() {
       ..attrFn["d"] = line;
 
     node = node
-        .setData(nodes
+        .data(nodes
             .where((n) => n['children'] == null || n['children'].length == 0)
             .toList())
         .enter()

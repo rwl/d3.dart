@@ -43,7 +43,7 @@ main() {
       ..style["text-anchor"] = "end"
       ..text = "Frequency";
 
-    svg.selectAll(".bar").setData(data).enter().append("rect")
+    svg.selectAll(".bar").data(data).enter().append("rect")
       ..attr["class"] = "bar"
       ..attrFn["x"] = ((d) => x(d['letter']))
       ..attr["width"] = "${x.rangeBand}"

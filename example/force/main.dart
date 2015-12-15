@@ -22,12 +22,12 @@ main() {
       ..start();
 
     var link =
-        svg.selectAll(".link").setData(graph['links']).enter().append("line")
+        svg.selectAll(".link").data(graph['links']).enter().append("line")
           ..attr["class"] = "link"
           ..styleFn["stroke-width"] = (d) => math.sqrt(d['value']);
 
     var node =
-        svg.selectAll(".node").setData(graph['nodes']).enter().append("circle")
+        svg.selectAll(".node").data(graph['nodes']).enter().append("circle")
           ..attr["class"] = "node"
           ..attr["r"] = "5"
           ..styleFn["fill"] = ((d) => color(d['group']))

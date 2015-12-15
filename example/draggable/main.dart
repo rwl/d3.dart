@@ -23,12 +23,12 @@ main() {
       (svg.append("g")..attr["class"] = "node").selectAll("circle");
 
   json("graph.json").then((graph) {
-    graph['links'].forEach((JsObject d) {
+    graph['links'].forEach((d) {
       d['source'] = graph['nodes'][d['source']];
       d['target'] = graph['nodes'][d['target']];
     });
 
-    link = link.setData(graph['links']).enter().append("line")
+    link = link.data(graph['links']).enter().append("line")
       ..attrFn["x1"] = ((d) => d['source']['x'])
       ..attrFn["y1"] = ((d) => d['source']['y'])
       ..attrFn["x2"] = ((d) => d['target']['x'])
@@ -57,7 +57,7 @@ main() {
         new Selection.node(s.elem).call(event['target']);
       }));
 
-    node = node.setData(graph['nodes']).enter().append("circle")
+    node = node.data(graph['nodes']).enter().append("circle")
       ..attr["r"] = "4"
       ..attrFn["cx"] = ((d) => d['x'])
       ..attrFn["cy"] = ((d) => d['y'])

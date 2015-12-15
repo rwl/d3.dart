@@ -27,7 +27,7 @@ main() {
     (nodes as List).forEach((d) => d['y'] = d['depth'] * 180);
 
     // Update the nodes...
-    var node = svg.selectAll("g.node").setData(nodes as List, (JsObject d) {
+    var node = svg.selectAll("g.node").data(nodes as List, (JsObject d) {
       return d.hasProperty('id') ? d['id'] : (d['id'] = ++i);
     });
 
@@ -89,7 +89,7 @@ main() {
     // Update the links...
     var link = svg
         .selectAll("path.link")
-        .setData(links as List, (d) => d['target']['id']);
+        .data(links as List, (d) => d['target']['id']);
 
     // Enter any new links at the parent's previous position.
     link.enter().insert("path", "g")
