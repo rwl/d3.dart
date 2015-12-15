@@ -120,10 +120,20 @@ class Cluster {
   call(root) => _proxy.callMethod('call', [_proxy, root]);
 
   /// Compute the cluster layout and return the array of nodes.
-  List nodes(root) => _proxy.callMethod('nodes', [root]);
+  /*List*/ nodes(root) {
+    if (root is Map || root is List) {
+      root = new JsObject.jsify(root);
+    }
+    return _proxy.callMethod('nodes', [root]);
+  }
 
   /// Compute the parent-child links between tree nodes.
-  List links(nodes) => _proxy.callMethod('links', [nodes]);
+  /*List*/ links(nodes) {
+    if (nodes is Map || nodes is List) {
+      nodes = new JsObject.jsify(nodes);
+    }
+    return _proxy.callMethod('links', [nodes]);
+  }
 
   /// Get or set the accessor function for child nodes.
   children([Function children = undefinedFn]) {
