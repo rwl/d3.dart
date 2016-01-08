@@ -44,6 +44,16 @@ class Transition {
   void call(function(selection)) {
     js.call(function);
   }
+
+  /// Smoothly transition between two attribute values.
+  void attrTween(String name, Function tween) {
+    js.attrTween(name, tween);
+  }
+
+  /// Add a listener for transition end events.
+  void each(Function listener, String type) {
+    js.each(listener, type: type);
+  }
 }
 
 /// A parametric interpolation function.

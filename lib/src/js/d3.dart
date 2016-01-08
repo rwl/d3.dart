@@ -11,7 +11,7 @@ typedef Func1Arg(data);
 typedef Func0Arg();
 
 Func4Args func4VarArgs(value) {
-  return new JsFunction.withThis((elem, data, i, j) {
+  return new JsFunction.withThis((elem, data, i, [j]) {
     if (value is Func0Arg) {
       return value();
     } else if (value is Func1Arg) {
@@ -20,6 +20,8 @@ Func4Args func4VarArgs(value) {
       return value(data, i);
     } else if (value is Func3Args) {
       return value(elem, data, i);
+    } else if (value is Func4Args) {
+      return value(elem, data, i, j);
     } else {
       throw new ArgumentError.value(value);
     }

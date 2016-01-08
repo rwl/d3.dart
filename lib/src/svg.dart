@@ -7,6 +7,25 @@ import 'scale.dart';
 import 'selection.dart';
 import 'transition.dart';
 
+class Line {
+  final svg.Line js;
+
+  Line() : js = svg.line();
+
+  /// Generate a piecewise linear curve, as in a line chart.
+  String call(List data) => js.call(data);
+
+  /// Set the cardinal spline tension.
+  void set tension(num tension) {
+    js.tension(tension);
+  }
+
+  /// Set the interpolation mode.
+  void set interpolate(String interpolate) {
+    js.interpolate(interpolate);
+  }
+}
+
 class RadialLine {
   final svg.RadialLine js;
 

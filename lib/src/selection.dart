@@ -33,7 +33,7 @@ class Selection {
   Selection(String selector) : js = sel.select(selector);
 
   /// Select an element from the current document.
-  Selection.node(Node node) : js = sel.select(node);
+  Selection.elem(Node node) : js = sel.select(node);
 
   /// Select multiple elements from the current document.
   Selection.all(String selector) : js = sel.selectAll(selector);
@@ -82,6 +82,11 @@ class Selection {
     return new UpdateSelection._(retval);
   }
 
+  /// Get or set data for individual elements, without computing a join.
+  void set datum(value) {
+    js.datum(value);
+  }
+
   /// Create and append new elements.
   Selection append(String name) => new Selection._(js.append(name));
 
@@ -100,6 +105,15 @@ class Selection {
   void set textFn(SelectionFn value) {
     js.text(value);
   }
+
+  /// Returns true if the selection is empty.
+  bool get isEmpty => js.empty();
+
+  /// Returns the first node in the selection.
+  Element node() => js.node();
+
+  /// Returns the number of elements in the selection.
+  int get size => js.size();
 
   /// Get or set attribute values.
   Attr<String> get attr => new Attr<String>._(this);
